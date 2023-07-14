@@ -4,12 +4,6 @@ Stablo is a JAMStack Blog template built with Next.js, Tailwind CSS & Sanity CMS
 
 ## [Installation ↓](#installation)
 
-## Live Demo
-
-**[Free Version Demo →](https://stablo.web3templates.com/)**
-
-**[Pro Version Demo →](https://stablo-pro.web3templates.com/)**
-
 ## Features
 
 <!-- prettier-ignore -->
