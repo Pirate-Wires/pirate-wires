@@ -65,8 +65,8 @@ export default function Navbar(props) {
                   ))}
                 </div>
                 <div className="flex w-full items-center justify-between md:w-auto">
-                  Pirate Media
-                  {/* <Link href="/" className="w-28 dark:hidden">
+                  Pirate Wires
+                  <Link href="/" className="w-28 dark:hidden">
                     {props.logo ? (
                       <Image
                         {...urlForImage(props.logo)}
@@ -93,7 +93,7 @@ export default function Navbar(props) {
                         Stablo
                       </span>
                     )}
-                  </Link> */}
+                  </Link>
                   <Disclosure.Button
                     aria-label="Toggle Menu"
                     className="ml-auto rounded-md px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 md:hidden ">

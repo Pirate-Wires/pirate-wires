@@ -55,7 +55,7 @@ export default function Contact({ settings }) {
       <div className="grid my-10 md:grid-cols-2">
         <div className="my-10">
           <h2 className="text-2xl font-semibold dark:text-white">
-            Contact Pirate Media
+            Contact Pirate Wires
           </h2>
           <p className="max-w-sm mt-5">
             Have something to say? We are here to help. Fill up the
@@ -98,8 +98,8 @@ export default function Contact({ settings }) {
                 placeholder="Full Name"
                 autoComplete="false"
                 className={`w-full px-4 py-3 border-2 placeholder:text-gray-800 dark:text-white rounded-md outline-none dark:placeholder:text-gray-200 dark:bg-gray-900   focus:ring-4  ${errors.name
-                    ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
-                    : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
+                  ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
+                  : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
                   }`}
                 {...register("name", {
                   required: "Full name is required",
@@ -124,8 +124,8 @@ export default function Contact({ settings }) {
                 name="email"
                 autoComplete="false"
                 className={`w-full px-4 py-3 border-2 placeholder:text-gray-800 dark:text-white rounded-md outline-none dark:placeholder:text-gray-200 dark:bg-gray-900   focus:ring-4  ${errors.email
-                    ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
-                    : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
+                  ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
+                  : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
                   }`}
                 {...register("email", {
                   required: "Enter your email",
@@ -147,8 +147,8 @@ export default function Contact({ settings }) {
                 name="message"
                 placeholder="Your Message"
                 className={`w-full px-4 py-3 border-2 placeholder:text-gray-800 dark:text-white dark:placeholder:text-gray-200 dark:bg-gray-900   rounded-md outline-none  h-36 focus:ring-4  ${errors.message
-                    ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
-                    : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
+                  ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
+                  : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
                   }`}
                 {...register("message", {
                   required: "Enter your Message"

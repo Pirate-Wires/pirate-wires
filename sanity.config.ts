@@ -21,7 +21,7 @@ console.log(projectId);
 
 export default defineConfig({
   name: "default",
-  title: "Pirate Media",
+  title: "Pirate Wires",
   basePath: "/studio",
   projectId: projectId,
   dataset: dataset,

@@ -11,12 +11,12 @@ export async function sharedMetaData(params) {
     title: {
       default:
         settings?.title ||
-        "Pirate Media",
+        "Pirate Wires",
       template: "%s | Stablo"
     },
     description:
       settings?.description ||
-      "Pirate Media",
+      "Pirate Wires",
     keywords: ["Next.js", "Sanity", "Tailwind CSS"],
     authors: [{ name: "Surjith" }],
     canonical: settings?.url,
