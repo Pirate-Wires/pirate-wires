@@ -6,11 +6,18 @@ import Link from "next/link";
 export default function About({ authors, settings }) {
   return (
     <Container>
-      <h1 className="mt-2 mb-3 text-3xl font-semibold tracking-tight text-center lg:leading-snug text-brand-primary lg:text-4xl dark:text-white">
+      <h1 className="text-center text-3xl font-semibold tracking-tight dark:text-white lg:text-4xl lg:leading-snug">
         About
       </h1>
       <div className="text-center">
-        <p className="text-lg">We are a small passionate team.</p>
+        <p className="mt-2 text-lg">
+          Welcome to Pirate Wires.
+        </p>
+      </div>
+      <div className="text-center">
+        <p className="mx-auto prose text-center dark:prose-invert mt-14">If you made it this far, you probably already know who I am — the disembodied Ulysses S. Grant guy who can't shut up on Twitter. You maybe even know I'm a billionaire media mogul, and the former mayor of San Francisco (one of these things is true). If you've dug in particularly deep, you know I'm a writer who loves a good story. I've been working in tech for over ten years, and living on the internet for most of my life. I have opinions. I have a team. My team has opinions.</p>
+
+
       </div>
 
       <div className="grid grid-cols-3 gap-5 mt-6 mb-16 md:mt-16 md:mb-32 md:gap-16">
@@ -50,6 +57,6 @@ export default function About({ authors, settings }) {
           <Link href="/contact">Get in touch</Link>
         </p>
       </div>
-    </Container>
+    </Container >
   );
 }

@@ -94,6 +94,19 @@ export default function Post(props) {
           <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-600">
             {post.body && <PortableText value={post.body} />}
           </div>
+          <div>
+            <script async
+              src="https://js.stripe.com/v3/buy-button.js">
+            </script>
+
+            <button
+              type="button"
+              className="rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Button text
+            </button>
+
+          </div>
           <div className="mb-7 mt-7 flex justify-center">
             <Link
               href="/"

@@ -30,6 +30,10 @@ export default function Navbar(props) {
     {
       label: "Archive",
       href: "/archive"
+    },
+    {
+      label: "Account",
+      href: "/account"
     }
   ];
 
@@ -65,7 +69,7 @@ export default function Navbar(props) {
                   ))}
                 </div>
                 <div className="flex w-full items-center justify-between md:w-auto">
-                  Pirate Wires
+
                   <Link href="/" className="w-28 dark:hidden">
                     {props.logo ? (
                       <Image
@@ -76,7 +80,7 @@ export default function Navbar(props) {
                       />
                     ) : (
                       <span className="block text-center">
-                        Stablo
+                        Pirate Wires
                       </span>
                     )}
                   </Link>
@@ -90,7 +94,7 @@ export default function Navbar(props) {
                       />
                     ) : (
                       <span className="block text-center">
-                        Stablo
+                        Pirate Wires
                       </span>
                     )}
                   </Link>
