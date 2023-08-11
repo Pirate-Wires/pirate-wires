@@ -1,2 +1,2 @@
-# Pirate WIres
+# Pirate Wires
 
