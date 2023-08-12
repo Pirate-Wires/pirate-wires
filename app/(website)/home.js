@@ -8,7 +8,16 @@ export default function Post({ posts }) {
       {posts && (
         <Container>
           <div className="grid gap-10 md:grid-cols-2 lg:gap-10 ">
-            {posts.slice(0, 2).map(post => (
+
+
+            <div
+              className="overflow-hidden rounded-md transition-all hover:scale-105 dark:bg-gray-800 p-4">
+              <h1>Become a Subscriber</h1>
+            </div>
+
+
+
+            {posts.slice(0, 3).map(post => (
               <PostList
                 key={post._id}
                 post={post}

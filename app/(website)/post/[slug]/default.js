@@ -22,9 +22,19 @@ export default function Post(props) {
     ? urlForImage(post?.mainImage)
     : null;
 
-  const AuthorimageProps = post?.author?.image
+  const authorImageProps = post?.author?.image
     ? urlForImage(post.author.image)
     : null;
+
+
+
+  const coAuthorImageProps = post?.co_authors?.map((coAuthor) => {
+    return coAuthor?.image
+      ? urlForImage(coAuthor.image)
+      : null;
+  });
+
+
 
   return (
     <>
@@ -40,19 +50,49 @@ export default function Post(props) {
 
           <div className="mt-3 flex justify-center space-x-3 text-gray-500 ">
             <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 flex-shrink-0">
-                {AuthorimageProps && (
-                  <Link href={`/author/${post.author.slug.current}`}>
-                    <Image
-                      src={AuthorimageProps.src}
-                      alt={post?.author?.name}
-                      className="rounded-full object-cover"
-                      fill
-                      sizes="40px"
-                    />
-                  </Link>
+
+
+
+
+              {/* fix: not mapping author images*/}
+              {coAuthorImageProps.map((coAuthorProps, index) => (
+                coAuthorProps && (  // Use coAuthorProps.src instead of coAuthorProps 
+                  <img
+                    key={index}
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                    src={coAuthorProps.src}
+                    alt={post.co_authors[index].name}
+                  />
+                )
+              ))}
+
+
+
+              <div className="flex -space-x-2 overflow-hidden">
+                {/* primary author image */}
+                {authorImageProps && (
+                  <img
+                    className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                    src={authorImageProps.src}
+                    alt={post.author.name}
+                  />
                 )}
+                {/* co_authors mock-up */}
+                <img
+                  className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                  src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
+                <img
+                  className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                  src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt=""
+                />
               </div>
+
+
+
+
               <div>
                 <p className="text-gray-800 dark:text-gray-400">
                   <Link href={`/author/${post.author.slug.current}`}>
@@ -107,6 +147,10 @@ export default function Post(props) {
             </button>
 
           </div>
+
+
+
+
           <div className="mb-7 mt-7 flex justify-center">
             <Link
               href="/"
