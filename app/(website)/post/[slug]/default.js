@@ -28,11 +28,11 @@ export default function Post(props) {
 
 
 
-  const coAuthorImageProps = post?.co_authors?.map((coAuthor) => {
-    return coAuthor?.image
-      ? urlForImage(coAuthor.image)
-      : null;
-  });
+  // const coAuthorImageProps = post?.co_authors?.map((coAuthor) => {
+  //   return coAuthor?.image
+  //     ? urlForImage(coAuthor.image)
+  //     : null;
+  // });
 
 
 
@@ -55,7 +55,7 @@ export default function Post(props) {
 
 
               {/* fix: not mapping author images*/}
-              {coAuthorImageProps.map((coAuthorProps, index) => (
+              {/* {coAuthorImageProps.map((coAuthorProps, index) => (
                 coAuthorProps && (  // Use coAuthorProps.src instead of coAuthorProps 
                   <img
                     key={index}
@@ -64,7 +64,7 @@ export default function Post(props) {
                     alt={post.co_authors[index].name}
                   />
                 )
-              ))}
+              ))} */}
 
 
 
@@ -78,7 +78,7 @@ export default function Post(props) {
                   />
                 )}
                 {/* co_authors mock-up */}
-                <img
+                {/* <img
                   className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                   src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
@@ -87,7 +87,7 @@ export default function Post(props) {
                   className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
                   src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
-                />
+                /> */}
               </div>
 
 

@@ -15,6 +15,7 @@ import {
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
 import { table } from "@sanity/table";
 import { codeInput } from "@sanity/code-input";
+import { scheduledPublishing } from "@sanity/scheduled-publishing";
 
 const props = {
   "--my-white": "#fff",
@@ -80,7 +81,8 @@ export default defineConfig({
     visionTool(),
     unsplashImageAsset(),
     table(),
-    codeInput()
+    codeInput(),
+    scheduledPublishing()
   ],
 
   schema: {
