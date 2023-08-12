@@ -17,7 +17,7 @@ export async function sharedMetaData(params) {
     description:
       settings?.description ||
       "Pirate Wires",
-    keywords: ["Next.js", "Sanity", "Tailwind CSS"],
+    keywords: ["Next.js", "Sanity", "Tailwind CSS", "Stripe"],
     authors: [{ name: "Surjith" }],
     canonical: settings?.url,
     openGraph: {
