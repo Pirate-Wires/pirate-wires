@@ -29,3 +29,9 @@ export default function RootLayout({
     </html>
   );
 }
+
+// Temporary work-around for the cookie issues with Supabase Auth
+// https://github.com/vercel/nextjs-subscription-payments/issues/201#issuecomment-1610863734
+// export const revalidate = 0;
+// not doing `export const revalidate = 0;` anymore. 
+// did this to fix: https://github.com/vercel/nextjs-subscription-payments/issues/201#issuecomment-1620501090

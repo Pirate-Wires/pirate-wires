@@ -1,3 +1,4 @@
+import SupabaseProvider from './supabase-provider';
 import { getSettings } from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import { urlForImage } from "@/lib/sanity/image";
@@ -7,7 +8,7 @@ export async function sharedMetaData(params) {
   const settings = await getSettings();
 
   return {
-    // metadataBase: new URL(settings.url),
+    metadataBase: new URL(settings.url),
     title: {
       default:
         settings?.title ||
@@ -50,11 +51,14 @@ export default async function Layout({ children, params }) {
   const settings = await getSettings();
   return (
     <>
-      <Navbar {...settings} />
+      <SupabaseProvider>
 
-      <div>{children}</div>
+        <Navbar {...settings} />
 
-      <Footer {...settings} />
+        <div>{children}</div>
+
+        <Footer {...settings} />
+      </SupabaseProvider>
     </>
   );
 }
