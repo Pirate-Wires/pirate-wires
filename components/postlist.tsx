@@ -23,13 +23,6 @@ export default function PostList({
     ? urlForImage(post.author.image)
     : null;
 
-  console.log("post:", post);
-
-
-
-  console.log("post.section:", post.section);
-
-
   return (
     <>
 
