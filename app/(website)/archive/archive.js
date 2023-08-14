@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/container";
 import { useRouter, useSearchParams } from "next/navigation";
 import { paginatedquery } from "@/lib/sanity/groq";
