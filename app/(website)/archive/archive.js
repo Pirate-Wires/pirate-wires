@@ -89,7 +89,7 @@ export default function Post({ posts: initialposts }) {
           </div>
         )}
         {posts && !isLoading && !isValidating && (
-          <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-3">
+          <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-4">
             {posts.map(post => (
               <PostList key={post._id} post={post} aspect="square" />
             ))}
@@ -97,7 +97,7 @@ export default function Post({ posts: initialposts }) {
         )}
         <div className="mt-10 flex items-center justify-center">
           <nav
-            className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+            className="isolate inline-flex -space-x-px rounded-xs shadow-sm"
             aria-label="Pagination">
             <button
               disabled={isFirstPage}
