@@ -12,7 +12,6 @@ import {
   postsbycatquery,
   catpathquery,
   catquery,
-  getAll,
   searchquery
 } from "./groq";
 import { createClient } from "next-sanity";
@@ -33,17 +32,6 @@ const client = projectId
 export const fetcher = async ([query, params]) => {
   return client ? client.fetch(query, params) : [];
 };
-
-(async () => {
-  if (client) {
-    const data = await client.fetch(getAll);
-    if (!data || !data.length) {
-      console.error(
-        "Sanity returns empty array. Are you sure the dataset is public?"
-      );
-    }
-  }
-})();
 
 export async function getAllPosts() {
   if (client) {
@@ -77,7 +65,7 @@ export async function getAllPostsSlugs() {
 export async function getAllAuthorsSlugs() {
   if (client) {
     const slugs = (await client.fetch(authorsquery)) || [];
-    return slugs.map(slug => ({ author: slug }));
+    return slugs.map(slug => ({ slug }));
   }
   return [];
 }
@@ -101,7 +89,7 @@ export async function getAllAuthors() {
 export async function getAllCategories() {
   if (client) {
     const slugs = (await client.fetch(catpathquery)) || [];
-    return slugs.map(slug => ({ category: slug }));
+    return slugs.map(slug => ({ slug }));
   }
   return [];
 }
