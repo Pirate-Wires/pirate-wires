@@ -7,7 +7,7 @@ const Notifications: React.FC = () => {
       {/* Add your Notifications content here */}
       <div className='space-y-8'>
         <h1 className="text-base text-gray-900">Notifications</h1>
-        <h2 className="text-base text-gray-900">Newsletter</h2>
+        <h2 className="text-base text-gray-900">Newsletter Preferences</h2>
       </div>
       <fieldset>
         <legend className="sr-only">Notifications</legend>
@@ -24,7 +24,7 @@ const Notifications: React.FC = () => {
             </div>
             <div className="ml-3 text-sm ">
               <label htmlFor="comments" className="font-medium text-gray-900">
-                General
+                Wires
               </label>
               <p id="comments-description" className="text-gray-500">
                 Get notified when x, y, and z.
@@ -43,10 +43,10 @@ const Notifications: React.FC = () => {
             </div>
             <div className="ml-3 text-sm ">
               <label htmlFor="candidates" className="font-medium text-gray-900">
-                All Contents
+                All-in!
               </label>
               <p id="candidates-description" className="text-gray-500">
-                Get notified of all new article postings.
+                I want all the mails.
               </p>
             </div>
           </div>
