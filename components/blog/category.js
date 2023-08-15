@@ -1,5 +1,5 @@
+import { TagsIcon } from "@sanity/icons";
 import Link from "next/link";
-import Label from "@/components/ui/label";
 
 export default function CategoryLabel({
   categories,
@@ -11,10 +11,11 @@ export default function CategoryLabel({
         categories.slice(0).map((category, index) => (
           <Link
             href={`/category/${category.slug.current}`}
-            key={index}>
-            <Label nomargin={nomargin} color={category.color}>
-              {category.title}
-            </Label>
+            key={index}
+            className="text-xs border border-gray-700 rounded-sm px-2 py-1 hover:bg-gray-300 hover:text-gray-800 transition duration-300 ease-in-out"
+          >
+            <TagsIcon className="inline-block mr-1" />
+            {category.title}
           </Link>
         ))}
     </div>

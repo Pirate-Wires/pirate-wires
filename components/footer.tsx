@@ -17,7 +17,7 @@ export default function Footer(props) {
         {/* Column 2: Links */}
         <div>
           <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-          <ul className="space-y-2">
+          <ul className="space-y-3 text-sm">
             <li><a href="/">Home</a></li>
             <li><a href="/search">Search</a></li>
             <li><a href="/archive">The Archives</a></li>
@@ -67,7 +67,7 @@ export default function Footer(props) {
         <div className="container mx-auto flex flex-wrap">
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Landing Pages</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3 text-sm">
               <li><a href="/home/default" className="hover:text-gray-400">Default</a></li>
               <li><a href="/home/alt" className="hover:text-gray-400">Alternate</a></li>
               <li><a href="/home/minimal" className="hover:text-gray-400">Minimal</a></li>
@@ -77,7 +77,7 @@ export default function Footer(props) {
           </div>
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Other Pages</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3 text-sm">
               <li><a href="/podcast">Podcast Page</a></li>
               <li><a href="/technology">Category Page</a></li>
               <li><a href="/author/mike-solana">Author Page</a></li>
@@ -91,7 +91,7 @@ export default function Footer(props) {
           </div>
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Admin Pages</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3 text-sm">
               <li><a href="#" className="hover:text-gray-400">Link 7</a></li>
               <li><a href="#" className="hover:text-gray-400">Link 8</a></li>
               <li><a href="#" className="hover:text-gray-400">Link 9</a></li>

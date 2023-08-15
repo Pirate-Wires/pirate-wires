@@ -73,7 +73,7 @@ export default function PostList({
 
         <div className={cx(minimal && "flex items-center")}>
           <div>
-            <div className="pt-2">
+            <div className="py-3">
               <SectionLabel
                 section={post.section}
               />
@@ -99,13 +99,13 @@ export default function PostList({
                 href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug.current
                   }`}>
                 <span
-                  className="bg-gradient-to-r from-green-200 to-green-100 dark:from-purple-800 dark:to-purple-900
-      bg-[length:0px_10px]
+                  className="bg-gradient-to-r from-gray-500 to-gray-300 dark:from-gray-100 dark:to-gray-400
+      bg-[length:0px_1px]
       bg-left-bottom
       bg-no-repeat
       transition-[background-size]
       duration-500
-      hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
+      hover:bg-[length:100%_1px] group-hover:bg-[length:100%_1px]">
                   {post.title}
                 </span>
               </Link>
