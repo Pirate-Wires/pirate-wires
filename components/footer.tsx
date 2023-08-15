@@ -37,19 +37,20 @@ export default function Footer(props) {
 
         {/* Column 2: Newsletter */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">Newsletter</h3>
+          <h3 className="text-lg font-semibold mb-2">Subscribe</h3>
           <p className="text-sm text-gray-600">
-            Subscribe to our newsletter for updates and news.
+            Join Pirate Wires and start reading... <br /><small>[magic link creates account / doubles as a login should they happen to have subbed in the past via substack]</small>
           </p>
 
           <div className="mt-2">
             <input
               type="email"
-              placeholder="Your email"
+              placeholder="absolute.unit@example.biz"
               className="py-2 px-3 border rounded-md w-full"
+              disabled
             />
-            <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md">
-              Subscribe
+            <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-md" disabled>
+              Join
             </button>
           </div>
         </div>

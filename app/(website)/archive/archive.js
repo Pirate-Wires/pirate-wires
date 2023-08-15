@@ -18,7 +18,7 @@ export default function Post({ posts: initialposts }) {
   const page = searchParams.get("page");
   const pageIndex = parseInt(page) || 1;
 
-  const POSTS_PER_PAGE = 6;
+  const POSTS_PER_PAGE = 12;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstPage, setIsFirstPage] = useState(false);

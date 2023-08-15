@@ -21,7 +21,7 @@ export default function Navbar(props) {
 
   const leftmenu: MenuItem[] = [
     {
-      label: "Home",
+      label: "Home Pages",
       href: "#",
       children: [
         { title: "Home Default", path: "/home/default" },
@@ -52,7 +52,7 @@ export default function Navbar(props) {
         },
         {
           title: "Author Page",
-          path: "/author/mario-sanchez"
+          path: "/author/mike-solana"
         },
         {
           title: "Search Page",
@@ -195,6 +195,19 @@ export default function Navbar(props) {
                     </Fragment>
                   ))}
                 </div>
+
+                <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row">
+                  <Link href="/account-design" className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
+
+                    <img
+                      className="h-12 w-12 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
+                  </Link>
+
+                </div>
+
               </div>
               <Disclosure.Panel>
                 <div className="order-2 -ml-4 mt-4 flex w-full flex-col items-center justify-start md:hidden">
