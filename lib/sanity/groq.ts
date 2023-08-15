@@ -1,5 +1,39 @@
 import { groq } from 'next-sanity';
 
+// get all podcasts
+export const allpodcastsquery = groq`
+*[_type == "podcast"] {
+  _id,
+  _createdAt,
+  title,
+  slug,
+  excerpt,
+  author-> {
+    _id,
+    name,
+    image,
+    slug
+  },
+  mainImage {
+    ...,
+    "blurDataURL": asset->metadata.lqip,
+    "ImageColor": asset->metadata.palette.dominant.background
+  },
+  categories[]->,
+  publishedAt,
+  featured,
+  body[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalLink" => {
+        "slug": @.reference->slug
+      }
+    }
+  }
+}
+`;
+
 // Get all posts
 export const postquery = groq`
 *[_type == "post"] | order(publishedAt desc, _createdAt desc) {
