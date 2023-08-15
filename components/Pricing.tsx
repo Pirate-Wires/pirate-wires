@@ -80,7 +80,7 @@ export default function Pricing({
           <p className="text-md  sm:text-center">
             No subscription pricing plans found. Create them in the{' '}
             <a
-              className="text-blue-500 hover:text-blue-600"
+              className="text-blue-500 hover:text-blue-500"
               href="https://dashboard.stripe.com/products"
               rel="noopener noreferrer"
               target="_blank"

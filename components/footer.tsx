@@ -45,7 +45,7 @@ export default function Footer(props) {
               className="py-2 px-3 border rounded-sm w-full"
               disabled
             />
-            <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded-sm" disabled>
+            <button className="mt-2 bg-green-500 text-white py-2 px-4 rounded-sm" disabled>
               Join
             </button>
           </div>

@@ -41,7 +41,7 @@ export default function Navigation(props) {
                     Home
                   </a>
                   <a
-                    href="/"
+                    href="/podcast"
                     className="inline-flex items-center border-b-2 border-gray-500 px-1 pt-1 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Podcast
@@ -65,7 +65,7 @@ export default function Navigation(props) {
                 <div className="flex-shrink-0">
                   <button
                     type="button"
-                    className="relative inline-flex items-center border dark:border-gray-500 gap-x-1.5 rounded-sm px-3 py-2 text-sm font-semibold "
+                    className="relative inline-flex items-center bg-green-500 text-white py-2 px-4 rounded-sm gap-x-1.5"
                   >
                     <a href="/signin">
                       Subscribe
