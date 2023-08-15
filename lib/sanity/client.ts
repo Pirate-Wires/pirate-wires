@@ -1,4 +1,5 @@
-import { apiVersion, dataset, projectId, useCdn } from "./config";
+// lib/sanity/client.ts
+import { apiVersion, dataset, projectId, useCdn } from './config';
 import {
   postquery,
   limitquery,
@@ -12,13 +13,14 @@ import {
   postsbycatquery,
   catpathquery,
   catquery,
-  searchquery
-} from "./groq";
-import { createClient } from "next-sanity";
+  searchquery,
+  allpodcastsquery
+} from './groq';
+import { createClient } from 'next-sanity';
 
 if (!projectId) {
   console.error(
-    "The Sanity Project ID is not set. Check your environment variables."
+    'The Sanity Project ID is not set. Check your environment variables.'
   );
 }
 
@@ -40,6 +42,13 @@ export async function getAllPosts() {
   return [];
 }
 
+export async function getAllPodcasts() {
+  if (client) {
+    return (await client.fetch(allpodcastsquery)) || [];
+  }
+  return [];
+}
+
 export async function getSettings() {
   if (client) {
     return (await client.fetch(configQuery)) || [];
@@ -57,7 +66,7 @@ export async function getPostBySlug(slug) {
 export async function getAllPostsSlugs() {
   if (client) {
     const slugs = (await client.fetch(pathquery)) || [];
-    return slugs.map(slug => ({ slug }));
+    return slugs.map((slug) => ({ slug }));
   }
   return [];
 }
@@ -65,7 +74,7 @@ export async function getAllPostsSlugs() {
 export async function getAllAuthorsSlugs() {
   if (client) {
     const slugs = (await client.fetch(authorsquery)) || [];
-    return slugs.map(slug => ({ slug }));
+    return slugs.map((slug) => ({ slug }));
   }
   return [];
 }
@@ -89,7 +98,7 @@ export async function getAllAuthors() {
 export async function getAllCategories() {
   if (client) {
     const slugs = (await client.fetch(catpathquery)) || [];
-    return slugs.map(slug => ({ slug }));
+    return slugs.map((slug) => ({ slug }));
   }
   return [];
 }
