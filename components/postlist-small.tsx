@@ -34,7 +34,7 @@ export default function PostListSmall({
 
         <div
           className={cx(
-            " overflow-hidden transition-all bg-gray-100 rounded-md dark:bg-gray-800   hover:scale-105"
+            " overflow-hidden transition-all bg-gray-100 rounded-sm dark:bg-gray-800   hover:scale-105"
           )}>
 
           {/* <Link

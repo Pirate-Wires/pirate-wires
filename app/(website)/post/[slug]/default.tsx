@@ -8,6 +8,7 @@ import { parseISO, format } from "date-fns";
 
 import CategoryLabel from "@/components/blog/category";
 import AuthorCard from "@/components/blog/authorCard";
+import TopCommenters from "@/components/top-commenters";
 
 export default function Post(props) {
   const { loading, post } = props;
@@ -94,15 +95,11 @@ export default function Post(props) {
           <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-600">
             {post.body && <PortableText value={post.body} />}
           </div>
-          <div className="mb-7 mt-7 flex justify-center">
-            <Link
-              href="/"
-              className="bg-brand-secondary/20 rounded-full px-5 py-2 text-sm text-blue-600 dark:text-blue-500 ">
-              ← View all posts
-            </Link>
-          </div>
-          {post.author && <AuthorCard author={post.author} />}
         </article>
+
+        <TopCommenters />
+        <p className="text-xs">author footer: </p>
+        {post.author && <AuthorCard author={post.author} />}
       </Container>
     </>
   );

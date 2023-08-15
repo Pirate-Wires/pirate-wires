@@ -5,11 +5,11 @@ import TheIndustrySVG from '../icons/TheIndustrySVG';
 import TheWhitePillSVG from '../icons/TheWhitePillSVG';
 
 const SectionLabel = ({ section }) => {
-  if (!section) {
-    return null;
-  }
+  let formattedSection = "No Section"; // Default value
 
-  const formattedSection = section.replace(/-/g, ' ');
+  if (section) {
+    formattedSection = section.replace(/-/g, ' ');
+  }
 
   let icon = null;
 
@@ -23,7 +23,7 @@ const SectionLabel = ({ section }) => {
 
   return (
     <div className="flex gap-3 uppercase text-xs text-gray-400 items-center">
-      {icon}
+      {/* {icon} */}
       <Link href={`/section/${section}`}>
         {formattedSection}
       </Link>

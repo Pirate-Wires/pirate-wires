@@ -9,12 +9,12 @@ export default function AuthUI() {
   const { supabase } = useSupabase();
   return (
     <div className="flex flex-col space-y-4">
+      <p className="text-xs">hook back up to supabase db-2. db-1 is dead</p>
       <Auth
         supabaseClient={supabase}
         providers={[]}
         redirectTo={`${getURL()}/auth/callback`}
         magicLink={true}
-        theme="dark"
       />
     </div>
   );

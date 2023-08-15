@@ -8,7 +8,7 @@ export default function HomeLifeStyle({ posts }) {
   return (
     <>
       {featuredPost && featuredPost.length && (
-        <Featured post={featuredPost[0]} pathPrefix="lifestyle" />
+        <Featured post={featuredPost[0]} pathPrefix="" />
       )}
 
       <Container large>
@@ -46,6 +46,7 @@ export default function HomeLifeStyle({ posts }) {
                   preloadImage={true}
                 />
               ))}
+              hello
             </div>
           </>
         )}

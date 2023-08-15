@@ -3,6 +3,8 @@ import { getSettings } from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import { urlForImage } from "@/lib/sanity/image";
 import Navbar from "@/components/navbar";
+import Navigation from '@/components/navigation';
+import SectionTabs from '@/components/section-tabs';
 
 export async function sharedMetaData(params) {
   const settings = await getSettings();
@@ -33,7 +35,7 @@ export async function sharedMetaData(params) {
       ]
     },
     twitter: {
-      title: settings?.title || "Stablo Template",
+      title: settings?.title || "Pirate Wires",
       card: "summary_large_image"
     },
     robots: {
@@ -53,7 +55,14 @@ export default async function Layout({ children, params }) {
     <>
       <SupabaseProvider>
 
-        <Navbar {...settings} />
+        {/* <Navbar {...settings} /> */}
+        <Navigation />
+
+        <div className="flex items-center justify-center py-4">
+          <SectionTabs />
+        </div>
+
+
 
         <div>{children}</div>
 
@@ -62,5 +71,12 @@ export default async function Layout({ children, params }) {
     </>
   );
 }
+
+
+
+
+
+
+
 // enable revalidate for all pages in this layout
 // export const revalidate = 60;
