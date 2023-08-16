@@ -27,7 +27,7 @@ export default function PostAlt({
         )}>
         <div
           className={cx(
-            "relative overflow-hidden transition-all bg-gray-100 rounded-sm dark:bg-gray-800",
+            "relative overflow-hidden transition-all bg-gray-100 rounded-xs dark:bg-gray-800",
             aspect === "landscape" ? "aspect-video" : "aspect-square"
           )}>
           <Link href={`/post/minimal/${post.slug.current}`}>

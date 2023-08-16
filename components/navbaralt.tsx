@@ -120,7 +120,7 @@ export default function NavbarAlt(props) {
                   </Link>
                   <Disclosure.Button
                     aria-label="Toggle Menu"
-                    className="ml-auto rounded-sm px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden ">
+                    className="ml-auto rounded-xs px-2 py-1 text-gray-500 focus:text-blue-500 focus:outline-none dark:text-gray-300 lg:hidden ">
                     <svg
                       className="h-6 w-6 fill-current"
                       xmlns="http://www.w3.org/2000/svg"
@@ -244,7 +244,7 @@ const DropdownMenu = ({ menu, items, mobile }) => {
             leaveTo="lg:transform lg:opacity-0 lg:scale-95">
             <Menu.Items
               className={cx(
-                "z-20 origin-top-left rounded-sm  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
+                "z-20 origin-top-left rounded-xs  focus:outline-none  lg:absolute lg:left-0  lg:w-56",
                 !mobile && "bg-white shadow-lg  dark:bg-gray-800"
               )}>
               <div className={cx(!mobile && "py-3")}>

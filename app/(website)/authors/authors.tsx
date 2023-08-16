@@ -11,13 +11,13 @@ import AuthorCard from "@/components/blog/authorCard";
 
 export default function Authors({ authors }) {
   return (
-    <div>
+    <Container>
       <h1>Authors</h1>
       <div className="grid grid-cols-2 gap-4">
         {authors.map((author) => (
           <AuthorCard key={author.slug} author={author} />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

@@ -52,7 +52,7 @@ function RelatedPosts({ related, pathPrefix }) {
               href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${item.slug.current
                 }`}>
               <div className="flex gap-5">
-                <div className="relative w-24 h-20 overflow-hidden rounded-sm shrink-0">
+                <div className="relative w-24 h-20 overflow-hidden rounded-xs shrink-0">
                   <Image
                     // @ts-ignore
                     src={imageProps.src}
@@ -92,7 +92,7 @@ function Categories({ categories }) {
         {categories.map((item, index) => (
           <li key={item._id}>
             <Link
-              href={`/category/${item.slug.current}`}
+              href={`/${item.slug.current}`}
               className="flex items-center justify-between py-2">
               <h4 className="text-gray-800 dark:text-gray-400">
                 {item.title}

@@ -42,11 +42,10 @@ export default function Footer(props) {
             <input
               type="email"
               placeholder="absolute.unit@example.biz"
-              className="py-2 px-3 border rounded-sm w-full"
-              disabled
+              className="w-full px-3 py-2 border rounded-xs outline-none focus:border-gray-300 focus:shadow-sm dark:bg-gray-900 dark:border-gray-600 dark:focus:border-white"
             />
-            <button className="mt-2 bg-green-500 text-white py-2 px-4 rounded-sm" disabled>
-              Join
+            <button className="mt-2 bg-green-600 text-white py-2 px-4 rounded-xs" disabled>
+              Subscribe
             </button>
           </div>
         </div>
@@ -63,7 +62,7 @@ export default function Footer(props) {
 
 
 
-      <footer className="border-t pt-12 mt-24">
+      <footer className="border-t dark:border-gray-900 pt-12 mt-24">
         <div className="container mx-auto flex flex-wrap">
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Landing Pages</h3>
@@ -92,7 +91,7 @@ export default function Footer(props) {
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Admin Pages</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="#" className="hover:text-gray-400">Link 7</a></li>
+              <li><a href="/studio" className="hover:text-gray-400" target="_blank">CMS</a></li>
               <li><a href="#" className="hover:text-gray-400">Link 8</a></li>
               <li><a href="#" className="hover:text-gray-400">Link 9</a></li>
             </ul>

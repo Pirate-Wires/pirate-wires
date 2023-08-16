@@ -97,7 +97,7 @@ export default function Contact({ settings }) {
                 type="text"
                 placeholder="Full Name"
                 autoComplete="false"
-                className={`w-full px-4 py-3 border-2 placeholder:text-gray-800 dark:text-white rounded-xs outline-none dark:placeholder:text-gray-200 dark:bg-gray-900   focus:ring-4  ${errors.name
+                className={`w-full px-3 py-2 border rounded-xs outline-none focus:border-gray-300 focus:shadow-sm dark:bg-gray-900 dark:border-gray-600 dark:focus:border-white  ${errors.name
                   ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
                   : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
                   }`}
@@ -123,7 +123,7 @@ export default function Contact({ settings }) {
                 placeholder="Email Address"
                 name="email"
                 autoComplete="false"
-                className={`w-full px-4 py-3 border-2 placeholder:text-gray-800 dark:text-white rounded-xs outline-none dark:placeholder:text-gray-200 dark:bg-gray-900   focus:ring-4  ${errors.email
+                className={`w-full px-3 py-2 border rounded-xs outline-none focus:border-gray-300 focus:shadow-sm dark:bg-gray-900 dark:border-gray-600 dark:focus:border-white   focus:ring-4  ${errors.email
                   ? "border-red-600 focus:border-red-600 ring-red-100 dark:ring-0"
                   : "border-gray-300 focus:border-gray-600 ring-gray-100 dark:border-gray-600 dark:focus:border-white dark:ring-0"
                   }`}
@@ -190,7 +190,7 @@ export default function Contact({ settings }) {
           </form>
 
           {isSubmitSuccessful && isSuccess && (
-            <div className="mt-3 text-sm text-center text-green-500">
+            <div className="mt-3 text-sm text-center text-green-600">
               {message || "Success. Message sent successfully"}
             </div>
           )}

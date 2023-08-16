@@ -18,7 +18,7 @@ export default function DefaultHome({ posts }) {
                      />
                   ))}
                </div>
-               <div className="grid gap-10 md:grid-cols-4 lg:gap-10 my-10 border-t border-b py-10">
+               <div className="grid gap-10 md:grid-cols-4 lg:gap-10 my-10 border-t border-b dark:border-gray-900 py-10">
                   {posts.slice(4, 8).map(post => (
                      // @ts-ignore
                      <PostList
@@ -38,7 +38,7 @@ export default function DefaultHome({ posts }) {
                <div className="mt-10 flex justify-center">
                   <Link
                      href="/archive"
-                     className="relative inline-flex items-center gap-1 rounded-sm border border-gray-300 bg-white px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-500 dark:bg-gray-800 dark:text-gray-300">
+                     className="relative inline-flex items-center gap-1 rounded-xs border border-gray-300 px-3 py-2 pl-4 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 disabled:pointer-events-none disabled:opacity-40 dark:border-gray-900  dark:text-gray-300">
                      <span>View all Posts</span>
                   </Link>
                </div>

@@ -21,7 +21,7 @@ export default function Navigation(props) {
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-sm p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
+                  <Disclosure.Button className="relative inline-flex items-center justify-center rounded-xs p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -65,7 +65,7 @@ export default function Navigation(props) {
                 <div className="flex-shrink-0">
                   <button
                     type="button"
-                    className="relative inline-flex items-center bg-green-500 text-white py-2 px-4 rounded-sm gap-x-1.5"
+                    className="relative inline-flex items-center bg-green-600 text-white py-2 px-4 rounded-xs gap-x-1.5"
                   >
                     <a href="/signin">
                       Subscribe
@@ -95,7 +95,7 @@ export default function Navigation(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-sm bg-white py-1 shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xs bg-white dark:bg-stone-950 py-1 shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
                             <a
