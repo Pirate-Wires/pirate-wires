@@ -10,6 +10,9 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
+      borderRadius: {
+        'xs': '0.125rem', // Add your desired value here
+      },
       colors: {
         gray: colors.neutral
       },
@@ -35,4 +38,8 @@ module.exports = {
     // require("daisyui")
   ]
 };
+
+
+
+
 
