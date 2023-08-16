@@ -15,8 +15,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 import Navbar from '@/components/ui/Navbar';
-
-
+import Navigation from '@/components/navigation';
 
 export default async function Account() {
   const [session, userDetails, products, subscription] = await Promise.all([
@@ -69,10 +68,10 @@ export default async function Account() {
     revalidatePath('/account');
   };
 
+  console.log(session);
+
   return (
     <section className="mb-32">
-
-
 
       <Navbar />
 
@@ -125,7 +124,7 @@ export default async function Account() {
               <input
                 type="text"
                 name="name"
-                className="w-1/2 p-3 rounded-xs "
+                className="w-full px-3 py-2 border rounded-xs outline-none focus:border-gray-300 focus:shadow-sm dark:bg-gray-900 dark:border-gray-600 dark:focus:border-white"
                 defaultValue={userDetails?.full_name ?? ''}
                 placeholder="Your name"
                 maxLength={64}
@@ -159,7 +158,7 @@ export default async function Account() {
               <input
                 type="text"
                 name="email"
-                className="w-1/2 p-3 rounded-xs "
+                className="w-full px-3 py-2 border rounded-xs outline-none focus:border-gray-300 focus:shadow-sm dark:bg-gray-900 dark:border-gray-600 dark:focus:border-white"
                 defaultValue={user ? user.email : ''}
                 placeholder="Your email"
                 maxLength={64}
@@ -181,13 +180,13 @@ interface Props {
 
 function Card({ title, description, footer, children }: Props) {
   return (
-    <div className="w-full max-w-3xl m-auto my-8 border rounded-xs p">
+    <div className="w-full max-w-3xl m-auto my-8 border dark:border-gray-800 rounded-xs p">
       <div className="px-5 py-4">
-        <h3 className="mb-1 text-2xl font-medium">{title}</h3>
-        <p className="text-zinc-300">{description}</p>
+        <h3 className="mb-1 text-xl">{title}</h3>
+        <p className="text-sm">{description}</p>
         {children}
       </div>
-      <div className="p-4 border-t rounded-b-md border-zinc-300 text-zinc-500">
+      <div className="p-4 border-t dark:border-gray-800">
         {footer}
       </div>
     </div>
