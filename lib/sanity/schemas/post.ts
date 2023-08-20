@@ -1,3 +1,7 @@
+// /lib/sanity/schemas/post.ts
+
+import SendButtonInput from '@/components/SendButtonInput';
+
 const schema = {
   name: 'post',
   title: 'Post',
@@ -7,15 +11,32 @@ const schema = {
   }),
   fields: [
     {
+      name: 'featured',
+      title: 'Mark as Featured',
+      type: 'boolean',
+      layout: 'radio'
+    },
+    {
+      name: 'title',
+      placeholder: 'Enter title here',
+      title: 'Title',
+      type: 'string'
+    },
+    {
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime'
+    },
+    {
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent'
+    },
+    {
       name: 'author',
       title: 'Author',
       type: 'reference',
       to: { type: 'author' }
-    },
-    {
-      name: 'title',
-      title: 'Title',
-      type: 'string'
     },
     {
       name: 'section',
@@ -29,6 +50,22 @@ const schema = {
           // Add more predefined sections as needed
         ]
       }
+    },
+    {
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'category' } }]
+    },
+
+    {
+      name: 'excerpt',
+      title: 'Excerpt / Subtitle',
+      description:
+        'The excerpt is used in blog feeds and as the subtitle in Newsletters, and also for search results',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(200)
     },
     {
       name: 'mainImage',
@@ -46,29 +83,6 @@ const schema = {
         hotspot: true
       }
     },
-
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }]
-    },
-    {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime'
-    },
-    {
-      name: 'featured',
-      title: 'Mark as Featured',
-      type: 'boolean',
-      layout: 'radio'
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent'
-    },
     {
       name: 'slug',
       title: 'Slug',
@@ -79,13 +93,16 @@ const schema = {
       }
     },
     {
-      name: 'excerpt',
-      title: 'Excerpt',
-      description:
-        'The excerpt is used in blog feeds, and also for search results',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.max(200)
+      title: '🚧 Newsletter Tool: Nerd Edition',
+      name: 'NewsletterSend',
+      type: 'sendButton',
+      components: {
+        input: SendButtonInput
+      },
+      options: {
+        title: 'title', // Pass the title field value to the component
+        body: 'body' // Pass the body field value to the component
+      }
     }
   ],
 

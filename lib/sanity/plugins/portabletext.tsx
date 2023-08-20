@@ -94,7 +94,7 @@ const IframePreview = ({ value }) => {
       url={finalURL}
       width="100%"
       height={height || "350"}
-      className={cx(!height && "aspect-video", "rounded-sm")}
+      className={cx(!height && "aspect-video", "rounded-xs")}
       display="block"
       position="relative"
       frameBorder={0}
