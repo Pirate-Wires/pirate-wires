@@ -1,13 +1,12 @@
 import React from 'react';
 import Container from '@/components/container';
 import ThemeSwitch from '@/components/themeSwitch';
+import Link from 'next/link';
 
 export default function Footer(props) {
   return (
     <Container className="mt-10 border-t border-gray-100 dark:border-gray-800">
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-6">
-
         {/* Column 1: Logo */}
         <div>
           <h3 className="text-lg font-semibold mb-2">Other Stuff</h3>
@@ -18,17 +17,16 @@ export default function Footer(props) {
         <div>
           <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
           <ul className="space-y-3 text-sm">
-            <li><a href="/">Home</a></li>
-            <li><a href="/search">Search</a></li>
-            <li><a href="/archive">The Archives</a></li>
-            <li><a href="/signin">Sign-in</a></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/search">Search</Link></li>
+            <li><Link href="/archive">The Archives</Link></li>
+            <li><Link href="/signin">Sign-in</Link></li>
             {/* Add more links as needed */}
           </ul>
 
           <div className="text-xs pt-4">
             {props?.copyright} © {new Date().getFullYear()}
           </div>
-
         </div>
 
         {/* Column 3: Newsletter */}
@@ -49,59 +47,63 @@ export default function Footer(props) {
             </button>
           </div>
         </div>
-
-
       </div>
 
-
-      {/* 
-      
-      */}
-
-
-
-
+      {/* Footer content */}
 
       <footer className="border-t dark:border-gray-900 pt-12 mt-24">
         <div className="container mx-auto flex flex-wrap">
+          {/* Column 1 */}
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Landing Pages</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="/home/default" className="hover:text-gray-400">Default</a></li>
-              <li><a href="/home/alt" className="hover:text-gray-400">Alternate</a></li>
-              <li><a href="/home/minimal" className="hover:text-gray-400">Minimal</a></li>
-              <li><a href="/home/lifestyle" className="hover:text-gray-400">Lifestyle</a></li>
-              <li><a href="/home/simple-2-col" className="hover:text-gray-400">Simple Two Column</a></li>
+              <li><Link href="/home/default">Default</Link></li>
+              <li><Link href="/home/alt">Alternate</Link></li>
+              <li><Link href="/home/minimal">Minimal</Link></li>
+              <li><Link href="/home/lifestyle">Lifestyle</Link></li>
+              <li><Link href="/home/simple-2-col">Simple Two Column</Link></li>
             </ul>
           </div>
+          {/* Column 2 */}
           <div className="w-full md:w-1/3">
             <h3 className="text-lg font-semibold mb-4">Other Pages</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="/podcast">Podcast Page</a></li>
-              <li><a href="/technology">Category Page</a></li>
-              <li><a href="/author/mike-solana">Author Page</a></li>
-              <li><a href="/search?q=union">Search Page</a></li>
-              <li><a href="/archive">Archive - Pagination</a></li>
-              <li><a href="/post/pirate-wires-twitters-final-boss">Single Post - Default</a></li>
-              <li><a href="/post/minimal/state-of-the-union">Single Post - Minimal</a></li>
-              <li><a href="/post/lifestyle/pirate-wires-twitters-final-boss">Single Post - Lifestyle</a></li>
-              <li><a href="/post/sidebar/pirate-wires-twitters-final-boss">Single Post - Sidebar</a></li>
+              <li><Link href="/categories">Categories Page</Link></li>
+              <li><Link href="/technology">Example Category Page</Link></li>
+              <li><Link href="/authors">Author(s) Page</Link></li>
+              <li><Link href="/author/mike-solana">Author Page</Link></li>
+              <li><Link href="/search?q=union">Search Page</Link></li>
+              <li><Link href="/archive">Archive - Pagination</Link></li>
+              <li><Link href="/p/pirate-wires-twitters-final-boss">Single Post - Default</Link></li>
+              <li><Link href="/p/minimal/state-of-the-union">Single Post - Minimal</Link></li>
+              <li><Link href="/p/lifestyle/pirate-wires-twitters-final-boss">Single Post - Lifestyle</Link></li>
+              <li><Link href="/p/sidebar/pirate-wires-twitters-final-boss">Single Post - Sidebar</Link></li>
+              {/* Add more links as needed */}
             </ul>
           </div>
+          {/* Column 3 */}
           <div className="w-full md:w-1/3">
-            <h3 className="text-lg font-semibold mb-4">Admin Pages</h3>
+            <h3 className="text-lg font-semibold mb-4">Section Pages</h3>
             <ul className="space-y-3 text-sm">
-              <li><a href="/studio" className="hover:text-gray-400" target="_blank">CMS</a></li>
-              <li><a href="#" className="hover:text-gray-400">Link 8</a></li>
-              <li><a href="#" className="hover:text-gray-400">Link 9</a></li>
+              <li><Link href="/podcast">Podcast Page</Link></li>
+              <li><Link href="/wires">Wires Page</Link></li>
+              <li><Link href="/the-industry">Industry Page</Link></li>
+              <li><Link href="/white-pill">White Pill Page</Link></li>
+              {/* Add more links as needed */}
+            </ul>
+            <h3 className="text-lg font-semibold mb-4 mt-4">Admin Pages</h3>
+            <ul className="space-y-3 text-sm">
+              <li><Link href="/studio">CMS</Link></li>
+              {/* Add more links as needed */}
+            </ul>
+            <h3 className="text-lg font-semibold mb-4 mt-4">Experimental Pages</h3>
+            <ul className="space-y-3 text-sm">
+              <li><Link href="/podcast-v2">Podcast</Link></li>
+              {/* Add more links as needed */}
             </ul>
           </div>
-
         </div>
       </footer>
-
-
-
     </Container>
   );
 }

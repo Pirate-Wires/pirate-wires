@@ -1,7 +1,7 @@
 import Category from "./category";
 
 import { getAllCategories, getPostsByCategory } from "@/lib/sanity/client";
-console.log("category");
+// console.log("category");
 
 export async function generateStaticParams() {
   return await getAllCategories();

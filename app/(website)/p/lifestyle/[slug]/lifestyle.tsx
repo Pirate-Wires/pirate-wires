@@ -93,7 +93,7 @@ export default function Post(props) {
       {/* {post?.mainImage && <MainImage image={post.mainImage} />} */}
       <Container>
         <article className="mx-auto max-w-screen-md ">
-          <div className="prose prose-lg mx-auto my-3 dark:prose-invert prose-a:text-blue-500">
+          <div className="prose lg:prose-xl mx-auto my-3 dark:prose-invert leading-normal prose-a:text-gray-600 visited:text-gray-400 font-serif">
             {post.body && <PortableText value={post.body} />}
           </div>
           {post.author && <AuthorCard author={post.author} />}

@@ -2,7 +2,6 @@ import SupabaseProvider from './supabase-provider';
 import { getSettings } from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import { urlForImage } from "@/lib/sanity/image";
-import Navbar from "@/components/navbar";
 import Navigation from '@/components/navigation';
 import SectionTabs from '@/components/section-tabs';
 
@@ -20,8 +19,8 @@ export async function sharedMetaData(params) {
     description:
       settings?.description ||
       "Pirate Wires",
-    keywords: ["Next.js", "Sanity", "Tailwind CSS", "Stripe"],
-    authors: [{ name: "Surjith" }],
+    keywords: ["politics", "news", "media", "journalism", "blog", "opinion", "culture", "technology"],
+    authors: [{ name: "Pirate Wires" }],
     canonical: settings?.url,
     openGraph: {
       images: [
@@ -62,8 +61,6 @@ export default async function Layout({ children, params }) {
           <SectionTabs />
         </div>
 
-
-
         <div>{children}</div>
 
         <Footer {...settings} />
@@ -71,12 +68,6 @@ export default async function Layout({ children, params }) {
     </>
   );
 }
-
-
-
-
-
-
 
 // enable revalidate for all pages in this layout
 // export const revalidate = 60;

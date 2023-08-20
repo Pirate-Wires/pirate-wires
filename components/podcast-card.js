@@ -12,7 +12,7 @@ export default function PodcastCard({
   preloadImage,
   fontSize,
   fontWeight }) {
-  console.log(podcast);
+  // console.log(podcast);
   const imageProps = podcast?.mainImage
     ? urlForImage(podcast.mainImage)
     : null;

@@ -1,21 +1,17 @@
-// app/(website)/podcasts.tsx
 "use client"
-import Image from "next/image";
-import Link from "next/link";
 import Container from "@/components/container";
-import { urlForImage } from "@/lib/sanity/image";
-import { notFound } from "next/navigation";
-// app/(website)/authorsauthors.tsx
 import PodcastCard from "@/components/podcast-card";
 
 export default function Podcasts({ podcasts }) {
   return (
-    <div className="">
+    <Container>
       <div className="">
-        {podcasts.map((podcast) => (
-          <PodcastCard key={podcast.slug} podcast={podcast} aspect={undefined} minimal={undefined} pathPrefix={undefined} preloadImage={undefined} fontSize={undefined} fontWeight={undefined} />
-        ))}
+        <div className="">
+          {podcasts.map((podcast) => (
+            <PodcastCard key={podcast.slug} podcast={podcast} aspect={undefined} minimal={undefined} pathPrefix={undefined} preloadImage={undefined} fontSize={undefined} fontWeight={undefined} />
+          ))}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 }

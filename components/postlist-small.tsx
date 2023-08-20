@@ -46,7 +46,7 @@ export default function PostListSmall({
                   ? "aspect-[5/4]"
                   : "aspect-square"
             )}
-            href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug.current
+            href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug.current
               }`}>
             {imageProps ? (
               <Image
@@ -94,7 +94,7 @@ export default function PostListSmall({
                 "mt-2    dark:text-white"
               )}>
               <Link
-                href={`/post/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug.current
+                href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug.current
                   }`}>
                 <span
                   className="bg-gradient-to-r from-gray-500 to-gray-300 dark:from-purple-800 dark:to-purple-900
@@ -113,7 +113,7 @@ export default function PostListSmall({
               {post.excerpt && (
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
                   <Link
-                    href={`/post/${pathPrefix ? `${pathPrefix}/` : ""
+                    href={`/p/${pathPrefix ? `${pathPrefix}/` : ""
                       }${post.slug.current}`}
                     legacyBehavior>
                     {post.excerpt}

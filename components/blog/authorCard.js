@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function AuthorCard({ author }) {
   const imageProps = author?.image ? urlForImage(author.image) : null;
   return (
-    <div className="mt-3 border dark:border-gray-600 rounded-lg px-8 py-8 text-gray-500 dark:bg-gray-950 dark:text-gray-400">
+    <div className="mt-3 rounded-2xl bg-gray-50 px-8 py-8 text-gray-500 dark:bg-gray-900 dark:text-gray-400">
       <div className="flex flex-wrap items-start sm:flex-nowrap sm:space-x-6">
         <div className="relative mt-1 h-24 w-24 flex-shrink-0 ">
           {imageProps && (
@@ -33,7 +33,7 @@ export default function AuthorCard({ author }) {
           <div className="mt-3">
             <Link
               href={`/author/${author.slug.current}`}
-              className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-500 dark:text-blue-500 ">
+              className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 ">
               View Profile
             </Link>
           </div>

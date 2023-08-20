@@ -1,10 +1,16 @@
 import Link from "next/link";
 import Container from "@/components/container";
 import PostList from "@/components/postlist";
+import Featured from "@/components/featured";
 
 export default function DefaultHome({ posts }) {
+   const featuredPost = posts.filter(item => item.featured) || null;
+
    return (
       <>
+         {/* {featuredPost && featuredPost.length && (
+            <Featured post={featuredPost[0]} pathPrefix="" />
+         )} */}
          {posts && (
             <Container>
                <div className="grid gap-10 md:grid-cols-2 lg:gap-10 ">
