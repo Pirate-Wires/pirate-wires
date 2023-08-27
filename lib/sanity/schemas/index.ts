@@ -1,7 +1,6 @@
 // /lib/sanity/schemas/index.ts
 
 import SendEmailCustomerIOComponent from './SendEmailCustomerIOComponent';
-import SendEmailPostmarkAppComponent from './SendEmailPostmarkAppComponent';
 import author from './author';
 import blockContent from './blockContent';
 import category from './category';
@@ -16,6 +15,5 @@ export const schemaTypes = [
   category,
   settings,
   blockContent,
-  SendEmailPostmarkAppComponent,
   SendEmailCustomerIOComponent
 ];

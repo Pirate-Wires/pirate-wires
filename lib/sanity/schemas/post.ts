@@ -1,8 +1,5 @@
 // /lib/sanity/schemas/post.ts
-
 import SendEmailCustomerIO from './SendEmailCustomerIO';
-
-// import SendEmailPostmarkApp from './SendEmailPostmarkApp';
 
 const schema = {
   name: 'post',
@@ -104,18 +101,6 @@ const schema = {
         maxLength: 96
       }
     },
-    // {
-    //   title: '🚧 PostmarkApp',
-    //   name: 'SendEmailPostmarkAppComponent',
-    //   type: 'SendEmailPostmarkAppComponent',
-    //   components: {
-    //     input: SendEmailPostmarkApp
-    //   },
-    //   options: {
-    //     title: 'title', // Pass the title field value to the component
-    //     body: 'body' // Pass the body field value to the component
-    //   }
-    // },
     {
       title: 'Newsletter',
       name: 'SendEmailCustomerIOComponent',
