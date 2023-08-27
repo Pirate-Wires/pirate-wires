@@ -1,6 +1,8 @@
 // /lib/sanity/schemas/post.ts
 
-import SendButtonInput from '@/components/SendButtonInput';
+import SendEmailCustomerIO from './SendEmailCustomerIO';
+
+// import SendEmailPostmarkApp from './SendEmailPostmarkApp';
 
 const schema = {
   name: 'post',
@@ -28,8 +30,28 @@ const schema = {
       type: 'datetime'
     },
     {
+      name: 'excerpt',
+      title: 'Excerpt / Subtitle',
+      description:
+        'The excerpt is used in blog feeds and as the subtitle in Newsletters, and also for search results',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(200)
+    },
+    {
+      name: 'preface',
+      title: 'Preface',
+      description: 'Optional note from Solana/Editor preceding the article. ',
+      type: 'text'
+    },
+    {
       name: 'body',
       title: 'Body',
+      type: 'blockContent'
+    },
+    {
+      name: 'paidContent',
+      title: 'Paid Content',
       type: 'blockContent'
     },
     {
@@ -57,16 +79,6 @@ const schema = {
       type: 'array',
       of: [{ type: 'reference', to: { type: 'category' } }]
     },
-
-    {
-      name: 'excerpt',
-      title: 'Excerpt / Subtitle',
-      description:
-        'The excerpt is used in blog feeds and as the subtitle in Newsletters, and also for search results',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.max(200)
-    },
     {
       name: 'mainImage',
       title: 'Main image',
@@ -92,12 +104,24 @@ const schema = {
         maxLength: 96
       }
     },
+    // {
+    //   title: '🚧 PostmarkApp',
+    //   name: 'SendEmailPostmarkAppComponent',
+    //   type: 'SendEmailPostmarkAppComponent',
+    //   components: {
+    //     input: SendEmailPostmarkApp
+    //   },
+    //   options: {
+    //     title: 'title', // Pass the title field value to the component
+    //     body: 'body' // Pass the body field value to the component
+    //   }
+    // },
     {
-      title: '🚧 Newsletter Tool: Nerd Edition',
-      name: 'NewsletterSend',
-      type: 'sendButton',
+      title: 'Newsletter',
+      name: 'SendEmailCustomerIOComponent',
+      type: 'SendEmailCustomerIOComponent',
       components: {
-        input: SendButtonInput
+        input: SendEmailCustomerIO
       },
       options: {
         title: 'title', // Pass the title field value to the component
