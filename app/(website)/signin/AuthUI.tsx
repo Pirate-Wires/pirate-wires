@@ -13,7 +13,7 @@ export default function AuthUI() {
       <p className="text-xs">When making use of Magic Links with the PKCE Flow - links can only be used in the same browser that they are sent from. Consequently, a magic link sent from Chrome on Desktop will be invalid if used on a Mobile Device for example.</p> */}
       <Auth
         supabaseClient={supabase}
-        providers={['twitter']}
+        providers={['github']}
         redirectTo={`${getURL()}/auth/callback`}
         magicLink={true}
         appearance={{ theme: ThemeSupa }}
