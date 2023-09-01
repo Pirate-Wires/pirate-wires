@@ -109,8 +109,8 @@ export default function Pricing({
               Start building for free, then add a site plan to go live. Account
               plans unlock additional features.
             </p>
-            <div className="relative flex self-center mt-12 border rounded-xs bg-zinc-900 border-zinc-800">
-              <div className="border border-pink-500 border-opacity-50 divide-y rounded-xs shadow-sm bg-zinc-900 divide-zinc-600">
+            <div className="relative flex self-center mt-12 border rounded-xs  border-zinc-800">
+              <div className="border border-pink-500 border-opacity-50 divide-y rounded-xs shadow-sm divide-zinc-600">
                 <div className="p-6 py-2 m-1 text-2xl font-medium  rounded-xs shadow-sm border-zinc-800 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8">
                   {products[0].name}
                 </div>
@@ -166,25 +166,18 @@ export default function Pricing({
     );
 
   return (
-    <section className="bg-black">
+    <section className="">
       <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
         <div className="sm:flex sm:flex-col sm:align-center">
-          <h1 className="text-4xl font-extrabold  sm:text-center sm:text-6xl">
-            Pricing Plans
-          </h1>
-          <p className="max-w-2xl m-auto mt-5 text-xl text-zinc-200 sm:text-center sm:text-2xl">
-            Start building for free, then add a site plan to go live. Account
-            plans unlock additional features.
-          </p>
-          <div className="relative self-center mt-6 bg-zinc-900 rounded-xs p-0.5 flex sm:mt-8 border border-zinc-800">
+          <div className="relative self-center mt-6 rounded-xs p-0.5 flex sm:mt-8">
             {intervals.includes('month') && (
               <button
                 onClick={() => setBillingInterval('month')}
                 type="button"
                 className={`${billingInterval === 'month'
-                  ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm '
-                  : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
-                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                  ? 'relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm '
+                  : 'ml-0.5 relative w-1/2 border border-transparent '
+                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Monthly billing
               </button>
@@ -194,9 +187,9 @@ export default function Pricing({
                 onClick={() => setBillingInterval('year')}
                 type="button"
                 className={`${billingInterval === 'year'
-                  ? 'relative w-1/2 bg-zinc-700 border-zinc-800 shadow-sm '
-                  : 'ml-0.5 relative w-1/2 border border-transparent text-zinc-400'
-                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+                  ? 'relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm '
+                  : 'ml-0.5 relative w-1/2 border border-transparent '
+                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
               >
                 Yearly billing
               </button>
@@ -218,7 +211,7 @@ export default function Pricing({
               <div
                 key={product.id}
                 className={cn(
-                  'rounded-xs shadow-sm divide-y divide-zinc-600 bg-zinc-900',
+                  'rounded-xs shadow-sm divide-y divide-zinc-600 ',
                   {
                     'border border-pink-500': subscription
                       ? product.name === subscription?.prices?.products?.name
@@ -230,12 +223,12 @@ export default function Pricing({
                   <h2 className="text-2xl font-semibold leading-6 ">
                     {product.name}
                   </h2>
-                  <p className="mt-4 text-zinc-300">{product.description}</p>
+                  <p className="mt-4 ">{product.description}</p>
                   <p className="mt-8">
                     <span className="text-5xl font-extrabold white">
                       {priceString}
                     </span>
-                    <span className="text-base font-medium text-zinc-100">
+                    <span className="text-base font-medium ">
                       /{billingInterval}
                     </span>
                   </p>

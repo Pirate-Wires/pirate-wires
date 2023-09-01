@@ -4,6 +4,7 @@ import SendEmailCustomerIOComponent from './SendEmailCustomerIOComponent';
 import author from './author';
 import blockContent from './blockContent';
 import category from './category';
+import comments from './comments';
 import podcast from './podcast';
 import post from './post';
 import settings from './settings';
@@ -15,5 +16,6 @@ export const schemaTypes = [
   category,
   settings,
   blockContent,
-  SendEmailCustomerIOComponent
+  SendEmailCustomerIOComponent,
+  comments
 ];

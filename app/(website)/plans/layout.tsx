@@ -1,5 +1,4 @@
 import SupabaseProvider from '../supabase-provider';
-import Footer from '@/components/ui/Footer';
 import Navbar from '@/components/ui/Navbar';
 import { PropsWithChildren } from 'react';
 
@@ -46,7 +45,7 @@ export default function RootLayout({
 }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className="bg-black loading">
+      <body className="loading">
         <SupabaseProvider>
 
           <Navbar />
@@ -56,7 +55,7 @@ export default function RootLayout({
           >
             {children}
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </SupabaseProvider>
       </body>
     </html>

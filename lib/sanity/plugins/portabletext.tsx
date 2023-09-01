@@ -135,9 +135,13 @@ const components = {
       );
     },
     internalLink: ({ children, value }) => {
-      return (
-        <Link href={`/docs/${value.slug.current}`}>{children}</Link>
-      );
+      if (!value || !value.slug || !value.slug.current) {
+        // Render the children without a link if the value or slug is not available
+        return <>{children}</>;
+      }
+
+      // If the value and slug are available, render the link
+      return <Link href={`/p/${value.slug.current}`}>{children}</Link>;
     }
   }
 };

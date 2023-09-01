@@ -1,3 +1,4 @@
+// /lib/sanity/image.ts
 import { dataset, projectId } from '@/lib/sanity/config';
 import createImageUrlBuilder from '@sanity/image-url';
 

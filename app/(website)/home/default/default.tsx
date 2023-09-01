@@ -8,9 +8,9 @@ export default function DefaultHome({ posts }) {
 
    return (
       <>
-         {/* {featuredPost && featuredPost.length && (
+         {featuredPost && featuredPost.length && (
             <Featured post={featuredPost[0]} pathPrefix="" />
-         )} */}
+         )}
          {posts && (
             <Container>
                <div className="grid gap-10 md:grid-cols-2 lg:gap-10 ">

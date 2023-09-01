@@ -10,6 +10,7 @@ import { table } from '@sanity/table';
 import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
+import { vercelDeployTool } from 'sanity-plugin-vercel-deploy';
 import { deskTool } from 'sanity/desk';
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = ['post'];
@@ -32,7 +33,8 @@ export default defineConfig({
     visionTool(),
     unsplashImageAsset(),
     table(),
-    codeInput()
+    codeInput(),
+    vercelDeployTool()
   ],
 
   schema: {

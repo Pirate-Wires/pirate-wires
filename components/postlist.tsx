@@ -36,9 +36,6 @@ export default function PostList({
           className={cx(
             " overflow-hidden transition-all bg-gray-100 rounded-xs dark:bg-gray-800   hover:scale-105"
           )}>
-
-
-
           <Link
             className={cx(
               "relative block",

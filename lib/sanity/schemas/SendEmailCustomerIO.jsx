@@ -19,7 +19,7 @@ const authorImages = {
     'https://pirate-wires.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcjtc1tnd%2Fproduction%2F63507c74248557cf7af33eb17b73473c3d86dedc-224x224.webp%3Fw%3D224%26auto%3Dformat&w=640&q=75'
 };
 
-// tod0: figure out the components thing
+// todo: figure out the components thing
 // const components = {
 //   types: {
 //     image: ({ value }) => {
@@ -270,7 +270,7 @@ export default function SendEmail(props) {
       )}
       <div className="space-y-2">
         <p className="text-xs py-3">
-          broadcastId: {broadcastId} | "{section}" segment.
+          broadcastId: {broadcastId} | {section} segment
         </p>
         <h2>Notes:</h2>
         <p className="text-xs py-3">

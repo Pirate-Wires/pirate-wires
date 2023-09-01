@@ -1,5 +1,7 @@
-import PostPage from "./default";
 
+// app/(website)/p/[slug]/page.tsx
+import PostPage from "./default";
+import { CommentsContextProvider } from '@/lib/supabase-comments/hooks/use-comments';
 import { getAllPostsSlugs, getPostBySlug } from "@/lib/sanity/client";
 
 export async function generateStaticParams() {
@@ -13,7 +15,15 @@ export async function generateMetadata({ params }) {
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
-  return <PostPage post={post} />;
+  console.log('post', post);
+  // console.log(post._id); // Make sure you see the id here
+  return (
+    <>
+      <CommentsContextProvider postId={post._id}>
+        <PostPage post={post} />
+      </CommentsContextProvider>
+    </>
+  );
 }
 
-// export const revalidate = 60;
+export const revalidate = 60;

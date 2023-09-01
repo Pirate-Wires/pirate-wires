@@ -21,4 +21,4 @@ export default async function PostDefault({ params }) {
   return <PostPage post={post} categories={categories} />;
 }
 
-// export const revalidate = 60;
+export const revalidate = 60;
