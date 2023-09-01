@@ -9,7 +9,7 @@ import { useFormValue } from 'sanity';
 
 // const toMarkdown = require('@sanity/block-content-to-markdown');
 
-// todo: get the author image from the author's slug
+// todo: get the author image from the author's slug as we only need the one per post newsletter
 const authorImages = {
   'mike-solana':
     'https://pirate-wires.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcjtc1tnd%2Fproduction%2F70be49eeea24927f8d0e491667aee243bd5de5c1-224x224.webp%3Fw%3D224%26auto%3Dformat&w=640&q=75',
@@ -271,26 +271,6 @@ export default function SendEmail(props) {
       <div className="space-y-2">
         <p className="text-xs py-3">
           broadcastId: {broadcastId} | {section} segment
-        </p>
-        <h2>Notes:</h2>
-        <p className="text-xs py-3">
-          You do not need to publish this article to send the newsletter. The
-          newsletter contents will be pulled from the draft which autosaves as
-          you type.
-        </p>
-        <p className="text-xs py-3">
-          The post does not need to be published in order to send it as a
-          newlstter. You can send an unpublished post as a newsletter.
-        </p>
-        <p className="text-xs py-3">
-          The recipienst in the select box above must be added as people in
-          customer.io and belong to the to segment named for each section.
-        </p>
-        <p className="text-xs py-3">
-          Send all is implemented and extensiveley tested. It will send the post
-          to all people in the customer.io account who have chosen the
-          respective sections in their newsetter preferences. Presently we are
-          defining only one recipient above for testing purposes.
         </p>
       </div>
     </div>
