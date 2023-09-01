@@ -188,8 +188,8 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
 
 
   const remainingCount = !count || isEmpty ? 0 : count - flattenedComments.length;
+  // @ts-ignore
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
-
 
   function loadMore(): void {
     if (isLoadingMore || isReachingEnd) return;

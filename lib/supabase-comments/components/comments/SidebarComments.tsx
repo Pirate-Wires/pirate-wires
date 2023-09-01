@@ -3,7 +3,7 @@ import NewCommentForm from '@/lib/supabase-comments/components/comments/NewComme
 import { NoAnimationSidebar } from '@/lib/supabase-comments/components/comments/Sidebar';
 import { useComments } from '@/lib/supabase-comments/hooks/use-comments';
 import { X } from '@/lib/supabase-comments/icons/X';
-import Portal from '@reach/portal';
+import { Portal } from '@reach/portal';
 import { useEffect, useState } from 'react';
 import SortCommentsSelect from './SortCommentsSelect';
 

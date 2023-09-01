@@ -35,7 +35,8 @@ export const UserContextProvider = (props: Props): JSX.Element => {
     user?.id ? ['user_data', user.id] : null,
     async (_, userId) =>
       supabase
-        .from<definitions['profiles']>('profiles')
+        // .from<definitions['profiles']>('profiles')
+        .from('profiles')
         .select('*')
         .eq('id', userId)
         .single()

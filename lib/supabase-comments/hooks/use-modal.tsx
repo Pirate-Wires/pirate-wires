@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import Portal from '@reach/portal';
+import { Portal } from '@reach/portal';
 type key = string;
 
 interface ModalContext {

@@ -58,7 +58,7 @@ export default function SendEmail(props) {
   useEffect(() => {
     const fetchData = async () => {
       if (_ref) {
-        const name = await getAuthorName(_ref);
+        const name = await getAuthorName();
         setAuthorName(name);
         const slug = name.toLowerCase().replace(/\s+/g, '-');
         setAuthorNameSlug(slug);
@@ -66,7 +66,7 @@ export default function SendEmail(props) {
     };
 
     fetchData();
-  }, [_ref]);
+  }, [_ref, getAuthorName]);
 
   // const form = useFormValue([]);
   const title = useFormValue(['title']) || '';

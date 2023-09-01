@@ -31,9 +31,11 @@ function MagicLinkView({ email, setEmail, setAuthView }: MagicLinkViewProps): JS
       return setError({ message: 'Please enter a valid email address.' });
     }
 
-    const { error } = await supabase.auth.signIn({
-      email,
-    });
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: 'example@email.com',
+      password: 'example-password',
+    })
 
     if (error) {
       console.log(error);
@@ -55,18 +57,6 @@ function MagicLinkView({ email, setEmail, setAuthView }: MagicLinkViewProps): JS
         Don&apos;t worry, we&apos;ll save your comment.
       </p>
       <div>
-        <div>
-          <button
-            className="px-4 py-2 rounded shadow-sm w-full flex items-center justify-center border border-gray-300 text-gray-800 focus-ring"
-            onClick={() => supabase.auth.signIn({ provider: 'github' })}
-            aria-label="Sign in with GitHub"
-          >
-            <Github className="w-5 h-5 dark:text-white" />
-            <span className="ml-2 text-sm leading-none dark:text-gray-200">
-              Sign in with GitHub
-            </span>
-          </button>
-        </div>
         <div className="flex items-center my-3">
           <div className="w-full h-px bg-gray-300"></div>
           <div className="text-gray-600 text-sm px-2 flex-shrink-0 dark:text-gray-200">

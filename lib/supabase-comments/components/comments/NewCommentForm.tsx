@@ -8,8 +8,6 @@ import punctuationRegex from '@/lib/supabase-comments/utils/regex/punctuationReg
 import { CommentType } from '@/lib/supabase-comments/utils/types';
 import { useUser } from '@/lib/supabase-comments/hooks/use-user';
 import cn from 'classnames';
-// import { cuid2 } from 'cuid2';
-// import cuid2 from 'cuid2';
 import cuid2 from '@paralleldrive/cuid2';
 import React, { useRef, useState, useEffect } from 'react';
 import NewUserModal from '@/lib/supabase-comments/components/comments/NewUserModal';
@@ -95,11 +93,7 @@ const NewCommentForm = ({
       .join('-')
       .toLowerCase();
 
-    // const slug = `${postString}-${cuid.slug()}`;
-
     // @ts-ignore - The cuid2 package does not have proper TypeScript types defined, 
-    // so TypeScript does not recognize it as callable even though it is a function.
-    // This ignores the invalid error about it not being callable.
     const uniqueId = cuid2();
     const slug = `${postString}-${uniqueId}`;
 
@@ -139,8 +133,8 @@ const NewCommentForm = ({
       console.log(error);
     } else if (data !== null) {  // Add this check to ensure data is not null
       mutateComments(async (staleResponses: CommentType[]) => {
-        const newResponse = {
-          ...data[0],
+        const newResponse: CommentType = {
+          ...(data[0] as CommentType), // Use type assertion to ensure data is not null,
           author: profile,
           responses: [],
           responsesCount: 0,
