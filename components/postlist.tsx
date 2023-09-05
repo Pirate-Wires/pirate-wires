@@ -113,7 +113,7 @@ export default function PostList({
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
                   <Link
                     href={`/p/${pathPrefix ? `${pathPrefix}/` : ""
-                      }${post.slug.current}`}
+                      }${post?.slug?.current}`}
                     legacyBehavior>
                     {post.excerpt}
                   </Link>
@@ -123,11 +123,11 @@ export default function PostList({
 
             <div className="flex items-center mt-3 space-x-3 text-gray-500 dark:text-gray-400">
               <Link
-                href={`/author/${post.author.slug.current}`}
+                href={`/author/${post?.author?.slug?.current}`}
                 legacyBehavior>
                 <div className="flex items-center gap-3">
                   <div className="relative flex-shrink-0 w-5 h-5">
-                    {post.author.image && (
+                    {post?.author?.image && (
                       <Image
                         // @ts-ignore
                         src={AuthorimageProps.src}
@@ -141,7 +141,7 @@ export default function PostList({
                     )}
                   </div>
                   <span className="text-sm truncate">
-                    {post.author.name}
+                    {post?.author?.name}
                   </span>
                 </div>
               </Link>
