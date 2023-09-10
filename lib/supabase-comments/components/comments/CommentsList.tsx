@@ -1,3 +1,4 @@
+// lib/supa-base-comments/components/comments/CommentsList.tsx
 "use client"
 import Comment from '@/lib/supabase-comments/components/comments/Comment';
 import CommentSkeleton from '@/lib/supabase-comments/components/comments/CommentSkeleton';
@@ -23,9 +24,6 @@ interface Props {
   initialData?: CommentType | null;
   useInfiniteScroll: boolean;
 }
-
-
-
 
 const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props): JSX.Element => {
   const {
@@ -67,6 +65,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
 
   if (error || commentsError) {
     console.log(error);
+    console.log(commentsError);
     return (
       <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
         An error occurred.

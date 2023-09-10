@@ -1,5 +1,11 @@
-"use client"
+
 // app/(website)/p/[slug]/default.tsx
+import {
+  getSession,
+  getUserDetails,
+  getSubscription,
+  getActiveProductsWithPrices
+} from '@/app/(website)/supabase-server';
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/container";
@@ -18,9 +24,23 @@ import HeartButton from '@/lib/supabase-comments/components/comments/HeartButton
 import { ModalProvider } from '@/lib/supabase-comments/hooks/use-modal';
 import Github from '@/lib/supabase-comments/icons/Github';
 
+export default async function Post(props) {
+  const [session, userDetails, products, subscription] = await Promise.all([
+    getSession(),
+    getUserDetails(),
+    getActiveProductsWithPrices(),
+    getSubscription()
+  ]);
+
+  const user = session?.user;
+  console.log('user', user)
+
+  console.log(user?.id);
+  console.log(user?.email);
+  console.log(user?.aud);
+  console.log(user?.role);
 
 
-export default function Post(props) {
 
   const { loading, post } = props;
 
@@ -112,9 +132,43 @@ export default function Post(props) {
             {post.body && <PortableText value={post.body} />}
           </div>
         </article>
+
+      </Container>
+
+
+
+
+      {/* Paid Content */}
+      <Container>
+        <article className="mx-auto max-w-screen-md ">
+          <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-500 border p-12">
+
+
+
+            <div className="flex justify-center">
+              <div className="w-full max-w-screen-md">
+                <div className="flex justify-center">
+                  <div className="flex flex-col items-center justify-center w-full max-w-screen-md">
+                    <div className="flex flex-col items-center justify-center w-full max-w-screen-md text-xs text-gray">
+                      Paid content block for: {user?.email}, {user?.id}, {user?.role}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            {post.paidContent && <PortableText value={post.paidContent} />}
+          </div>
+        </article>
         {post.author && <AuthorCard author={post.author} />}
       </Container>
 
+      <Container>
+        <section className="mx-auto max-w-screen-md border py-24">
+          <CommentSection />
+        </section>
+      </Container >
     </>
   );
 }

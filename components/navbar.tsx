@@ -196,7 +196,7 @@ export default function Navbar(props) {
                 </div>
 
                 <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row">
-                  <Link href="/account-design" className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
+                  <Link href="/account" className="px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400">
 
                     <img
                       className="h-12 w-12 rounded-full"

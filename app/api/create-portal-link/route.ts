@@ -1,3 +1,4 @@
+// app/api/create-portal-link/route.ts
 import type { Database } from '@/types/supabase';
 import { getURL } from '@/utils/helpers';
 import { stripe } from '@/utils/stripe';

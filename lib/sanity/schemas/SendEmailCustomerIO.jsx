@@ -83,7 +83,7 @@ export default function SendEmail(props) {
   const slugValue = useFormValue(['slug']);
   const slug = slugValue ? slugValue.current : '';
 
-  console.log('mainImage', mainImage);
+  // console.log('mainImage', mainImage);
 
   // minor scorcery to get the sectionBroadcastId value
   let sectionBroadcastId = 0;

@@ -73,8 +73,6 @@ export default async function Account() {
     revalidatePath('/account');
   };
 
-  // console.log(session);
-
   return (
     <section className="mb-32">
 

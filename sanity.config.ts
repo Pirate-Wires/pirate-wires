@@ -14,7 +14,6 @@ import { vercelDeployTool } from 'sanity-plugin-vercel-deploy';
 import { deskTool } from 'sanity/desk';
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = ['post'];
-console.log(projectId);
 
 export default defineConfig({
   name: 'default',

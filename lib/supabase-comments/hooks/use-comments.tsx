@@ -1,3 +1,4 @@
+// lib/supabase-comments/hooks/use-comments.tsx
 "use client"
 import { PAGE_SIZE } from '@/lib/supabase-comments/constants/pagination';
 import { useUser } from '@/lib/supabase-comments/hooks/use-user';
@@ -5,7 +6,7 @@ import { definitions } from '@/lib/supabase-comments/types/supabase';
 import supabase from '@/lib/supabase-comments/utils/initSupabase';
 import type { CommentType, User } from '@/lib/supabase-comments/utils/types';
 import { arrayToTree } from 'performant-array-to-tree';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useRef } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 
@@ -70,44 +71,59 @@ interface CommentsContextProviderProps {
 
 const postgresArray = (arr: any[]): string => `{${arr.join(',')}}`;
 
+console.log('postgresArray', postgresArray);
+
 export const CommentsContextProvider = (props: CommentsContextProviderProps): JSX.Element => {
+
+
+
   const { postId } = props;
   const { user } = useUser();
-  const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathVotesRecent');
+  const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathMostRecent');
 
 
 
-  const { data: count, mutate: mutateGlobalCount, error: commentsError } = useSWR<number | null, any>(
-    `globalCount_${postId}`,
-    {
-      fetcher: () => null,
-      revalidateOnFocus: false,
-      revalidateOnMount: false,
+
+  const { data: count, mutate: mutateGlobalCount, error: commentsError } = useSWR<
+    number | null,
+    any
+  >(`globalCount_${postId}`, {
+    initialData: null,
+    fetcher: () => null,
+    revalidateOnFocus: false,
+    revalidateOnMount: false,
+  });
+
+  console.log('postId', postId);
+
+  const { data: rootComment, mutate: mutateRootComment } = useSWR(['posts', postId, user], async (_, { postId }) => {
+
+    if (typeof postId !== 'number' || isNaN(postId)) {
+      // Handle the case where postId is undefined or not a valid number
+      console.error('postId is not a valid number:', postId);
+      return null; // or handle it according to your application's logic
     }
-  );
 
-
-
-  const { data: rootComment, mutate: mutateRootComment } = useSWR(
-    ['posts', postId, user],
-    async (_, postId, _user) =>
-      supabase
-        .from('comments_thread_with_user_vote')
+    // Continue with the query if postId is valid
+    try {
+      const { data, error } = await supabase
+        .from<definitions['comments_thread_with_user_vote']>('comments_thread_with_user_vote')
         .select('*')
-        .eq('id', postId)
-        .then(({ data, error }) => {
-          if (error) {
-            console.log(error);
-            throw error;
-          }
+        .eq('id', postId);
 
-          if (!data?.[0]) return null;
+      if (error) {
+        console.error('Error in query:', error);
+        throw error;
+      }
 
-          return (data[0] as unknown) as CommentType;
-        })
-  );
+      if (!data?.[0]) return null;
 
-
+      return (data[0] as unknown) as CommentType;
+    } catch (error) {
+      console.error('Error in query:', error);
+      throw error;
+    }
+  });
 
   const getKey = (
     pageIndex: number,
@@ -130,18 +146,35 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     ];
   };
 
+
+  // Inside your component function
+  console.log('sortingBehavior', sortingBehavior);
+  // const sortingBehaviorRef = sortingBehavior;
+  const sortingBehaviorRef = useRef(sortingBehavior);
+
+
   const { data, error, size, setSize, mutate: mutateComments } = useSWRInfinite(
     (pageIndex, previousPageData) =>
       getKey(pageIndex, previousPageData, postId, sortingBehavior, user), // Include user to revalidate when auth changes
     async (_name, path, sortingBehavior, _user) => {
+      // Add the check for postId and debugging for sortingBehavior here
+      if (typeof postId !== 'number' || isNaN(postId)) {
+        // Handle the case where postId is undefined or not a valid number
+        console.error('postId is not a valid number:', postId);
+        return null; // or handle it according to your application's logic
+      }
+
+      console.log('sortingBehavior in useSWRInfinite query', sortingBehavior);
+      console.log(sortingBehaviorRef);
+
       return (
         supabase
-          .from('comments_thread_with_user_vote')
+          .from<definitions['comments_thread_with_user_vote']>('comments_thread_with_user_vote')
           .select('*', { count: 'exact' })
           .contains('path', [postId])
           // .lt('depth', MAX_DEPTH)
-          .gt(sortingBehavior, path)
-          .order(sortingBehavior as any)
+          .gt(sortingBehaviorRef, path)
+          .order(sortingBehaviorRef as any)
           .limit(PAGE_SIZE)
           .then(({ data, error, count: tableCount }) => {
             if (error) throw error;
@@ -157,9 +190,10 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     },
     {
       revalidateOnFocus: false,
-      // revalidateOnMount: !cache.has(['comments_thread_with_user_vote', postgresArray([postId])]),
     }
   );
+
+
 
   const flattenedComments: CommentType[] = data ? data.flat() : [];
 
@@ -185,10 +219,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
   const isLoadingMore =
     isLoadingInitialData || !!(size > 0 && data && typeof data[size - 1] === 'undefined');
   const isEmpty = !data || data?.[0]?.length === 0;
-
-
   const remainingCount = !count || isEmpty ? 0 : count - flattenedComments.length;
-  // @ts-ignore
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
   function loadMore(): void {

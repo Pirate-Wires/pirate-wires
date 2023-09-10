@@ -11,15 +11,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const post = await getPostBySlug(params.slug);
   return { title: post.title };
+
 }
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
-  console.log('post', post);
-  // console.log(post._id); // Make sure you see the id here
   return (
     <>
-      <CommentsContextProvider postId={post._id}>
+      <CommentsContextProvider postId={1}>
         <PostPage post={post} />
       </CommentsContextProvider>
     </>

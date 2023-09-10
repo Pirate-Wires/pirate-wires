@@ -11,12 +11,12 @@ const config = {
 };
 
 const client = createClient(config);
-console.log('client', client);
-console.log('dataset', dataset);
-console.log('projectId', projectId);
-console.log('apiVersion', apiVersion);
-console.log('useCdn', useCdn);
-console.log('token', process.env.SANITY_API_TOKEN);
+// console.log('client', client);
+// console.log('dataset', dataset);
+// console.log('projectId', projectId);
+// console.log('apiVersion', apiVersion);
+// console.log('useCdn', useCdn);
+// console.log('token', process.env.SANITY_API_TOKEN);
 async function createComment(req: NextRequest, res: NextResponse) {
   // return NextResponse.json({ message: 'Comment submitted' }, { status: 200 });
   // De-structuring the form's fields
@@ -24,8 +24,8 @@ async function createComment(req: NextRequest, res: NextResponse) {
 
   const { _id, name, email, comment } = body;
 
-  console.log('Received comment data:', body);
-  console.log('Post _id:', _id); // Add this line
+  // console.log('Received comment data:', body);
+  // console.log('Post _id:', _id);
   try {
     // Creating a document in sanity studio CMS for Comments with creating a schema for it
     await client.create({
