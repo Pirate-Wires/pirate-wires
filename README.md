@@ -40,6 +40,10 @@ Email template design happens here. Presently we are using a Foundation based CS
 
 Team members please ping [@whaleen](https://github.com/whaleen) for env vars.
 
+## Local Sanity Studio
+
+`sanity start`
+
 ### CLI
 
 CLI for Vercel, Sanity, and Supabase, are installed as devDependencies.
