@@ -1,6 +1,6 @@
 const schema = {
   name: 'podcast',
-  title: 'Podcast',
+  title: 'Podcasts',
   type: 'document',
   initialValue: () => ({
     publishedAt: new Date().toISOString()

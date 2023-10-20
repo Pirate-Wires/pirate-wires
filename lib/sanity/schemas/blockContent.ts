@@ -1,6 +1,7 @@
 // lib/sanity/schemas/blockContent.ts
 import IframePreview from './previews/iframe';
 import TablePreview from './previews/table';
+import CustomBlockEditor from './CustomBlockEditor'; // Import the CustomBlockEditor component
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -26,7 +27,7 @@ const schema = {
       // use your content.
       styles: [
         { title: 'Normal', value: 'normal' },
-        // {title: 'H1', value: 'h1'},
+        { title: 'H1', value: 'h1' },
         { title: 'H2', value: 'h2' },
         { title: 'H3', value: 'h3' },
         { title: 'H4', value: 'h4' },
@@ -45,7 +46,15 @@ const schema = {
           { title: 'Emphasis', value: 'em' },
           { title: 'Code', value: 'code' },
           { title: 'Underline', value: 'underline' },
-          { title: 'Strike', value: 'strike-through' }
+          { title: 'Strike', value: 'strike-through' },
+          {
+            title: 'Section Content',
+            value: 'sectionContent',
+            icon: () => 'SC',
+            blockEditor: {
+              render: CustomBlockEditor // Use the CustomBlockEditor component
+            }
+          }
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [

@@ -1,7 +1,10 @@
+import { TagsIcon } from '@sanity/icons';
+
 const schema = {
   name: 'category',
-  title: 'Category',
+  title: 'Categories',
   type: 'document',
+  icon: TagsIcon,
   fields: [
     {
       name: 'title',

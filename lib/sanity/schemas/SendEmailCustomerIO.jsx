@@ -19,27 +19,40 @@ const authorImages = {
     'https://pirate-wires.vercel.app/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcjtc1tnd%2Fproduction%2F63507c74248557cf7af33eb17b73473c3d86dedc-224x224.webp%3Fw%3D224%26auto%3Dformat&w=640&q=75'
 };
 
-// todo: figure out the components thing
-// const components = {
-//   types: {
-//     image: ({ value }) => {
-//       if (value && value.asset && value.asset._ref) {
-//         return `<img src="${value.asset._ref}" />`;
-//       } else {
-//         return '';
-//       }
-//     },
-//     embed: ({ value }) => {
-//       if (value && value.url) {
-//         return `<iframe src="${value.url}" />`;
-//       } else {
-//         return '';
-//       }
-//     }
-//   }
-// };
+function getCdnImageUrl(imageRef, width = 500) {
+  // Check if the imageRef contains the expected format
+  if (/image-[a-zA-Z0-9-]+-\d+x\d+-\w+/.test(imageRef)) {
+    const cdnUrl = 'https://cdn.sanity.io/images/cjtc1tnd/production/';
+    // Ensure there's only one ?w= in the URL
+    const imageUrl = `${cdnUrl}${imageRef}`;
+    return `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}w=${width}`;
+  } else {
+    return ''; // Handle the case when the imageRef format doesn't match expectations
+  }
+}
 
-// todd: are we going to pass props in or just handle everyhting within the main function?
+// todo: figure out the components thing
+const components = {
+  types: {
+    image: ({ value }) => {
+      if (value.asset._ref) {
+        const url = getCdnImageUrl(value.asset._ref);
+        return `<img src="${url}" />`;
+      } else {
+        return '';
+      }
+    },
+    embed: ({ value }) => {
+      if (value && value.url) {
+        return `<iframe src="${value.url}" />`;
+      } else {
+        return '';
+      }
+    }
+  }
+};
+
+// todd: are we going to pass props in or just handle everything within the main function?
 export default function SendEmail(props) {
   const [authorName, setAuthorName] = useState();
   const [authorNameSlug, setAuthorNameSlug] = useState();
@@ -76,7 +89,8 @@ export default function SendEmail(props) {
   const preface = useFormValue(['preface']) || '';
   const body = useFormValue(['body']) || '';
   const _createdAt = useFormValue(['_createdAt']) || '';
-  const bodyHtml = toHTML(body);
+  const bodyHtml = toHTML(body, { components });
+
   const author = useFormValue(['author']) || '';
 
   // minor scorcery to get the slug value
@@ -98,12 +112,24 @@ export default function SendEmail(props) {
   // use the authorNameSlug, now get the matching key from authorImages and put its value in a authorImage variable
   const authorImageURL = authorImages[authorNameSlug];
 
-  const formattedBodyHtml = bodyHtml
-    .replace(/<a href="(.*?)">(.*?)<\/a>/gi, '<Link href="$1">$2</Link>')
-    .replace(/<img src="(.*?)" \/>/gi, '<Img src="$1" alt="placeholder" />')
-    .replace(/<p>(.*?)<\/p>/gi, '<Text>$1</Text>')
-    .replace(/<\/h[1-6]>/gi, '</h$0>\n')
-    .replace(/<\/blockquote>/gi, '</blockquote>\n');
+  // Modify the bodyHtml to prepend the cdnUrl to image URLs
+  const updatedBodyHtml = bodyHtml.replace(
+    /https:\/\/cdn\.sanity\.io\/images\/cjtc1tnd\/production\/(.*?)"/gi,
+    (match, p1) => {
+      return getCdnImageUrl(p1);
+    }
+  );
+
+  // formattedBodyHtml is a artifact from a previous attempt to convert the html tags content to react components. dumb idea. leaving it here for now as a reference. as we need to do some replacement work on the html tags to make them work in the email.
+  // const formattedBodyHtml = bodyHtml
+  //   .replace(/<a href="(.*?)">(.*?)<\/a>/gi, '<Link href="$1">$2</Link>')
+  //   .replace(
+  //     /<img src="(.*?)" \/>/gi,
+  //     '<Img src="${cdnUrl}$1" alt="placeholder" />'
+  //   )
+  //   .replace(/<p>(.*?)<\/p>/gi, '<Text>$1</Text>')
+  //   .replace(/<\/h[1-6]>/gi, '</h$0>\n')
+  //   .replace(/<\/blockquote>/gi, '</blockquote>\n');
 
   // const markdownFormattedHtml = toMarkdown(body); // Convert the PortableText content to Markdown
 
@@ -114,7 +140,7 @@ export default function SendEmail(props) {
     preface: '',
     bodyHtml: '',
     body: '',
-    formattedBodyHtml: '',
+    // formattedBodyHtml: '',
     authorName: '',
     authorNameSlug: ''
   });
@@ -128,7 +154,7 @@ export default function SendEmail(props) {
       preface: preface,
       bodyHtml: bodyHtml,
       body: body,
-      formattedBodyHtml: formattedBodyHtml,
+      // formattedBodyHtml: formattedBodyHtml,
       authorName: authorName,
       authorNameSlug: authorNameSlug,
       authorImageURL: authorImageURL
@@ -141,7 +167,7 @@ export default function SendEmail(props) {
     preface,
     bodyHtml,
     body,
-    formattedBodyHtml,
+    // formattedBodyHtml,
     authorName,
     authorNameSlug,
     authorImageURL
@@ -170,6 +196,7 @@ export default function SendEmail(props) {
       authorImageURL: authorImageURL
     }
   };
+
   const [selectedEmail, setSelectedEmail] = useState('reader@piratewires.us'); // Added state for selected email
 
   const [showSuccessMessage, setShowSuccessMessage] = React.useState(false);
@@ -233,8 +260,8 @@ export default function SendEmail(props) {
           <option value="reader@piratewires.us"> reader@piratewires.us</option>
           <option value="mike@piratewires.com">mike@piratewires.com</option>
           <option value="eric@piratewires.com">eric@piratewires.com</option>
-          <option value="joshuavaage@icloud.com">joshuavaage@icloud.com</option>
-          <option value="fran@boringprotocol.io">fran@boringprotocol.io</option>
+          {/* <option value="joshuavaage@icloud.com">joshuavaage@icloud.com</option>
+          <option value="fran@boringprotocol.io">fran@boringprotocol.io</option> */}
           <option value="thefranswan@gmail.com">thefranswan@gmail.com</option>
         </select>
       </p>
@@ -271,6 +298,8 @@ export default function SendEmail(props) {
       <div className="space-y-2">
         <p className="text-xs py-3">
           broadcastId: {broadcastId} | {section} segment
+          <br />
+          {updatedBodyHtml}
         </p>
       </div>
     </div>

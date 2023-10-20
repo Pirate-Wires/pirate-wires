@@ -1,12 +1,27 @@
+import { UsersIcon } from '@sanity/icons';
+
 const schema = {
   name: 'author',
-  title: 'Author',
+  title: 'Authors',
   type: 'document',
+  icon: UsersIcon,
   fields: [
     {
       name: 'name',
       title: 'Name',
       type: 'string'
+    },
+    {
+      title: 'Position',
+      name: 'position',
+      type: 'string',
+      initialValue: 'core',
+      options: {
+        list: [
+          { title: 'Core Writer', value: 'core' },
+          { title: 'Contributor', value: 'contributor' }
+        ]
+      }
     },
     {
       name: 'slug',
@@ -42,7 +57,8 @@ const schema = {
   preview: {
     select: {
       title: 'name',
-      media: 'image'
+      media: 'image',
+      position: 'position'
     }
   }
 };

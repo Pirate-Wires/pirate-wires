@@ -3,7 +3,7 @@ import SendEmailCustomerIO from './SendEmailCustomerIO';
 
 const schema = {
   name: 'post',
-  title: 'Post',
+  title: 'Posts',
   type: 'document',
   initialValue: () => ({
     publishedAt: new Date().toISOString()
@@ -20,36 +20,6 @@ const schema = {
       placeholder: 'Enter title here',
       title: 'Title',
       type: 'string'
-    },
-    {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime'
-    },
-    {
-      name: 'excerpt',
-      title: 'Excerpt / Subtitle',
-      description:
-        'The excerpt is used in blog feeds and as the subtitle in Newsletters, and also for search results',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.max(200)
-    },
-    {
-      name: 'preface',
-      title: 'Preface',
-      description: 'Optional note from Solana/Editor preceding the article. ',
-      type: 'text'
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent'
-    },
-    {
-      name: 'paidContent',
-      title: 'Paid Content',
-      type: 'blockContent'
     },
     {
       name: 'author',
@@ -70,6 +40,35 @@ const schema = {
         ]
       }
     },
+    {
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime'
+    },
+    {
+      name: 'excerpt',
+      title: 'Excerpt / Subtitle',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.max(200)
+    },
+    {
+      name: 'preface',
+      title: 'Preface',
+      description: 'Optional note from Solana/Editor preceding the article. ',
+      type: 'text'
+    },
+    {
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent'
+    },
+    // {
+    //   name: 'paidContent',
+    //   title: 'Paid Content',
+    //   type: 'blockContent'
+    // },
+
     {
       name: 'categories',
       title: 'Categories',

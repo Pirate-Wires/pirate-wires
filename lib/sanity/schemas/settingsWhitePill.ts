@@ -1,11 +1,12 @@
-import { CogIcon } from '@sanity/icons';
+import { LuPill } from 'react-icons/lu';
+
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export default defineType({
-  name: 'settings',
+  name: 'settingsWhitePill',
   type: 'document',
-  title: 'Global Settings',
-  icon: CogIcon,
+  title: 'White Pill',
+  icon: LuPill,
   fieldsets: [
     {
       title: 'SEO & metadata',
@@ -20,7 +21,7 @@ export default defineType({
       name: 'social'
     },
     {
-      title: 'Website Logo',
+      title: 'Section Logo',
       name: 'logos',
       options: {
         collapsible: true,
@@ -32,19 +33,7 @@ export default defineType({
     defineField({
       name: 'title',
       type: 'string',
-      title: 'Site title'
-    }),
-    defineField({
-      title: 'URL',
-      name: 'url',
-      type: 'url',
-      description: 'The main site url. Used to create canonical url'
-    }),
-    defineField({
-      name: 'copyright',
-      type: 'string',
-      title: 'Copyright Name',
-      description: 'Enter company name to appear in footer after ©'
+      title: 'Section title'
     }),
     defineField({
       title: 'Main logo',
@@ -77,26 +66,6 @@ export default defineType({
           description: 'Important for SEO and accessiblity.'
         }
       ]
-    }),
-
-    defineField({
-      name: 'email',
-      type: 'string',
-      title: 'Support Email',
-      validation: (Rule) =>
-        Rule.regex(
-          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-          {
-            name: 'email', // Error message is "Does not match email-pattern"
-            invert: false // Boolean to allow any value that does NOT match pattern
-          }
-        )
-    }),
-
-    defineField({
-      name: 'phone',
-      type: 'string',
-      title: 'Support Phone'
     }),
 
     defineField({
