@@ -85,6 +85,13 @@ export const configQuery = groq`
 }
 `;
 
+// Get Global Fields (color defs, home page fields, section defaults)
+export const globalFieldsQuery = groq`
+*[_type == "globalFields"][0] {
+  ...,
+}
+`;
+
 // Single Post
 export const singlequery = groq`
 *[_type == "post" && slug.current == $slug][0] {

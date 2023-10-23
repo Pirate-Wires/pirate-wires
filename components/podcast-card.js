@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { cx } from "@/utils/all";
-import { parseISO, format } from "date-fns";
 import { urlForImage } from "@/lib/sanity/image";
 import Link from "next/link";
+import {useDateFormatter} from "@/hooks/useDateFormatter";
 
 export default function PodcastCard({
   podcast,
@@ -148,10 +148,7 @@ export default function PodcastCard({
             <time
               className="text-sm truncate"
               dateTime={podcast?.publishedAt || podcast._createdAt}>
-              {format(
-                parseISO(podcast?.publishedAt || podcast._createdAt),
-                "MMMM dd, yyyy"
-              )}
+              {useDateFormatter(post?.publishedAt || post._createdAt)}
             </time>
           </div>
         </div>

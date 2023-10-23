@@ -54,7 +54,7 @@ export default function Pricing({
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
     if (!user) {
-      return router.push('/signin');
+      return router.push('/sign-in');
     }
     if (subscription) {
       return router.push('/account');
@@ -152,7 +152,7 @@ export default function Pricing({
                         {products[0].name ===
                           subscription?.prices?.products?.name
                           ? 'Manage'
-                          : 'Subscribe'}
+                          : 'Newsletters'}
                       </Button>
                     </div>
                   </div>
@@ -240,7 +240,7 @@ export default function Pricing({
                     onClick={() => handleCheckout(price)}
                     className="block w-full py-2 mt-8 text-sm font-semibold text-center  rounded-xs hover:bg-zinc-900"
                   >
-                    {subscription ? 'Manage' : 'Subscribe'}
+                    {subscription ? 'Manage' : 'Newsletters'}
                   </Button>
                 </div>
               </div>

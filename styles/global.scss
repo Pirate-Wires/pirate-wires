@@ -1,0 +1,294 @@
+@import "./abstracts";
+@import "./resets";
+
+@font-face {
+  font-family: 'Gt America Compressed Bold';
+  src: url("../public/fonts/GT-America-Compressed-Bold.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Reg';
+  src: url("../public/fonts/HelveticaNeueReg.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Med';
+  src: url("../public/fonts/HelveticaNeueMed.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neue Bold';
+  src: url("../public/fonts/HelveticaNeueBold.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Global elements
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.square {
+    border: 0.5px solid var(--color);
+  }
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  font-family: $neueBold;
+  color: var(--color);
+  background-color: var(--bgColor);
+  white-space: nowrap;
+}
+
+main {
+  padding-top: 80px;
+  background-color: var(--bgColor);
+  color: var(--color);
+}
+
+footer {
+  padding-top: 40px;
+  color: var(--color);
+  .bottom {
+    border-top: 1px solid var(--color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: $neueMed;
+    font-size: 14px;
+  }
+  .left, .middle, .right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.imgWrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+// Global author styles
+.authorTile {
+  display: flex;
+  flex-direction: column;
+  width: calc(25% - 30px);
+  position: relative;
+  &:after {
+    width: 0.5px;
+    background-color: var(--color);
+    height: 100%;
+    right: -20px;
+    top: 0;
+    position: absolute;
+    content: "";
+  }
+}
+
+// Global post styles
+.postGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  article, .pubLink {
+    width: calc((100% / 3) - 27px);
+    position: relative;
+    &:before {
+      content: "";
+      height: 0.5px;
+      width: 100%;
+      background-color: var(--accentDark);
+      position: absolute;
+      left: 0;
+      top: -20px;
+    }
+    &:after {
+      content: "";
+      width: 0.5px;
+      height: 100%;
+      background-color: var(--accentDark);
+      position: absolute;
+      right: -20px;
+      top: 0;
+    }
+    &:nth-child(n+3) {
+      &:after {
+        content: none;
+      }
+    }
+  }
+  .imgWrapper {
+    aspect-ratio: 1.5/1;
+    margin-bottom: 20px;
+  }
+  .postTitle {
+    font-family: $gtBold;
+    @include get-vw(font-size, 40px, 36px);
+    @include get-vw(letter-spacing, -1.2px, -1.08px);
+    line-height: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+.pubLink {
+  height: auto;
+  aspect-ratio: .85/1;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.10);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: flex-start;
+  h2, h3, h4 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 80px, 60px);
+    @include get-vw(letter-spacing, -2.4px, -1.8);
+    line-height: 90%;
+  }
+  .goIconWrapper {
+    align-self: flex-end;
+  }
+}
+.postAuthor {
+  font-family: $neueMed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include get-vw(font-size, 14px, 14px);
+  @include get-vw(letter-spacing, 0.07px, 0.07px);
+  margin-top: 13px;
+}
+
+.excerpt {
+  @include get-vw(font-size, 17px, 17px);
+  opacity: 0.7;
+}
+
+// Global other
+.hasGoIcon {
+  .date {
+    opacity: 0;
+    transition: .2s opacity $ease-out-sine;
+  }
+  &:hover {
+    .date {
+      opacity: 1;
+    }
+    .leftHalf {
+      transform: translateY(-2px);
+    }
+    .rightHalf {
+      transform: translateY(2px);
+    }
+  }
+}
+.goIconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: $caslon;
+  .goIcon {
+    position: relative;
+    top: -2px;
+  }
+}
+.goIcon {
+  @include get-vw(width, 20px, 20px);
+  @include get-vw(height, 20px, 20px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .leftHalf, .rightHalf {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    background-color: var(--color);
+    transition: transform .2s $ease-out-sine;
+  }
+  path {
+    fill: var(--bgColor);
+  }
+  svg {
+    position: relative;
+    z-index: 2;
+  }
+  .rightHalf {
+    left: auto;
+    right: 0;
+  }
+  .date {
+    font-family: $neueMed;
+    @include get-vw(font-size, 14px, 14px);
+    line-height: 1.43;
+    position: absolute;
+    transform: rotate(90deg);
+    transform-origin: 0 100%;
+    top: 50%;
+    left: 0;
+    white-space: nowrap;
+    height: 100%;
+  }
+}
+
+// font classes
+.caslon-reg {
+  font-family: $caslon;
+  font-weight: 400;
+}
+.caslon-med {
+  font-family: $caslon;
+  font-weight: 500;
+}
+
+// container & spacing styles
+.c-20 {
+  @include get-vw(padding-left, 20px, 20px);
+  @include get-vw(padding-right, 20px, 20px);
+  @include bp-767 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.mtb-20 {
+  @include get-vw(margin-top, 20px, 20px);
+  @include get-vw(margin-bottom, 20px, 20px);
+}
+
+.mt-20 {
+  @include get-vw(margin-top, 20px, 20px);
+}
+
+.mb-20 {
+  @include get-vw(margin-bottom, 20px, 20px);
+}
+
+.ptb-20 {
+  @include get-vw(padding-top, 20px, 20px);
+  @include get-vw(padding-bottom, 20px, 20px);
+}
+
+.pt-20 {
+  @include get-vw(padding-top, 20px, 20px);
+}
+
+.pb-20 {
+  @include get-vw(padding-bottom, 20px, 20px);
+}

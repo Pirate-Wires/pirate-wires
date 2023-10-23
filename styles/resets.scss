@@ -1,0 +1,63 @@
+/*
+	CUSTOM RESET
+
+	- Global reset _styles
+-------------------------------------------------- */
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  &:focus,
+  &:active {
+    outline: 0 none;
+  }
+}
+
+button {
+  -webkit-appearance: none;
+  border: none;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+p {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+img {
+  object-fit: cover;
+  width: 100%;
+}
+
+svg {
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}

@@ -1,5 +1,5 @@
 import Wires from "./wires";
 
-export default async function PodcastPage() {
+export default async function WiresPage() {
   return <Wires />;
 }

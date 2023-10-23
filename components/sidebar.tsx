@@ -3,7 +3,6 @@ import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
 import Label from "@/components/ui/label";
-import DateTime from "@/components/ui/time";
 
 export default function Sidebar(props) {
   return (
@@ -69,8 +68,6 @@ function RelatedPosts({ related, pathPrefix }) {
                     {item.title}
                   </h3>
                   <p className="mt-2 text-sm text-gray-500">
-                    {/* @ts-ignore */}
-                    <DateTime date={item.date} />
                   </p>
                 </div>
               </div>

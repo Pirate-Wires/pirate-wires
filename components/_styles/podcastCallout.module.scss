@@ -1,0 +1,37 @@
+@import "../../styles/abstracts";
+
+.podcastCallout {
+  color: var(--bgColor);
+  background-color: var(--color);
+  padding: 20px 20px 40px 20px;
+  display: flex;
+  h3 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 178px);
+    @include get-vw(letter-spacing, -5.34px);
+    line-height: 84.27%;
+    width: 81.4%;
+  }
+  .goIcon {
+    > div {
+      background-color: var(--bgColor);
+    }
+    path {
+      fill: var(--color);
+    }
+  }
+}
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+.image {
+  @include get-vw(width, 225px);
+  height: auto;
+  aspect-ratio: 1.77/1;
+  display: inline-block;
+  background-color: red;
+  opacity: .3;
+}

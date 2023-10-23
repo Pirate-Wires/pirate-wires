@@ -90,6 +90,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     async (_, postId, _user) => {
       console.log('getKey postId:', postId);
       const { data, error } = await supabase
+        // @ts-ignore
         .from<definitions['comments_thread_with_user_vote']>('comments_thread_with_user_vote')
         .select('*')
         .eq('id', postId);
@@ -141,6 +142,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
       console.log('path', path);
 
       const { data, error, count: tableCount } = await supabase
+        // @ts-ignore
         .from<definitions['comments_thread_with_user_vote']>('comments_thread_with_user_vote')
         .select('*', { count: 'exact' })
         .contains('path', [postId])
@@ -187,6 +189,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     isLoadingInitialData || !!(size > 0 && data && typeof data[size - 1] === 'undefined');
   const isEmpty = !data || data?.[0]?.length === 0;
   const remainingCount = !count || isEmpty ? 0 : count - flattenedComments.length;
+  // @ts-ignore
   const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
   function loadMore(): void {

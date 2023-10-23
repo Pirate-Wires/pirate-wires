@@ -3,12 +3,9 @@ import Head from "next/head";
 import { NextSeo } from "next-seo";
 import { urlForImage } from "@/lib/sanity/image";
 import Navbar from "@/components/navbar";
-import NavbarAlt from "@/components/navbaralt";
-import { cx } from "@/utils/all";
 // import defaultOG from "../public/img/og-default.jpg";
 
 import Footer from "@/components/footer";
-// import PopupWidget from "../components/popupWidget";
 
 export default function Layout(props) {
   const { children } = props;
@@ -17,7 +14,7 @@ export default function Layout(props) {
     <>
       <Head>
         <link rel="preconnect" href="https://cdn.sanity.io/" />
-        <link rel="dns-prefetch" href="https://cdn.sanity.io//" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io/" />
       </Head>
       <NextSeo
         title={props.title}
@@ -39,21 +36,10 @@ export default function Layout(props) {
         }}
       />
 
-      <div
-        className={cx(
-          props?.fontStyle,
-          "antialiased text-gray-800 dark:bg-black dark:text-gray-400"
-        )}>
-        {props.alternate ? (
-          <NavbarAlt {...props} />
-        ) : (
-          <Navbar {...props} />
-        )}
 
-        <div>{children}</div>
+      <div>{children}</div>
 
-        <Footer {...props} />
-      </div>
+      <Footer {...props} />
     </>
   );
 }

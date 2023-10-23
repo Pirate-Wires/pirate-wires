@@ -1,0 +1,58 @@
+@import "../../styles/abstracts";
+
+.latestWriters {
+  background: #1C1C1C;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  h3 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 120px, 95px);
+    @include get-vw(letter-spacing, -3.6px, -2.85px);
+    line-height: 78.333%;
+  }
+}
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+
+}
+.imgWrapper {
+  aspect-ratio: 1/1;
+  background-color: red;
+  opacity: .3;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  width: 100%;
+}
+.left  {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+.blurb {
+  font-family: $neueMed;
+  @include get-vw(font-size, 14px, 14px);
+  line-height: 142.857%;
+}
+.name {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: $gtBold;
+  @include get-vw(font-size, 40px, 36px);
+  @include get-vw(letter-spacing, -1.2px, -1.08px);
+  line-height: 95%;
+}
+.title {
+  @include get-vw(font-size, 15px, 15px);
+  line-height: 133.333%;
+  letter-spacing: -0.45px;
+  margin-top: 10px;
+}

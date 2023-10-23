@@ -21,7 +21,7 @@ export default async function Navbar() {
             {user ? (
               <SignOutButton />
             ) : (
-              <Link href="/signin" className={s.link}>
+              <Link href="/sign-in" className={s.link}>
                 Sign in
               </Link>
             )}

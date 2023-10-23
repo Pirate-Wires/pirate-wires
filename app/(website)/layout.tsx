@@ -1,9 +1,10 @@
 import SupabaseProvider from './supabase-provider';
-import { getSettings } from "@/lib/sanity/client";
+import {getGlobalFields, getSettings} from "@/lib/sanity/client";
 import Footer from "@/components/footer";
 import { urlForImage } from "@/lib/sanity/image";
 import Navigation from '@/components/navigation';
 import SectionTabs from '@/components/section-tabs';
+import React from "react";
 
 export async function sharedMetaData(params) {
   const settings = await getSettings();
@@ -49,21 +50,15 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Layout({ children, params }) {
-  const settings = await getSettings();
+  const globalFields = await getGlobalFields();
   return (
     <>
       <SupabaseProvider>
-
-        {/* <Navbar {...settings} /> */}
-        <Navigation />
-
-        <div className="flex items-center justify-center py-4">
-          <SectionTabs />
-        </div>
-
-        <div>{children}</div>
-
-        <Footer {...settings} />
+        <main style={{ "--color": globalFields.wires_color, "--bgColor": globalFields.wires_bgcolor, "--accentLight": "rgba(227, 227, 227, 0.28)", "--accentDark": "rgba(227, 227, 227, 0.45)"} as React.CSSProperties}>
+          <Navigation globalFields={globalFields} />
+          <div>{children}</div>
+          <Footer globalFields={globalFields} />
+        </main>
       </SupabaseProvider>
     </>
   );

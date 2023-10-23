@@ -1,0 +1,200 @@
+@use 'sass:math';
+
+$gtBold: "Gt America Compressed Bold", sans-serif;
+$neueReg: "Neue Reg", sans-serif;
+$neueMed: "Neue Med", sans-serif;
+$neueBold: "Neue Bold", sans-serif;
+$caslon: "adobe-caslon-pro", serif;
+
+$ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$ease-in-sine: cubic-bezier(0.47, 0, 0.745, 0.715);
+$ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+$ease-in-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
+$ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+$ease-out-sine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+$ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+$ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+$ease-in-out-sine: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+$ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+$ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+$ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+/* ----- MEDIA QUERIES ----- */
+@mixin bp-320 {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+@mixin bp-370 {
+  @media screen and (max-width: 370px) {
+    @content;
+  }
+}
+@mixin bp-389 {
+  @media screen and (max-width: 389px) {
+    @content;
+  }
+}
+@mixin bp-420 {
+  @media screen and (max-width: 420px) {
+    @content;
+  }
+}
+@mixin bp-480 {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
+}
+@mixin bp-518 {
+  @media screen and (max-width: 518px) {
+    @content;
+  }
+}
+@mixin bp-767 {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin bp-959 {
+  @media screen and (max-width: 959px) {
+    @content;
+  }
+}
+@mixin bp-1024 {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+@mixin bp-1100 {
+  @media screen and (max-width: 1100px) {
+    @content;
+  }
+}
+@mixin bp-1140 {
+  @media screen and (max-width: 1140px) {
+    @content;
+  }
+}
+@mixin bp-1185 {
+  @media screen and (max-width: 1185px) {
+    @content;
+  }
+}
+
+@mixin bp-1200 {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+@mixin bp-1300 {
+  @media screen and (max-width: 1300px) {
+    @content;
+  }
+}
+@mixin bp-1440 {
+  @media screen and (max-width: 1440px) {
+    @content;
+  }
+}
+@mixin bp-1680 {
+  @media screen and (max-width: 1680px) {
+    @content;
+  }
+}
+@mixin bp-1920 {
+  @media screen and (max-width: 1920px) {
+    @content;
+  }
+}
+
+@function get-vw($target) {
+  $vw-context: (1440 * 0.01) * 1px;
+  @return ($target / $vw-context) * 1vw;
+}
+
+/* ----- SIZE and auto Generate breakpoint for mobile size ----- */
+@mixin get-vw($property, $desktop-size, $mobile-size: false) {
+  // Viewport width of design
+  $reference-width: 1680;
+
+  //Desktop size
+  $vw-context: $reference-width * 0.01 * 1px;
+  #{$property}: math.div($desktop-size, $vw-context) * 1vw;
+
+  //$minBp: ($reference-width * 1.1px);
+  //@media screen and (min-width: $minBp) {
+  //  #{$property}: (strip-unit($desktop-size) * 1.2px);
+  //}
+
+  // Mobile size
+  @if $mobile-size {
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
+
+    @media screen and (max-width: $bp) {
+      #{$property}: $mobile-size;
+    }
+  }
+}
+
+@mixin get-vw-small-increase($property, $desktop-size, $mobile-size: false) {
+  // Viewport width of design
+  $reference-width: 1680;
+
+  //Desktop size
+  $vw-context: $reference-width * 0.01 * 1px;
+  #{$property}: math.div($desktop-size, $vw-context) * 1vw;
+
+  $minBp: ($reference-width * 1.05px);
+  @media screen and (min-width: $minBp) {
+    #{$property}: (strip-unit($desktop-size) * 1.05px);
+  }
+
+  // Mobile size
+  @if $mobile-size {
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
+
+    @media screen and (max-width: $bp) {
+      #{$property}: $mobile-size;
+    }
+  }
+}
+
+@mixin get-vw-no-max($property, $desktop-size, $mobile-size: false) {
+  // Viewport width of design
+  $reference-width: 1440;
+
+  //Desktop size
+  $vw-context: $reference-width * 0.01 * 1px;
+  #{$property}: math.div($desktop-size, $vw-context) * 1vw;
+
+  // Mobile size
+  @if $mobile-size {
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
+
+    @media screen and (max-width: $bp) {
+      #{$property}: $mobile-size;
+    }
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+
+  @return $number;
+}

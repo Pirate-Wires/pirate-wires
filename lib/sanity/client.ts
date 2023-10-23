@@ -5,6 +5,7 @@ import {
   limitquery,
   paginatedquery,
   configQuery,
+  globalFieldsQuery,
   singlequery,
   pathquery,
   allauthorsquery,
@@ -52,6 +53,13 @@ export async function getAllPodcasts() {
 export async function getSettings() {
   if (client) {
     return (await client.fetch(configQuery)) || [];
+  }
+  return [];
+}
+
+export async function getGlobalFields() {
+  if (client) {
+    return (await client.fetch(globalFieldsQuery)) || [];
   }
   return [];
 }

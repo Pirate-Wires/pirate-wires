@@ -8,6 +8,7 @@ import podcast from './podcast';
 import job from './jobs';
 import post from './post';
 import settings from './settings';
+import globalFields from './globalFields';
 import settingsPirateWires from './settingsPirateWires';
 import settingsWhitePill from './settingsWhitePill';
 import settingsIndustry from './settingsIndustry';
@@ -19,6 +20,7 @@ export const schemaTypes = [
   author,
   category,
   settings,
+  globalFields,
   settingsPirateWires,
   settingsWhitePill,
   settingsIndustry,

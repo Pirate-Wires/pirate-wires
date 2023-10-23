@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { cx } from "@/utils/all";
 import { urlForImage } from "@/lib/sanity/image";
-import { parseISO, format } from "date-fns";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import CategoryLabel from "@/components/blog/category";
+import {useDateFormatter} from "@/hooks/useDateFormatter";
 
 export default function PostAlt({
   post,
@@ -64,10 +64,7 @@ export default function PostAlt({
             <time
               className="text-sm"
               dateTime={post?.publishedAt || post._createdAt}>
-              {format(
-                parseISO(post?.publishedAt || post._createdAt),
-                "MMMM dd, yyyy"
-              )}
+              {useDateFormatter(post?.publishedAt || post._createdAt)}
             </time>
           </div>
 

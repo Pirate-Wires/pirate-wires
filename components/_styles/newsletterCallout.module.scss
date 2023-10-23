@@ -1,0 +1,43 @@
+@import "../../styles/abstracts";
+
+.newsletterCallout {
+  width: 100%;
+
+}
+.inner {
+  display: flex;
+  flex-direction: column;
+  @include get-vw(gap, 28px, 28px);
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.top {
+  display: flex;
+  flex-direction: column;
+}
+.tile {
+  width: calc((100% / 3) - 27px);
+}
+.title {
+  @include get-vw(font-size, 80px, 60px);
+  @include get-vw(letter-spacing, -2.4px, -1.8);
+  line-height: 90%;
+}
+.subtitle {
+  @include get-vw(font-size, 15px, 15px);
+  line-height: 1.33;
+}
+.description {
+
+}
+.tileBottom {
+  display: flex;
+  justify-content: space-between;
+}
+.checkbox-wrapper {
+  display: flex;
+  gap: 10px;
+}

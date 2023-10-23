@@ -4,7 +4,7 @@ import { defineArrayMember, defineField, defineType } from 'sanity';
 export default defineType({
   name: 'settings',
   type: 'document',
-  title: 'Global Settings',
+  title: 'Site Settings',
   icon: CogIcon,
   fieldsets: [
     {

@@ -4,9 +4,8 @@ import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { urlForImage } from "@/lib/sanity/image";
-import { parseISO, format } from "date-fns";
 import AuthorCard from "@/components/blog/authorCard";
-
+import {useDateFormatter} from "@/hooks/useDateFormatter";
 export default function Post(props) {
   const { loading, post } = props;
 
@@ -59,10 +58,7 @@ export default function Post(props) {
                   <time
                     className="text-gray-500 dark:text-gray-400"
                     dateTime={post?.publishedAt || post._createdAt}>
-                    {format(
-                      parseISO(post?.publishedAt || post._createdAt),
-                      "MMMM dd, yyyy"
-                    )}
+                    {useDateFormatter(post?.publishedAt || post._createdAt)}
                   </time>
                   <span>· {post.estReadingTime || "5"} min read</span>
                 </div>

@@ -1,0 +1,34 @@
+@import "../../styles/abstracts";
+
+.featuredPost {
+  height: auto;
+  aspect-ratio: 2.29/1;
+  display: flex;
+  a {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+  }
+}
+.imageWrapper {
+  min-width: 67%;
+  position: relative;
+  height: 100%;
+}
+.postInfo {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+.title {
+  font-family: $gtBold;
+  @include get-vw(font-size, 80px, 60px);
+  @include get-vw(letter-spacing, -2.4px, -1.8);
+  line-height: 90%;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+}

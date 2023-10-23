@@ -17,7 +17,7 @@ export default function Author(props) {
   return (
     <>
       <Container>
-        <div className="flex flex-col items-center justify-center">
+        <div>
           <div className="relative h-20 w-20 overflow-hidden rounded-full">
             {author?.image && (
               <Image

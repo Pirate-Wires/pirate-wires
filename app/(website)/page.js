@@ -1,9 +1,7 @@
-import DefaultHomePage from "./home/default/page";
-import { getAllPosts } from "@/lib/sanity/client";
+import HomePage from "./home/page";
 
 export default async function IndexPage() {
-  const posts = await getAllPosts();
-  return <DefaultHomePage posts={posts} />;
+  return <HomePage />;
 }
 
 // export const revalidate = 60;

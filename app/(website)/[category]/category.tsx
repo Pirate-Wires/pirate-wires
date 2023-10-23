@@ -11,8 +11,8 @@ export default function Author(props) {
 
   return (
     <Container>
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-3xl font-semibold tracking-tight lg:leading-tight text-brand-primary lg:text-5xl dark:text-white">
+      <div>
+        <h1>
           {title}
         </h1>
         <p className="mt-1 text-gray-600">{posts.length} Articles</p>

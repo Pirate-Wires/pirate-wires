@@ -1,5 +1,5 @@
 
-// app/(website)/p/[slug]/default.tsx
+// app/(website)/p/[slug]/home.tsx
 import {
   getSession,
   getUserDetails,
@@ -12,10 +12,9 @@ import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { urlForImage } from "@/lib/sanity/image";
-import { parseISO, format } from "date-fns";
 import CategoryLabel from "@/components/blog/category";
 import AuthorCard from "@/components/blog/authorCard";
-// 
+import {useDateFormatter} from "@/hooks/useDateFormatter";
 
 import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
 import SidebarComments from '@/lib/supabase-comments/components/comments/SidebarComments';
@@ -98,10 +97,7 @@ export default async function Post(props) {
                   <time
                     className="text-gray-500 dark:text-gray-400"
                     dateTime={post?.publishedAt || post._createdAt}>
-                    {format(
-                      parseISO(post?.publishedAt || post._createdAt),
-                      "MMMM dd, yyyy"
-                    )}
+                    {useDateFormatter(post?.publishedAt || post._createdAt)}
                   </time>
                   <span>· {post.estReadingTime || "5"} min read</span>
                 </div>
