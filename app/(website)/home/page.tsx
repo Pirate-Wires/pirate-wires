@@ -1,11 +1,10 @@
 import Home from "./home";
 
-import {getAllPosts, getGlobalFields, getPostByID} from "@/lib/sanity/client";
+import {getHomeData} from "@/lib/sanity/client";
 
 export default async function HomePage() {
-   const posts = await getAllPosts();
-   const globalFields = await getGlobalFields();
-   return <Home posts={posts} globalFields={globalFields} />;
+   const pageData = await getHomeData("home")
+   return <Home pageData={pageData[0]} />;
 }
 
 // export const revalidate = 60;

@@ -9,9 +9,10 @@ import job from './jobs';
 import post from './post';
 import settings from './settings';
 import globalFields from './globalFields';
+import home from './home';
+import industry from './industry';
 import settingsPirateWires from './settingsPirateWires';
 import settingsWhitePill from './settingsWhitePill';
-import settingsIndustry from './settingsIndustry';
 
 export const schemaTypes = [
   post,
@@ -21,9 +22,10 @@ export const schemaTypes = [
   category,
   settings,
   globalFields,
+  home,
   settingsPirateWires,
   settingsWhitePill,
-  settingsIndustry,
+  industry,
   blockContent,
   SendEmailCustomerIOComponent
 ];

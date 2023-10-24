@@ -6,10 +6,11 @@ import LatestWriters from "@/components/latestWriters";
 import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
 
-export default function DefaultHome({ globalFields }) {
-  const wirePosts = globalFields.featured_posts
-  const whitePillPosts = globalFields.featured_posts_white_pill
-  const industryPosts = globalFields.featured_posts_industry
+export default function DefaultHome({ pageData }) {
+  console.log(pageData)
+  const wirePosts = pageData.featured_posts
+  const whitePillPosts = pageData.featured_posts_white_pill
+  const industryPosts = pageData.featured_posts_industry
 
   return (
     <>
@@ -73,7 +74,7 @@ export default function DefaultHome({ globalFields }) {
 
       <LatestWriters />
 
-      <PodcastCallout videoLink={globalFields.podcastCalloutVid} />
+      <PodcastCallout videoLink={pageData.podcastCalloutVid} />
 
       <NewsletterCallout />
 

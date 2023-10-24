@@ -13,6 +13,8 @@ import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash';
 import { vercelDeployTool } from 'sanity-plugin-vercel-deploy';
 import { deskTool } from 'sanity/desk';
 import globalFields from "@/lib/sanity/schemas/globalFields";
+import homeData from "@/lib/sanity/schemas/home";
+import industryData from "@/lib/sanity/schemas/industry";
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = ['post'];
 
@@ -25,11 +27,11 @@ export default defineConfig({
 
   plugins: [
     deskTool({
-      structure: pageStructure([settings, globalFields])
+      structure: pageStructure([settings, globalFields, homeData, industryData])
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
       // defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
-    singletonPlugin(['settings', 'globalFields']),
+    singletonPlugin(['settings', 'globalFields', 'singleHome', 'theIndustry']),
     visionTool(),
     unsplashImageAsset(),
     table(),

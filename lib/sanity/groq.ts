@@ -96,16 +96,27 @@ export const globalFieldsQuery = groq`
 }
 `;
 
-// Single Post by ID
-export const singlequeryID = groq`
-*[_type == "post" && _id == $id][0] {
+// Single Documents
+export const homeQuery = groq`
+*[slug.current == 'home'] {
+  ...,
+  "podcastCalloutVid": podcastCalloutVid.asset->{url},
+  featured_posts[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
+  featured_posts_white_pill[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
+  featured_posts_industry[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt}
+}
+`;
+
+// Parent publication documents
+export const publicationDocQuery = groq`
+*[slug.current == $slug] {
   ...,
 }
 `;
 
 // Single Post
-export const singlequery = groq`
-*[_type == "post" && slug.current == $slug][0] {
+export const singlePostQuery = groq`
+*[slug.current == $slug][0] {
   ...,
   body[]{
     ...,

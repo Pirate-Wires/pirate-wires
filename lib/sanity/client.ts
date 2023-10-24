@@ -6,8 +6,8 @@ import {
   paginatedquery,
   configQuery,
   globalFieldsQuery,
-  singlequery,
-  singlequeryID,
+  singlePostQuery,
+  homeQuery,
   pathquery,
   allauthorsquery,
   authorsquery,
@@ -16,7 +16,7 @@ import {
   catpathquery,
   catquery,
   searchquery,
-  allpodcastsquery
+  allpodcastsquery, publicationDocQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -67,14 +67,21 @@ export async function getGlobalFields() {
 
 export async function getPostBySlug(slug) {
   if (client) {
-    return (await client.fetch(singlequery, { slug })) || {};
+    return (await client.fetch(singlePostQuery, { slug })) || {};
   }
   return {};
 }
 
-export async function getPostByID(id) {
+export async function getHomeData(slug) {
   if (client) {
-    return (await client.fetch(singlequeryID, { id })) || {};
+    return (await client.fetch(homeQuery, { slug })) || {};
+  }
+  return {};
+}
+
+export async function getPublicationData(slug) {
+  if (client) {
+    return (await client.fetch(publicationDocQuery, { slug })) || {};
   }
   return {};
 }
