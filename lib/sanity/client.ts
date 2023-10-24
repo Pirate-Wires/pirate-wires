@@ -7,6 +7,7 @@ import {
   configQuery,
   globalFieldsQuery,
   singlequery,
+  singlequeryID,
   pathquery,
   allauthorsquery,
   authorsquery,
@@ -67,6 +68,13 @@ export async function getGlobalFields() {
 export async function getPostBySlug(slug) {
   if (client) {
     return (await client.fetch(singlequery, { slug })) || {};
+  }
+  return {};
+}
+
+export async function getPostByID(id) {
+  if (client) {
+    return (await client.fetch(singlequeryID, { id })) || {};
   }
   return {};
 }

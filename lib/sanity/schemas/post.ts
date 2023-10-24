@@ -10,12 +10,6 @@ const schema = {
   }),
   fields: [
     {
-      name: 'featured',
-      title: 'Mark as Featured',
-      type: 'boolean',
-      layout: 'radio'
-    },
-    {
       name: 'title',
       placeholder: 'Enter title here',
       title: 'Title',

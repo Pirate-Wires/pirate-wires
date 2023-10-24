@@ -23,6 +23,9 @@ dependencies:
   '@reach/portal':
     specifier: ^0.18.0
     version: 0.18.0(react-dom@18.2.0)(react@18.2.0)
+  '@sanity/asset-utils':
+    specifier: ^1.3.0
+    version: 1.3.0
   '@sanity/block-content-to-markdown':
     specifier: ^0.0.5
     version: 0.0.5

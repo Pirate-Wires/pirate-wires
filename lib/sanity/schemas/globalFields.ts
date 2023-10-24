@@ -44,15 +44,51 @@ export default defineType({
             description: '#HEX, RGB or RGBA'
         }),
         defineField({
-            title: 'Featured Posts',
-            description: 'Six posts from any pub, the first pos here gets the featured spot',
+            title: 'The Wire Featured Posts',
+            description: 'Six posts from The Wire, the first position here gets the featured spot',
             name: 'featured_posts',
             type: 'array',
             of: [{
                 title: 'Post',
                 name: 'featured_post',
                 type: 'reference',
-                to: [{type: 'post'}]
+                to: [{type: 'post'}],
+                options: {
+                    filter: 'section == $section',
+                    filterParams: {section: 'the-wire'}
+                }
+            }]
+        }),
+        defineField({
+            title: 'White Pill Featured Posts',
+            description: 'Six posts from The White Pill, the first position here gets the featured spot',
+            name: 'featured_posts_white_pill',
+            type: 'array',
+            of: [{
+                title: 'Post',
+                name: 'featured_post_white_pill',
+                type: 'reference',
+                to: [{type: 'post'}],
+                options: {
+                    filter: 'section == $section',
+                    filterParams: {section: 'the-white-pill'}
+                }
+            }]
+        }),
+        defineField({
+            title: 'Industry Featured Posts',
+            description: 'Six posts from The Industry, the first position here gets the featured spot',
+            name: 'featured_posts_industry',
+            type: 'array',
+            of: [{
+                title: 'Post',
+                name: 'featured_post_industry',
+                type: 'reference',
+                to: [{type: 'post'}],
+                options: {
+                    filter: 'section == $section',
+                    filterParams: {section: 'the-industry'}
+                }
             }]
         }),
         defineField({

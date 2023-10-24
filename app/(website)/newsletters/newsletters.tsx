@@ -1,13 +1,7 @@
-"use client"
+import NewsletterCallout from "@/components/newsletterCallout";
 
 export default function Newsletters() {
   return (
-    <div className="">
-      <div>
-        <h1>
-          Newsletters
-        </h1>
-      </div>
-    </div>
+    <NewsletterCallout />
   );
 }

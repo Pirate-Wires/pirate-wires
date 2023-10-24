@@ -87,7 +87,18 @@ export const configQuery = groq`
 
 // Get Global Fields (color defs, home page fields, section defaults)
 export const globalFieldsQuery = groq`
-*[_type == "globalFields"][0] {
+*[_type == "globalFields"][1] {
+  ...,
+  "podcastCalloutVid": podcastCalloutVid.asset->{url},
+  featured_posts[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
+  featured_posts_white_pill[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
+  featured_posts_industry[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt}
+}
+`;
+
+// Single Post by ID
+export const singlequeryID = groq`
+*[_type == "post" && _id == $id][0] {
   ...,
 }
 `;

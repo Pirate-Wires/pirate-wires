@@ -1,15 +1,4 @@
 @import "../../styles/abstracts";
-
-.featuredPost {
-  height: auto;
-  aspect-ratio: 2.29/1;
-  display: flex;
-  a {
-    display: flex;
-    width: 100%;
-    gap: 20px;
-  }
-}
 .imageWrapper {
   min-width: 67%;
   position: relative;
@@ -19,7 +8,27 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  flex: 1;
   justify-content: space-between;
+  position: relative;
+  &:before {
+    content: "";
+    height: 0.5px;
+    width: 100%;
+    background-color: var(--accentDark);
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  &:after {
+    content: "";
+    height: 0.5px;
+    width: 100%;
+    background-color: var(--accentDark);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
 }
 .title {
   font-family: $gtBold;

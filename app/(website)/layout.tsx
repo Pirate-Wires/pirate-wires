@@ -5,6 +5,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import Navigation from '@/components/navigation';
 import SectionTabs from '@/components/section-tabs';
 import React from "react";
+import {usePathname} from "next/navigation";
 
 export async function sharedMetaData(params) {
   const settings = await getSettings();
@@ -54,7 +55,16 @@ export default async function Layout({ children, params }) {
   return (
     <>
       <SupabaseProvider>
-        <main style={{ "--color": globalFields.wires_color, "--bgColor": globalFields.wires_bgcolor, "--accentLight": "rgba(227, 227, 227, 0.28)", "--accentDark": "rgba(227, 227, 227, 0.45)"} as React.CSSProperties}>
+        <main style={{
+          "--color": globalFields.wires_color,
+          "--bgColor": globalFields.wires_bgcolor,
+          "--whitePillColor": globalFields.white_pill_color,
+          "--whitePillBgColor": globalFields.white_pill_bgcolor,
+          "--industryColor": globalFields.industry_color,
+          "--industryBgColor": globalFields.industry_bgcolor,
+          "--accentLight": "rgba(227, 227, 227, 0.28)",
+          "--accentDark": "rgba(227, 227, 227, 0.45)"
+        } as React.CSSProperties}>
           <Navigation globalFields={globalFields} />
           <div>{children}</div>
           <Footer globalFields={globalFields} />

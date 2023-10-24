@@ -16,12 +16,12 @@ export default function Featured({ post, pathPrefix }) {
 
   return (
     <article
-      className={`${styles.featuredPost} mtb-20 hasGoIcon c-20`}>
+      className={`featuredPost hasGoIcon c-20`}>
       <Link
         href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug.current
         }`}>
 
-        <div className={`${styles.postInfo} pt-20`}>
+        <div className={`${styles.postInfo} postInfo ptb-20`}>
           <h1 className={styles.title}>
             {post.title}
           </h1>

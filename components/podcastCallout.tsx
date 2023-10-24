@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./_styles/podcastCallout.module.scss"
 export default function PodcastCallout({videoLink}) {
-  console.log(videoLink)
   return (
     <div className={styles.podcastCallout}>
       <div className={`${styles.inner} c-20`}>
-        <h3>Your <span className={styles.image}></span> Favorite Streaming Service has our Podcast</h3>
+        <h3>Your <span className={styles.video}>
+          <video muted playsInline autoPlay loop src={videoLink.url}></video>
+        </span> Favorite Streaming Service has our Podcast</h3>
         <Link href={'/podcast'} className="hasGoIcon">
           <div className="goIconWrapper">
             Your New Favorite Podcast

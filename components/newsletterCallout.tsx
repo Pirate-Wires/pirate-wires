@@ -3,16 +3,20 @@ import styles from "./_styles/newsletterCallout.module.scss"
 import {usePathname} from "next/navigation";
 export default function NewsletterCallout() {
     const currentRoute = usePathname();
-    const showHeader = currentRoute !== "/newsletters"
+    const interiorPage = currentRoute === "/newsletters"
     return (
-        <div className={styles.newsletterCallout}>
+        <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
             <form className={`${styles.inner} c-20`}>
                 <div className={styles.top}>
-                    {showHeader && <h4>Sign up for our Newsletters</h4>}
-                    <input type="email" id="newsletter-email" />
+                    {!interiorPage && <h4>Sign up for our Newsletters</h4>}
+                    <div className={`${styles.inputWrapper} inputWrapper`}>
+                        <input type="email" id="newsletter-email" placeholder="Your email here..." />
+                        <button type="submit" name="Submit newsletter signup">Sign Up</button>
+                    </div>
+                    <p className={styles.selectedCount}>(<span>0</span>) Newsletters Selected</p>
                 </div>
                 <div className={styles.bottom}>
-                    <div className={styles.tile}>
+                    <div className={`${styles.tile}`}>
                         <p className={styles.eyebrow}>Comes out 2 times a week</p>
                         <p className={styles.title}>Pirate Wires</p>
                         <p className={`${styles.subtitle} caslon-med`}>Technology, Politics, Culture.</p>
@@ -25,7 +29,7 @@ export default function NewsletterCallout() {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.tile}>
+                    <div className={`${styles.tile} ${styles.whitePill}`}>
                         <p className={styles.eyebrow}>Comes out every Wednesday</p>
                         <p className={styles.title}>The White Pill</p>
                         <p className={`${styles.subtitle} caslon-med`}>Science, Progress, Optimism, Innovation.</p>
@@ -38,7 +42,7 @@ export default function NewsletterCallout() {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.tile}>
+                    <div className={`${styles.tile} ${styles.industry}`}>
                         <p className={styles.eyebrow}>Comes out every Monday</p>
                         <p className={styles.title}>The Industry</p>
                         <p className={`${styles.subtitle} caslon-med`}>Technology, Business.</p>
