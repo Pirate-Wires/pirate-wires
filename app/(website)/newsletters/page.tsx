@@ -1,5 +1,19 @@
 import Newsletters from "./newsletters";
+import {getGlobalFields, getNewsletterData} from "@/lib/sanity/client";
+import React from "react";
+import Navigation from "@/components/navigation";
+import Home from "@/app/(website)/home/home";
+import Footer from "@/components/footer";
 
 export default async function NewslettersPage() {
-  return <Newsletters />;
+  const pageData = await getNewsletterData()
+  const globalFields = await getGlobalFields();
+  return <div className="colorWrapper" style={{
+    "--color": "#060606",
+    "--bgColor": "#E3E3E3",
+  } as React.CSSProperties}>
+    <Navigation globalFields={globalFields} />
+    <Newsletters pageData={pageData} />
+    <Footer globalFields={globalFields} />
+  </div>
 }

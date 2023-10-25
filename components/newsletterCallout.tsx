@@ -1,7 +1,7 @@
 "use client"
 import styles from "./_styles/newsletterCallout.module.scss"
 import {usePathname} from "next/navigation";
-export default function NewsletterCallout() {
+export default function NewsletterCallout({newsletterData}) {
     const currentRoute = usePathname();
     const interiorPage = currentRoute === "/newsletters"
     return (
@@ -16,8 +16,8 @@ export default function NewsletterCallout() {
                     <p className={styles.selectedCount}>(<span>0</span>) Newsletters Selected</p>
                 </div>
                 <div className={styles.bottom}>
-                    <div className={`${styles.tile}`}>
-                        <p className={styles.eyebrow}>Comes out 2 times a week</p>
+                    <div className={`${styles.tile} ${styles.pirateWires}`}>
+                        <p className={styles.eyebrow}>{newsletterData.pirate_wires_frequency}</p>
                         <p className={styles.title}>Pirate Wires</p>
                         <p className={`${styles.subtitle} caslon-med`}>Technology, Politics, Culture.</p>
                         <p className={styles.description}>Sign up for the original Pirate Wires newsletter. You get: a bi-weekly deep dive from Editor-in-Chief Mike Solana, an occasional piece from our team of writers, and a weekly feature from the internet’s top creative talent. Sign up, or die.</p>
@@ -30,7 +30,7 @@ export default function NewsletterCallout() {
                         </div>
                     </div>
                     <div className={`${styles.tile} ${styles.whitePill}`}>
-                        <p className={styles.eyebrow}>Comes out every Wednesday</p>
+                        <p className={styles.eyebrow}>{newsletterData.white_pill_frequency}</p>
                         <p className={styles.title}>The White Pill</p>
                         <p className={`${styles.subtitle} caslon-med`}>Science, Progress, Optimism, Innovation.</p>
                         <p className={styles.description}>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
@@ -43,7 +43,7 @@ export default function NewsletterCallout() {
                         </div>
                     </div>
                     <div className={`${styles.tile} ${styles.industry}`}>
-                        <p className={styles.eyebrow}>Comes out every Monday</p>
+                        <p className={styles.eyebrow}>{newsletterData.industry_frequency}</p>
                         <p className={styles.title}>The Industry</p>
                         <p className={`${styles.subtitle} caslon-med`}>Technology, Business.</p>
                         <p className={styles.description}>Sign up for the Industry, a concentrated technology / business newsletter from Pirate Wires, including: a weekly blast of all the major industry stories worth following, interviews with industry leaders, and analysis from professionals who actually know what they’re talking about. We’re glad you’ve found us. Now let’s all be rich and powerful.</p>

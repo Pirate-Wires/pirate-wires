@@ -62,6 +62,8 @@ header {
 
 main {
   padding-top: 80px;
+}
+.colorWrapper {
   background-color: var(--bgColor);
   color: var(--color);
 }
@@ -91,6 +93,11 @@ footer {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+  }
+  .svgWrapper {
+    path {
+      fill: var(--color);
+    }
   }
 }
 

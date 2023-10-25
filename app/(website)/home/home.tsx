@@ -5,9 +5,10 @@ import styles from "../../../styles/home.module.scss"
 import LatestWriters from "@/components/latestWriters";
 import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
+import {getNewsletterData} from "@/lib/sanity/client";
 
-export default function DefaultHome({ pageData }) {
-  console.log(pageData)
+export default async function DefaultHome({ pageData }) {
+  const newsletterData = await getNewsletterData()
   const wirePosts = pageData.featured_posts
   const whitePillPosts = pageData.featured_posts_white_pill
   const industryPosts = pageData.featured_posts_industry
@@ -76,7 +77,7 @@ export default function DefaultHome({ pageData }) {
 
       <PodcastCallout videoLink={pageData.podcastCalloutVid} />
 
-      <NewsletterCallout />
+      <NewsletterCallout newsletterData={newsletterData} />
 
       {whitePillPosts && (
         <div className="theme-color pt-40 pb-20 white-pill">

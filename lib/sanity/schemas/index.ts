@@ -1,11 +1,15 @@
 // /lib/sanity/schemas/index.ts
 
 import SendEmailCustomerIOComponent from './SendEmailCustomerIOComponent';
+import authors from './authors';
 import author from './author';
 import blockContent from './blockContent';
 import category from './category';
+import podcasts from './podcasts';
 import podcast from './podcast';
-import job from './jobs';
+import careers from './careers';
+import career from './career';
+import subscribe from './newsletters';
 import post from './post';
 import settings from './settings';
 import globalFields from './globalFields';
@@ -16,8 +20,12 @@ import theIndustry from './industry';
 
 export const schemaTypes = [
   post,
+  podcasts,
   podcast,
-  job,
+  careers,
+  career,
+  subscribe,
+  authors,
   author,
   category,
   settings,

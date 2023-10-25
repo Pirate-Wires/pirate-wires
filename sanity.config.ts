@@ -17,7 +17,10 @@ import homeData from "@/lib/sanity/schemas/home";
 import industryData from "@/lib/sanity/schemas/industry";
 import wiresData from "@/lib/sanity/schemas/pirateWires";
 import whitePillData from "@/lib/sanity/schemas/whitePill";
-import singlePodcastData from "@/lib/sanity/schemas/podcast";
+import singlePodcastData from "@/lib/sanity/schemas/podcasts";
+import singleCareersData from "@/lib/sanity/schemas/careers";
+import singleNewslettersData from "@/lib/sanity/schemas/newsletters";
+import singleAuthorsData from "@/lib/sanity/schemas/authors";
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = ['post'];
 
@@ -30,7 +33,18 @@ export default defineConfig({
 
   plugins: [
     deskTool({
-      structure: pageStructure([settings, globalFields, homeData, wiresData, whitePillData, industryData, singlePodcastData])
+      structure: pageStructure([
+        settings,
+        globalFields,
+        homeData,
+        wiresData,
+        whitePillData,
+        industryData,
+        singlePodcastData,
+        singleCareersData,
+        singleAuthorsData,
+        singleNewslettersData
+      ])
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
       // defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
@@ -41,7 +55,10 @@ export default defineConfig({
       'pirateWires',
       'theWhitePill',
       'theIndustry',
-      'singlePodcast'
+      'singlePodcast',
+      'singleCareers',
+      'singleAuthors',
+      'singleNewsletters'
     ]),
     visionTool(),
     unsplashImageAsset(),

@@ -139,6 +139,10 @@
 
 .interiorPage {
   background-color: var(--bgColor);
+  .pirateWires {
+    background-color: var(--color);
+    color: var(--bgColor);
+  }
   .inputWrapper {
     @include get-vw(width, 740px, 740px);
     input {

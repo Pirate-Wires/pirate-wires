@@ -78,6 +78,26 @@ export const podcastQuery = groq`
 }
 `;
 
+export const careersQuery = groq`
+*[slug.current == 'careers'] {
+  ...,
+  careers_list->
+}
+`;
+
+export const authorsQuery = groq`
+*[slug.current == 'careers'] {
+  ...,
+  author_list->
+}
+`;
+
+export const newsletterQuery = groq`
+*[slug.current == 'newsletters'] {
+  ...,
+}
+`;
+
 // Parent publication documents
 export const publicationDocQuery = groq`
 *[slug.current == $slug] {

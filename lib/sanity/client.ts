@@ -10,14 +10,11 @@ import {
   homeQuery,
   podcastQuery,
   pathquery,
-  allauthorsquery,
-  authorsquery,
   postsbyauthorquery,
   postsbycatquery,
   catpathquery,
   catquery,
-  searchquery,
-  allpodcastsquery, publicationDocQuery
+  searchquery, publicationDocQuery, newsletterQuery, careersQuery, authorsQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -87,6 +84,27 @@ export async function getPodcastData() {
   return {};
 }
 
+export async function getNewsletterData() {
+  if (client) {
+    return (await client.fetch(newsletterQuery)) || {};
+  }
+  return {};
+}
+
+export async function getCareersData() {
+  if (client) {
+    return (await client.fetch(careersQuery)) || {};
+  }
+  return {};
+}
+
+export async function getAuthorsData() {
+  if (client) {
+    return (await client.fetch(authorsQuery)) || {};
+  }
+  return {};
+}
+
 export async function getPublicationData(slug) {
   if (client) {
     return (await client.fetch(publicationDocQuery, { slug })) || {};
@@ -101,14 +119,6 @@ export async function getAllPostsSlugs() {
   }
   return [];
 }
-// Author
-export async function getAllAuthorsSlugs() {
-  if (client) {
-    const slugs = (await client.fetch(authorsquery)) || [];
-    return slugs.map((slug) => ({ slug }));
-  }
-  return [];
-}
 
 export async function getAuthorPostsBySlug(slug) {
   if (client) {
@@ -117,15 +127,7 @@ export async function getAuthorPostsBySlug(slug) {
   return {};
 }
 
-export async function getAllAuthors() {
-  if (client) {
-    return (await client.fetch(allauthorsquery)) || [];
-  }
-  return [];
-}
-
 // Category
-
 export async function getAllCategories() {
   if (client) {
     const slugs = (await client.fetch(catpathquery)) || [];
