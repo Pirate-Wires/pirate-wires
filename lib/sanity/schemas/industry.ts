@@ -22,14 +22,14 @@ export default defineType({
 
     defineField({
       title: 'Meta Title',
-      name: 'title',
+      name: 'meta_title',
       type: 'text',
       rows: 1
     }),
 
     defineField({
       title: 'Meta Description',
-      name: 'description',
+      name: 'meta_description',
       type: 'text',
       rows: 5,
       validation: (Rule) => Rule.min(20).max(200)

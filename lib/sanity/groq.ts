@@ -1,39 +1,5 @@
 import { groq } from 'next-sanity';
 
-// get all podcasts
-export const allpodcastsquery = groq`
-*[_type == "podcast"] {
-  _id,
-  _createdAt,
-  title,
-  slug,
-  excerpt,
-  author-> {
-    _id,
-    name,
-    image,
-    slug
-  },
-  mainImage {
-    ...,
-    "blurDataURL": asset->metadata.lqip,
-    "ImageColor": asset->metadata.palette.dominant.background
-  },
-  categories[]->,
-  publishedAt,
-  featured,
-  body[]{
-    ...,
-    markDefs[]{
-      ...,
-      _type == "internalLink" => {
-        "slug": @.reference->slug
-      }
-    }
-  }
-}
-`;
-
 // Get all posts
 export const postquery = groq`
 *[_type == "post"] | order(publishedAt desc, _createdAt desc) {
@@ -85,14 +51,10 @@ export const configQuery = groq`
 }
 `;
 
-// Get Global Fields (color defs, home page fields, section defaults)
+// Get Global Fields (color defs, section defaults)
 export const globalFieldsQuery = groq`
 *[_type == "globalFields"][1] {
   ...,
-  "podcastCalloutVid": podcastCalloutVid.asset->{url},
-  featured_posts[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
-  featured_posts_white_pill[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
-  featured_posts_industry[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt}
 }
 `;
 
@@ -107,10 +69,19 @@ export const homeQuery = groq`
 }
 `;
 
+export const podcastQuery = groq`
+*[slug.current == 'podcast'] {
+  ...,
+  title,
+  excerpt,
+  podcast_list->
+}
+`;
+
 // Parent publication documents
 export const publicationDocQuery = groq`
 *[slug.current == $slug] {
-  ...,
+  ...
 }
 `;
 

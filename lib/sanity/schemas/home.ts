@@ -65,6 +65,27 @@ export default defineType({
       type: 'file',
       title: 'Podcast callout video',
       description: 'A 500px wide mp4, with a landscape AR of ~.56'
+    }),
+    defineField({
+      title: 'Meta Title',
+      name: 'meta_title',
+      type: 'text',
+      rows: 1
+    }),
+
+    defineField({
+      title: 'Meta Description',
+      name: 'meta_description',
+      type: 'text',
+      rows: 5,
+      validation: (Rule) => Rule.min(20).max(200)
+    }),
+
+    defineField({
+      name: 'openGraphImage',
+      type: 'image',
+      title: 'Open Graph Image',
+      description: 'Image for sharing previews on Facebook, Twitter etc.'
     })
   ]
 });

@@ -7,11 +7,10 @@ import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
 
 export default function Industry({ pageData }) {
-  console.log(pageData)
 
   return (
     <>
-      <h2>Page</h2>
+      <h2>{pageData.tagline}</h2>
 
     </>
   );

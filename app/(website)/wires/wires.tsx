@@ -1,9 +1,8 @@
-export default function Wires() {
+export default function Wires({pageData}) {
   return (
     <>
-      <h1>
-        Wires
-      </h1>
+      <h2>{pageData.tagline}</h2>
+
     </>
   );
 }

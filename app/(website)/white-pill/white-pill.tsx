@@ -1,9 +1,8 @@
-export default function WhitePill() {
+export default function WhitePill({pageData}) {
   return (
     <>
-      <h1>
-        The White Pill
-      </h1>
+      <h2>{pageData.tagline}</h2>
+
     </>
   );
 }

@@ -1,92 +1,80 @@
-const schema = {
-  name: 'podcast',
-  title: 'Podcasts',
+import { defineArrayMember, defineField, defineType } from 'sanity';
+import { LuFileAudio } from 'react-icons/lu';
+
+export default defineType({
+  name: 'singlePodcast',
   type: 'document',
-  initialValue: () => ({
-    publishedAt: new Date().toISOString()
-  }),
+  title: 'Podcast',
+  icon: LuFileAudio,
   fields: [
-    {
-      name: 'title',
-      title: 'Title',
-      type: 'string'
-    },
-    {
-      name: 'slug',
+    defineField({
       title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96
-      }
-    },
-    {
-      name: 'excerpt',
-      title: 'Excerpt',
-      description:
-        'The excerpt is used in blog feeds, and also for search results',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.max(200)
-    },
-    {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: { type: 'author' }
-    },
-    {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO and accessiblity.'
-        }
-      ],
-      options: {
-        hotspot: true
-      }
-    },
-    {
-      name: 'categories',
-      title: 'Categories',
+      name: 'slug',
+      type: 'slug'
+    }),
+    defineField({
+      title: 'Page header',
+      name: 'title',
+      type: 'text'
+    }),
+    defineField({
+      title: 'Podcast list',
+      description: 'Title, excerpt and platform links for each episode',
+      name: 'podcast_list',
       type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }]
-    },
-    {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime'
-    },
-    {
-      name: 'featured',
-      title: 'Mark as Featured',
-      type: 'boolean'
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent'
-    }
-  ],
+      of: [
+        {
+          title: 'Title',
+          name: 'title',
+          type: 'text'
+        },
+        {
+          title: 'Excerpt',
+          name: 'excerpt',
+          type: 'text'
+        },
+        {
+          title: 'Author list',
+          name: 'author_list',
+          type: 'text'
+        },
+        {
+          title: 'Youtube link',
+          name: 'youtube_link',
+          type: 'text'
+        },
+        {
+          title: 'Apple link',
+          name: 'apple_link',
+          type: 'text'
+        },
+        {
+          title: 'Spotify link',
+          name: 'spotify_link',
+          type: 'text'
+        }
+      ]
+    }),
+    defineField({
+      title: 'Meta Title',
+      name: 'meta_title',
+      type: 'text',
+      rows: 1
+    }),
 
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage'
-    },
-    prepare(selection) {
-      const { author } = selection;
-      return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`
-      });
-    }
-  }
-};
+    defineField({
+      title: 'Meta Description',
+      name: 'meta_description',
+      type: 'text',
+      rows: 5,
+      validation: (Rule) => Rule.min(20).max(200)
+    }),
 
-export default schema;
+    defineField({
+      name: 'openGraphImage',
+      type: 'image',
+      title: 'Open Graph Image',
+      description: 'Image for sharing previews on Facebook, Twitter etc.'
+    })
+  ]
+});

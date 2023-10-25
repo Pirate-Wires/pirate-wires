@@ -141,7 +141,7 @@ export default defineType({
 
     defineField({
       title: 'Meta Description',
-      name: 'description',
+      name: 'meta_description',
       fieldset: 'metadata',
       type: 'text',
       rows: 5,

@@ -8,6 +8,7 @@ import {
   globalFieldsQuery,
   singlePostQuery,
   homeQuery,
+  podcastQuery,
   pathquery,
   allauthorsquery,
   authorsquery,
@@ -75,6 +76,13 @@ export async function getPostBySlug(slug) {
 export async function getHomeData(slug) {
   if (client) {
     return (await client.fetch(homeQuery, { slug })) || {};
+  }
+  return {};
+}
+
+export async function getPodcastData() {
+  if (client) {
+    return (await client.fetch(podcastQuery)) || {};
   }
   return {};
 }

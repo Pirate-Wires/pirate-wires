@@ -15,6 +15,9 @@ import { deskTool } from 'sanity/desk';
 import globalFields from "@/lib/sanity/schemas/globalFields";
 import homeData from "@/lib/sanity/schemas/home";
 import industryData from "@/lib/sanity/schemas/industry";
+import wiresData from "@/lib/sanity/schemas/pirateWires";
+import whitePillData from "@/lib/sanity/schemas/whitePill";
+import singlePodcastData from "@/lib/sanity/schemas/podcast";
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = ['post'];
 
@@ -27,11 +30,19 @@ export default defineConfig({
 
   plugins: [
     deskTool({
-      structure: pageStructure([settings, globalFields, homeData, industryData])
+      structure: pageStructure([settings, globalFields, homeData, wiresData, whitePillData, industryData, singlePodcastData])
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
       // defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
-    singletonPlugin(['settings', 'globalFields', 'singleHome', 'theIndustry']),
+    singletonPlugin([
+      'settings',
+      'globalFields',
+      'singleHome',
+      'pirateWires',
+      'theWhitePill',
+      'theIndustry',
+      'singlePodcast'
+    ]),
     visionTool(),
     unsplashImageAsset(),
     table(),

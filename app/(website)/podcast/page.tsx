@@ -1,9 +1,9 @@
 // app/(website)/podcasts/page.tsx
-import { getAllPodcasts } from "@/lib/sanity/client";
+import {getPodcastData} from "@/lib/sanity/client";
 import Podcasts from "./podcasts";
 
 export default async function PodcastPage() {
-  const podcasts = await getAllPodcasts(); // Fetch all podcasts from Sanity
-
-  return <Podcasts podcasts={podcasts} />; // Pass podcasts to podcasts component
+  const pageData = await getPodcastData(); // Fetch all podcasts from Sanity
+  console.log(pageData)
+  return <Podcasts podcasts={pageData} />; // Pass podcasts to podcasts component
 }
