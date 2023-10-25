@@ -32,8 +32,8 @@ export default function Navigation({globalFields}) {
                 <Link key={tab.href} href={tab.href} className={(currentRoute === tab.href ? styles.active : '')}>
                   <span className={styles.categoryRadio}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="none">
-                      <circle cx="8.49998" cy="8.5" r="7.2" fill="#060606" stroke="#E3E3E3" stroke-width="0.9"/>
-                      <circle className={styles.activeDot} cx="8.49999" cy="8.5" r="4.5" fill="#E3E3E3" stroke="#E3E3E3" stroke-width="0.9"/>
+                      <circle cx="8.49998" cy="8.5" r="7.2" fill="var(--bgColor)" stroke="var(--color)" stroke-width="0.9"/>
+                      <circle className={styles.activeDot} cx="8.49999" cy="8.5" r="4.5" fill="var(--color)" stroke="var(--color)" stroke-width="0.9"/>
                     </svg>
                   </span>
                   {tab.name}

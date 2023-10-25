@@ -50,6 +50,8 @@
 }
 .tile {
   width: calc((100% / 3) - 27px);
+  aspect-ratio: 1/1.025;
+  height: auto;
   background-color: var(--bgColor);
   color: var(--color);
   display: flex;

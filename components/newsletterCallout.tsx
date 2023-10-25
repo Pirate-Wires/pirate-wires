@@ -1,20 +1,33 @@
 "use client"
 import styles from "./_styles/newsletterCallout.module.scss"
 import {usePathname} from "next/navigation";
+import {useEffect} from "react";
+import {ScrollBasedAnims} from "@/utils/classes/ScrollBasedAnims";
 export default function NewsletterCallout({newsletterData}) {
     const currentRoute = usePathname();
     const interiorPage = currentRoute === "/newsletters"
+    let bound = false
+    useEffect(() => {
+        if (!bound) {
+            const form =  document.getElementById("newsletter-form")
+            form.addEventListener("submit", (event)=>{
+                event.preventDefault();
+                //
+            });
+        }
+    }, [bound]);
     return (
         <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
-            <form className={`${styles.inner} c-20`}>
+            <form className={`${styles.inner} c-20`} id="newsletter-form">
                 <div className={styles.top}>
                     {!interiorPage && <h4>Sign up for our Newsletters</h4>}
                     <div className={`${styles.inputWrapper} inputWrapper`}>
                         <input type="email" id="newsletter-email" placeholder="Your email here..." />
-                        <button type="submit" name="Submit newsletter signup">Sign Up</button>
+                        <button type="submit" name="Submit newsletter signup" id="submit">Sign Up</button>
                     </div>
                     <p className={styles.selectedCount}>(<span>0</span>) Newsletters Selected</p>
                 </div>
+
                 <div className={styles.bottom}>
                     <div className={`${styles.tile} ${styles.pirateWires}`}>
                         <p className={styles.eyebrow}>{newsletterData.pirate_wires_frequency}</p>
@@ -25,7 +38,7 @@ export default function NewsletterCallout({newsletterData}) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected1">Selected</label>
-                                <input type="checkbox" id="selected1" name="Selected" />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected1" name="Selected" />
                             </div>
                         </div>
                     </div>
@@ -38,7 +51,7 @@ export default function NewsletterCallout({newsletterData}) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected2">Selected</label>
-                                <input type="checkbox" id="selected2" name="Selected" />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected2" name="Selected" />
                             </div>
                         </div>
                     </div>
@@ -51,7 +64,7 @@ export default function NewsletterCallout({newsletterData}) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected3">Selected</label>
-                                <input type="checkbox" id="selected3" name="Selected" />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected3" name="Selected" />
                             </div>
                         </div>
                     </div>

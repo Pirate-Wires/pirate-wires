@@ -29,6 +29,18 @@ export default defineType({
       }]
     }),
     defineField({
+      title: 'Latest writers',
+      description: 'Four exceedingly cool cats',
+      name: 'latest_writers',
+      type: 'array',
+      of: [{
+        title: 'Writer',
+        name: 'latest_writer',
+        type: 'reference',
+        to: [{type: 'author'}]
+      }]
+    }),
+    defineField({
       title: 'White Pill Featured Posts',
       description: 'Six posts from The White Pill, the first position here gets the featured spot',
       name: 'featured_posts_white_pill',

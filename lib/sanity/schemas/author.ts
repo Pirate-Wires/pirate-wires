@@ -24,6 +24,12 @@ const schema = {
       }
     },
     {
+      title: 'Title',
+      name: 'title',
+      type: 'text',
+      rows: 1
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
