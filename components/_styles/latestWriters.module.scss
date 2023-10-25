@@ -18,18 +18,23 @@
 .bottom {
   display: flex;
   justify-content: space-between;
-
 }
 .imgWrapper {
   aspect-ratio: 1/1;
-  background-color: red;
-  opacity: .3;
 }
 .top {
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
   width: 100%;
+  a {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    @include get-vw(font-size, 17.5px, 17.5px);
+    @include get-vw(gap, 9px, 9px);
+    font-family: $neueMed;
+  }
 }
 .left  {
   display: flex;

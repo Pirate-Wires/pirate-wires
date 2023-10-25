@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 export default async function HomePage() {
    const pageData = await getHomeData("home")
    const globalFields = await getGlobalFields();
+
    return <div className="colorWrapper" style={{
         "--color": "#E3E3E3",
         "--bgColor": "#060606",

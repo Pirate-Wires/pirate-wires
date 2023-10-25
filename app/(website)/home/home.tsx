@@ -12,7 +12,7 @@ export default async function DefaultHome({ pageData }) {
   const wirePosts = pageData.featured_posts
   const whitePillPosts = pageData.featured_posts_white_pill
   const industryPosts = pageData.featured_posts_industry
-  console.log(pageData)
+  console.log(pageData.latest_writers[0].image.asset)
   return (
     <>
       <div className={`${styles.hero} c-20`}>
@@ -73,7 +73,7 @@ export default async function DefaultHome({ pageData }) {
         )}
       </div>
 
-      <LatestWriters  />
+      <LatestWriters latestAuthors={pageData.latest_writers} />
 
       <PodcastCallout videoLink={pageData.podcastCalloutVid} />
 

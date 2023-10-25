@@ -53,7 +53,6 @@ export default function Featured({ post, pathPrefix }) {
               alt={post.mainImage?.alt || "Thumbnail"}
               priority
               fill
-              sizes="100vw"
               className="object-cover"
             />
           </div>
