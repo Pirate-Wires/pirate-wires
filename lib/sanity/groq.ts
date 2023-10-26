@@ -153,6 +153,19 @@ export const postsbyauthorquery = groq`
 }
 `;
 
+
+// Get posts by section (The White Pill, The Industry, etc)
+export const postBySectionQuery = groq`
+*[_type == "post" && $section match section] {
+  title, 
+  slug, 
+  author->{name}, 
+  mainImage, 
+  publishedAt, 
+  excerpt
+}
+`;
+
 // Get Posts by Category
 export const postsbycatquery = groq`
 *[_type == "post" && $slug in categories[]->slug.current ] {

@@ -44,4 +44,9 @@ export default defineType({
       rows: 1
     }),
   ],
+  preview: {
+    select: {
+      title: 'title'
+    }
+  }
 });

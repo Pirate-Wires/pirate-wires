@@ -18,10 +18,12 @@ const tabs: Tab[] = [
   { name: 'The White Pill', href: '/white-pill' },
 ];
 
-export default function Navigation({globalFields}) {
+export default function Navigation({globalFields, publication}) {
   const currentRoute = usePathname();
   const flowNav = currentRoute === "/subscribe" || currentRoute === "/sign-in"
   const simpleNav = currentRoute === "/account"
+  const industryPage = currentRoute === "/the-industry"
+  const whitePillPage = currentRoute === "/white-pill"
   return (
     <>
       {!flowNav ?

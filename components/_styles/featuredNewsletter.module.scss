@@ -1,0 +1,57 @@
+@import "../../styles/abstracts";
+.featuredNewsletters {
+  width: 100%;
+}
+.left, .right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.right {
+  text-align: center;
+  align-items: center;
+}
+.form {
+
+}
+.prev {
+  transform: rotate(180deg);
+  transform-origin: center;
+}
+.slide {
+  margin-right: 20px;
+  padding-right: 20px;
+  @include get-vw(max-width, 268px, 240px);
+  h5 {
+    @include get-vw(font-size, 20px, 20px);
+    @include get-vw(letter-spacing, -0.6px, -0.6px);
+    font-family: $gtBold;
+  }
+  p {
+    @include get-vw(font-size, 15px, 15px);
+    line-height: 1.33;
+  }
+}
+.slideTop {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  gap: 12px;
+  button {
+    width: 40px;
+    height: 40px;
+    &.disabled {
+      opacity: .4;
+    }
+  }
+}
+.tagline {
+
+}
