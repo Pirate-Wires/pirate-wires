@@ -16,7 +16,7 @@ const client = createClient(config);
 // console.log('projectId', projectId);
 // console.log('apiVersion', apiVersion);
 // console.log('useCdn', useCdn);
-// console.log('token', process..env.SANITY_API_TOKEN);
+// console.log('token', process...env.SANITY_API_TOKEN);
 async function createComment(req: NextRequest, res: NextResponse) {
   // return NextResponse.json({ message: 'Comment submitted' }, { status: 200 });
   // De-structuring the form's fields

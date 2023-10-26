@@ -3,6 +3,10 @@
   min-width: 67%;
   position: relative;
   height: 100%;
+
+  @include bp-767 {
+    height: 248px;
+  }
 }
 .postInfo {
   display: flex;
@@ -33,8 +37,14 @@
 .title {
   font-family: $gtBold;
   @include get-vw(font-size, 80px, 60px);
-  @include get-vw(letter-spacing, -2.4px, -1.8);
+  @include get-vw(letter-spacing, -2.4px, -1.8px);
   line-height: 90%;
+  @include bp-1024 {
+    font-size: 55px;
+  }
+  @include bp-959 {
+    font-size: 40px;
+  }
 }
 
 .bottom {
