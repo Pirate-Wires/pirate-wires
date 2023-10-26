@@ -7,7 +7,7 @@
   display: flex;
   h3 {
     font-family: $gtBold;
-    @include get-vw(font-size, 178px);
+    @include get-vw(font-size, 178px, 140px);
     @include get-vw(letter-spacing, -5.34px);
     line-height: 84.27%;
     width: 81.4%;
@@ -20,12 +20,36 @@
       fill: var(--color);
     }
   }
+
+  @include bp-1024 {
+   h3 {
+     width: 100%;
+   }
+  }
+
+  @include bp-959 {
+    h3 {
+      font-size: 100px;
+    }
+  }
+
+  @include bp-767 {
+    padding: 10px 10px 20px;
+    h3 {
+      font-size: 60px;
+    }
+  }
 }
 .inner {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 20px;
+  padding: 0;
+  @include bp-1024 {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 .video {
   @include get-vw(width, 225px);

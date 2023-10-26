@@ -3,6 +3,10 @@
 .newsletterCallout {
   width: 100%;
   background-color: #1C1C1C;
+
+  @include bp-767 {
+    padding-top: 20px;
+  }
 }
 .inner {
   display: flex;
@@ -47,8 +51,17 @@
     color: var(--bgColor);
     @include get-vw(width, 116px, 116px);
   }
+
+  @include bp-1024 {
+    width: 740px;
+  }
+
+  @include bp-959 {
+    width: 100%;
+  }
 }
 .tile {
+  position: relative;
   width: calc((100% / 3) - 27px);
   aspect-ratio: 1/1.025;
   height: auto;
@@ -66,6 +79,64 @@
     background-color: var(--industryBgColor);
     color: var(--industryColor);
   }
+  &:after {
+    content: "";
+    width: 0.5px;
+    height: 100%;
+    background-color: var(--color);
+    position: absolute;
+    right: -20px;
+    top: 0;
+  }
+  &:last-child {
+    &:after {
+      content: none;
+    }
+  }
+
+  @include bp-1024 {
+    width: calc(50% - 20px);
+    aspect-ratio: 1/.82;
+    margin-bottom: 40px;
+    &:last-child {
+      &:after {
+        content: "";
+      }
+      &:before {
+        content: "";
+        height: 0.5px;
+        width: 100%;
+        background-color: var(--color);
+        position: absolute;
+        top: -20px;
+        right: 0;
+      }
+    }
+  }
+
+  @include bp-767 {
+    aspect-ratio: 1/1;
+    width: 100%;
+    &:after {
+      content: none;
+    }
+    &:nth-child(2) {
+      &:before {
+        content: "";
+        height: 0.5px;
+        width: 100%;
+        background-color: var(--color);
+        position: absolute;
+        top: -20px;
+        right: 0;
+      }
+    }
+    &:last-child {
+      &:after {
+        content: none;
+      }
+    }
+  }
 }
 .eyebrow {
   font-family: $neueMed;
@@ -73,7 +144,7 @@
 }
 .title {
   @include get-vw(font-size, 80px, 60px);
-  @include get-vw(letter-spacing, -2.4px, -1.8);
+  @include get-vw(letter-spacing, -2.4px, -1.8px);
   line-height: 90%;
   font-family: $gtBold;
 }
