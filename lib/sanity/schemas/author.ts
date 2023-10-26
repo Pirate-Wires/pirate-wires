@@ -63,8 +63,7 @@ const schema = {
   preview: {
     select: {
       title: 'name',
-      media: 'image',
-      position: 'position'
+      media: 'image'
     }
   }
 };

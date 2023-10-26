@@ -1,19 +1,19 @@
 import Industry from "./industry";
-import {getGlobalFields, getPublicationData} from "@/lib/sanity/client";
+import {getGlobalFields, getPublicationData, getPublicationPosts} from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import Newsletters from "@/app/(website)/newsletters/newsletters";
 import Footer from "@/components/footer";
 
 export default async function IndustryPage() {
   const pageData = await getPublicationData("the-industry")
   const globalFields = await getGlobalFields();
-  return <div className="colorWrapper" style={{
-    "--color": "#060606",
-    "--bgColor": "#E3E3E3",
+  const publicationPosts = await getPublicationPosts('the-industry')
+  return <div className="colorWrapper interiorPub" style={{
+    "--color": globalFields.industry_color,
+    "--bgColor": globalFields.industry_bgcolor,
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
-    <Industry pageData={pageData[1]} />
+    <Industry pageData={pageData[1]} publicationPosts={publicationPosts} />
     <Footer globalFields={globalFields} />
   </div>
 }

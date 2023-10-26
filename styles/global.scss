@@ -67,6 +67,26 @@ main {
   background-color: var(--bgColor);
   color: var(--color);
 }
+.embla {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+  .prev, .next {
+    transition: opacity .22s $ease-in-out-sine;
+    &.disabled {
+      opacity: .6;
+      pointer-events: none;
+    }
+  }
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  position: relative;
+}
 .theme-color {
   &.white-pill {
     background-color: var(--whitePillBgColor);
@@ -80,6 +100,7 @@ main {
 footer {
   padding-top: 40px;
   color: var(--color);
+  background-color: var(--bgColor);
   .bottom {
     border-top: 1px solid var(--color);
     display: flex;
@@ -129,7 +150,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  article, .pubLink {
+  article, .pubLink, .dummySlide {
     width: calc((100% / 3) - 27px);
     position: relative;
     &:before {
@@ -210,6 +231,10 @@ footer {
       fill: var(--industryBgColor);
     }
   }
+}
+.dummySlide {
+  height: 0;
+  opacity: 0;
 }
 .featuredPostsTop {
   display: flex;
@@ -303,6 +328,26 @@ footer {
     .goIcon path {
       fill: var(--industryBgColor);
     }
+  }
+}
+.interiorPub {
+  .postInfo {
+    padding-bottom: 0;
+    border: none;
+    &:after {
+      content: none;
+    }
+    &:before {
+      background-color: #060606;
+    }
+  }
+  .postGrid {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    --color: #060606;
+    --bgColor: #E3E3E3;
+    color: var(--color);
+    background-color: var(--bgColor);
   }
 }
 .pubLink {

@@ -12,7 +12,6 @@ export default async function DefaultHome({ pageData }) {
   const wirePosts = pageData.featured_posts
   const whitePillPosts = pageData.featured_posts_white_pill
   const industryPosts = pageData.featured_posts_industry
-  console.log(pageData.latest_writers[0].image.asset)
   return (
     <>
       <div className={`${styles.hero} c-20`}>
@@ -101,7 +100,7 @@ export default async function DefaultHome({ pageData }) {
           </div>
           <Featured post={whitePillPosts[0]} pathPrefix="" />
             <div className="postGrid c-20">
-              {whitePillPosts.slice(1, 4).map(post => (
+              {whitePillPosts.slice(1, 6).map(post => (
                 // @ts-ignore
                 <PostList
                   key={post._id}
@@ -112,7 +111,7 @@ export default async function DefaultHome({ pageData }) {
               ))}
 
               <Link
-                href={`/wires`} className="pubLink hasGoIcon mtb-20">
+                href={`/white-pill`} className="pubLink hasGoIcon mtb-20">
                 <h2>Dive into Tech, Politics & Culture.</h2>
                 <div className="goIconWrapper caslon-reg">
                   Dive into it
@@ -125,16 +124,6 @@ export default async function DefaultHome({ pageData }) {
                   </div>
                 </div>
               </Link>
-
-              {whitePillPosts.slice(4, 6).map(post => (
-                // @ts-ignore
-                <PostList
-                  key={post._id}
-                  post={post}
-                  aspect="landscape"
-                  preloadImage={true}
-                />
-              ))}
             </div>
         </div>
       )}

@@ -29,7 +29,8 @@ const schema = {
         list: [
           { title: 'The Wire', value: 'the-wire' },
           { title: 'The Industry', value: 'the-industry' },
-          { title: 'The White Pill', value: 'the-white-pill' }
+          { title: 'The White Pill', value: 'the-white-pill' },
+          { title: 'Newsletter', value: 'newsletter' }
           // Add more predefined sections as needed
         ]
       }
@@ -111,16 +112,9 @@ const schema = {
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
+      subtitle: 'section',
       media: 'mainImage'
     },
-
-    prepare(selection) {
-      const { author } = selection;
-      return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`
-      });
-    }
   }
 };
 

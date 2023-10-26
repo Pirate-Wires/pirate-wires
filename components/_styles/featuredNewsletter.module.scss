@@ -1,0 +1,73 @@
+@import "../../styles/abstracts";
+.featuredNewsletters {
+  width: 100%;
+  display: flex;
+  h3 {
+    @include get-vw(font-size, 40px, 36px);
+    @include get-vw(margin-bottom, 20px, 18px);
+    @include get-vw(letter-spacing, -1.2px, -1.08px);
+    font-family: $gtBold;
+    line-height: 95%;
+    margin-bottom: 20px;
+  }
+}
+.left, .right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border-top: 0.5px solid #060606;
+}
+.right {
+  text-align: center;
+  align-items: center;
+}
+.form {
+
+}
+.prev {
+  transform-origin: center;
+}
+
+.slide {
+  margin-right: 20px;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  @include get-vw(min-width, 268px, 240px);
+  border-right: 0.5px solid #060606;
+  &:last-child {
+    border-right: none;
+    padding-right: 20px;
+    margin-right: 0;
+    @include get-vw(max-width, 268px, 240px);
+  }
+  h5 {
+    @include get-vw(font-size, 20px, 20px);
+    @include get-vw(letter-spacing, -0.6px, -0.6px);
+    font-family: $gtBold;
+  }
+  p {
+    @include get-vw(font-size, 15px, 15px);
+    line-height: 1.33;
+  }
+}
+.slideTop {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  gap: 12px;
+  button {
+    width: 40px;
+    height: 40px;
+  }
+}
+.tagline {
+
+}
