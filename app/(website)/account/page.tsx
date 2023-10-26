@@ -1,3 +1,4 @@
+"use client"
 import ManageSubscriptionButton from './ManageSubscriptionButton';
 import Pricing from '@/components/Pricing';
 import {
@@ -26,6 +27,7 @@ export default async function Account() {
   ]);
 
   const user = session?.user;
+  console.log('user', user?.email);
 
   if (!session) {
     return redirect('/sign-in');
@@ -157,6 +159,7 @@ export default async function Account() {
           }
         >
           <div className="mt-8 mb-4 text-xl font-semibold">
+
             <form id="emailForm" action={updateEmail}>
               <input
                 type="text"
