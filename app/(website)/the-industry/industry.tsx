@@ -26,8 +26,8 @@ export default function Industry({ pageData, publicationPosts }) {
               preloadImage={true}
             />
           ))}
-          <div className="dummy"></div>
-          <div className="dummy"></div>
+          <div className="dummySlide"></div>
+          <div className="dummySlide"></div>
         </section>
     </>
   );

@@ -1,20 +1,19 @@
 import WhitePill from "./white-pill";
-import Link from "next/link";
-import {getGlobalFields, getPublicationData} from "@/lib/sanity/client";
+import {getGlobalFields, getPublicationData, getPublicationPosts} from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import Industry from "@/app/(website)/the-industry/industry";
 import Footer from "@/components/footer";
 
-export default async function WhitePillPage() {
-  const pageData = await getPublicationData("white-pill")
+export default async function IndustryPage() {
+  const pageData = await getPublicationData("the-industry")
   const globalFields = await getGlobalFields();
-  return <div className="colorWrapper" style={{
-    "--color": "#060606",
-    "--bgColor": "#E3E3E3",
+  const publicationPosts = await getPublicationPosts('the-white-pill')
+  return <div className="colorWrapper interiorPub" style={{
+    "--color": globalFields.white_pill_color,
+    "--bgColor": globalFields.white_pill_bgcolor,
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
-    <WhitePill pageData={pageData[0]} />
+    <WhitePill pageData={pageData[1]} publicationPosts={publicationPosts} />
     <Footer globalFields={globalFields} />
   </div>
 }

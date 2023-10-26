@@ -69,13 +69,23 @@ main {
 }
 .embla {
   overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+  .prev, .next {
+    transition: opacity .22s $ease-in-out-sine;
+    &.disabled {
+      opacity: .6;
+      pointer-events: none;
+    }
+  }
 }
 .embla__container {
   display: flex;
 }
 .embla__slide {
-  flex: 0 0 100%;
-  min-width: 0;
+  position: relative;
 }
 .theme-color {
   &.white-pill {
@@ -140,7 +150,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  article, .pubLink, .dummy {
+  article, .pubLink, .dummySlide {
     width: calc((100% / 3) - 27px);
     position: relative;
     &:before {
@@ -221,11 +231,10 @@ footer {
       fill: var(--industryBgColor);
     }
   }
-  .dummy {
-    height: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
+}
+.dummySlide {
+  height: 0;
+  opacity: 0;
 }
 .featuredPostsTop {
   display: flex;
@@ -322,8 +331,15 @@ footer {
   }
 }
 .interiorPub {
-  .featuredPost {
-    padding-bottom: 20px;
+  .postInfo {
+    padding-bottom: 0;
+    border: none;
+    &:after {
+      content: none;
+    }
+    &:before {
+      background-color: #060606;
+    }
   }
   .postGrid {
     padding-top: 20px;
