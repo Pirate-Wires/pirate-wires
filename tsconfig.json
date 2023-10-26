@@ -41,6 +41,7 @@
     "**/*.js",
     ".next/types/**/*.ts"],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "app/(website)/account"
   ]
 }
