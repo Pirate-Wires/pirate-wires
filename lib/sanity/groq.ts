@@ -154,14 +154,27 @@ export const postsbyauthorquery = groq`
 `;
 
 
-// Get posts by section (The White Pill, The Industry, etc)
+// Get posts by section (The White Pill, The Industry, etc).
+// Excludes any post that has the newsletter toggle set to true
 export const postBySectionQuery = groq`
-*[_type == "post" && $section match section] {
+*[_type == "post" && $section match section && (!defined(newsletter) || !newsletter)] {
   title, 
   slug, 
+  newsletter,
   author->{name}, 
   mainImage, 
   publishedAt, 
+  excerpt
+}
+`;
+
+// Get newsletter posts by section (The White Pill, The Industry, etc)
+export const newslettersBySectionQuery = groq`
+*[_type == "post" && $section match section && newsletter] {
+  title, 
+  slug, 
+  newsletter,
+  mainImage, 
   excerpt
 }
 `;

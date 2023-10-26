@@ -22,6 +22,11 @@ const schema = {
       to: { type: 'author' }
     },
     {
+      title: 'Newsletter',
+      name: 'newsletter',
+      type: 'boolean'
+    },
+    {
       name: 'section',
       title: 'Section',
       type: 'string',
@@ -29,8 +34,7 @@ const schema = {
         list: [
           { title: 'The Wire', value: 'the-wire' },
           { title: 'The Industry', value: 'the-industry' },
-          { title: 'The White Pill', value: 'the-white-pill' },
-          { title: 'Newsletter', value: 'newsletter' }
+          { title: 'The White Pill', value: 'the-white-pill' }
           // Add more predefined sections as needed
         ]
       }

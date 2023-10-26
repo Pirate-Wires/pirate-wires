@@ -5,11 +5,11 @@ import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
 import {useEffect} from "react";
 
-export default function FeaturedNewsletters({ post, pathPrefix }) {
+export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
   const imageProps = post?.mainImage
     ? urlForImage(post?.mainImage)
     : null;
-
+  console.log(newsletters)
   // Extract the image color
   const imageColor = post?.mainImage?.ImageColor || "black";
 
@@ -46,48 +46,15 @@ export default function FeaturedNewsletters({ post, pathPrefix }) {
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
-            <div className={`${styles.slide} embla__slide`}>
-              <div className={styles.slideTop}>
-                {/*<Image src={} alt={} />*/}
-                <h5>Regulate Me, Daddy</h5>
+            {newsletters.map(newsletter => (
+              <div key={newsletter.title} className={`${styles.slide} embla__slide`}>
+                <div className={styles.slideTop}>
+                  {/*<Image src={} alt={} />*/}
+                  <h5>{newsletter.title}</h5>
+                </div>
+                <p className="caslon-med">{newsletter.excerpt}</p>
               </div>
-              <p className="caslon-med">pirate wires #101 // the "center for countering digital hate," a little bit of barbie, and what happens when atlas (fed up soccer moms) shrug? paging karen (please come back we're sorry)</p>
-            </div>
-            <div className={`${styles.slide} embla__slide`}>
-              <div className={styles.slideTop}>
-                {/*<Image src={} alt={} />*/}
-                <h5>The White Pill: Moon Memo</h5>
-              </div>
-              <p className="caslon-med">pirate wires #100 // meta goes to war with twitter, threads' meteoric rise, a battle for the heart of amphetamine-crazed shitposters, and the future of american speech</p>
-            </div>
-            <div className={`${styles.slide} embla__slide`}>
-              <div className={styles.slideTop}>
-                {/*<Image src={} alt={} />*/}
-                <h5>Brace for Impact</h5>
-              </div>
-              <p className="caslon-med">pirate wires #99 // an unthinkable voyage to titanic concludes, marxists seize the discourse, dehumanizing "tech bros," and a final thought on risk for glory</p>
-            </div>
-            <div className={`${styles.slide} embla__slide`}>
-              <div className={styles.slideTop}>
-                {/*<Image src={} alt={} />*/}
-                <h5>Regulate Me, Daddy</h5>
-              </div>
-              <p className="caslon-med">pirate wires #101 // the "center for countering digital hate," a little bit of barbie, and what happens when atlas (fed up soccer moms) shrug? paging karen (please come back we're sorry)</p>
-            </div>
-            <div className={`${styles.slide} embla__slide`}>
-              <div className={styles.slideTop}>
-                {/*<Image src={} alt={} />*/}
-                <h5>The White Pill: Moon Memo</h5>
-              </div>
-              <p className="caslon-med">pirate wires #100 // meta goes to war with twitter, threads' meteoric rise, a battle for the heart of amphetamine-crazed shitposters, and the future of american speech</p>
-            </div>
-            <div className={`${styles.slide} embla__slide`}>
-              <div className={styles.slideTop}>
-                {/*<Image src={} alt={} />*/}
-                <h5>Brace for Impact</h5>
-              </div>
-              <p className="caslon-med">pirate wires #99 // an unthinkable voyage to titanic concludes, marxists seize the discourse, dehumanizing "tech bros," and a final thought on risk for glory</p>
-            </div>
+            ))}
           </div>
           <div className={styles.controls}>
             <button className={`${styles.prev} disabled prev`} id="prev">

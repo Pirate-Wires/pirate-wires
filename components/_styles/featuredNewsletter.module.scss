@@ -2,6 +2,7 @@
 .featuredNewsletters {
   width: 100%;
   display: flex;
+  position: relative;
   h3 {
     @include get-vw(font-size, 40px, 36px);
     @include get-vw(margin-bottom, 20px, 18px);
@@ -15,7 +16,21 @@
   width: 50%;
   display: flex;
   flex-direction: column;
-  border-top: 0.5px solid #060606;
+  border-top: 0.5px solid var(--color);
+}
+.left {
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 21%;
+    min-width: 100px;
+    background: linear-gradient(270deg, var(--bgColor) 0%, var(--bgColor) 20%, rgba(241, 203, 69, 0) 100%);
+    z-index: 2;
+  }
 }
 .right {
   text-align: center;
@@ -34,7 +49,8 @@
   display: flex;
   flex-direction: column;
   @include get-vw(min-width, 268px, 240px);
-  border-right: 0.5px solid #060606;
+  @include get-vw(max-width, 268px, 240px);
+  border-right: 0.5px solid var(--color);
   &:last-child {
     border-right: none;
     padding-right: 20px;
@@ -62,6 +78,7 @@
   flex-direction: column;
   position: absolute;
   right: 0;
+  z-index: 3;
   gap: 12px;
   button {
     width: 40px;

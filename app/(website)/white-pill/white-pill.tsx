@@ -4,7 +4,7 @@ import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 
-export default function WhitePill({ pageData, publicationPosts }) {
+export default function WhitePill({ pageData, publicationPosts, publicationNewsletters }) {
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
@@ -13,7 +13,7 @@ export default function WhitePill({ pageData, publicationPosts }) {
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 
-      <FeaturedNewsletters />
+      <FeaturedNewsletters newsletters={publicationNewsletters} />
 
       <section className="postGrid c-20">
         {publicationPosts.map(post => (

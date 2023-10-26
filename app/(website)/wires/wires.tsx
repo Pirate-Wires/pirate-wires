@@ -5,7 +5,7 @@ import styles from "../../../styles/home.module.scss"
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 
-export default function Wires({ pageData, publicationPosts }) {
+export default function Wires({ pageData, publicationPosts, publicationNewsletters }) {
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
@@ -14,7 +14,7 @@ export default function Wires({ pageData, publicationPosts }) {
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 
-      <FeaturedNewsletters />
+      <FeaturedNewsletters newsletters={publicationNewsletters} />
 
       <section className="postGrid c-20">
         {publicationPosts.map(post => (

@@ -240,10 +240,11 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @include get-vw(font-size, 15px, 15px);
+  line-height: 20px;
   .right {
     display: flex;
     flex-direction: column;
-    @include get-vw(font-size, 15px, 15px);
     font-family: $neueMed;
     line-height: 1.33;
     padding-left: 20px;
@@ -338,7 +339,7 @@ footer {
       content: none;
     }
     &:before {
-      background-color: #060606;
+      background-color: var(--color);
     }
   }
   .postGrid {
@@ -348,6 +349,20 @@ footer {
     --bgColor: #E3E3E3;
     color: var(--color);
     background-color: var(--bgColor);
+  }
+  .featuredPostsTop {
+    font-family: $neueMed;
+    @include get-vw(padding-top, 20px, 20px);
+  }
+  &.pirate-wires {
+    .prev, .next {
+      rect {
+        fill: var(--color);
+      }
+      path {
+        fill: var(--bgColor);
+      }
+    }
   }
 }
 .pubLink {
