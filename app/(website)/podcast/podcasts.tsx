@@ -4,7 +4,7 @@ export default function Podcasts({ podcasts }) {
   return (
     <div className="">
       {podcasts.map((podcast) => (
-        <PodcastCard key={podcast.slug} podcast={podcast} aspect={undefined} minimal={undefined} pathPrefix={undefined} preloadImage={undefined} fontSize={undefined} fontWeight={undefined} />
+        <PodcastCard key={podcast.title} podcast={podcast} aspect={undefined} minimal={undefined} pathPrefix={undefined} preloadImage={undefined} fontSize={undefined} fontWeight={undefined} />
       ))}
     </div>
   );
