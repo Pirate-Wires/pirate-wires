@@ -14,7 +14,14 @@ import {
   postsbycatquery,
   catpathquery,
   catquery,
-  searchquery, publicationDocQuery, newsletterQuery, careersQuery, authorsQuery, postBySectionQuery, allauthorsquery
+  searchquery,
+  publicationDocQuery,
+  newsletterQuery,
+  careersQuery,
+  authorsQuery,
+  postBySectionQuery,
+  allauthorsquery,
+  authorsquery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -132,6 +139,13 @@ export async function getAuthorPostsBySlug(slug) {
     return (await client.fetch(postsbyauthorquery, { slug })) || {};
   }
   return {};
+}
+
+export async function getAllAuthorsSlugs() {
+  if (client) {
+    return (await client.fetch(authorsquery)) || [];
+  }
+  return [];
 }
 
 export async function getAllAuthors() {
