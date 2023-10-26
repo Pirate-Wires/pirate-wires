@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
-import styles from "../../../styles/home.module.scss"
+import styles from "../../../styles/pages/home.module.scss"
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 
@@ -10,7 +10,7 @@ export default function Wires({ pageData, publicationPosts, publicationNewslette
     <>
       <div className="featuredPostsTop pb-20 c-20">
         News from the Tech World
-        <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
+        <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Pirate Wires Newsletter</Link></span>
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 

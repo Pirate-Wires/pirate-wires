@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
-import styles from "../../../styles/home.module.scss"
+import styles from "../../../styles/pages/home.module.scss"
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 

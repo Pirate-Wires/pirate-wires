@@ -1,0 +1,71 @@
+@import "../abstracts";
+
+.podcastRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 51px;
+  border-bottom: 0.5px solid rgba(227, 227, 227, 0.53);
+}
+.top {
+  border-bottom: 0.5px solid rgba(227, 227, 227, 0.53);
+  @include get-vw(padding-top, 18px, 18px);
+  h1 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 178px, 140px);
+    @include get-vw(letter-spacing, -5.34px);
+    @include get-vw(margin-bottom, 40px, 31.5px);
+    line-height: 84.27%;
+  }
+}
+.left {
+  width: 52.8%;
+  display: flex;
+  flex-direction: column;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  width: 27.1%;
+  min-width: 350px;
+}
+.title {
+  font-family: $gtBold;
+  @include get-vw(font-size, 80px, 60px);
+  @include get-vw(margin-bottom, 33px, 25px);
+  @include get-vw(letter-spacing, -2.4px, -1.8px);
+  line-height: 90%;
+  @include bp-1024 {
+    font-size: 55px;
+  }
+  @include bp-959 {
+    font-size: 40px;
+  }
+}
+.linkRow {
+  display: flex;
+  @include get-vw(font-size, 18px, 18px);
+  @include get-vw(gap, 37.5px, 37.5px);
+  font-family: $neueMed;
+  a {
+    display: flex;
+    align-items: center;
+  }
+  svg {
+    @include get-vw(margin-left, 9px, 9px);
+    @include get-vw(width, 12.5px, 12.5px);
+    @include get-vw(height, 12.5px, 12.5px);
+  }
+}
+.excerpt {
+  font-family: $neueReg;
+  line-height: 141%;
+  @include get-vw(font-size, 16px, 16px);
+  @include get-vw(margin-bottom, 24px, 23px);
+}
+.authorList {
+  display: flex;
+  font-family: $neueMed;
+  @include get-vw(font-size, 16px, 16px);
+  line-height: 125%;
+}

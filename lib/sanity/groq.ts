@@ -71,11 +71,10 @@ export const homeQuery = groq`
 `;
 
 export const podcastQuery = groq`
-*[slug.current == 'podcast'] {
+*[slug.current == 'podcast'][0] {
   ...,
   title,
-  excerpt,
-  podcast_list->
+  podcast_list[]->{title, excerpt, author_list, youtube_link, apple_link, spotify_link}
 }
 `;
 

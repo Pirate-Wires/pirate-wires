@@ -9,7 +9,7 @@ export default function WhitePill({ pageData, publicationPosts, publicationNewsl
     <>
       <div className="featuredPostsTop pb-20 c-20">
         News from the Tech World
-        <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
+        <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 

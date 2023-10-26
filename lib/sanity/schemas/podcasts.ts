@@ -15,7 +15,8 @@ export default defineType({
     defineField({
       title: 'Page header',
       name: 'title',
-      type: 'text'
+      type: 'text',
+      rows: 1
     }),
     defineField({
       title: 'Podcast list',
