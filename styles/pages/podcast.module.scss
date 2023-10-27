@@ -64,8 +64,8 @@
 .linkRow {
   display: flex;
   @include get-vw(font-size, 18px, 18px);
-  @include get-vw(gap, 37.5px, 37.5px);
   font-family: $neueMed;
+  @include get-vw(gap, 37.5px, 37.5px);
   flex-wrap: wrap;
   a {
     display: flex;

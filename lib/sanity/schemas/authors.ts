@@ -23,6 +23,7 @@ export default defineType({
       title: 'Author list',
       name: 'author_list',
       type: 'array',
+      description: 'All writers and contributors go here, and get separated automatically on /authors',
       of: [{
         title: 'Author',
         name: 'Author',
