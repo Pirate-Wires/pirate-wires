@@ -24,6 +24,7 @@ export default async function AuthorPage({ params }) {
   const posts = await getAuthorPostsBySlug(params.author);
   const author = await getAuthor(params.author);
   const globalFields = await getGlobalFields();
+  console.log(author)
   return <div className="colorWrapper" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
