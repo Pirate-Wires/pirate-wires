@@ -21,7 +21,7 @@ import {
   authorsQuery,
   postBySectionQuery,
   allauthorsquery,
-  authorsquery
+  authorsquery, newslettersBySectionQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -122,6 +122,13 @@ export async function getPublicationData(slug) {
 export async function getPublicationPosts(section) {
   if (client) {
     return (await client.fetch(postBySectionQuery, { section })) || {};
+  }
+  return {};
+}
+
+export async function getPublicationNewsletters(section) {
+  if (client) {
+    return (await client.fetch(newslettersBySectionQuery, { section })) || {};
   }
   return {};
 }

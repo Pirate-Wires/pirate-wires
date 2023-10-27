@@ -71,11 +71,10 @@ export const homeQuery = groq`
 `;
 
 export const podcastQuery = groq`
-*[slug.current == 'podcast'] {
+*[slug.current == 'podcast'][0] {
   ...,
   title,
-  excerpt,
-  podcast_list->
+  podcast_list[]->{title, excerpt, author_list, youtube_link, apple_link, spotify_link}
 }
 `;
 
@@ -154,14 +153,27 @@ export const postsbyauthorquery = groq`
 `;
 
 
-// Get posts by section (The White Pill, The Industry, etc)
+// Get posts by section (The White Pill, The Industry, etc).
+// Excludes any post that has the newsletter toggle set to true
 export const postBySectionQuery = groq`
-*[_type == "post" && $section match section] {
+*[_type == "post" && $section match section && (!defined(newsletter) || !newsletter)] {
   title, 
   slug, 
+  newsletter,
   author->{name}, 
   mainImage, 
   publishedAt, 
+  excerpt
+}
+`;
+
+// Get newsletter posts by section (The White Pill, The Industry, etc)
+export const newslettersBySectionQuery = groq`
+*[_type == "post" && $section match section && newsletter] {
+  title, 
+  slug, 
+  newsletter,
+  mainImage, 
   excerpt
 }
 `;
@@ -202,6 +214,7 @@ export const allauthorsquery = groq`
 *[_type == "author"] {
  ...,
  'slug': slug.current,
+ image
 }
 `;
 

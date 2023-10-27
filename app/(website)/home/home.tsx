@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
-import styles from "../../../styles/home.module.scss"
+import styles from "../../../styles/pages/home.module.scss"
 import LatestWriters from "@/components/latestWriters";
 import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
@@ -33,7 +33,7 @@ export default async function DefaultHome({ pageData }) {
       <div className="theme-color pt-40 pb-20">
         <Featured post={wirePosts[0]} includeTop={false} pathPrefix="" />
         {wirePosts && (
-          <div className="postGrid c-20">
+          <div className="postGrid pirate-wires c-20">
             {wirePosts.slice(1, 4).map(post => (
               // @ts-ignore
               <PostList

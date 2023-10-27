@@ -4,16 +4,16 @@ import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 
-export default function WhitePill({ pageData, publicationPosts }) {
+export default function WhitePill({ pageData, publicationPosts, publicationNewsletters }) {
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
         News from the Tech World
-        <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
+        <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 
-      <FeaturedNewsletters />
+      <FeaturedNewsletters newsletters={publicationNewsletters} />
 
       <section className="postGrid c-20">
         {publicationPosts.map(post => (
@@ -25,8 +25,8 @@ export default function WhitePill({ pageData, publicationPosts }) {
             preloadImage={true}
           />
         ))}
-        <div className="dummySlide"></div>
-        <div className="dummySlide"></div>
+        <div className="dummyTile"></div>
+        <div className="dummyTile"></div>
       </section>
     </>
   );

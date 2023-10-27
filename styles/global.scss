@@ -96,6 +96,16 @@ main {
     background-color: var(--industryBgColor);
     color: var(--industryColor);
   }
+  @include bp-767 {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+}
+.pageTitle {
+  font-family: $gtBold;
+  @include get-vw(font-size, 178px, 140px);
+  @include get-vw(letter-spacing, -5.34px);
+  line-height: 84.27%;
 }
 footer {
   padding-top: 40px;
@@ -120,6 +130,44 @@ footer {
       fill: var(--color);
     }
   }
+
+  @include bp-959 {
+    .bottom {
+      flex-wrap: wrap;
+      border-top: none;
+    }
+    .left {
+      order: 2;
+      width: 50%;
+      justify-content: flex-start;
+    }
+    .middle {
+      width: 100%;
+      justify-content: center;
+      order: 1;
+      border-bottom: 1px solid var(--color);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .right {
+      width: 50%;
+      order: 2;
+      justify-content: flex-end;
+    }
+  }
+
+  @include bp-767 {
+    padding-top: 20px;
+    .bottom {
+      align-items: flex-end;
+      padding-bottom: 72px;
+    }
+    .left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  }
 }
 
 .imgWrapper {
@@ -140,8 +188,53 @@ footer {
     height: 100%;
     right: -20px;
     top: 0;
+    opacity: 0.6;
     position: absolute;
     content: "";
+  }
+
+  @include bp-1024 {
+    width: calc((100% / 3) - 27px);
+    &:last-child {
+      display: none;
+    }
+    &:nth-child(3) {
+      &:after {
+        content: none;
+      }
+    }
+  }
+
+  @include bp-767 {
+    width: calc(50% - 10px);
+    margin: 20px 0;
+    &:last-child {
+      display: flex;
+    }
+    &:after {
+      right: -10px;
+    }
+    &:nth-child(3) {
+      &:after {
+        content: "";
+      }
+    }
+    &:nth-last-child(-n + 2) {
+      &:before {
+        content: "";
+        height: 0.5px;
+        width: 100%;
+        background-color: var(--color);
+        position: absolute;
+        left: 0;
+        top: -20px;
+      }
+    }
+    &:nth-child(even) {
+      &:after {
+        content: none;
+      }
+    }
   }
 }
 
@@ -150,14 +243,14 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  article, .pubLink, .dummySlide {
+  article, .pubLink, .dummyTile, .authorTile {
     width: calc((100% / 3) - 27px);
     position: relative;
     &:before {
       content: "";
       height: 0.5px;
       width: 100%;
-      background-color: var(--accentDark);
+      background-color: var(--color);
       position: absolute;
       left: 0;
       top: -20px;
@@ -166,7 +259,7 @@ footer {
       content: "";
       width: 0.5px;
       height: 100%;
-      background-color: var(--accentDark);
+      background-color: var(--color);
       position: absolute;
       right: -20px;
       top: 0;
@@ -179,6 +272,13 @@ footer {
     &:nth-child(-n+3) {
       &:before {
         content: none;
+      }
+    }
+  }
+  &.pirate-wires {
+    article, .pubLink {
+      &:before, &:after {
+        background-color: var(--accentDark);
       }
     }
   }
@@ -199,11 +299,11 @@ footer {
     article, .pubLink {
       &:before {
         background-color: var(--whitePillColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
       &:after {
         background-color: var(--whitePillColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
     }
     .goIcon .leftHalf, .goIcon .rightHalf {
@@ -217,11 +317,11 @@ footer {
     article, .pubLink {
       &:before {
         background-color: var(--industryColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
       &:after {
         background-color: var(--industryColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
     }
     .goIcon .leftHalf, .goIcon .rightHalf {
@@ -231,8 +331,62 @@ footer {
       fill: var(--industryBgColor);
     }
   }
+  .authorTile {
+    &:before {
+      background-color: #060606;
+    }
+    &:after {
+      background-color: #060606;
+    }
+    .imgWrapper {
+      aspect-ratio: 1/1;
+    }
+  }
+  @include bp-959 {
+    .postTitle {
+      font-size: 26px;
+    }
+  }
+
+  @include bp-767 {
+    article, .pubLink, .dummyTile, .authorTile {
+      width: calc(50% - 10px);
+      &:after {
+        content: "";
+        width: 0.5px;
+        height: 100%;
+        background-color: var(--accentDark);
+        position: absolute;
+        right: -10px;
+        top: 0;
+      }
+      &:nth-child(3n+3) {
+        &:after {
+          content: "";
+        }
+      }
+      &:nth-child(-n+3) {
+        &:before {
+          content: "";
+        }
+      }
+      &:nth-child(-n+2) {
+        &:before {
+          content: none;
+        }
+      }
+      &:nth-child(even) {
+        &:after {
+          content: none;
+        }
+      }
+      &:nth-last-child(-n+2) {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
-.dummySlide {
+.dummyTile {
   height: 0;
   opacity: 0;
 }
@@ -240,10 +394,11 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @include get-vw(font-size, 15px, 15px);
+  line-height: 20px;
   .right {
     display: flex;
     flex-direction: column;
-    @include get-vw(font-size, 15px, 15px);
     font-family: $neueMed;
     line-height: 1.33;
     padding-left: 20px;
@@ -265,7 +420,7 @@ footer {
   }
   .white-pill & {
     svg {
-      @include get-vw(width, 196px, 196px);
+      @include get-vw(width, 196px, 150px);
       height: auto;
     }
     .right:after {
@@ -274,11 +429,31 @@ footer {
   }
   .industry & {
     svg {
-      @include get-vw(width, 154px, 154px);
+      @include get-vw(width, 154px, 113px);
       height: auto;
     }
     .right:after {
       background-color: var(--industryColor);
+    }
+  }
+
+  @include bp-1024 {
+    justify-content: flex-start;
+    @include get-vw(gap, 120px, 55px);
+    .right {
+      width: auto;
+    }
+  }
+
+  @include bp-767 {
+    flex-direction: column;
+    gap: 20px;
+    .right {
+      padding: 0;
+      width: 100%;
+      &:after {
+        content: none;
+      }
     }
   }
 }
@@ -286,21 +461,21 @@ footer {
   .white-pill & {
     &:before {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
     &:after {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
   }
   .industry & {
     &:before {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
     &:after {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
   }
 }
@@ -329,6 +504,13 @@ footer {
       fill: var(--industryBgColor);
     }
   }
+
+  @include bp-767 {
+    aspect-ratio: unset;
+    a {
+      flex-direction: column-reverse;
+    }
+  }
 }
 .interiorPub {
   .postInfo {
@@ -338,7 +520,7 @@ footer {
       content: none;
     }
     &:before {
-      background-color: #060606;
+      background-color: var(--color);
     }
   }
   .postGrid {
@@ -348,6 +530,20 @@ footer {
     --bgColor: #E3E3E3;
     color: var(--color);
     background-color: var(--bgColor);
+  }
+  .featuredPostsTop {
+    font-family: $neueMed;
+    @include get-vw(padding-top, 20px, 20px);
+  }
+  &.pirate-wires {
+    .prev, .next {
+      rect {
+        fill: var(--color);
+      }
+      path {
+        fill: var(--bgColor);
+      }
+    }
   }
 }
 .pubLink {
@@ -362,11 +558,18 @@ footer {
   h2, h3, h4 {
     font-family: $gtBold;
     @include get-vw(font-size, 80px, 60px);
-    @include get-vw(letter-spacing, -2.4px, -1.8);
+    @include get-vw(letter-spacing, -2.4px, -1.8px);
     line-height: 90%;
   }
   .goIconWrapper {
     align-self: flex-end;
+  }
+
+  @include bp-1024 {
+    h2, h3, h4 {
+      font-size: 40px;
+    }
+
   }
 }
 .postAuthor {
@@ -420,7 +623,8 @@ footer {
 .goIconWrapper {
   display: flex;
   align-items: center;
-  gap: 20px;
+  @include get-vw(gap, 20px, 10px);
+  @include get-vw(font-size, 14px, 14px);
   .goIcon {
     position: relative;
     top: -2px;
@@ -429,6 +633,7 @@ footer {
 .goIcon {
   @include get-vw(width, 20px, 20px);
   @include get-vw(height, 20px, 20px);
+  min-width: 20px;
   position: relative;
   display: flex;
   align-items: center;
