@@ -3,7 +3,7 @@ import Image from "next/image";
 import { urlForImage } from "@/lib/sanity/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 export default function FeaturedNewsletters({ post, pathPrefix }) {
   const imageProps = post?.mainImage
@@ -51,55 +51,55 @@ export default function FeaturedNewsletters({ post, pathPrefix }) {
                 {/*<Image src={} alt={} />*/}
                 <h5>Regulate Me, Daddy</h5>
               </div>
-              <p className="caslon-med">pirate wires #101 // the "center for countering digital hate," a little bit of barbie, and what happens when atlas (fed up soccer moms) shrug? paging karen (please come back we're sorry)</p>
+              <p className="caslon-med">pirate wires #101 // the &quot;center for countering digital hate,&quot; a little bit of barbie, and what happens when atlas (fed up soccer moms) shrug? paging karen (please come back we&apos;re sorry)</p>
             </div>
             <div className={`${styles.slide} embla__slide`}>
               <div className={styles.slideTop}>
                 {/*<Image src={} alt={} />*/}
                 <h5>The White Pill: Moon Memo</h5>
               </div>
-              <p className="caslon-med">pirate wires #100 // meta goes to war with twitter, threads' meteoric rise, a battle for the heart of amphetamine-crazed shitposters, and the future of american speech</p>
+              <p className="caslon-med">pirate wires #100 // meta goes to war with twitter, threads&apos; meteoric rise, a battle for the heart of amphetamine-crazed shitposters, and the future of american speech</p>
             </div>
             <div className={`${styles.slide} embla__slide`}>
               <div className={styles.slideTop}>
                 {/*<Image src={} alt={} />*/}
                 <h5>Brace for Impact</h5>
               </div>
-              <p className="caslon-med">pirate wires #99 // an unthinkable voyage to titanic concludes, marxists seize the discourse, dehumanizing "tech bros," and a final thought on risk for glory</p>
+              <p className="caslon-med">pirate wires #99 // an unthinkable voyage to titanic concludes, marxists seize the discourse, dehumanizing &quot;tech bros,&quot; and a final thought on risk for glory</p>
             </div>
             <div className={`${styles.slide} embla__slide`}>
               <div className={styles.slideTop}>
                 {/*<Image src={} alt={} />*/}
                 <h5>Regulate Me, Daddy</h5>
               </div>
-              <p className="caslon-med">pirate wires #101 // the "center for countering digital hate," a little bit of barbie, and what happens when atlas (fed up soccer moms) shrug? paging karen (please come back we're sorry)</p>
+              <p className="caslon-med">pirate wires #101 // the &quot;center for countering digital hate,&quot; a little bit of barbie, and what happens when atlas (fed up soccer moms) shrug? paging karen (please come back we&apos;re sorry)</p>
             </div>
             <div className={`${styles.slide} embla__slide`}>
               <div className={styles.slideTop}>
                 {/*<Image src={} alt={} />*/}
                 <h5>The White Pill: Moon Memo</h5>
               </div>
-              <p className="caslon-med">pirate wires #100 // meta goes to war with twitter, threads' meteoric rise, a battle for the heart of amphetamine-crazed shitposters, and the future of american speech</p>
+              <p className="caslon-med">pirate wires #100 // meta goes to war with twitter, threads&apos; meteoric rise, a battle for the heart of amphetamine-crazed shitposters, and the future of american speech</p>
             </div>
             <div className={`${styles.slide} embla__slide`}>
               <div className={styles.slideTop}>
                 {/*<Image src={} alt={} />*/}
                 <h5>Brace for Impact</h5>
               </div>
-              <p className="caslon-med">pirate wires #99 // an unthinkable voyage to titanic concludes, marxists seize the discourse, dehumanizing "tech bros," and a final thought on risk for glory</p>
+              <p className="caslon-med">pirate wires #99 // an unthinkable voyage to titanic concludes, marxists seize the discourse, dehumanizing &quot;tech bros,&quot; and a final thought on risk for glory</p>
             </div>
           </div>
           <div className={styles.controls}>
             <button className={`${styles.prev} disabled prev`} id="prev">
               <svg x="0px" y="0px" viewBox="0 0 32 32">
-                <rect fill="#060606" y="0" className="st0" width="32" height="32"/>
+                <rect fill="#060606" y="0" className="st0" width="32" height="32" />
                 <path fill="#F1CB45" d="M20,16.5h0.5v-1H20V16.5z M11.6,15.6c-0.2,0.2-0.2,0.5,0,0.7l3.2,3.2c0.2,0.2,0.5,0.2,0.7,0
                   c0.2-0.2,0.2-0.5,0-0.7L12.7,16l2.8-2.8c0.2-0.2,0.2-0.5,0-0.7c-0.2-0.2-0.5-0.2-0.7,0L11.6,15.6z M20,15.5h-8v1h8V15.5z"/>
               </svg>
             </button>
             <button className={`next`} id="next">
               <svg x="0px" y="0px" viewBox="0 0 32 32">
-                <rect fill="#060606" width="32" height="32"/>
+                <rect fill="#060606" width="32" height="32" />
                 <path fill="#F1CB45" d="M12,15.5h-0.5v1H12V15.5z M20.4,16.4c0.2-0.2,0.2-0.5,0-0.7l-3.2-3.2c-0.2-0.2-0.5-0.2-0.7,0
                   c-0.2,0.2-0.2,0.5,0,0.7l2.8,2.8l-2.8,2.8c-0.2,0.2-0.2,0.5,0,0.7c0.2,0.2,0.5,0.2,0.7,0L20.4,16.4z M12,16.5h8v-1h-8V16.5z"/>
               </svg>
