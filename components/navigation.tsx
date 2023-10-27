@@ -5,6 +5,7 @@ import styles from "./_styles/header.module.scss"
 import { usePathname } from 'next/navigation';
 import classNames from 'classnames';
 import React from "react";
+import MegaNav from "@/components/megaNav";
 
 interface Tab {
   name: string;
@@ -106,6 +107,7 @@ export default function Navigation({ globalFields, publication }) {
               </button>
             </div>
           </nav>
+          <MegaNav />
         </header> :
 
         <header className={styles.flowHeader}>
