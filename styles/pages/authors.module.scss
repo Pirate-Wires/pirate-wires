@@ -74,4 +74,46 @@
   @include get-vw(margin-right, 49px, 20px);
   position: relative;
 }
+.name {
+  font-family: $gtBold;
+  @include get-vw(font-size, 80px, 60px);
+  @include get-vw(letter-spacing, -2.4px, -1.8px);
+  @include get-vw(margin-bottom, 24px, 24px);
+  line-height: 90%;
+  @include bp-1024 {
+    font-size: 55px;
+  }
+  @include bp-959 {
+    font-size: 40px;
+  }
+}
+.bio {
+  font-family: $neueMed;
+  @include get-vw(font-size, 22px, 22px);
+  line-height: 1.45;
+}
+.socialRow {
+  display: flex;
+  @include get-vw(gap, 25px, 25px);
+  @include get-vw(font-size, 18px, 18px);
+  @include get-vw(margin-top, 25px, 25px);
+  font-family: $neueMed;
+  a {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  svg {
+    @include get-vw(margin-left, 9px, 9px);
+    @include get-vw(width, 12.5px, 12.5px);
+    @include get-vw(height, 12.5px, 12.5px);
+  }
+  path {
+    stroke: var(--color);
+  }
+
+  @include bp-767 {
+    font-size: 14px;
+  }
+}
 

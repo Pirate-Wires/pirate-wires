@@ -31,12 +31,12 @@ export default function Author(props) {
           )}
         </div>
         <div className={styles.singleRight}>
-          <h1 className="text-brand-primary mt-2 text-3xl font-semibold tracking-tight dark:text-white lg:text-3xl lg:leading-tight">
+          <h1 className={styles.name}>
             {author.name}
           </h1>
-          <p>
+          <div className={styles.bio}>
             {author.bio && <PortableText value={author.bio} />}
-          </p>
+          </div>
           <div className={styles.socialRow}>
             {author.twitter_link &&
               <Link href={author.twitter_link} target="_blank">
