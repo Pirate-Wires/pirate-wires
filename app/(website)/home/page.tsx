@@ -14,7 +14,7 @@ export default async function HomePage() {
         "--bgColor": "#060606",
      } as React.CSSProperties}>
       <Navigation globalFields={globalFields} />
-      <Home pageData={pageData[0]} />
+      <Home pageData={pageData[0]} globalFields={globalFields} />
       <Footer globalFields={globalFields} />
    </div>
    ;

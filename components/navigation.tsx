@@ -97,11 +97,13 @@ export default function Navigation({ globalFields, publication }) {
               <Link href="/newsletters">Newsletters</Link>
               <Link href="/subscribe" className={`${styles.btn} btn square`}>Subscribe</Link>
               <Link href="/account">Sign In</Link>
-              <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="20" y1="1" y2="1" stroke="var(--color)" strokeWidth="2" />
-                <line x1="20" y1="7.99984" y2="7.99984" stroke="var(--color)" strokeWidth="2" />
-                <line x1="20" y1="14.9998" y2="14.9998" stroke="var(--color)" strokeWidth="2" />
-              </svg>
+              <button className="hammy" id="mega-nav-trigger">
+                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="20" y1="1" y2="1" stroke="var(--color)" strokeWidth="2" />
+                  <line x1="20" y1="7.99984" y2="7.99984" stroke="var(--color)" strokeWidth="2" />
+                  <line x1="20" y1="14.9998" y2="14.9998" stroke="var(--color)" strokeWidth="2" />
+                </svg>
+              </button>
             </div>
           </nav>
         </header> :

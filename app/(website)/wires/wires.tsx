@@ -5,7 +5,7 @@ import styles from "../../../styles/pages/home.module.scss"
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 
-export default function Wires({ pageData, publicationPosts, publicationNewsletters }) {
+export default function Wires({ pageData, globalFields, publicationPosts, publicationNewsletters }) {
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
