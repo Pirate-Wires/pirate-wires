@@ -9,7 +9,6 @@ export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
   const imageProps = post?.mainImage
     ? urlForImage(post?.mainImage)
     : null;
-  console.log(newsletters)
   // Extract the image color
   const imageColor = post?.mainImage?.ImageColor || "black";
 
@@ -78,7 +77,7 @@ export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
         <h3>Join, or die</h3>
         <p>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
         <form className={`${styles.form}`}>
-          <input type="email" />
+          <input type="email" required placeholder="Your email here..."/>
           <button type="submit">Sign Up</button>
         </form>
         <p className={styles.tagline}></p>

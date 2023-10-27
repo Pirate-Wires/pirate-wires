@@ -79,21 +79,27 @@ export const podcastQuery = groq`
 `;
 
 export const careersQuery = groq`
-*[slug.current == 'careers'] {
+*[slug.current == 'careers'][0] {
   ...,
-  careers_list->
+  career_list[]->{title, date, link}
 }
 `;
 
 export const authorsQuery = groq`
-*[slug.current == 'authors'] {
+*[slug.current == 'authors'][0] {
   ...,
-  author_list->
+  author_list[]->{..., slug, image}
 }
 `;
 
 export const newsletterQuery = groq`
 *[slug.current == 'newsletters'] {
+  ...,
+}
+`;
+
+export const careerQuery = groq`
+*[slug.current == 'careers'] {
   ...,
 }
 `;
@@ -157,6 +163,20 @@ export const postsbyauthorquery = groq`
 // Excludes any post that has the newsletter toggle set to true
 export const postBySectionQuery = groq`
 *[_type == "post" && $section match section && (!defined(newsletter) || !newsletter)] {
+  title, 
+  slug, 
+  newsletter,
+  author->{name}, 
+  mainImage, 
+  publishedAt, 
+  excerpt
+}
+`;
+
+// Get posts by author
+// Excludes any post that has the newsletter toggle set to true
+export const postByAuthorQuery = groq`
+*[_type == "post" && $authorName match author->name] {
   title, 
   slug, 
   newsletter,
