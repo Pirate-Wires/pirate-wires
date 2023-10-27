@@ -9,7 +9,6 @@ export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
   const imageProps = post?.mainImage
     ? urlForImage(post?.mainImage)
     : null;
-  console.log(newsletters)
   // Extract the image color
   const imageColor = post?.mainImage?.ImageColor || "black";
 

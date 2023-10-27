@@ -6,7 +6,6 @@ export default function AuthorTile({ authorData }) {
   const imageProps = authorData.image
     ? urlForImage(authorData.image)
     : null;
-  console.log(authorData)
 
   return (
     <Link

@@ -3,7 +3,6 @@ import styles from "../../../styles/pages/podcast.module.scss"
 import Link from "next/link";
 
 export default function Podcasts({ pageData }) {
-  console.log(pageData)
   return (
     <div className="c-20">
       <div className={styles.top}>
