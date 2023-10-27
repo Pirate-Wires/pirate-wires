@@ -4,8 +4,14 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding-bottom: 51px;
+  padding-bottom: 40px;
   border-bottom: 0.5px solid rgba(227, 227, 227, 0.53);
+
+  @include bp-767 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    flex-direction: column;
+  }
 }
 .top {
   border-bottom: 0.5px solid rgba(227, 227, 227, 0.53);
@@ -13,17 +19,34 @@
   h1 {
     @include get-vw(margin-bottom, 40px, 31.5px);
   }
+
+  @include bp-767 {
+    h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+  }
 }
 .left {
   width: 52.8%;
   display: flex;
   flex-direction: column;
+  @include bp-767 {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
 .right {
   display: flex;
   flex-direction: column;
   width: 27.1%;
   min-width: 350px;
+  @include bp-959 {
+    min-width: 320px;
+  }
+  @include bp-767 {
+    width: 100%;
+  }
 }
 .title {
   font-family: $gtBold;
@@ -43,25 +66,31 @@
   @include get-vw(font-size, 18px, 18px);
   @include get-vw(gap, 37.5px, 37.5px);
   font-family: $neueMed;
+  flex-wrap: wrap;
   a {
     display: flex;
     align-items: center;
+    white-space: nowrap;
   }
   svg {
     @include get-vw(margin-left, 9px, 9px);
     @include get-vw(width, 12.5px, 12.5px);
     @include get-vw(height, 12.5px, 12.5px);
   }
+
+  @include bp-767 {
+    font-size: 14px;
+  }
 }
 .excerpt {
   font-family: $neueReg;
   line-height: 141%;
-  @include get-vw(font-size, 16px, 16px);
-  @include get-vw(margin-bottom, 24px, 23px);
+  @include get-vw(font-size, 16px, 15px);
+  @include get-vw(margin-bottom, 24px, 20px);
 }
 .authorList {
   display: flex;
   font-family: $neueMed;
-  @include get-vw(font-size, 16px, 16px);
+  @include get-vw(font-size, 16px, 15px);
   line-height: 125%;
 }
