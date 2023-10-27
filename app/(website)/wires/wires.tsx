@@ -5,11 +5,11 @@ import styles from "../../../styles/pages/home.module.scss"
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 
-export default function Wires({ pageData, globalFields, publicationPosts, publicationNewsletters }) {
+export default function Wires({ pageData, publicationPosts, publicationNewsletters }) {
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
-        News from the Tech World
+        {pageData.tagline}
         <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Pirate Wires Newsletter</Link></span>
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
