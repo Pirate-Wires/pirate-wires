@@ -25,8 +25,8 @@ export default function WhitePill({ pageData, publicationPosts, publicationNewsl
             preloadImage={true}
           />
         ))}
-        <div className="dummySlide"></div>
-        <div className="dummySlide"></div>
+        <div className="dummyTile"></div>
+        <div className="dummyTile"></div>
       </section>
     </>
   );

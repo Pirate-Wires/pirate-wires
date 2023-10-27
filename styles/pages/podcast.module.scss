@@ -11,11 +11,7 @@
   border-bottom: 0.5px solid rgba(227, 227, 227, 0.53);
   @include get-vw(padding-top, 18px, 18px);
   h1 {
-    font-family: $gtBold;
-    @include get-vw(font-size, 178px, 140px);
-    @include get-vw(letter-spacing, -5.34px);
     @include get-vw(margin-bottom, 40px, 31.5px);
-    line-height: 84.27%;
   }
 }
 .left {

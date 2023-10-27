@@ -101,6 +101,12 @@ main {
     padding-bottom: 20px !important;
   }
 }
+.pageTitle {
+  font-family: $gtBold;
+  @include get-vw(font-size, 178px, 140px);
+  @include get-vw(letter-spacing, -5.34px);
+  line-height: 84.27%;
+}
 footer {
   padding-top: 40px;
   color: var(--color);
@@ -182,6 +188,7 @@ footer {
     height: 100%;
     right: -20px;
     top: 0;
+    opacity: 0.6;
     position: absolute;
     content: "";
   }
@@ -236,14 +243,14 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  article, .pubLink, .dummySlide {
+  article, .pubLink, .dummyTile, .authorTile {
     width: calc((100% / 3) - 27px);
     position: relative;
     &:before {
       content: "";
       height: 0.5px;
       width: 100%;
-      background-color: var(--accentDark);
+      background-color: var(--color);
       position: absolute;
       left: 0;
       top: -20px;
@@ -252,7 +259,7 @@ footer {
       content: "";
       width: 0.5px;
       height: 100%;
-      background-color: var(--accentDark);
+      background-color: var(--color);
       position: absolute;
       right: -20px;
       top: 0;
@@ -265,6 +272,13 @@ footer {
     &:nth-child(-n+3) {
       &:before {
         content: none;
+      }
+    }
+  }
+  &.pirate-wires {
+    article, .pubLink {
+      &:before, &:after {
+        background-color: var(--accentDark);
       }
     }
   }
@@ -285,11 +299,11 @@ footer {
     article, .pubLink {
       &:before {
         background-color: var(--whitePillColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
       &:after {
         background-color: var(--whitePillColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
     }
     .goIcon .leftHalf, .goIcon .rightHalf {
@@ -303,11 +317,11 @@ footer {
     article, .pubLink {
       &:before {
         background-color: var(--industryColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
       &:after {
         background-color: var(--industryColor);
-        opacity: 0.55;
+        opacity: 0.6;
       }
     }
     .goIcon .leftHalf, .goIcon .rightHalf {
@@ -317,7 +331,17 @@ footer {
       fill: var(--industryBgColor);
     }
   }
-
+  .authorTile {
+    &:before {
+      background-color: #060606;
+    }
+    &:after {
+      background-color: #060606;
+    }
+    .imgWrapper {
+      aspect-ratio: 1/1;
+    }
+  }
   @include bp-959 {
     .postTitle {
       font-size: 26px;
@@ -325,7 +349,7 @@ footer {
   }
 
   @include bp-767 {
-    article, .pubLink, .dummySlide {
+    article, .pubLink, .dummyTile, .authorTile {
       width: calc(50% - 10px);
       &:after {
         content: "";
@@ -362,7 +386,7 @@ footer {
     }
   }
 }
-.dummySlide {
+.dummyTile {
   height: 0;
   opacity: 0;
 }
@@ -437,21 +461,21 @@ footer {
   .white-pill & {
     &:before {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
     &:after {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
   }
   .industry & {
     &:before {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
     &:after {
       background-color: var(--whitePillColor);
-      opacity: 0.55;
+      opacity: 0.6;
     }
   }
 }

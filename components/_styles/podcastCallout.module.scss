@@ -6,10 +6,6 @@
   padding: 20px 20px 40px 20px;
   display: flex;
   h3 {
-    font-family: $gtBold;
-    @include get-vw(font-size, 178px, 140px);
-    @include get-vw(letter-spacing, -5.34px);
-    line-height: 84.27%;
     width: 81.4%;
   }
   .goIcon {

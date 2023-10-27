@@ -1,16 +1,19 @@
 import AuthorCard from "@/components/blog/authorCardAuthorsPage";
+import AuthorTile from "@/components/authorTile";
 
 export default function Authors({ authors }) {
   return (
-    <>
-      <h1>Authors</h1>
-      <div className="grid grid-cols-2 gap-4">
+    <section className="c-20">
+      <h1 className="pageTitle">
+        Authors
+      </h1>
+      <div className="postGrid">
         {authors.map((author: any) => (
-          <>
-            <AuthorCard key={author.slug} author={author} />
-          </>
+          <AuthorTile key={author.name} authorData={author} />
         ))}
+        <div className="dummyTile"></div>
+        <div className="dummyTile"></div>
       </div>
-    </>
+    </section>
   );
 }

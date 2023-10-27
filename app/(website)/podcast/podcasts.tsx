@@ -7,7 +7,7 @@ export default function Podcasts({ pageData }) {
   return (
     <div className="c-20">
       <div className={styles.top}>
-        <h1>{pageData.title}</h1>
+        <h1 className="pageTitle">{pageData.title}</h1>
       </div>
       {pageData.podcast_list.map((podcast) => (
           <div key={podcast.title} className={`${styles.podcastRow} pt-40`}>

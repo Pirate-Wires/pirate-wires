@@ -26,8 +26,8 @@ export default function Wires({ pageData, publicationPosts, publicationNewslette
             preloadImage={true}
           />
         ))}
-        <div className="dummySlide"></div>
-        <div className="dummySlide"></div>
+        <div className="dummyTile"></div>
+        <div className="dummyTile"></div>
       </section>
     </>
   );
