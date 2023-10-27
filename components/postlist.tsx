@@ -55,7 +55,9 @@ export default function PostList({
         </h1>
 
         <p className="excerpt caslon-reg">
-          {post.excerpt}
+          <span>
+            {post.excerpt}
+          </span>
         </p>
 
         <Link

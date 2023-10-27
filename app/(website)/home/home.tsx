@@ -12,6 +12,7 @@ export default async function DefaultHome({ pageData }) {
   const wirePosts = pageData.featured_posts
   const whitePillPosts = pageData.featured_posts_white_pill
   const industryPosts = pageData.featured_posts_industry
+  console.log(pageData.latest_writers)
   return (
     <>
       <div className={`${styles.hero} c-20`}>
