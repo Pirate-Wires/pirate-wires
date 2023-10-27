@@ -19,6 +19,15 @@
     font-family: $gtBold;
     line-height: 95%;
   }
+
+  @include bp-767 {
+    padding-bottom: 20px;
+    a {
+      width: 50%;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+  }
 }
 .authorsPage {
   h1 {
