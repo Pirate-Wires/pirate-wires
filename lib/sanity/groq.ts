@@ -214,6 +214,7 @@ export const allauthorsquery = groq`
 *[_type == "author"] {
  ...,
  'slug': slug.current,
+ image
 }
 `;
 
