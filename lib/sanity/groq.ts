@@ -63,7 +63,7 @@ export const homeQuery = groq`
 *[slug.current == 'home'] {
   ...,
   "podcastCalloutVid": podcastCalloutVid.asset->{url},
-  latest_writers[]->{name, title, slug->, image},
+  latest_writers[]->{name, title, slug, image},
   featured_posts[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
   featured_posts_white_pill[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
   featured_posts_industry[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt}
