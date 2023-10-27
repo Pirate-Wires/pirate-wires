@@ -14,7 +14,7 @@ import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { urlForImage } from "@/lib/sanity/image";
 import CategoryLabel from "@/components/blog/category";
 import AuthorCard from "@/components/blog/authorCard";
-import {useDateFormatter} from "@/hooks/useDateFormatter";
+import { useDateFormatter } from "@/hooks/useDateFormatter";
 
 import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
 import SidebarComments from '@/lib/supabase-comments/components/comments/SidebarComments';
@@ -129,35 +129,6 @@ export default async function Post(props) {
           </div>
         </article>
 
-      </Container>
-
-
-
-
-      {/* Paid Content */}
-      <Container>
-        <article className="mx-auto max-w-screen-md ">
-          <div className="prose mx-auto my-3 dark:prose-invert prose-a:text-blue-500 border p-12">
-
-
-
-            <div className="flex justify-center">
-              <div className="w-full max-w-screen-md">
-                <div className="flex justify-center">
-                  <div className="flex flex-col items-center justify-center w-full max-w-screen-md">
-                    <div className="flex flex-col items-center justify-center w-full max-w-screen-md text-xs text-gray">
-                      Paid content block for: {user?.email}, {user?.id}, {user?.role}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            {post.paidContent && <PortableText value={post.paidContent} />}
-          </div>
-        </article>
-        {post.author && <AuthorCard author={post.author} />}
       </Container>
 
       <Container>
