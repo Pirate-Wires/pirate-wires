@@ -2,7 +2,6 @@ import Link from "next/link";
 import styles from "../../../styles/pages/careers.module.scss"
 import {useDateFormatter} from "@/hooks/useDateFormatter";
 export default function Authors({ pageData }) {
-  console.log(pageData)
   return (
     <section className={`${styles.careersPage} c-20`}>
       <h1 className={`pageTitle pb-40`}>

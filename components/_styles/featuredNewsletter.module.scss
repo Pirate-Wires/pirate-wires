@@ -63,22 +63,25 @@
     width: 100%;
     margin-top: 20px;
     display: flex;
-    height: 40px;
+    @include get-vw(height, 40px, 40px);
+    font-family: $neueMed;
     input {
       width: 100%;
       border: 1px solid #060606;
-      color: rgba(255, 255, 255, 0.50);
+      color: var(--color);
       flex: 1;
-      &:not(:placeholder-shown) {
-        color: rgba(255, 255, 255, .9);
+      @include get-vw(padding-left, 20px, 20px);
+      @include get-vw(font-size, 16px, 16px);
+      &::placeholder {
+        color: var(--color);
+        opacity: 0.5;
       }
     }
     button {
       border: 1px solid #060606;
-      background: #F1CB45;
-      color: #060606;
+      background: transparent;
+      color: var(--color);
       @include get-vw(width, 165px, 100px);
-      font-family: $neueMed;
       border-left: 0;
     }
   }
