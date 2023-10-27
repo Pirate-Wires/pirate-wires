@@ -6,12 +6,7 @@ export default function AuthorTile({ authorData }) {
   const imageProps = authorData.image
     ? urlForImage(authorData.image)
     : null;
-
-  // Extract the image color
-  const imageColor = authorData.image.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
+  // console.log(authorData, imageProps)
 
   return (
     <Link
