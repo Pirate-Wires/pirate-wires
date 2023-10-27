@@ -1,16 +1,19 @@
 "use client"
 import styles from "./_styles/newsletterCallout.module.scss"
-import {usePathname} from "next/navigation";
-import {useEffect} from "react";
-import {ScrollBasedAnims} from "@/utils/classes/ScrollBasedAnims";
-export default function NewsletterCallout({newsletterData}) {
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { ScrollBasedAnims } from "@/utils/classes/ScrollBasedAnims";
+
+
+export default function NewsletterCallout({ newsletterData, user }) {
+
     const currentRoute = usePathname();
     const interiorPage = currentRoute === "/newsletters"
     let bound = false
     useEffect(() => {
         if (!bound) {
-            const form =  document.getElementById("newsletter-form")
-            form.addEventListener("submit", (event)=>{
+            const form = document.getElementById("newsletter-form")
+            form.addEventListener("submit", (event) => {
                 event.preventDefault();
                 //
             });
@@ -18,11 +21,17 @@ export default function NewsletterCallout({newsletterData}) {
     }, [bound]);
     return (
         <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
-            <form className={`${styles.inner} c-20`} id="newsletter-form">
+
+
+
+            <hr />
+
+            <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="https://customerioforms.com/forms/submit_action?site_id=e50062905af0da787a5c&form_id=a353adc38376458&success_url=https://piratewires.us/account">
+
                 <div className={styles.top}>
                     {!interiorPage && <h4>Sign up for our Newsletters</h4>}
                     <div className={`${styles.inputWrapper} inputWrapper`}>
-                        <input type="email" id="newsletter-email" placeholder="Your email here..." />
+                        <input id="email_input" name="email" type="email" placeholder="Your email here..." />
                         <button type="submit" name="Submit newsletter signup" id="submit">Sign Up</button>
                     </div>
                     <p className={styles.selectedCount}>(<span>0</span>) Newsletters Selected</p>
