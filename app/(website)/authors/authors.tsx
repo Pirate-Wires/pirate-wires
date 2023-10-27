@@ -20,7 +20,7 @@ export default function Authors({ pageData }) {
       <div className={styles.contributorsGrid}>
         <h2 className={styles.contributorsHeader}>Contributors</h2>
         {contributors.map((author) => (
-          <Link key={author.name} href={`/author/${author.slug}`} >{author.name}</Link>
+          <Link key={author.name} href={`/author/${author.slug.current}`} >{author.name}</Link>
         ))}
         <div className="dummyTile"></div>
         <div className="dummyTile"></div>

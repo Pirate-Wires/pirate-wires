@@ -88,7 +88,7 @@ export const careersQuery = groq`
 export const authorsQuery = groq`
 *[slug.current == 'authors'][0] {
   ...,
-  author_list[]->{..., slug->, image}
+  author_list[]->{..., slug, image}
 }
 `;
 
@@ -163,6 +163,20 @@ export const postsbyauthorquery = groq`
 // Excludes any post that has the newsletter toggle set to true
 export const postBySectionQuery = groq`
 *[_type == "post" && $section match section && (!defined(newsletter) || !newsletter)] {
+  title, 
+  slug, 
+  newsletter,
+  author->{name}, 
+  mainImage, 
+  publishedAt, 
+  excerpt
+}
+`;
+
+// Get posts by author
+// Excludes any post that has the newsletter toggle set to true
+export const postByAuthorQuery = groq`
+*[_type == "post" && $authorName match author->name] {
   title, 
   slug, 
   newsletter,

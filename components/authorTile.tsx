@@ -6,12 +6,12 @@ export default function AuthorTile({ authorData }) {
   const imageProps = authorData.image
     ? urlForImage(authorData.image)
     : null;
-  // console.log(authorData, imageProps)
+  console.log(authorData)
 
   return (
     <Link
       key={authorData.name}
-      href={`/author/author-name`} className="authorTile hasGoIcon">
+      href={`/author/${authorData.slug.current}`} className="authorTile hasGoIcon">
       <div className={`${styles.imgWrapper} imgWrapper mb-20`}>
         <Image
           src={imageProps.src}
