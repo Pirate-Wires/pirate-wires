@@ -11,12 +11,23 @@
     line-height: 95%;
     margin-bottom: 20px;
   }
+
+  @include bp-767 {
+    flex-direction: column;
+    h3 {
+      font-size: 40px;
+    }
+  }
 }
 .left, .right {
   width: 50%;
   display: flex;
   flex-direction: column;
   border-top: 0.5px solid var(--color);
+
+  @include bp-767 {
+    width: 100%;
+  }
 }
 .left {
   position: relative;
@@ -31,14 +42,53 @@
     background: linear-gradient(270deg, var(--bgColor) 0%, var(--bgColor) 20%, rgba(241, 203, 69, 0) 100%);
     z-index: 2;
   }
+
+  @include bp-767 {
+    padding-bottom: 20px;
+  }
 }
 .right {
   text-align: center;
   align-items: center;
-}
-.form {
+  @include get-vw(padding-left, 68px, 40px);
+  @include get-vw(padding-right, 68px, 40px);
+  p {
+    color: #060606;
+    text-align: center;
+    font-family: $neueMed;
+    font-size: 14px;
+    line-height: 142.857%;
+  }
+  form {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    height: 40px;
+    input {
+      width: 100%;
+      border: 1px solid #060606;
+      color: rgba(255, 255, 255, 0.50);
+      flex: 1;
+      &:not(:placeholder-shown) {
+        color: rgba(255, 255, 255, .9);
+      }
+    }
+    button {
+      border: 1px solid #060606;
+      background: #F1CB45;
+      color: #060606;
+      @include get-vw(width, 165px, 100px);
+      font-family: $neueMed;
+      border-left: 0;
+    }
+  }
 
+  @include bp-767 {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
+
 .prev {
   transform-origin: center;
 }
@@ -80,11 +130,20 @@
   right: 0;
   z-index: 3;
   gap: 12px;
+  height: 100%;
+  justify-content: center;
   button {
     width: 40px;
     height: 40px;
   }
 }
 .tagline {
-
+  color: #060606;
+  text-align: center;
+  font-family: $gtBold;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  padding-top: 20px;
 }
