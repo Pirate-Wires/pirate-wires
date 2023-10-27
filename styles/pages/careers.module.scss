@@ -3,6 +3,11 @@
   h1 {
     @include get-vw(padding-top, 18px, 18px);
   }
+  @include bp-767 {
+    h1 {
+      border-bottom: 0.5px solid var(--color);
+    }
+  }
 }
 .careersGrid {
   display: flex;
@@ -22,6 +27,17 @@
   a {
     text-decoration: underline;
   }
+
+  @include bp-767 {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    h4 {
+      font-size: 26px;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 .careerRow {
   display: flex;
@@ -35,6 +51,17 @@
     @include get-vw(letter-spacing, -2.4px, -1.8px);
     line-height: 90%;
   }
+
+  @include bp-767 {
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    h3 {
+      font-size: 40px;
+      letter-spacing: -1.2px;
+      margin-bottom: 20px;
+    }
+  }
 }
 .right {
   display: flex;
@@ -42,6 +69,13 @@
   position: relative;
   @include get-vw(bottom, -8px, -8px);
   @include get-vw(gap, 22px, 22px);
+
+  @include bp-767 {
+    justify-content: space-between;
+    width: 100%;
+    bottom: 0;
+
+  }
 }
 .date {
   font-family: $neueBold;

@@ -19,6 +19,15 @@
     font-family: $gtBold;
     line-height: 95%;
   }
+
+  @include bp-767 {
+    padding-bottom: 20px;
+    a {
+      width: 50%;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+  }
 }
 .authorsPage {
   h1 {
@@ -48,18 +57,21 @@
   position: relative;
   justify-content: center;
   align-items: center;
+  @include get-vw(padding-top, 72px, 20px);
+  @include get-vw(margin-bottom, 140px, 100px);
 }
 .singleRight {
   display: flex;
   flex-direction: column;
+  @include get-vw(width, 491px, 370px);
 }
 .portraitWrapper {
-  @include get-vw(width, 267px);
+  @include get-vw(width, 267px, 180px);
   height: auto;
   aspect-ratio: 1/1;
   overflow: hidden;
   border-radius: 50%;
-  margin-right: 49px;
+  @include get-vw(margin-right, 49px, 20px);
   position: relative;
 }
 
