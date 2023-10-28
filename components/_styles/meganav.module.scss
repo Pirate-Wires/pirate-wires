@@ -5,6 +5,7 @@
   @include get-vw(padding-right, 20px, 20px);
   @include get-vw(padding-bottom, 35px, 35px);
   display: flex;
+  display: none;
   flex-direction: column;
   height: 100%;
   position: fixed;
