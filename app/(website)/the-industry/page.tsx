@@ -14,7 +14,7 @@ export default async function IndustryPage() {
     "--bgColor": globalFields.industry_bgcolor,
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
-    <Industry pageData={pageData[1]} globalFields={globalFields} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
+    <Industry pageData={pageData[1]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
     <Footer globalFields={globalFields} />
   </div>
 }
