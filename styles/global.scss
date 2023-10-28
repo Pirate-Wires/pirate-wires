@@ -337,6 +337,7 @@ footer {
       fill: var(--industryBgColor);
     }
   }
+
   .authorTile {
     &:before {
       background-color: #060606;
@@ -589,7 +590,7 @@ footer {
 }
 
 .excerpt {
-  @include get-vw(font-size, 17px, 17px);
+  @include get-vw(font-size, 17px, 15px);
   @include get-vw(margin-top, 20px, 20px);
   opacity: 0.7;
   position: relative;
@@ -597,7 +598,7 @@ footer {
   display: flex;
   span {
     position: relative;
-    @include get-vw(padding-top, 20px, 20px);
+    @include get-vw(padding-top, 20px, 10px);
     &:after {
       height: 1px;
       width: 100%;
@@ -608,6 +609,10 @@ footer {
       left: 0;
       content: "";
     }
+  }
+
+  @include bp-767 {
+    padding-right: 0;
   }
 }
 

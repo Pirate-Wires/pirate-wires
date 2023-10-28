@@ -59,11 +59,22 @@
   align-items: center;
   @include get-vw(padding-top, 72px, 20px);
   @include get-vw(margin-bottom, 140px, 100px);
+
+  @include bp-767 {
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
 }
 .singleRight {
   display: flex;
   flex-direction: column;
   @include get-vw(width, 491px, 370px);
+
+  @include bp-767 {
+    width: 100%;
+    text-align: center;
+  }
 }
 .portraitWrapper {
   @include get-vw(width, 267px, 180px);
@@ -73,6 +84,7 @@
   border-radius: 50%;
   @include get-vw(margin-right, 49px, 20px);
   position: relative;
+
 }
 .name {
   font-family: $gtBold;
@@ -114,6 +126,12 @@
 
   @include bp-767 {
     font-size: 14px;
+  }
+}
+
+@include bp-767 {
+  .postGrid article:after {
+    background-color: #060606;
   }
 }
 
