@@ -1,44 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import { urlForImage } from "@/lib/sanity/image";
 import {useDateFormatter} from "@/hooks/useDateFormatter";
 
 export default function PostList({
   post,
   pathPrefix,
 }) {
-  const imageProps = post?.mainImage
-    ? urlForImage(post?.mainImage)
-    : null;
-
-  // Extract the image color
-  const imageColor = post?.mainImage?.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
 
   return (
     <article className="hasGoIcon mtb-20">
       <Link
         href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug ? post.slug.current : ""}`}>
-        {imageProps && (
-          <div className="imgWrapper" style={{
-            background: radialGradient // Use the radial gradient as the background
-          }}>
+        <div className="imgWrapper">
+          {post.mainImage && (
             <Image
-              src={imageProps.src}
+              src={post.mainImage.asset.url}
               {...(post.mainImage.blurDataURL && {
                 placeholder: "blur",
                 blurDataURL: post.mainImage.blurDataURL
               })}
               alt={post.mainImage?.alt || "Thumbnail"}
-              priority
               fill
               sizes="100vw"
               className="object-cover"
             />
-          </div>
-        )}
+          )}
+        </div>
         <h1
           className="postTitle">
           {post.title}

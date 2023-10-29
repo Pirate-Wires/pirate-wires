@@ -72,7 +72,7 @@ main {
   position: relative;
   display: flex;
   align-items: center;
-  padding-right: 40px;
+  justify-content: flex-start;
   .prev, .next {
     transition: opacity .22s $ease-in-out-sine;
     &.disabled {
@@ -83,6 +83,8 @@ main {
 }
 .embla__container {
   display: flex;
+  width: 100%;
+  justify-content: flex-start;
 }
 .embla__slide {
   position: relative;
@@ -288,6 +290,7 @@ footer {
   }
   .postTitle {
     font-family: $gtBold;
+    text-wrap: balance;
     @include get-vw(font-size, 40px, 36px);
     @include get-vw(padding-right, 40px, 40px);
     @include get-vw(letter-spacing, -1.2px, -1.08px);
@@ -632,6 +635,21 @@ footer {
 }
 
 // Global other
+.hasHoverArrow {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  span {
+    @include get-vw(margin-left, 9px, 9px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+  svg {
+    @include get-vw(width, 12.5px, 12.5px);
+    @include get-vw(height, 12.5px, 12.5px);
+  }
+}
 .hasGoIcon {
   .date {
     opacity: 0;

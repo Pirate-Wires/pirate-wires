@@ -12,6 +12,7 @@ export default function Industry({ pageData, publicationPosts, publicationNewsle
           {pageData.tagline}
           <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
         </div>
+
         <Featured post={publicationPosts[0]} pathPrefix="" />
 
         <FeaturedNewsletters newsletters={publicationNewsletters} />

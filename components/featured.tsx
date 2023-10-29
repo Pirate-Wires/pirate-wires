@@ -4,15 +4,6 @@ import styles from "./_styles/featuredPost.module.scss";
 import Link from "next/link";
 
 export default function Featured({ post, pathPrefix }) {
-  const imageProps = post?.mainImage
-    ? urlForImage(post?.mainImage)
-    : null;
-
-  // Extract the image color
-  const imageColor = post?.mainImage?.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
 
   return (
     <article
@@ -40,23 +31,19 @@ export default function Featured({ post, pathPrefix }) {
           </div>
         </div>
 
-        {imageProps && (
-          <div className={styles.imageWrapper} style={{
-            background: radialGradient // Use the radial gradient as the background
-          }}>
-            <Image
-              src={imageProps.src}
-              {...(post.mainImage.blurDataURL && {
-                placeholder: "blur",
-                blurDataURL: post.mainImage.blurDataURL
-              })}
-              alt={post.mainImage?.alt || "Thumbnail"}
-              priority
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
+        <div className={styles.imageWrapper}>
+          <Image
+            src={post.mainImage.asset.url}
+            {...(post.mainImage.blurDataURL && {
+              placeholder: "blur",
+              blurDataURL: post.mainImage.blurDataURL
+            })}
+            alt={post.mainImage?.alt || "Thumbnail"}
+            priority
+            fill
+            className="object-cover"
+          />
+        </div>
       </Link>
     </article>
   );

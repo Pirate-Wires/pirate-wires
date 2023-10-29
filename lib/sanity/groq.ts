@@ -167,7 +167,10 @@ export const postBySectionQuery = groq`
   slug, 
   newsletter,
   author->{name}, 
-  mainImage, 
+  mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  },
   publishedAt, 
   excerpt
 }
@@ -193,7 +196,10 @@ export const newslettersBySectionQuery = groq`
   title, 
   slug, 
   newsletter,
-  mainImage, 
+  mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  },
   excerpt
 }
 `;

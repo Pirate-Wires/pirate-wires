@@ -1,3 +1,4 @@
+"use client"
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { urlForImage } from "@/lib/sanity/image";
 import PostList from "@/components/postlist";
@@ -6,6 +7,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 import styles from "../../../../styles/pages/authors.module.scss"
 import Link from "next/link";
+import {useHoverArrow} from "@/hooks/useHoverArrow";
 
 export default function Author(props) {
   const { loading, posts, author } = props;
@@ -15,7 +17,7 @@ export default function Author(props) {
   if (!loading && !slug) {
     notFound();
   }
-
+  useHoverArrow()
   return (
     <>
       <div className={`${styles.singleTop} c-20`}>
@@ -39,27 +41,33 @@ export default function Author(props) {
           </div>
           <div className={styles.socialRow}>
             {author.twitter_link &&
-              <Link href={author.twitter_link} target="_blank">
+              <Link href={author.twitter_link} target="_blank" className="hasHoverArrow">
                 Twitter
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
-                </svg>
+                <span>
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                  </svg>
+                </span>
               </Link>
             }
             {author.social_text_two &&
-              <Link href={author.social_link_two} target="_blank">
+              <Link href={author.social_link_two} target="_blank" className="hasHoverArrow">
                 {author.social_text_two}
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
-                </svg>
+                <span>
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                  </svg>
+                </span>
               </Link>
             }
             {author.social_text_three &&
-              <Link href={author.social_link_three} target="_blank">
+              <Link href={author.social_link_three} target="_blank" className="hasHoverArrow">
                 {author.social_text_three}
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
-                </svg>
+                <span>
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                  </svg>
+                </span>
               </Link>
             }
           </div>

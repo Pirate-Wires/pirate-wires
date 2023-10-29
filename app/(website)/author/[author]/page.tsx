@@ -5,6 +5,7 @@ import React from "react";
 import Navigation from "@/components/navigation";
 import Authors from "@/app/(website)/authors/authors";
 import Footer from "@/components/footer";
+import {useHoverArrow} from "@/hooks/useHoverArrow";
 
 export async function generateStaticParams() {
   return await getAllAuthorsSlugs();
@@ -24,7 +25,7 @@ export default async function AuthorPage({ params }) {
   const posts = await getAuthorPostsBySlug(params.author);
   const author = await getAuthor(params.author);
   const globalFields = await getGlobalFields();
-  console.log(author)
+
   return <div className="colorWrapper" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",

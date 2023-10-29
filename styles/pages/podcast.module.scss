@@ -67,16 +67,6 @@
   font-family: $neueMed;
   @include get-vw(gap, 37.5px, 37.5px);
   flex-wrap: wrap;
-  a {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-  }
-  svg {
-    @include get-vw(margin-left, 9px, 9px);
-    @include get-vw(width, 12.5px, 12.5px);
-    @include get-vw(height, 12.5px, 12.5px);
-  }
 
   @include bp-767 {
     font-size: 14px;
