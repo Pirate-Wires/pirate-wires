@@ -1,15 +1,9 @@
 import Author from "./author";
 
-import {getAllAuthorsSlugs, getAuthorPostsBySlug, getAuthorsData, getGlobalFields} from "@/lib/sanity/client";
+import {getAuthorPostsBySlug, getGlobalFields} from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import Authors from "@/app/(website)/authors/authors";
 import Footer from "@/components/footer";
-import {useHoverArrow} from "@/hooks/useHoverArrow";
-
-export async function generateStaticParams() {
-  return await getAllAuthorsSlugs();
-}
 
 async function getAuthor(slug: string) {
   const posts = await getAuthorPostsBySlug(slug);

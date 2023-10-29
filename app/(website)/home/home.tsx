@@ -5,10 +5,10 @@ import styles from "../../../styles/pages/home.module.scss"
 import LatestWriters from "@/components/latestWriters";
 import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
-import {getNewsletterData} from "@/lib/sanity/client";
 
-export default async function DefaultHome({ pageData, globalFields }) {
-  const newsletterData = await getNewsletterData()
+
+export default async function DefaultHome({ pageData, globalFields, newsletterData }) {
+
   const wirePosts = pageData.featured_posts
   const whitePillPosts = pageData.featured_posts_white_pill
   const industryPosts = pageData.featured_posts_industry

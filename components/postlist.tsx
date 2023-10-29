@@ -1,29 +1,34 @@
-import Image from "next/image";
+"use client"
 import Link from "next/link";
 import {useDateFormatter} from "@/hooks/useDateFormatter";
+import {useState} from "react";
 
 export default function PostList({
   post,
   pathPrefix,
 }) {
-
+  const [loaded, setLoaded] = useState(false)
+  const onLoad = () => {
+    setTimeout(() => {
+      setLoaded(true)
+    }, 250)
+  }
   return (
     <article className="hasGoIcon mtb-20">
       <Link
         href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug ? post.slug.current : ""}`}>
         <div className="imgWrapper">
           {post.mainImage && (
-            <Image
-              src={post.mainImage.asset.url}
-              {...(post.mainImage.blurDataURL && {
-                placeholder: "blur",
-                blurDataURL: post.mainImage.blurDataURL
-              })}
-              alt={post.mainImage?.alt || "Thumbnail"}
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
+            <>
+              {!loaded &&
+                <img src={post.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
+              }
+              <picture>
+                <source srcSet={`${post.mainImage.asset.url}?auto=format&w=600&q=90, ${post.mainImage.asset.url}?auto=format&w=800&q=90 2x`} media="(min-width: 768px)" />
+                <source srcSet={`${post.mainImage.asset.url}?auto=format&w=550&q=90`} media="(max-width: 767px)" />
+                <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>
+              </picture>
+            </>
           )}
         </div>
         <h1
