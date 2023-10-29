@@ -106,14 +106,19 @@
   border-right: 0.5px solid var(--color);
   &:last-child {
     border-right: none;
-    padding-right: 20px;
+    padding-right: 100px;
     margin-right: 0;
-    @include get-vw(max-width, 268px, 240px);
+    @include get-vw(min-width, 348px, 320px);
+    @include get-vw(max-width, 348px, 320px);
   }
   h5 {
     @include get-vw(font-size, 20px, 20px);
     @include get-vw(letter-spacing, -0.6px, -0.6px);
     font-family: $gtBold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
   }
   p {
     @include get-vw(font-size, 15px, 15px);
@@ -124,7 +129,12 @@
   margin-bottom: 8px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  .imageWrapper {
+    @include get-vw(min-width, 26px, 26px);
+    @include get-vw(height, 26px, 26px);
+    margin-right: 10px;
+    position: relative;
+  }
 }
 .controls {
   display: flex;

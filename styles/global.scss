@@ -72,7 +72,7 @@ main {
   position: relative;
   display: flex;
   align-items: center;
-  padding-right: 40px;
+  justify-content: flex-start;
   .prev, .next {
     transition: opacity .22s $ease-in-out-sine;
     &.disabled {
@@ -83,6 +83,8 @@ main {
 }
 .embla__container {
   display: flex;
+  width: 100%;
+  justify-content: flex-start;
 }
 .embla__slide {
   position: relative;
@@ -174,6 +176,12 @@ footer {
   position: relative;
   width: 100%;
   height: auto;
+}
+
+.cover-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 // Global author styles
@@ -288,12 +296,19 @@ footer {
   }
   .postTitle {
     font-family: $gtBold;
+    text-wrap: balance;
     @include get-vw(font-size, 40px, 36px);
+    @include get-vw(padding-right, 40px, 40px);
     @include get-vw(letter-spacing, -1.2px, -1.08px);
     line-height: 95%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    position: relative;
+  }
+  .goIcon {
+    right: 0;
+    position: absolute;
   }
   .white-pill & {
     article, .pubLink {
@@ -331,6 +346,7 @@ footer {
       fill: var(--industryBgColor);
     }
   }
+
   .authorTile {
     &:before {
       background-color: #060606;
@@ -583,8 +599,30 @@ footer {
 }
 
 .excerpt {
-  @include get-vw(font-size, 17px, 17px);
+  @include get-vw(font-size, 17px, 15px);
+  @include get-vw(margin-top, 20px, 20px);
   opacity: 0.7;
+  position: relative;
+  @include get-vw(padding-right, 40px, 40px);
+  display: flex;
+  span {
+    position: relative;
+    @include get-vw(padding-top, 20px, 10px);
+    &:after {
+      height: 1px;
+      width: 100%;
+      border-top: 0.5px dashed var(--color);
+      opacity: 0.5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+    }
+  }
+
+  @include bp-767 {
+    padding-right: 0;
+  }
 }
 
 // Global form styles
@@ -603,6 +641,21 @@ footer {
 }
 
 // Global other
+.hasHoverArrow {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  span {
+    @include get-vw(margin-left, 9px, 9px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+  svg {
+    @include get-vw(width, 12.5px, 12.5px);
+    @include get-vw(height, 12.5px, 12.5px);
+  }
+}
 .hasGoIcon {
   .date {
     opacity: 0;

@@ -14,7 +14,7 @@ export default async function WiresPage() {
     "--bgColor": "#060606",
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
-    <Wires pageData={pageData[1]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
+    <Wires pageData={pageData[0]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
     <Footer globalFields={globalFields} />
   </div>
 }

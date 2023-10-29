@@ -63,10 +63,19 @@ export const homeQuery = groq`
 *[slug.current == 'home'] {
   ...,
   "podcastCalloutVid": podcastCalloutVid.asset->{url},
-  latest_writers[]->{name, title, slug->, image},
-  featured_posts[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
-  featured_posts_white_pill[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt},
-  featured_posts_industry[]->{title, slug, author->{name}, mainImage, publishedAt, excerpt}
+  latest_writers[]->{name, title, slug, image},
+  featured_posts[]->{title, slug, author->{name}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt},
+  featured_posts_white_pill[]->{title, slug, author->{name}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt},
+  featured_posts_industry[]->{title, slug, author->{name}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt}
 }
 `;
 
@@ -155,6 +164,10 @@ export const postsbyauthorquery = groq`
   author->,
   categories[]->,
   section,
+  mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }
 }
 `;
 
@@ -167,7 +180,10 @@ export const postBySectionQuery = groq`
   slug, 
   newsletter,
   author->{name}, 
-  mainImage, 
+  mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  },
   publishedAt, 
   excerpt
 }
@@ -193,7 +209,10 @@ export const newslettersBySectionQuery = groq`
   title, 
   slug, 
   newsletter,
-  mainImage, 
+  mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  },
   excerpt
 }
 `;

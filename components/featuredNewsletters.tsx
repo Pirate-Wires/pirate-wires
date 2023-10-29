@@ -1,20 +1,11 @@
 "use client"
 import Image from "next/image";
-import { urlForImage } from "@/lib/sanity/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
 import { useEffect } from "react";
 
-export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
-  const imageProps = post?.mainImage
-    ? urlForImage(post?.mainImage)
-    : null;
-  // Extract the image color
-  const imageColor = post?.mainImage?.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 1, containScroll: "trimSnaps" })
+export default function FeaturedNewsletters({ newsletters }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 2, containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
       const prev = document.getElementById("prev")
@@ -45,10 +36,26 @@ export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
-            {newsletters.map(newsletter => (
+            {newsletters.slice(0, 10).map(newsletter => (
               <div key={newsletter.title} className={`${styles.slide} embla__slide`}>
                 <div className={styles.slideTop}>
-                  {/*<Image src={} alt={} />*/}
+                  <div className={styles.imageWrapper}>
+                    {newsletter.mainImage &&
+                      <Image
+                        src={newsletter.mainImage.asset.url}
+                        {...(newsletter.mainImage.blurDataURL && {
+                          placeholder: "blur",
+                          blurDataURL: newsletter.mainImage.blurDataURL
+                        })}
+                        alt={newsletter.mainImage?.alt || "Thumbnail"}
+                        priority
+                        fill
+                        sizes="100vw"
+                        className="object-cover"
+                      />
+                    }
+                  </div>
+
                   <h5>{newsletter.title}</h5>
                 </div>
                 <p className="caslon-med">{newsletter.excerpt}</p>

@@ -1,19 +1,15 @@
-import Image from "next/image";
-import { urlForImage } from "@/lib/sanity/image";
+"use client"
 import styles from "./_styles/featuredPost.module.scss";
 import Link from "next/link";
+import {useState} from "react";
 
-export default function Featured({ post, pathPrefix }) {
-  const imageProps = post?.mainImage
-    ? urlForImage(post?.mainImage)
-    : null;
-
-  // Extract the image color
-  const imageColor = post?.mainImage?.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
-
+export default function Featured({ post, pathPrefix, priority = true }) {
+  const [loaded, setLoaded] = useState(false)
+  const onLoad = () => {
+    setTimeout(() => {
+      setLoaded(true)
+    }, 250)
+  }
   return (
     <article
       className={`featuredPost hasGoIcon c-20`}>
@@ -40,23 +36,16 @@ export default function Featured({ post, pathPrefix }) {
           </div>
         </div>
 
-        {imageProps && (
-          <div className={styles.imageWrapper} style={{
-            background: radialGradient // Use the radial gradient as the background
-          }}>
-            <Image
-              src={imageProps.src}
-              {...(post.mainImage.blurDataURL && {
-                placeholder: "blur",
-                blurDataURL: post.mainImage.blurDataURL
-              })}
-              alt={post.mainImage?.alt || "Thumbnail"}
-              priority
-              fill
-              className="object-cover"
-            />
-          </div>
-        )}
+        <div className={styles.imageWrapper}>
+          {!loaded &&
+            <img src={post.mainImage.blurDataURL} alt="" decoding="async" fetchPriority="high" className="cover-image"/>
+          }
+          <picture>
+            <source srcSet={`${post.mainImage.asset.url}?auto=format&w=1000&q=90, ${post.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
+            <source srcSet={`${post.mainImage.asset.url}?auto=format&w=550&q=90`} media="(max-width: 767px)" />
+            <img alt="" decoding="async" fetchPriority={priority ? "high" : "auto"} loading={priority ? "eager" : "lazy"} className="cover-image" onLoad={onLoad}/>
+          </picture>
+        </div>
       </Link>
     </article>
   );

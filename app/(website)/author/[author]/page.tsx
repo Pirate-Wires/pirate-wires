@@ -1,14 +1,9 @@
 import Author from "./author";
 
-import {getAllAuthorsSlugs, getAuthorPostsBySlug, getAuthorsData, getGlobalFields} from "@/lib/sanity/client";
+import {getAuthorPostsBySlug, getGlobalFields} from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import Authors from "@/app/(website)/authors/authors";
 import Footer from "@/components/footer";
-
-export async function generateStaticParams() {
-  return await getAllAuthorsSlugs();
-}
 
 async function getAuthor(slug: string) {
   const posts = await getAuthorPostsBySlug(slug);
@@ -24,6 +19,7 @@ export default async function AuthorPage({ params }) {
   const posts = await getAuthorPostsBySlug(params.author);
   const author = await getAuthor(params.author);
   const globalFields = await getGlobalFields();
+
   return <div className="colorWrapper" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
