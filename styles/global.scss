@@ -353,6 +353,13 @@ footer {
   }
 
   @include bp-767 {
+    .postTitle {
+      padding-right: 0;
+    }
+    .goIcon {
+      bottom: 0;
+      transform: translateY(200%);
+    }
     article, .pubLink, .dummyTile, .authorTile {
       width: calc(50% - 10px);
       &:after {
@@ -552,7 +559,7 @@ footer {
       }
     }
     .featNewslettersBorder {
-      border-top: 0.5px solid rgba(227, 227, 227, 0.45);
+      border-top: 0.5px solid var(--color);
     }
     .postInfo {
       &:before {
@@ -619,9 +626,6 @@ footer {
     }
   }
 
-  @include bp-767 {
-    padding-right: 0;
-  }
 }
 // Global form styles
 .inputWrapper {

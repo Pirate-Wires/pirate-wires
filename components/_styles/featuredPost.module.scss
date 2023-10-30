@@ -33,6 +33,31 @@
     left: 0;
     bottom: 0;
   }
+
+  @include bp-767 {
+    padding-top: 0;
+    &:before {
+      content: none;
+    }
+    .excerpt {
+        padding-top: 10px;
+        margin-top: 20px;
+        &:before {
+          content: "";
+          height: 0.5px;
+          width: 100%;
+          background-color: var(--accentLight);
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        .goIcon {
+          position: absolute;
+          right: 0;
+          top: 20px;
+      }
+    }
+  }
 }
 .title {
   font-family: $gtBold;
@@ -50,4 +75,26 @@
 .bottom {
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.excerpt {
+  @include bp-767 {
+    padding-top: 10px;
+    margin-top: 20px;
+    &:before {
+      content: "";
+      height: 0.5px;
+      width: 100%;
+      background-color: var(--accentLight);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .goIcon {
+      position: absolute;
+      right: 0;
+      top: 20px;
+    }
+  }
 }
