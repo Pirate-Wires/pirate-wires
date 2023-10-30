@@ -1,0 +1,28 @@
+@import "../abstracts";
+
+.articleHero {
+  display: flex;
+  align-items: center;
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.right {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+}
+.postBody {
+  display: flex;
+  justify-content: center;
+}
+.richText {
+  @include get-vw(max-width, 600px, 600px);
+}
+.imageWrapper {
+  width: 50%;
+  aspect-ratio: 1/1;
+}
