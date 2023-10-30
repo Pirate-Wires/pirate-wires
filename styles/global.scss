@@ -38,12 +38,14 @@
     border: 0.5px solid var(--color);
   }
 }
-main {
-  padding-top: 80px;
-}
+
 .colorWrapper {
   background-color: var(--bgColor);
   color: var(--color);
+  padding-top: 80px;
+  &.reducedHeaderPage {
+    padding-top: 50px;
+  }
 }
 .hitbox {
   position: relative;
@@ -766,6 +768,18 @@ footer {
 .c-20 {
   @include get-vw(padding-left, 20px, 20px);
   @include get-vw(padding-right, 20px, 20px);
+  @include bp-767 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.flowContainer {
+  @include get-vw(padding-left, 20px, 20px);
+  @include get-vw(padding-right, 20px, 20px);
+  @include get-vw(max-width, 600px, 600px);
+  margin: 0 auto;
+  text-align: center;
   @include bp-767 {
     padding-left: 10px;
     padding-right: 10px;
