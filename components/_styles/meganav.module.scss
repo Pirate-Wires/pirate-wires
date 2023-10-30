@@ -15,6 +15,10 @@
   color: var(--color);
   z-index: 2;
   top: 0;
+
+  @include bp-767 {
+    width: 100%;
+  }
 }
 .top, .middle, .bottom {
   display: flex;
@@ -38,6 +42,12 @@
 .top {
   @include get-vw(gap, 19px, 19px);
   @include get-vw(padding-top, 54px, 54px);
+
+  @include bp-767 {
+    a {
+      font-size: 24px;
+    }
+  }
 }
 
 .middle {
@@ -52,6 +62,12 @@
     content: "";
     top: 0;
     left: 0;
+  }
+
+  @include bp-767 {
+    a {
+      font-size: 24px;
+    }
   }
 }
 
@@ -70,6 +86,11 @@
     top: 0;
     left: 0;
   }
+  @include bp-767 {
+    a {
+      font-size: 16px;
+    }
+  }
 }
 .socialRow {
   display: flex;
@@ -78,5 +99,16 @@
   margin-top: auto;
   path {
     fill: var(--color);
+  }
+
+  @include bp-767 {
+    justify-content: center;
+    gap: 35px;
+    a {
+      height: 20px;
+    }
+    svg {
+      height: 100%;
+    }
   }
 }
