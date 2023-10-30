@@ -52,6 +52,7 @@
     "fs": "^0.0.1-security",
     "get-video-id": "^3.6.5",
     "gsap": "^3.12.2",
+    "ismobilejs": "^1.1.1",
     "joi": "^17.9.2",
     "next": "^13.4.12",
     "next-images": "^1.8.5",

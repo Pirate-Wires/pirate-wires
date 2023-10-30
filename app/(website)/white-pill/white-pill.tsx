@@ -16,7 +16,7 @@ export default function WhitePill({ pageData, publicationPosts, publicationNewsl
       <FeaturedNewsletters newsletters={publicationNewsletters} />
 
       <section className="postGrid c-20">
-        {publicationPosts.map(post => (
+        {publicationPosts.slice(1).map(post => (
           // @ts-ignore
           <PostList
             key={post._id}

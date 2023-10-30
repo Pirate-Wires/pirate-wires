@@ -7,6 +7,7 @@ export default function PostList({
   post,
   pathPrefix,
 }) {
+
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {
     setTimeout(() => {
@@ -18,14 +19,14 @@ export default function PostList({
       <Link
         href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug ? post.slug.current : ""}`}>
         <div className="imgWrapper">
-          {post.mainImage && (
+          {(post.mainImage && post.mainImage.asset) && (
             <>
               {!loaded &&
                 <img src={post.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
               }
               <picture>
                 <source srcSet={`${post.mainImage.asset.url}?auto=format&w=600&q=90, ${post.mainImage.asset.url}?auto=format&w=800&q=90 2x`} media="(min-width: 768px)" />
-                <source srcSet={`${post.mainImage.asset.url}?auto=format&w=550&q=90`} media="(max-width: 767px)" />
+                <source srcSet={`${post.mainImage.asset.url}?auto=format&w=400&q=100`} media="(max-width: 767px)" />
                 <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>
               </picture>
             </>

@@ -16,7 +16,7 @@ export async function sharedMetaData(params) {
       default:
         settings?.title ||
         "Pirate Wires",
-      template: "%s | Stablo"
+      template: "%s | Pirate Wires"
     },
     description:
       settings?.description ||

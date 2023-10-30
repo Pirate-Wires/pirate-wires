@@ -98,10 +98,6 @@ main {
     background-color: var(--industryBgColor);
     color: var(--industryColor);
   }
-  @include bp-767 {
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
-  }
 }
 .pageTitle {
   font-family: $gtBold;
@@ -288,6 +284,9 @@ footer {
       &:before, &:after {
         background-color: var(--accentDark);
       }
+    }
+    .excerpt {
+      opacity: .7;
     }
   }
   .imgWrapper {
@@ -601,7 +600,7 @@ footer {
 .excerpt {
   @include get-vw(font-size, 17px, 15px);
   @include get-vw(margin-top, 20px, 20px);
-  opacity: 0.7;
+  opacity: 0.95;
   position: relative;
   @include get-vw(padding-right, 40px, 40px);
   display: flex;
@@ -624,7 +623,6 @@ footer {
     padding-right: 0;
   }
 }
-
 // Global form styles
 .inputWrapper {
   @include get-vw(height, 50px, 50px);
@@ -645,10 +643,10 @@ footer {
   display: flex;
   align-items: center;
   white-space: nowrap;
+  overflow: hidden;
   span {
     @include get-vw(margin-left, 9px, 9px);
     position: relative;
-    overflow: hidden;
     display: flex;
   }
   svg {
@@ -771,14 +769,24 @@ footer {
 }
 
 .ptb-40 {
-  @include get-vw(padding-top, 40px, 40px);
-  @include get-vw(padding-bottom, 40px, 40px);
+  @include get-vw(padding-top, 40px, 32px);
+  @include get-vw(padding-bottom, 40px, 32px);
+  @include bp-767 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
 .pt-40 {
-  @include get-vw(padding-top, 40px, 40px);
+  @include get-vw(padding-top, 40px, 32px);
+  @include bp-767 {
+    padding-top: 20px;
+  }
 }
 
 .pb-40 {
-  @include get-vw(padding-bottom, 40px, 40px);
+  @include get-vw(padding-bottom, 40px, 32px);
+  @include bp-767 {
+    padding-bottom: 20px;
+  }
 }
