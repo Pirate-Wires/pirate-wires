@@ -353,6 +353,13 @@ footer {
   }
 
   @include bp-767 {
+    .postTitle {
+      padding-right: 0;
+    }
+    .goIcon {
+      bottom: 0;
+      transform: translateY(200%);
+    }
     article, .pubLink, .dummyTile, .authorTile {
       width: calc(50% - 10px);
       &:after {
@@ -619,9 +626,6 @@ footer {
     }
   }
 
-  @include bp-767 {
-    padding-right: 0;
-  }
 }
 // Global form styles
 .inputWrapper {
