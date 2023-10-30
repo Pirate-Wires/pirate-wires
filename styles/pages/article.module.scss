@@ -86,6 +86,11 @@
 .postBody {
   display: flex;
   justify-content: center;
+  @include get-vw(padding-top, 38px, 20px);
+
+  @include bp-1024 {
+    padding-top: 0;
+  }
 }
 .richText {
   @include get-vw(max-width, 600px, 600px);
