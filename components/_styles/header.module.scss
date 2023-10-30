@@ -5,9 +5,9 @@
   top: 0;
   width: 100%;
   z-index: 100;
-  font-family: $neueBold;
   color: var(--color);
   background-color: var(--bgColor);
+  font-family: $neueBold;
   font-size: 14px;
   white-space: nowrap;
 }
@@ -150,6 +150,13 @@
   align-items: center;
   justify-content: center;
   height: 50px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  color: var(--color);
+  background-color: var(--bgColor);
   svg {
     width: 33px;
     height: 24px;

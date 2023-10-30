@@ -135,10 +135,10 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   $vw-context: $reference-width * 0.01 * 1px;
   #{$property}: math.div($desktop-size, $vw-context) * 1vw;
 
-  //$minBp: ($reference-width * 1.1px);
-  //@media screen and (min-width: $minBp) {
-  //  #{$property}: (strip-unit($desktop-size) * 1.2px);
-  //}
+  $minBp: ($reference-width * 1.2px);
+  @media screen and (min-width: $minBp) {
+    #{$property}: (strip-unit($desktop-size) * 1.2px);
+  }
 
   // Mobile size
   @if $mobile-size {

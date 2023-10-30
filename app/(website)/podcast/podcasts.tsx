@@ -1,5 +1,5 @@
 "use client"
-import styles from "../../../styles/pages/podcast.module.scss"
+import styles from "@/styles/pages/podcast.module.scss"
 import Link from "next/link";
 import {useHoverArrow} from "@/hooks/useHoverArrow";
 
