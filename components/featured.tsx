@@ -23,7 +23,7 @@ export default function Featured({ post, pathPrefix, priority = true }) {
           </h1>
 
           <div className={styles.bottom}>
-            <p className="excerpt caslon-reg">{post.preface}</p>
+            <p className="excerpt caslon-reg">{post.excerpt}</p>
             <p className="postAuthor">By {post.author.name}
               <div className="goIcon">
                 <div className="leftHalf"></div>
