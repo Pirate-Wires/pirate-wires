@@ -19,7 +19,7 @@ export default async function NotFound() {
         <div className={styles.imageWrapper}>
           <Image src={'/img/handwire1.jpg'}
                  className="object-cover"
-                 sizes="(max-width: 800px) 100vw, 800px"
+                 quality={100}
                  priority
                  fill
           />
@@ -27,7 +27,7 @@ export default async function NotFound() {
         <div className={styles.imageWrapper}>
           <Image src={'/img/handwire2.jpg'}
                  className="object-cover"
-                 sizes="(max-width: 800px) 100vw, 800px"
+                 quality={100}
                  priority
                  fill
           />
