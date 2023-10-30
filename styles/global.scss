@@ -552,7 +552,7 @@ footer {
       }
     }
     .featNewslettersBorder {
-      border-top: 0.5px solid rgba(227, 227, 227, 0.45);
+      border-top: 0.5px solid var(--color);
     }
     .postInfo {
       &:before {
