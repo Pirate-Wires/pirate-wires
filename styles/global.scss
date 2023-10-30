@@ -458,7 +458,7 @@ footer {
 
   @include bp-767 {
     flex-direction: column;
-    gap: 20px;
+    gap: 0px;
     .right {
       padding: 0;
       width: 100%;
@@ -625,8 +625,31 @@ footer {
       content: "";
     }
   }
-
 }
+
+.featuredPost {
+  @include bp-767 {
+    .excerpt {
+      padding-top: 10px;
+      margin-top: 20px;
+      &:before {
+        content: "";
+        height: 0.5px;
+        width: calc(100% - 40px);
+        background-color: var(--accentLight);
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+    .goIcon {
+      position: absolute;
+      right: 0;
+      top: 20px;
+    }
+  }
+}
+
 // Global form styles
 .inputWrapper {
   @include get-vw(height, 50px, 50px);
