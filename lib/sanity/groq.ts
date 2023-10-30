@@ -144,6 +144,10 @@ export const singlePostQuery = groq`
     }
   },
   author->,
+  mainImage {
+    asset->,
+    "blurDataURL":asset->metadata.lqip
+  },
   categories[]->,
   section,
   "estReadingTime": round(length(pt::text(body)) / 5 / 180 ),
