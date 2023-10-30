@@ -35,6 +35,7 @@ function getCdnImageUrl(imageRef, width = 500) {
 const components = {
   types: {
     image: ({ value }) => {
+      console.log(value)
       if (value.asset._ref) {
         const url = getCdnImageUrl(value.asset._ref);
         return `<img src="${url}" />`;

@@ -44,8 +44,6 @@ export default async function Post(props) {
     notFound();
   }
 
-  console.log('post', post)
-
   // const [loaded, setLoaded] = useState(false)
   // const onLoad = () => {
   //   setTimeout(() => {
