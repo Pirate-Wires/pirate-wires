@@ -5,7 +5,7 @@ import styles from "./_styles/header.module.scss"
 import { usePathname } from 'next/navigation';
 import React, {useEffect, useState} from "react";
 import MegaNav from "@/components/megaNav";
-import {globalObject, navScrollX, windowWidth} from "@/constants/globalStorage";
+import {globalObject} from "@/constants/globalStorage";
 import {gsap} from "gsap";
 
 interface Tab {
@@ -40,7 +40,7 @@ export default function Navigation({ globalFields, publication }) {
 
     if (!flowNav) {
       if (!simpleNav) {
-        if (windowWidth < 768) {
+        if (window.innerWidth < 768) {
           const track = document.getElementById("top-tabs")
           track.scrollLeft = globalObject.navScrollX
           track.addEventListener("scroll", (event) => {

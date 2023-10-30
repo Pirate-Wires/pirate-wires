@@ -3,7 +3,6 @@ import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
 import {useEffect, useState} from "react";
-import {windowWidth} from "@/constants/globalStorage";
 export default function FeaturedNewsletters({ newsletters }) {
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {
@@ -14,7 +13,7 @@ export default function FeaturedNewsletters({ newsletters }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.slidesToScroll = windowWidth > 767 ? 2 : 1
+      emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
       const prev = document.getElementById("prev")
       const next = document.getElementById("next")
       prev.addEventListener("click", () => {
