@@ -92,7 +92,7 @@ export default async function Post(props) {
       </section>
 
       <section className={styles.postBody}>
-        <div className={styles.richText}>
+        <div className={`${styles.richText} caslon-reg`}>
           {post.body && <PortableText value={post.body} />}
         </div>
       </section>
