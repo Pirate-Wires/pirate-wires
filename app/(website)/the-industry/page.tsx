@@ -12,6 +12,7 @@ export default async function IndustryPage() {
   return <div className="colorWrapper interiorPub" style={{
     "--color": globalFields.industry_color,
     "--bgColor": globalFields.industry_bgcolor,
+    "--accentLight": "rgba(43, 43, 43, 0.45)",
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
     <Industry pageData={pageData[1]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />

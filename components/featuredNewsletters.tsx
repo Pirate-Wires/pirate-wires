@@ -11,9 +11,10 @@ export default function FeaturedNewsletters({ newsletters }) {
       setLoaded(true)
     }, 250)
   }
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: windowWidth > 767 ? 2 : 1, containScroll: "trimSnaps" })
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
+      emblaApi.slidesToScroll = windowWidth > 767 ? 2 : 1
       const prev = document.getElementById("prev")
       const next = document.getElementById("next")
       prev.addEventListener("click", () => {
@@ -38,7 +39,7 @@ export default function FeaturedNewsletters({ newsletters }) {
   }, [emblaApi]);
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
-      <div className={`${styles.left} pt-20`}>
+      <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
@@ -83,7 +84,7 @@ export default function FeaturedNewsletters({ newsletters }) {
           </div>
         </div>
       </div>
-      <div className={`${styles.right} pt-20`}>
+      <div className={`${styles.right} featNewslettersBorder pt-20`}>
         <h3>Join, or die</h3>
         <p>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
         <form className={`${styles.form}`}>

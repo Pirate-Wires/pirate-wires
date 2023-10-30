@@ -10,24 +10,24 @@ export default function MegaNav({ globalFields, publication }) {
   // const loggedIn = condition
   return (
     <>
-      <nav className={styles.megaNav}>
-        <button className={styles.closeNav}>
+      <nav className={styles.megaNav} id="mega-nav">
+        <button className={`${styles.closeNav} close-trigger hitbox`}>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="1.63306" y="0.00151062" width="20" height="2" transform="rotate(45 1.63306 0.00151062)" fill="#1C1C1C"/>
             <rect x="0.218994" y="14.1421" width="20" height="2" transform="rotate(-45 0.218994 14.1421)" fill="#1C1C1C"/>
           </svg>
         </button>
-        <div className={styles.top}>
+        <div className={`${styles.top} fade-el`}>
           <Link href="/subscribe">Subscribe</Link>
           <Link href="/sign-in">Sign In</Link>
           <Link href="/newsletters">Newsletters</Link>
         </div>
-        <div className={styles.middle}>
+        <div className={`${styles.middle} fade-el`}>
           <Link href="/wires">Pirate Wires</Link>
           <Link href="/white-pill">The White Pill</Link>
           <Link href="/industry">The Industry</Link>
         </div>
-        <div className={styles.bottom}>
+        <div className={`${styles.bottom} fade-el`}>
           <Link href="/search">Search</Link>
           <Link href="/about">About</Link>
           <Link href="/authors">Writers</Link>

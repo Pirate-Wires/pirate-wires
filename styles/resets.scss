@@ -3,6 +3,14 @@
 
 	- Global reset _styles
 -------------------------------------------------- */
+html, body {
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
 a {
   text-decoration: none;
   color: inherit;
@@ -12,7 +20,13 @@ a {
     outline: 0 none;
   }
 }
-
+input {
+  border: none;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
+}
 button {
   -webkit-appearance: none;
   border: none;

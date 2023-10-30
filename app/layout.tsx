@@ -1,6 +1,5 @@
 "use client"
 // app/layout.tsx
-import '@/styles/tailwind.css';
 import supabase from '@/lib/supabase-comments/utils/initSupabase';
 import { UserContextProvider } from '@/lib/supabase-comments/hooks/use-user';
 import { ThemeProvider } from 'next-themes';

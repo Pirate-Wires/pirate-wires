@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import styles from "./_styles/header.module.scss"
 import { usePathname } from 'next/navigation';
-import classNames from 'classnames';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import MegaNav from "@/components/megaNav";
+import {globalObject, navScrollX, windowWidth} from "@/constants/globalStorage";
+import {gsap} from "gsap";
 
 interface Tab {
   name: string;
@@ -26,12 +27,80 @@ export default function Navigation({ globalFields, publication }) {
   const homePage = currentRoute === "/"
   const industryPage = currentRoute === "/the-industry"
   const whitePillPage = currentRoute === "/white-pill"
+
+  const [once, setOnce] = useState(false);
+  let onceVar = false;
+
+  useEffect(() => {
+    if (once || onceVar) {
+      return;
+    }
+    setOnce(true);
+    onceVar = true;
+
+    if (!flowNav) {
+      if (!simpleNav) {
+        if (windowWidth < 768) {
+          const track = document.getElementById("top-tabs")
+          track.scrollLeft = globalObject.navScrollX
+          track.addEventListener("scroll", (event) => {
+            globalObject.navScrollX = event.target.scrollLeft
+          })
+        }
+      }
+
+      const hammy = document.getElementById("mega-nav-trigger")
+      const megaNav = document.getElementById("mega-nav")
+      const closeTrigger = megaNav.querySelector(".close-trigger")
+      const navTL = new gsap.timeline()
+      let navOpen = false
+      gsap.set(megaNav, { xPercent: 20, opacity: 0, visibility: "visible" })
+
+      const closeNav = () => {
+        navOpen = false
+        navTL.clear()
+        navTL.progress(0)
+        navTL
+          .to(megaNav, { xPercent: 20, pointerEvents: "none", ease: "expo.out", duration: 0.7 })
+          .to(megaNav, { opacity: 0, ease: "sine.inOut", duration: 0.16 }, 0)
+      }
+
+      hammy.addEventListener("click", () => {
+        if (!navOpen) {
+          navOpen = true
+          navOpen = true
+          navTL.clear()
+          navTL.progress(0)
+          navTL
+            .to(megaNav, { xPercent: 0, pointerEvents: "all", ease: "expo.out", duration: 0.7 })
+            .to(megaNav, { opacity: 1, ease: "sine.inOut", duration: 0.18 }, 0)
+        }
+      })
+
+      closeTrigger.addEventListener("click", () => {
+        if (navOpen) {
+          navOpen = false
+          closeNav()
+        }
+      })
+
+      document.addEventListener('keyup', (event) => {
+        const key = event.key;
+        if (key === 'Escape' || key === 'Esc') {
+          if (navOpen) {
+            navOpen = false
+            closeNav()
+          }
+        }
+      });
+    }
+  });
   return (
     <>
       {!flowNav ?
-        <header>
-          {!simpleNav ?
-            <nav className={styles.topTabs}>
+        <header className={styles.header}>
+          {!simpleNav &&
+            <nav className={styles.topTabs} id="top-tabs">
               {tabs.map(tab => (
                 <Link key={tab.href} href={tab.href} className={(currentRoute === tab.href ? styles.active : '')}>
                   <span className={styles.categoryRadio}>
@@ -43,7 +112,7 @@ export default function Navigation({ globalFields, publication }) {
                   {tab.name}
                 </Link>
               ))}
-            </nav> : ""
+            </nav>
           }
           <nav className={`${styles.mainNav} c-20`}>
             <div className={styles.left}>
@@ -98,7 +167,7 @@ export default function Navigation({ globalFields, publication }) {
               <Link href="/newsletters">Newsletters</Link>
               <Link href="/subscribe" className={`${styles.btn} btn square`}>Subscribe</Link>
               <Link href="/account">Sign In</Link>
-              <button className="hammy" id="mega-nav-trigger">
+              <button className={`${styles.hammy} hitbox`} id="mega-nav-trigger">
                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="20" y1="1" y2="1" stroke="var(--color)" strokeWidth="2" />
                   <line x1="20" y1="7.99984" y2="7.99984" stroke="var(--color)" strokeWidth="2" />
