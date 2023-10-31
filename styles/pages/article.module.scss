@@ -93,29 +93,31 @@
   }
 }
 .richText {
-  @include get-vw(max-width, 600px, 600px);
+  @include get-vw(max-width, 660px, 600px);
+  display: flex;
+  flex-direction: column;
 
   h2, h3, h4 {
     font-family: $gtBold;
     @include get-vw(font-size, 40px, 40px);
     line-height: .95;
     @include get-vw(letter-spacing, -1.2px, -1.2px);
-    @include get-vw(margin-top, 20px, 20px);
-    @include get-vw(margin-bottom, 20px, 20px);
+    @include get-vw(margin-top, 40px, 40px);
+    //@include get-vw(margin-bottom, 20px, 20px);
   }
 
   p {
     @include get-vw(font-size, 22px, 20px);
     line-height: 1.49;
-    @include get-vw(margin-bottom, 20px, 20px);
+    @include get-vw(margin-top, 20px, 20px);
   }
 
   h2 + p, h3 + p, h3 + p, p + p {
-    @include get-vw(margin-bottom, 20px, 20px);
+    @include get-vw(margin-top, 20px, 20px);
   }
 
   p + blockquote {
-    @include get-vw(margin-bottom, 20px, 20px);
+    @include get-vw(margin-top, 20px, 20px);
   }
 
   blockquote {
@@ -125,15 +127,19 @@
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    @include get-vw(margin-top, 25px, 20px);
+    @include get-vw(margin-top, 20px, 20px);
   }
 
   img {
-    @include get-vw(margin-bottom, 20px, 20px);
+    @include get-vw(margin-top, 20px, 20px);
+    height: 100%;
+    position: relative;
   }
 
   ul {
     @include get-vw(padding-left, 30px, 30px);
+    @include get-vw(margin-top, 20px, 20px);
+    margin-bottom: 0;
   }
 
   li {
