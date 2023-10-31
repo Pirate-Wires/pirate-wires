@@ -93,7 +93,7 @@
   }
 }
 .richText {
-  @include get-vw(max-width, 660px, 600px);
+  @include get-vw(max-width, 60px, 600px);
   display: flex;
   flex-direction: column;
 
