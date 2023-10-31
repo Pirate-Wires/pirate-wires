@@ -98,6 +98,9 @@
   @include bp-959 {
     font-size: 40px;
   }
+  @include bp-767 {
+    position: relative;
+  }
 }
 .bio {
   font-family: $neueMed;
@@ -141,9 +144,4 @@
   }
 }
 
-@include bp-767 {
-  .postGrid article:after {
-    background-color: #060606;
-  }
-}
 

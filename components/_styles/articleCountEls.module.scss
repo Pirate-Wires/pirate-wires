@@ -6,6 +6,9 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 // smaller element
@@ -14,9 +17,22 @@
   display: flex;
   background-color: #060606;
   color: #E3E3E3;
+  width: 100%;
+  @include get-vw(height, 84px, 84px);
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  @include get-vw(padding-left, 22px, 22px);
+  @include get-vw(padding-right, 22px, 22px);
+  svg {
+    width: auto;
+    position: absolute;
+    right: 11px;
+    top: 11px;
+  }
 }
 .remainingLeft {
-
+  
 }
 .remainingTitle {
 
@@ -29,6 +45,7 @@
 .noMoreArticles {
   background-color: #060606;
   color: #E3E3E3;
+  display: none;
 }
 
 .noMoreTitle {
