@@ -22,23 +22,55 @@
   position: relative;
   align-items: center;
   justify-content: space-between;
-  @include get-vw(padding-left, 22px, 22px);
-  @include get-vw(padding-right, 22px, 22px);
+  @include get-vw(padding-left, 22px, 21px);
+  @include get-vw(padding-right, 52px, 48px);
   svg {
     width: auto;
     position: absolute;
     right: 11px;
     top: 11px;
   }
+
+  @include bp-1024 {
+    max-width: 740px;
+  }
+  @include bp-959 {
+    max-width: 100%;
+    svg {
+      height: 17px;
+    }
+  }
 }
 .remainingLeft {
-  
+  @include bp-767 {
+    width: 50%;
+  }
 }
 .remainingTitle {
-
+  color: #E3E3E3;
+  font-family: $neueBold;
+  @include get-vw(font-size, 22px, 20px);
+  @include get-vw(letter-spacing, -0.684px, -0.6px);
+  @include get-vw(margin-bottom, 2px, 2px);
 }
 .remainingInfo {
+  color: #E3E3E3;
+  font-family: $neueMed;
+  @include get-vw(font-size, 12px, 12px);
+  line-height: normal;
 
+  @include bp-767 {
+    display: none;
+  }
+}
+.noMoreBtn {
+  border: 1.14px solid #E3E3E3;
+  background: #D9D9D9;
+  color: #1C1C1C;
+  text-align: center;
+  font-family: $gtBold;
+  @include get-vw(font-size, 16px, 16px);
+  padding: 8px 11px 9px;
 }
 
 // larger element
