@@ -3,6 +3,7 @@
 .articleHero {
   display: flex;
   align-items: center;
+  height: calc(100vh - 80px);
   .bottom {
     display: flex;
     justify-content: space-between;
@@ -39,7 +40,7 @@
   justify-content: center;
   flex-direction: column;
   width: 50%;
-  aspect-ratio: 1/1;
+  height: 100%;
   @include get-vw(padding-right, 60px, 40px);
   @include get-vw(padding-left, 60px, 40px);
 
@@ -86,6 +87,7 @@
 .postBody {
   display: flex;
   justify-content: center;
+  @include get-vw(padding-top, 38px, 38px);
 }
 .richText {
   @include get-vw(max-width, 600px, 600px);
@@ -151,11 +153,12 @@
 }
 .imageWrapper {
   width: 50%;
-  aspect-ratio: 1/1;
+  height: 100%;
 
   @include bp-1024 {
     width: 100%;
     aspect-ratio: 1.5/1;
+    height: auto;
   }
 
   @include bp-767 {

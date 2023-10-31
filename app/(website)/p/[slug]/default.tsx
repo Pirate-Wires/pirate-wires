@@ -6,17 +6,14 @@ import {
   getSubscription,
   getActiveProductsWithPrices
 } from '@/app/(website)/supabase-server';
-import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
-import { urlForImage } from "@/lib/sanity/image";
 import {useDateFormatter} from "@/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss"
 import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
 import React from "react";
-import AuthorTile from "@/components/authorTile";
 
 export default async function Post(props) {
   const [session, userDetails, products, subscription] = await Promise.all([
@@ -60,7 +57,7 @@ export default async function Post(props) {
           {/*}*/}
           <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
           <picture>
-            <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=800&q=90 2x`} media="(min-width: 768px)" />
+            <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
             <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
             {/*<img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>*/}
             <img alt="" decoding="async" loading="lazy" className="cover-image"/>
@@ -77,9 +74,9 @@ export default async function Post(props) {
           <h1>
             {post.title}
           </h1>
-          <p>
-            post.preface
-          </p>
+          <div className={styles.preface}>
+            {post.preface}
+          </div>
           <div className={styles.bottom}>
             <Link href={`/author/${post.author.slug.current}`}>
               {post.author.name}
