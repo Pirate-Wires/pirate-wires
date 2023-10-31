@@ -54,5 +54,5 @@ export default function Podcasts({ pageData }) {
           </div>
         ))}
     </div>
-  );
+  )
 }

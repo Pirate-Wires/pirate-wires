@@ -152,7 +152,7 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 @mixin get-vw-small-increase($property, $desktop-size, $mobile-size: false) {
   // Viewport width of design
-  $reference-width: 1680;
+  $reference-width: 1440;
 
   //Desktop size
   $vw-context: $reference-width * 0.01 * 1px;

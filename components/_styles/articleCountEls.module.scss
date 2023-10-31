@@ -1,0 +1,44 @@
+@import "../../styles/abstracts";
+
+// wrapper of both narrow and wide els
+.articleCountEls {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+// smaller element
+.remainingArticles {
+  @include get-vw-small-increase(max-width, 600px, 600px);
+  display: flex;
+  background-color: #060606;
+  color: #E3E3E3;
+}
+.remainingLeft {
+
+}
+.remainingTitle {
+
+}
+.remainingInfo {
+
+}
+
+// larger element
+.noMoreArticles {
+  background-color: #060606;
+  color: #E3E3E3;
+}
+
+.noMoreTitle {
+
+}
+
+.noMoreInfo {
+
+}
+
+.accountLink {
+
+}

@@ -2,7 +2,6 @@
 const path = require('path')
 
 const nextConfig = {
-  ignoreDirs: ['app/(website)/account'],
   reactStrictMode: true,
   swcMinify: true,
   images: {

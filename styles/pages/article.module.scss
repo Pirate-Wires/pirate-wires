@@ -3,6 +3,7 @@
 .articleHero {
   display: flex;
   align-items: center;
+  height: 100vh;
   .bottom {
     display: flex;
     justify-content: space-between;
@@ -93,57 +94,53 @@
   }
 }
 .richText {
-  @include get-vw(max-width, 60px, 600px);
+  @include get-vw-small-increase(max-width, 600px, 600px);
   display: flex;
   flex-direction: column;
 
   h2, h3, h4 {
     font-family: $gtBold;
-    @include get-vw(font-size, 40px, 40px);
+    @include get-vw-small-increase(font-size, 40px, 40px);
     line-height: .95;
-    @include get-vw(letter-spacing, -1.2px, -1.2px);
-    @include get-vw(margin-top, 40px, 40px);
-    //@include get-vw(margin-bottom, 20px, 20px);
+    @include get-vw-small-increase(letter-spacing, -1.2px, -1.2px);
+    @include get-vw-small-increase(margin-top, 40px, 40px);
+    //@include get-vw-small-increase()(margin-bottom, 20px, 20px);
   }
 
   p {
-    @include get-vw(font-size, 22px, 20px);
+    @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.49;
-    @include get-vw(margin-top, 20px, 20px);
+    @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
-  h2 + p, h3 + p, h3 + p, p + p {
-    @include get-vw(margin-top, 20px, 20px);
-  }
-
-  p + blockquote {
-    @include get-vw(margin-top, 20px, 20px);
+  blockquote {
+    @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
   blockquote {
     font-family: $neueMed;
-    @include get-vw(font-size, 54px, 42px);
+    @include get-vw-small-increase(font-size, 54px, 42px);
     line-height: .97;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    @include get-vw(margin-top, 20px, 20px);
+    @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
   img {
-    @include get-vw(margin-top, 20px, 20px);
+    @include get-vw-small-increase(margin-top, 20px, 20px);
     height: 100%;
     position: relative;
   }
 
   ul {
-    @include get-vw(padding-left, 30px, 30px);
-    @include get-vw(margin-top, 20px, 20px);
+    @include get-vw-small-increase(padding-left, 30px, 30px);
+    @include get-vw-small-increase(margin-top, 20px, 20px);
     margin-bottom: 0;
   }
 
   li {
-    @include get-vw(font-size, 20px, 18px);
+    @include get-vw-small-increase(font-size, 20px, 18px);
     line-height: 160%;
   }
 
