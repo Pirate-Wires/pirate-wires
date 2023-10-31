@@ -37,16 +37,31 @@
   @include bp-1024 {
     flex-direction: column;
     align-items: stretch;
-    @include get-vw(padding-top, 180px, 90px);
-    @include get-vw(padding-bottom, 180px, 90px);
+    //@include get-vw(padding-top, 180px, 90px);
+    //@include get-vw(padding-bottom, 180px, 90px);
   }
 }
 .imageWrapper {
   position: relative;
   @include get-vw(width, 590px, 530px);
   aspect-ratio: 1/.58;
+  img {
+    height: auto;
+  }
+
+  @include bp-1024 {
+    &:last-child {
+      margin-left: auto;
+    }
+  }
 
   @include bp-767 {
-    width: 147px;
+    width: 250px;
+    &:first-child {
+      margin-top: 90px;
+    }
+    &:last-child {
+      margin-bottom: 90px;
+    }
   }
 }

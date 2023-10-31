@@ -14,5 +14,18 @@
 }
 
 .supabase-auth-ui_ui-button {
-  
+  border: 1px solid #060606 !important;
+  background: #060606 !important;
+  height: 40px !important;
+  color: #E3E3E3 !important;
+  text-align: center !important;
+  font-family: $neueReg !important;
+  font-size: 14px !important;
+}
+
+.supabase-auth-ui_ui-anchor {
+  color: #060606 !important;
+  text-align: center !important;
+  font-family: $neueMed !important;
+  font-size: 14px !important;
 }
