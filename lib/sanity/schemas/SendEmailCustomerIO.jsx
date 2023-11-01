@@ -41,8 +41,20 @@ const components = {
         return `<img src="${url}" />`;
       } else {
         return '';
+      } else {
+        // const url = getCdnImageUrl(value.asset._ref);
+        // return `<img src="${url}" />`;
       }
     },
+    // if there is an image defined in the CMS, return the image
+    //   if (value.asset & value.asset._ref) {
+    //     const url = getCdnImageUrl(value.asset._ref);
+    //     return `<img src="${url}" />`;
+    //   } else {
+    //     return '';
+    //   }
+    // },
+
     embed: ({ value }) => {
       if (value && value.url) {
         return `<iframe src="${value.url}" />`;

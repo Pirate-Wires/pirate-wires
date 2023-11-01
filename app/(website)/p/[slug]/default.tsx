@@ -10,10 +10,10 @@ import Link from "next/link";
 import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
-import {useDateFormatter} from "@/hooks/useDateFormatter";
+import { useDateFormatter } from "@/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss"
 import articleCountStyles from "@/components/_styles/articleCountEls.module.scss"
-import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
+// import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
 import React from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
@@ -60,12 +60,12 @@ export default async function Post(props) {
               {/*{!loaded &&*/}
               {/*  <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>*/}
               {/*}*/}
-              <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
+              <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
               <picture>
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
                 {/*<img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>*/}
-                <img alt="" decoding="async" loading="lazy" className="cover-image"/>
+                <img alt="" decoding="async" loading="lazy" className="cover-image" />
               </picture>
               <figcaption>
                 {post?.mainImage.caption && (
@@ -90,7 +90,7 @@ export default async function Post(props) {
               </div>
             </div>
 
-          </>:
+          </> :
 
           <>
             <div className={`${styles.top}`}>
@@ -109,12 +109,12 @@ export default async function Post(props) {
             </div>
             <div className={`${styles.imageWrapper} imageWrapper`}>
 
-              <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
+              <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
               <picture>
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
                 {/*<img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>*/}
-                <img alt="" decoding="async" loading="lazy" className="cover-image"/>
+                <img alt="" decoding="async" loading="lazy" className="cover-image" />
               </picture>
               <figcaption>
                 {post?.mainImage.caption && (
@@ -162,15 +162,15 @@ export default async function Post(props) {
         {post.author && <AuthorTile author={post.author} />}
       </Container>*/}
 
-      <Container>
+      {/* <Container>
         <section className="mx-auto max-w-screen-md border py-24">
           <CommentSection />
         </section>
-      </Container >
+      </Container > */}
 
 
       {(post.related_posts && post.related_posts.length > 0) &&
-        <RelatedArticles relatedArticles={post.related_posts}/>
+        <RelatedArticles relatedArticles={post.related_posts} />
       }
     </>
   );
