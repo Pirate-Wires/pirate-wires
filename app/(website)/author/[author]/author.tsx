@@ -8,6 +8,7 @@ import React, {useState} from "react";
 import styles from "../../../../styles/pages/authors.module.scss"
 import Link from "next/link";
 import {useHoverArrow} from "@/hooks/useHoverArrow";
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function Author({ posts, authorData }) {
   const slug = authorData.slug.current;
@@ -21,7 +22,7 @@ export default function Author({ posts, authorData }) {
     notFound();
   }
   useHoverArrow()
-
+  useScrollBasedAnims()
   return (
     <>
       <div className={`${styles.singleTop} c-20`}>
