@@ -3,35 +3,83 @@
 .utilityPage {
   display: flex;
   flex-direction: column;
+  @include get-vw(padding-top, 20px, 20px);
   h1 {
     font-family: $gtBold;
-    @include get-vw(font-size, 120px, 95px);
+    @include get-vw(font-size, 178px, 95px);
     @include get-vw(letter-spacing, -3.6px, -2.85px);
     line-height: 78.333%;
+    @include get-vw(margin-bottom, 20px, 20px);
+  }
+
+  @include bp-767 {
+    h1 {
+      font-size: 60px;
+      margin-bottom: 0;
+      letter-spacing: -1.8px;
+    }
   }
 }
 
 .pageBody {
   margin: 0 auto;
+  @include get-vw(padding-bottom, 20px, 20px);
 }
 
 .subscribeCta {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  @include get-vw(margin-top, 40px, 40px);
+  @include get-vw(padding-top, 40px, 40px);
+  text-align: center;
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    border-top: 1px dashed var(--color);
+    top: 0;
+    opacity: 0.5;
+  }
   h3 {
     font-family: $gtBold;
-    @include get-vw(font-size, 80px, 60px);
+    @include get-vw(font-size, 80px, 80px);
     @include get-vw(letter-spacing, -2.4px, -1.8px);
     line-height: 90%;
+    @include get-vw(margin-bottom, 20px, 20px);
   }
   p {
     font-family: $neueMed;
     @include get-vw(font-size, 14px, 14px);
-    @include get-vw(margin-bottom, 20px, 20px);
     line-height: 1.42;
+    @include get-vw(max-width, 360px, 360px);
+    a {
+      text-decoration: underline;
+    }
   }
 
+  @include bp-767 {
+    margin-top: 20px;
+    padding-top: 20px;
+    h3 {
+      font-size: 60px;
+    }
+  }
 }
-.subscribeBtn {
 
+.subscribeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include get-vw(margin-bottom, 40px, 40px);
+  @include get-vw(margin-top, 20px, 14px);
+  border: 1px solid #1C1C1C;
+  font-family: $neueMed;
+  @include get-vw(font-size, 14px, 14px);
+  line-height: 1.42;
+  @include get-vw(height, 40px, 40px);
+  @include get-vw(padding-left, 46px, 46px);
+  @include get-vw(padding-right, 46px, 46px);
 }
