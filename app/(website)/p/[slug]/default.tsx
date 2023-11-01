@@ -13,7 +13,7 @@ import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { useDateFormatter } from "@/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss"
 import articleCountStyles from "@/components/_styles/articleCountEls.module.scss"
-import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
+// import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
 import React from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
@@ -162,11 +162,11 @@ export default async function Post(props) {
         {post.author && <AuthorTile author={post.author} />}
       </Container>*/}
 
-      <Container>
+      {/* <Container>
         <section className="mx-auto max-w-screen-md border py-24">
           <CommentSection />
         </section>
-      </Container >
+      </Container > */}
 
 
       {(post.related_posts && post.related_posts.length > 0) &&
