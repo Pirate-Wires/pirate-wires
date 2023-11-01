@@ -111,6 +111,14 @@
   @include bp-1024 {
     padding-top: 0;
   }
+  @include bp-959 {
+    @include get-vw(padding-left, 20px, 20px);
+    @include get-vw(padding-right, 20px, 20px);
+  }
+  @include bp-767 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 .imageWrapper {
