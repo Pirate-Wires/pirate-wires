@@ -348,6 +348,15 @@ footer {
       aspect-ratio: 1/1;
     }
   }
+
+  &.related {
+    .excerpt {
+      line-height: 1.33;
+      span:after {
+        border-top: 1px solid var(--color);
+      }
+    }
+  }
   @include bp-959 {
     .postTitle {
       font-size: 26px;
@@ -355,6 +364,22 @@ footer {
   }
 
   @include bp-767 {
+    &.related {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      article, .pubLink, .dummyTile, .authorTile {
+        width: 100%;
+        &:nth-last-child(-n+2) {
+          margin-bottom: 20px;
+          &:before {
+            content: '';
+          }
+        }
+        &:after, &:nth-child(3n+3):after {
+          content: unset;
+        }
+      }
+    }
     .postTitle {
       padding-right: 0;
     }
@@ -649,6 +674,15 @@ footer {
       right: 0;
       top: 20px;
     }
+  }
+}
+
+.relatedPosts {
+  .excerpt {
+    line-height: 1.33;
+  }
+  .excerpt span:after {
+    border-top: 2px solid var(--color);
   }
 }
 

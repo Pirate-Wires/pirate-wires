@@ -6,5 +6,15 @@
     @include get-vw(font-size, 120px, 95px);
     @include get-vw(letter-spacing, -3.6px, -2.85px);
     line-height: 78.333%;
+    @include get-vw(margin-bottom, 20px, 20px);
+  }
+
+  @include bp-767 {
+    h5 {
+      font-size: 60px;
+      margin-bottom: 0;
+    }
+
   }
 }
+
