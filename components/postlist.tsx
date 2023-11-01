@@ -49,7 +49,7 @@ export default function PostList({
 
         <p className="excerpt caslon-reg">
           <svg preserveAspectRatio="none" viewBox="0 0 400 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line vectorEffect="non-scaling-stroke" y1="0.65" x2="400" y2="0.65" stroke="var(--color)" stroke-opacity="0.5" stroke-width="0.7" stroke-dasharray="5 5"/>
+            <line vectorEffect="non-scaling-stroke" y1="0.65" x2="400" y2="0.65" stroke="var(--color)" strokeOpacity="0.5" strokeWidth="0.7" strokeDasharray="5 5"/>
           </svg>
           <span>
             {post.excerpt}
