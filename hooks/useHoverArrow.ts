@@ -16,12 +16,12 @@ export const useHoverArrow = () => {
       const timeline = gsap.timeline({paused:true})
       let exitTime = 0
       timeline
-        .to(svg, { xPercent: 100, yPercent: -100, ease: "expo.inOut", duration: 0.5 })
+        .to(svg, { xPercent: 200, yPercent: -200, ease: "expo.inOut", duration: 0.5 })
 
       exitTime = timeline.duration()
 
       timeline
-        .set(svg, { xPercent: -100, yPercent: 100, scale: 0.3 })
+        .set(svg, { xPercent: -200, yPercent: 200, scale: 0.3 })
         .to(svg, { xPercent: 0, yPercent: 0, scale: 1, ease: "expo.out", duration: 0.45 })
 
       el.addEventListener("mouseenter", () => {

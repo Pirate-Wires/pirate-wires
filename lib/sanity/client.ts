@@ -21,7 +21,7 @@ import {
   authorsQuery,
   postBySectionQuery,
   allauthorsquery,
-  authorsquery, newslettersBySectionQuery
+  authorSlugsQuery, newslettersBySectionQuery, authorQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -45,13 +45,6 @@ export const fetcher = async ([query, params]) => {
 export async function getAllPosts() {
   if (client) {
     return (await client.fetch(postquery)) || [];
-  }
-  return [];
-}
-
-export async function getAllPodcasts() {
-  if (client) {
-    return (await client.fetch(allpodcastsquery)) || [];
   }
   return [];
 }
@@ -112,6 +105,13 @@ export async function getAuthorsData() {
   return {};
 }
 
+export async function getAuthorData(slug) {
+  if (client) {
+    return (await client.fetch(authorQuery, { slug })) || {};
+  }
+  return {};
+}
+
 export async function getPublicationData(slug) {
   if (client) {
     return (await client.fetch(publicationDocQuery, { slug })) || {};
@@ -141,7 +141,7 @@ export async function getAllPostsSlugs() {
   return [];
 }
 
-export async function getAuthorPostsBySlug(slug) {
+export async function getAuthorPosts(slug) {
   if (client) {
     return (await client.fetch(postsbyauthorquery, { slug })) || {};
   }
@@ -150,7 +150,7 @@ export async function getAuthorPostsBySlug(slug) {
 
 export async function getAllAuthorsSlugs() {
   if (client) {
-    return (await client.fetch(authorsquery)) || [];
+    return (await client.fetch(authorSlugsQuery)) || [];
   }
   return [];
 }

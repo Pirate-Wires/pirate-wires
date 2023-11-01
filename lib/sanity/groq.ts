@@ -64,15 +64,15 @@ export const homeQuery = groq`
   ...,
   "podcastCalloutVid": podcastCalloutVid.asset->{url},
   latest_writers[]->{name, title, slug, image},
-  featured_posts[]->{title, slug, author->{name}, mainImage {
+  featured_posts[]->{title, slug, author->{name, slug}, mainImage {
     asset->{url},
     "blurDataURL":asset->metadata.lqip
   }, publishedAt, excerpt},
-  featured_posts_white_pill[]->{title, slug, author->{name}, mainImage {
+  featured_posts_white_pill[]->{title, slug, author->{name, slug}, mainImage {
     asset->{url},
     "blurDataURL":asset->metadata.lqip
   }, publishedAt, excerpt},
-  featured_posts_industry[]->{title, slug, author->{name}, mainImage {
+  featured_posts_industry[]->{title, slug, author->{name, slug}, mainImage {
     asset->{url},
     "blurDataURL":asset->metadata.lqip
   }, publishedAt, excerpt}
@@ -98,6 +98,16 @@ export const authorsQuery = groq`
 *[slug.current == 'authors'][0] {
   ...,
   author_list[]->{..., slug, image}
+}
+`;
+
+export const authorQuery = groq`
+*[_type == "author" && $slug match slug.current][0] {
+  ...,
+  image {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }
 }
 `;
 
@@ -133,7 +143,15 @@ export const singlePostQuery = groq`
       }
     }
   },
+  related_posts[]->{title, slug, author->{name, slug}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt},
   author->,
+  mainImage {
+    asset->,
+    "blurDataURL":asset->metadata.lqip
+  },
   categories[]->,
   section,
   "estReadingTime": round(length(pt::text(body)) / 5 / 180 ),
@@ -153,7 +171,7 @@ export const pathquery = groq`
 export const catpathquery = groq`
 *[_type == "category" && defined(slug.current)][].slug.current
 `;
-export const authorsquery = groq`
+export const authorSlugsQuery = groq`
 *[_type == "author" && defined(slug.current)][].slug.current
 `;
 
@@ -165,7 +183,7 @@ export const postsbyauthorquery = groq`
   categories[]->,
   section,
   mainImage {
-    asset->{url},
+    asset->,
     "blurDataURL":asset->metadata.lqip
   }
 }
@@ -179,7 +197,7 @@ export const postBySectionQuery = groq`
   title, 
   slug, 
   newsletter,
-  author->{name}, 
+  author->{name, slug}, 
   mainImage {
     asset->{url},
     "blurDataURL":asset->metadata.lqip

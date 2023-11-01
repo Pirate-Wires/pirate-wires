@@ -1,15 +1,26 @@
 @import "../../styles/abstracts";
-
+.header {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  color: var(--color);
+  background-color: var(--bgColor);
+  font-family: $neueBold;
+  font-size: 14px;
+  white-space: nowrap;
+}
 .left, .right {
   display: flex;
   align-items: center;
 }
 .left {
   svg:first-child {
-    width: 33px;
+    width: 34px;
     height: auto;
   }
-  svg:last-child {
+  svg:last-child:not(:first-child) {
     width: auto;
     height: 20px;
   }
@@ -20,29 +31,73 @@
     margin-left: 11px;
     margin-right: 11px;
   }
+  a {
+    display: flex;
+  }
   path {
     fill: var(--color);
   }
   h2 {
     color: var(--color);
+    font-size: 14px;
+    @include get-vw(font-size, 14px, 14px);
     line-height: 1;
     position: relative;
     bottom: -2px;
-    margin-left: 30px;
+    margin-left: 20px;
+  }
+  @media (min-width: 1700px) {
+    h2 {
+      font-size: 17px;
+    }
+  }
+  @include bp-767 {
+    svg:first-child {
+      width: 25px;
+      height: auto;
+    }
+    svg:last-child:not(:first-child) {
+      width: auto;
+      height: 16px;
+    }
+    h2 {
+      display: none;
+    }
   }
 }
 .right {
   gap: 20px;
-  font-size: 14px;
   .btn {
     min-width: 87px;
     height: 29px;
+    padding-bottom: 1px;
+  }
+  @include bp-767 {
+    gap: 15px;
+    .btn {
+      min-width: 79px;
+      height: 26px;
+    }
+    a:first-child {
+      display: none;
+    }
+  }
+}
+.hammy {
+  display: flex;
+  &:focus {
+    outline: none;
   }
 }
 .topTabs {
   height: 30px;
   display: flex;
   border-bottom: 0.5px solid var(--accentLight);
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   a {
     flex: 1;
     display: flex;
@@ -50,7 +105,18 @@
     gap: 8px;
     padding-left: 21px;
     @include get-vw(padding-left, 21px, 18px);
+    font-size: 14px;
     border-right: 0.5px solid var(--accentLight);
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  @include bp-767 {
+    overflow-x: auto;
+    a {
+      padding: 0 20px;
+    }
   }
 }
 
@@ -84,6 +150,13 @@
   align-items: center;
   justify-content: center;
   height: 50px;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  color: var(--color);
+  background-color: var(--bgColor);
   svg {
     width: 33px;
     height: 24px;

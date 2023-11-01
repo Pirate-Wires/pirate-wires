@@ -30,16 +30,6 @@
 }
 
 // Global elements
-html, body {
-  overscroll-behavior: none;
-}
-input {
-  border: none;
-  background-color: transparent;
-  &:focus {
-    outline: none;
-  }
-}
 .btn {
   display: flex;
   align-items: center;
@@ -49,23 +39,24 @@ input {
   }
 }
 
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-  font-family: $neueBold;
-  color: var(--color);
-  background-color: var(--bgColor);
-  white-space: nowrap;
-}
-
-main {
-  padding-top: 80px;
-}
 .colorWrapper {
   background-color: var(--bgColor);
   color: var(--color);
+  padding-top: 80px;
+  &.reducedHeaderPage {
+    padding-top: 50px;
+  }
+}
+.hitbox {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    left: -10px;
+    top: -10px;
+  }
 }
 .embla {
   overflow: hidden;
@@ -97,10 +88,6 @@ main {
   &.industry {
     background-color: var(--industryBgColor);
     color: var(--industryColor);
-  }
-  @include bp-767 {
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
   }
 }
 .pageTitle {
@@ -286,8 +273,11 @@ footer {
   &.pirate-wires {
     article, .pubLink {
       &:before, &:after {
-        background-color: var(--accentDark);
+        background-color: var(--accentLight);
       }
+    }
+    .excerpt {
+      opacity: .7;
     }
   }
   .imgWrapper {
@@ -365,13 +355,20 @@ footer {
   }
 
   @include bp-767 {
+    .postTitle {
+      padding-right: 0;
+    }
+    .goIcon {
+      bottom: 0;
+      transform: translateY(200%);
+    }
     article, .pubLink, .dummyTile, .authorTile {
       width: calc(50% - 10px);
       &:after {
         content: "";
         width: 0.5px;
         height: 100%;
-        background-color: var(--accentDark);
+        background-color: var(--accentLight);
         position: absolute;
         right: -10px;
         top: 0;
@@ -463,7 +460,7 @@ footer {
 
   @include bp-767 {
     flex-direction: column;
-    gap: 20px;
+    gap: 0px;
     .right {
       padding: 0;
       width: 100%;
@@ -528,6 +525,9 @@ footer {
     }
   }
 }
+.featNewslettersBorder {
+  border-top: 0.5px solid var(--color);
+}
 .interiorPub {
   .postInfo {
     padding-bottom: 0;
@@ -558,6 +558,14 @@ footer {
       }
       path {
         fill: var(--bgColor);
+      }
+    }
+    .featNewslettersBorder {
+      border-top: 0.5px solid var(--color);
+    }
+    .postInfo {
+      &:before {
+        opacity: .45;
       }
     }
   }
@@ -601,7 +609,7 @@ footer {
 .excerpt {
   @include get-vw(font-size, 17px, 15px);
   @include get-vw(margin-top, 20px, 20px);
-  opacity: 0.7;
+  opacity: 0.95;
   position: relative;
   @include get-vw(padding-right, 40px, 40px);
   display: flex;
@@ -619,9 +627,28 @@ footer {
       content: "";
     }
   }
+}
 
+.featuredPost {
   @include bp-767 {
-    padding-right: 0;
+    .excerpt {
+      padding-top: 10px;
+      margin-top: 20px;
+      &:before {
+        content: "";
+        height: 0.5px;
+        width: calc(100% - 40px);
+        background-color: var(--accentLight);
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+    .goIcon {
+      position: absolute;
+      right: 0;
+      top: 20px;
+    }
   }
 }
 
@@ -641,14 +668,17 @@ footer {
 }
 
 // Global other
+.imageWrapper {
+  position: relative;
+}
 .hasHoverArrow {
   display: flex;
   align-items: center;
   white-space: nowrap;
+  overflow: hidden;
   span {
     @include get-vw(margin-left, 9px, 9px);
     position: relative;
-    overflow: hidden;
     display: flex;
   }
   svg {
@@ -744,6 +774,25 @@ footer {
   }
 }
 
+.flowContainer {
+  @include get-vw(padding-left, 20px, 20px);
+  @include get-vw(padding-right, 20px, 20px);
+  @include get-vw(max-width, 600px, 600px);
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    @include get-vw(font-size, 40px, 36px);
+    @include get-vw(margin-bottom, 20px, 18px);
+    @include get-vw(letter-spacing, -1.2px, -1.08px);
+    font-family: $gtBold;
+    line-height: 95%;
+  }
+  @include bp-767 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .mtb-20 {
   @include get-vw(margin-top, 20px, 20px);
   @include get-vw(margin-bottom, 20px, 20px);
@@ -771,14 +820,24 @@ footer {
 }
 
 .ptb-40 {
-  @include get-vw(padding-top, 40px, 40px);
-  @include get-vw(padding-bottom, 40px, 40px);
+  @include get-vw(padding-top, 40px, 32px);
+  @include get-vw(padding-bottom, 40px, 32px);
+  @include bp-767 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
 .pt-40 {
-  @include get-vw(padding-top, 40px, 40px);
+  @include get-vw(padding-top, 40px, 32px);
+  @include bp-767 {
+    padding-top: 20px;
+  }
 }
 
 .pb-40 {
-  @include get-vw(padding-bottom, 40px, 40px);
+  @include get-vw(padding-bottom, 40px, 32px);
+  @include bp-767 {
+    padding-bottom: 20px;
+  }
 }

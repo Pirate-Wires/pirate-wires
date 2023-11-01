@@ -98,11 +98,26 @@
   @include bp-959 {
     font-size: 40px;
   }
+  @include bp-767 {
+    position: relative;
+  }
 }
 .bio {
   font-family: $neueMed;
   @include get-vw(font-size, 22px, 22px);
   line-height: 1.45;
+  a {
+    position: relative;
+    &:after {
+      width: 100%;
+      height: 0.5px;
+      content: "";
+      background-color: var(--color);
+      left: 0;
+      bottom: -1px;
+      position: absolute;
+    }
+  }
 }
 .socialRow {
   display: flex;
@@ -129,9 +144,4 @@
   }
 }
 
-@include bp-767 {
-  .postGrid article:after {
-    background-color: #060606;
-  }
-}
 

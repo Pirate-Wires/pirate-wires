@@ -35,8 +35,11 @@ function getCdnImageUrl(imageRef, width = 500) {
 const components = {
   types: {
     image: ({ value }) => {
-      // if there is no image defined in the CMS, return an empty string
-      if (!value) {
+      console.log(value)
+      if (value.asset._ref) {
+        const url = getCdnImageUrl(value.asset._ref);
+        return `<img src="${url}" />`;
+      } else {
         return '';
       } else {
         // const url = getCdnImageUrl(value.asset._ref);

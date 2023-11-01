@@ -9,6 +9,7 @@ export default async function SubscribePage() {
   return <div className="colorWrapper" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
+    "--accentLight": "rgba(43, 43, 43, 0.45)",
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
     <Subscribe />

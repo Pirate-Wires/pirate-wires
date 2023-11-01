@@ -2,12 +2,18 @@
 import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
 export default function FeaturedNewsletters({ newsletters }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 2, containScroll: "trimSnaps" })
+  const [loaded, setLoaded] = useState(false)
+  const onLoad = () => {
+    setTimeout(() => {
+      setLoaded(true)
+    }, 250)
+  }
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
+      emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
       const prev = document.getElementById("prev")
       const next = document.getElementById("next")
       prev.addEventListener("click", () => {
@@ -32,7 +38,7 @@ export default function FeaturedNewsletters({ newsletters }) {
   }, [emblaApi]);
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
-      <div className={`${styles.left} pt-20`}>
+      <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
@@ -40,20 +46,17 @@ export default function FeaturedNewsletters({ newsletters }) {
               <div key={newsletter.title} className={`${styles.slide} embla__slide`}>
                 <div className={styles.slideTop}>
                   <div className={styles.imageWrapper}>
-                    {newsletter.mainImage &&
-                      <Image
-                        src={newsletter.mainImage.asset.url}
-                        {...(newsletter.mainImage.blurDataURL && {
-                          placeholder: "blur",
-                          blurDataURL: newsletter.mainImage.blurDataURL
-                        })}
-                        alt={newsletter.mainImage?.alt || "Thumbnail"}
-                        priority
-                        fill
-                        sizes="100vw"
-                        className="object-cover"
-                      />
-                    }
+                    {(newsletter.mainImage && newsletter.mainImage.asset) && (
+                      <>
+                        {!loaded &&
+                          <img src={newsletter.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
+                        }
+                        <picture>
+                          <source srcSet={`${newsletter.mainImage.asset.url}?auto=format&w=50&q=100, ${newsletter.mainImage.asset.url}?auto=format&w=60&q=90 2x`} />
+                          <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad} />
+                        </picture>
+                      </>
+                    )}
                   </div>
 
                   <h5>{newsletter.title}</h5>
@@ -80,11 +83,11 @@ export default function FeaturedNewsletters({ newsletters }) {
           </div>
         </div>
       </div>
-      <div className={`${styles.right} pt-20`}>
+      <div className={`${styles.right} featNewslettersBorder pt-20`}>
         <h3>Join, or die</h3>
         <p>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
         <form className={`${styles.form}`}>
-          <input type="email" required placeholder="Your email here..."/>
+          <input type="email" required placeholder="Your email here..." />
           <button type="submit">Sign Up</button>
         </form>
         <p className={styles.tagline}></p>

@@ -1,0 +1,67 @@
+@import "../abstracts";
+.notFound {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100dvh;
+  position: relative;
+  h1, a {
+    z-index: 2;
+    position: relative;
+  }
+  h1 {
+    font-family: $neueMed;
+    @include get-vw(font-size, 14px, 14px);
+    @include get-vw(margin-bottom, 20px, 20px);
+    line-height: 1.42;
+  }
+
+  @include bp-767 {
+    min-height: 660px;
+  }
+}
+.btn {
+  padding: 12px 20px 11px;
+  font-family: $neueMed;
+}
+.imagesWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include bp-1024 {
+    flex-direction: column;
+    align-items: stretch;
+    //@include get-vw(padding-top, 180px, 90px);
+    //@include get-vw(padding-bottom, 180px, 90px);
+  }
+}
+.imageWrapper {
+  position: relative;
+  @include get-vw(width, 590px, 530px);
+  aspect-ratio: 1/.58;
+  img {
+    height: auto;
+  }
+
+  @include bp-1024 {
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+
+  @include bp-767 {
+    width: 250px;
+    &:first-child {
+      margin-top: 90px;
+    }
+    &:last-child {
+      margin-bottom: 90px;
+    }
+  }
+}

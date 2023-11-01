@@ -23,7 +23,7 @@ export default function Featured({ post, pathPrefix, priority = true }) {
           </h1>
 
           <div className={styles.bottom}>
-            <p className="excerpt caslon-reg">{post.preface}</p>
+            <p className="excerpt caslon-reg">{post.excerpt}</p>
             <p className="postAuthor">By {post.author.name}
               <div className="goIcon">
                 <div className="leftHalf"></div>
@@ -42,7 +42,7 @@ export default function Featured({ post, pathPrefix, priority = true }) {
           }
           <picture>
             <source srcSet={`${post.mainImage.asset.url}?auto=format&w=1000&q=90, ${post.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
-            <source srcSet={`${post.mainImage.asset.url}?auto=format&w=550&q=90`} media="(max-width: 767px)" />
+            <source srcSet={`${post.mainImage.asset.url}?auto=format&w=500&q=100`} media="(max-width: 767px)" />
             <img alt="" decoding="async" fetchPriority={priority ? "high" : "auto"} loading={priority ? "eager" : "lazy"} className="cover-image" onLoad={onLoad}/>
           </picture>
         </div>

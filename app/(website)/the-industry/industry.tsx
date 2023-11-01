@@ -18,7 +18,7 @@ export default function Industry({ pageData, publicationPosts, publicationNewsle
         <FeaturedNewsletters newsletters={publicationNewsletters} />
 
         <section className="postGrid c-20">
-          {publicationPosts.map(post => (
+          {publicationPosts.slice(1).map(post => (
             // @ts-ignore
             <PostList
               key={post._id}

@@ -1,8 +1,14 @@
 /* eslint-disable */
 import { gsap } from 'gsap';
+import isMobile from 'ismobilejs';
 
 export class ScrollBasedAnims {
   constructor(options = {}) {
+    const mobile = isMobile(window.navigator).any;
+    if(mobile && !document.body.classList.contains("touch")) {
+      document.body.classList.add('touch');
+    }
+
     this.bindMethods();
 
     this.el = document.documentElement;

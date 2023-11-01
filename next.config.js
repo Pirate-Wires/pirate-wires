@@ -11,8 +11,7 @@ const nextConfig = {
     deviceSizes: [767, 959, 1024, 1200, 1600, 1920, 2048, 3840, 5000]
   },
   experimental: {
-    serverActions: true,
-    appDir: true
+    serverActions: true
   },
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
