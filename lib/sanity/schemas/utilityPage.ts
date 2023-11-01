@@ -2,7 +2,7 @@ import { UsersIcon } from '@sanity/icons';
 
 const schema = {
   name: 'utilityPage',
-  title: 'Utility page',
+  title: 'Utility pages',
   type: 'document',
   icon: UsersIcon,
   fields: [

@@ -84,10 +84,12 @@
   &.white-pill {
     background-color: var(--whitePillBgColor);
     color: var(--whitePillColor);
+    --color: var(--whitePillColor);
   }
   &.industry {
     background-color: var(--industryBgColor);
     color: var(--industryColor);
+    --color: var(--industryColor);
   }
 }
 .pageTitle {
