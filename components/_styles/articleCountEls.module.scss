@@ -9,11 +9,12 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  pointer-events: none;
 }
 
 // smaller element
 .remainingArticles {
-  display: none;
+  pointer-events: all;
   @include get-vw-small-increase(max-width, 600px, 600px);
   //display: flex;
   background-color: #060606;
@@ -78,7 +79,7 @@
 .noMoreArticles {
   background-color: #060606;
   color: #E3E3E3;
-  //display: none;
+  pointer-events: all;
   display: flex;
   align-items: center;
   flex-direction: column;

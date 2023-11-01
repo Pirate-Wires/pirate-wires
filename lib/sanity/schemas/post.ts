@@ -1,5 +1,6 @@
 // /lib/sanity/schemas/post.ts
 import SendEmailCustomerIO from './SendEmailCustomerIO';
+import {defineField} from "sanity";
 
 const schema = {
   name: 'post',
@@ -52,6 +53,11 @@ const schema = {
       validation: (Rule) => Rule.max(200)
     },
     {
+      title: 'Wide image top',
+      name: 'wide_image_top',
+      type: 'boolean'
+    },
+    {
       name: 'preface',
       title: 'Preface',
       description: 'Optional note from Solana/Editor preceding the article. ',
@@ -99,18 +105,18 @@ const schema = {
         maxLength: 96
       }
     },
-    {
-      title: 'Newsletter',
-      name: 'SendEmailCustomerIOComponent',
-      type: 'SendEmailCustomerIOComponent',
-      components: {
-        input: SendEmailCustomerIO
-      },
-      options: {
-        title: 'title', // Pass the title field value to the component
-        body: 'body' // Pass the body field value to the component
-      }
-    }
+    defineField({
+      title: 'Related posts override',
+      description: 'Three posts of your choosing to be recirculated with this article',
+      name: 'related_posts',
+      type: 'array',
+      of: [{
+        title: 'Post',
+        name: 'related_post',
+        type: 'reference',
+        to: [{type: 'post'}]
+      }]
+    }),
   ],
 
   preview: {

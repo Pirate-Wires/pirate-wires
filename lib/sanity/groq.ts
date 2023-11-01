@@ -143,6 +143,10 @@ export const singlePostQuery = groq`
       }
     }
   },
+  related_posts[]->{title, slug, author->{name, slug}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt},
   author->,
   mainImage {
     asset->,

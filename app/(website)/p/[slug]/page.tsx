@@ -21,6 +21,7 @@ export async function generateMetadata({ params }) {
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
   const globalFields = await getGlobalFields();
+  console.log(post)
   return <CommentsContextProvider postId={1}>
     <div className="colorWrapper" style={{
     "--color": "#060606",
