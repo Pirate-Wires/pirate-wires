@@ -35,13 +35,23 @@ function getCdnImageUrl(imageRef, width = 500) {
 const components = {
   types: {
     image: ({ value }) => {
-      if (value.asset._ref) {
-        const url = getCdnImageUrl(value.asset._ref);
-        return `<img src="${url}" />`;
-      } else {
+      // if there is no image defined in the CMS, return an empty string
+      if (!value) {
         return '';
+      } else {
+        // const url = getCdnImageUrl(value.asset._ref);
+        // return `<img src="${url}" />`;
       }
     },
+    // if there is an image defined in the CMS, return the image
+    //   if (value.asset & value.asset._ref) {
+    //     const url = getCdnImageUrl(value.asset._ref);
+    //     return `<img src="${url}" />`;
+    //   } else {
+    //     return '';
+    //   }
+    // },
+
     embed: ({ value }) => {
       if (value && value.url) {
         return `<iframe src="${value.url}" />`;
