@@ -21,7 +21,7 @@ import {
   authorsQuery,
   postBySectionQuery,
   allauthorsquery,
-  authorSlugsQuery, newslettersBySectionQuery, authorQuery
+  authorSlugsQuery, newslettersBySectionQuery, authorQuery, utilityPageQuery, utilityPageSlugsQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -112,6 +112,13 @@ export async function getAuthorData(slug) {
   return {};
 }
 
+export async function getUtilityPageData(slug) {
+  if (client) {
+    return (await client.fetch(utilityPageQuery, { slug })) || {};
+  }
+  return {};
+}
+
 export async function getPublicationData(slug) {
   if (client) {
     return (await client.fetch(publicationDocQuery, { slug })) || {};
@@ -151,6 +158,13 @@ export async function getAuthorPosts(slug) {
 export async function getAllAuthorsSlugs() {
   if (client) {
     return (await client.fetch(authorSlugsQuery)) || [];
+  }
+  return [];
+}
+
+export async function getAllUtilityPageSlugs() {
+  if (client) {
+    return (await client.fetch(utilityPageSlugsQuery)) || [];
   }
   return [];
 }

@@ -43,7 +43,7 @@
 }
 .imageWrapper {
   position: relative;
-  @include get-vw(width, 590px, 530px);
+  @include get-vw-no-max(width, 590px, 530px);
   aspect-ratio: 1/.58;
   img {
     height: auto;

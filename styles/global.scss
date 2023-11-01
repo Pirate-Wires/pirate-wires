@@ -277,7 +277,9 @@ footer {
       }
     }
     .excerpt {
-      opacity: .7;
+      span {
+        opacity: .7;
+      }
     }
   }
   .imgWrapper {
@@ -608,24 +610,22 @@ footer {
 
 .excerpt {
   @include get-vw(font-size, 17px, 15px);
-  @include get-vw(margin-top, 20px, 20px);
-  opacity: 0.95;
+  @include get-vw(margin-top, 23px, 23px);
   position: relative;
   @include get-vw(padding-right, 40px, 40px);
+  flex-wrap: wrap;
   display: flex;
+  svg {
+    height: 1px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
   span {
     position: relative;
     @include get-vw(padding-top, 20px, 10px);
-    &:after {
-      height: 1px;
-      width: 100%;
-      border-top: 0.5px dashed var(--color);
-      opacity: 0.5;
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: "";
-    }
+    opacity: 0.95;
   }
 }
 
@@ -754,6 +754,71 @@ footer {
   }
 }
 
+// Rich text
+.richText {
+  @include get-vw-small-increase(max-width, 600px, 600px);
+  display: flex;
+  flex-direction: column;
+
+  h2, h3, h4 {
+    font-family: $gtBold;
+    @include get-vw-small-increase(font-size, 40px, 40px);
+    line-height: .95;
+    @include get-vw-small-increase(letter-spacing, -1.2px, -1.2px);
+    @include get-vw-small-increase(margin-top, 40px, 40px);
+    //@include get-vw-small-increase()(margin-bottom, 20px, 20px);
+  }
+
+  p {
+    @include get-vw-small-increase(font-size, 22px, 20px);
+    line-height: 1.49;
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+  }
+
+  blockquote {
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+  }
+
+  blockquote {
+    font-family: $neueMed;
+    @include get-vw-small-increase(font-size, 54px, 42px);
+    line-height: .97;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+  }
+
+  img {
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+    height: 100%;
+    position: relative;
+  }
+
+  ul {
+    @include get-vw-small-increase(padding-left, 30px, 30px);
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+    margin-bottom: 0;
+  }
+
+  li {
+    @include get-vw-small-increase(font-size, 20px, 18px);
+    line-height: 160%;
+  }
+
+  @include bp-1024 {
+    max-width: 740px;
+  }
+  @include bp-959 {
+    max-width: 100%;
+    @include get-vw(padding-left, 20px, 20px);
+    @include get-vw(padding-right, 20px, 20px);
+  }
+  @include bp-767 {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
 // font classes
 .caslon-reg {
   font-family: $caslon;

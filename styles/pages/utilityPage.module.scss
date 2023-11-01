@@ -1,0 +1,37 @@
+@import "../abstracts";
+
+.utilityPage {
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 120px, 95px);
+    @include get-vw(letter-spacing, -3.6px, -2.85px);
+    line-height: 78.333%;
+  }
+}
+
+.pageBody {
+  margin: 0 auto;
+}
+
+.subscribeCta {
+  display: flex;
+  flex-direction: column;
+  h3 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 80px, 60px);
+    @include get-vw(letter-spacing, -2.4px, -1.8px);
+    line-height: 90%;
+  }
+  p {
+    font-family: $neueMed;
+    @include get-vw(font-size, 14px, 14px);
+    @include get-vw(margin-bottom, 20px, 20px);
+    line-height: 1.42;
+  }
+
+}
+.subscribeBtn {
+
+}

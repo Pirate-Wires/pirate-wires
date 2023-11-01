@@ -111,6 +111,12 @@ export const authorQuery = groq`
 }
 `;
 
+export const utilityPageQuery = groq`
+*[_type == "utilityPage" && $slug match slug.current][0] {
+  ...,
+}
+`;
+
 export const newsletterQuery = groq`
 *[slug.current == 'newsletters'] {
   ...,
@@ -173,6 +179,9 @@ export const catpathquery = groq`
 `;
 export const authorSlugsQuery = groq`
 *[_type == "author" && defined(slug.current)][].slug.current
+`;
+export const utilityPageSlugsQuery = groq`
+*[_type == "utility" && defined(slug.current)][].slug.current
 `;
 
 // Get Posts by Authors
