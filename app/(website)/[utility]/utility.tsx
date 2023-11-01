@@ -1,17 +1,17 @@
 "use client"
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
-import PostList from "@/components/postlist";
 import { notFound } from "next/navigation";
 import React, {useState} from "react";
 import styles from "@/styles/pages/utilityPage.module.scss"
 import Link from "next/link";
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function Utility({ pageData }) {
   const slug = pageData.slug.current;
   if (!slug) {
     notFound();
   }
-
+  useScrollBasedAnims()
   return (
     <>
       <section className={`${styles.utilityPage} c-20`}>

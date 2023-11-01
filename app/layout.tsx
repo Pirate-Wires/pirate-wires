@@ -19,7 +19,6 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning>
       <body>
-        <link rel="stylesheet" href="https://use.typekit.net/wyt8cof.css" />
         <Providers>
           {/* <UserContextProvider supabaseClient={supabase}> */}
           <ThemeProvider attribute="class">{children}</ThemeProvider>

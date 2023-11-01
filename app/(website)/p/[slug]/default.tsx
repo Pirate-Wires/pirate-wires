@@ -1,4 +1,4 @@
-
+"use client"
 // app/(website)/p/[slug]/home.tsx
 import {
   getSession,
@@ -17,14 +17,9 @@ import articleCountStyles from "@/components/_styles/articleCountEls.module.scss
 import React from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
-export default async function Post(props) {
-  const [session, userDetails, products, subscription] = await Promise.all([
-    getSession(),
-    getUserDetails(),
-    getActiveProductsWithPrices(),
-    getSubscription()
-  ]);
+export default function Post(props, session) {
 
   const user = session?.user;
   console.log('user', user)
@@ -43,7 +38,7 @@ export default async function Post(props) {
   if (!loading && !slug) {
     notFound();
   }
-
+  useScrollBasedAnims()
   // const [loaded, setLoaded] = useState(false)
   // const onLoad = () => {
   //   setTimeout(() => {
