@@ -1,10 +1,10 @@
-import { UsersIcon } from '@sanity/icons';
+import { LuPin } from 'react-icons/lu';
 
 const schema = {
   name: 'utilityPage',
   title: 'Utility pages',
   type: 'document',
-  icon: UsersIcon,
+  icon: LuPin,
   fields: [
     {
       name: 'title',
