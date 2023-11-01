@@ -6,7 +6,7 @@ export default function RelatedArticles({ relatedArticles }) {
   return (
     <section className={`${styles.relatedPosts} c-20 ptb-40`}>
       <h5 className={`mb-40`}>Related articles</h5>
-      <div className={`postGrid`}>
+      <div className={`postGrid related`}>
         {relatedArticles.map(post => (
           // @ts-ignore
           <PostList
