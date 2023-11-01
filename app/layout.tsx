@@ -1,7 +1,7 @@
 "use client"
 // app/layout.tsx
-import supabase from '@/lib/supabase-comments/utils/initSupabase';
-import { UserContextProvider } from '@/lib/supabase-comments/hooks/use-user';
+// import supabase from '@/lib/supabase-comments/utils/initSupabase';
+// import { UserContextProvider } from '@/lib/supabase-comments/hooks/use-user';
 import { ThemeProvider } from 'next-themes';
 import { Providers } from './providers';
 import { cx } from '@/utils/all';
@@ -19,11 +19,11 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning>
       <body>
-      <link rel="stylesheet" href="https://use.typekit.net/wyt8cof.css" />
+        <link rel="stylesheet" href="https://use.typekit.net/wyt8cof.css" />
         <Providers>
-          <UserContextProvider supabaseClient={supabase}>
-            <ThemeProvider attribute="class">{children}</ThemeProvider>
-          </UserContextProvider>
+          {/* <UserContextProvider supabaseClient={supabase}> */}
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
+          {/* </UserContextProvider> */}
         </Providers>
       </body>
     </html>

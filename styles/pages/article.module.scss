@@ -128,8 +128,42 @@
 }
 .wideImageTop {
   height: auto;
+  .top {
+    padding-bottom: 0;
+    max-width: 1000px;
+    width: 100%;
+    align-items: center;
+  }
+  h1 {
+    max-width: 900px;
+    width: 100%;
+  }
+  .excerpt {
+    @include get-vw(padding-bottom, 20px, 20px);
+    max-width: 900px;
+    width: 100%;
+  }
   .imageWrapper {
     width: calc(100% - 6px);
     aspect-ratio: 1/.67;
+  }
+  .bottom {
+    width: 100%;
+    left: 0;
+  }
+
+  @include bp-767 {
+    .top {
+      align-items: flex-start;
+    }
+    h1 {
+      text-align: left;
+      font-size: 46px;
+      margin-bottom: 8px;
+    }
+    .excerpt {
+      text-align: left;
+    }
+
   }
 }
