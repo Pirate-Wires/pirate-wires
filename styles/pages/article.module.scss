@@ -3,7 +3,7 @@
 .articleHero {
   display: flex;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 80px);
   .bottom {
     display: flex;
     justify-content: space-between;

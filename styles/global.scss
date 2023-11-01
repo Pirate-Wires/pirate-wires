@@ -29,6 +29,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Caslon Pro Reg';
+  src: url("../public/fonts/caslon-pro-reg.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 // Global elements
 .btn {
   display: flex;
@@ -857,11 +864,11 @@ footer {
 }
 // font classes
 .caslon-reg {
-  font-family: $caslon;
+  font-family: $caslonReg;
   font-weight: 400;
 }
 .caslon-med {
-  font-family: $caslon;
+  font-family: $caslonReg;
   font-weight: 500;
 }
 
