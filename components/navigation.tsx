@@ -4,9 +4,9 @@ import Link from 'next/link';
 import styles from "./_styles/header.module.scss"
 import { usePathname } from 'next/navigation';
 import React, {useEffect, useState} from "react";
-import MegaNav from "@/components/megaNav";
 import {globalObject} from "@/constants/globalStorage";
 import {gsap} from "gsap";
+import MegaNav from "@/components/megaNav";
 
 interface Tab {
   name: string;
@@ -20,13 +20,13 @@ const tabs: Tab[] = [
   { name: 'The White Pill', href: '/white-pill' },
 ];
 
-export default function Navigation({ globalFields, publication }) {
+export default function Navigation({ publication }) {
   const currentRoute = usePathname();
   const flowNav = currentRoute === "/subscribe" || currentRoute === "/sign-in"
   const simpleNav = currentRoute === "/account"
   const homePage = currentRoute === "/"
-  const industryPage = currentRoute === "/the-industry"
-  const whitePillPage = currentRoute === "/white-pill"
+  const industryPage = currentRoute === "/the-industry" || publication === "the-industry"
+  const whitePillPage = currentRoute === "/white-pill" || publication === "the-white-pill"
 
   const [once, setOnce] = useState(false);
   let onceVar = false;
@@ -50,19 +50,37 @@ export default function Navigation({ globalFields, publication }) {
       }
 
       const hammy = document.getElementById("mega-nav-trigger")
-      const megaNav = document.getElementById("mega-nav")
+      let megaNav = document.getElementById("mega-nav")
+      let megaNavBackdrop = document.getElementById("mega-nav-backdrop")
+      const navLinks = megaNav.querySelectorAll(".nav-link")
       const closeTrigger = megaNav.querySelector(".close-trigger")
       const navTL = new gsap.timeline()
       let navOpen = false
-      gsap.set(megaNav, { xPercent: 20, opacity: 0, visibility: "visible" })
+
+      if (megaNav.classList.contains("unprepped")) {
+        megaNav.classList.remove("unprepped")
+        gsap.set(megaNav, { xPercent: 20 })
+      }
 
       const closeNav = () => {
         navOpen = false
         navTL.clear()
         navTL.progress(0)
         navTL
-          .to(megaNav, { xPercent: 20, pointerEvents: "none", ease: "expo.out", duration: 0.7 })
-          .to(megaNav, { opacity: 0, ease: "sine.inOut", duration: 0.16 }, 0)
+          .to(megaNav, { xPercent: 20, pointerEvents: "none", ease: "expo.out", duration: 0.7, force3D: true })
+          .to(megaNav, { opacity: 0, ease: "sine.inOut", duration: .2 }, 0)
+          .to(megaNavBackdrop, { opacity: 0, pointerEvents: "none", ease: "sine.inOut", duration: .2, force3D: true }, 0)
+      }
+
+      const closeNavNavigating = () => {
+        navOpen = false
+        navTL.clear()
+        navTL.progress(0)
+        navTL
+          .to(megaNav, { opacity: 0, ease: "sine.inOut", duration: .12, force3D: true, onComplete: () => {
+            gsap.set(megaNav, { xPercent: 20 })
+            } }, 0)
+          .to(megaNavBackdrop, { opacity: 0, pointerEvents: "none", ease: "sine.inOut", duration: .12, force3D: true }, 0)
       }
 
       hammy.addEventListener("click", () => {
@@ -72,12 +90,26 @@ export default function Navigation({ globalFields, publication }) {
           navTL.clear()
           navTL.progress(0)
           navTL
-            .to(megaNav, { xPercent: 0, pointerEvents: "all", ease: "expo.out", duration: 0.7 })
+            .to(megaNav, { xPercent: 0, pointerEvents: "all", ease: "expo.out", duration: 0.7, force3D: true })
             .to(megaNav, { opacity: 1, ease: "sine.inOut", duration: 0.18 }, 0)
+            .to(megaNavBackdrop, { opacity: 1, pointerEvents: "all", ease: "sine.inOut", duration: 0.18, force3D: true }, 0)
         }
       })
 
+      for (let i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener("click", () => {
+          navOpen = false
+          closeNavNavigating()
+        })
+      }
+
       closeTrigger.addEventListener("click", () => {
+        if (navOpen) {
+          navOpen = false
+          closeNav()
+        }
+      })
+      megaNavBackdrop.addEventListener("click", () => {
         if (navOpen) {
           navOpen = false
           closeNav()
@@ -101,8 +133,12 @@ export default function Navigation({ globalFields, publication }) {
         <header className={styles.header}>
           {!simpleNav &&
             <nav className={styles.topTabs} id="top-tabs">
-              {tabs.map(tab => (
-                <Link key={tab.href} href={tab.href} className={(currentRoute === tab.href ? styles.active : '')}>
+              {tabs.map((tab, index) => (
+                <Link key={index} href={tab.href} className={(
+                  (currentRoute === tab.href ||
+                  publication === "the-wire" && index === 1 ||
+                  publication === "the-industry" && index === 2 ||
+                  publication === "the-white-pill" && index === 3) ? styles.active : '')}>
                   <span className={styles.categoryRadio}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="none">
                       <circle cx="8.49998" cy="8.5" r="7.2" fill="var(--bgColor)" stroke="var(--color)" strokeWidth="0.9" />

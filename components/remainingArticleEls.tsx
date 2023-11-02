@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function RemainingArticleEls({ relatedArticles }) {
-  const showRemainingArticles = true
+  const showRemainingArticles = false
   const showNoMoreArticles = false
   return (
     <div className={articleCountStyles.articleCountEls}>

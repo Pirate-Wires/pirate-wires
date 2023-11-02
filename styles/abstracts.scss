@@ -173,6 +173,29 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
+@mixin get-vw-large-increase($property, $desktop-size, $mobile-size: false) {
+  // Viewport width of design
+  $reference-width: 1440;
+
+  //Desktop size
+  $vw-context: $reference-width * 0.01 * 1px;
+  #{$property}: math.div($desktop-size, $vw-context) * 1vw;
+
+  $minBp: ($reference-width * 1.4px);
+  @media screen and (min-width: $minBp) {
+    #{$property}: (strip-unit($desktop-size) * 1.4px);
+  }
+
+  // Mobile size
+  @if $mobile-size {
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
+
+    @media screen and (max-width: $bp) {
+      #{$property}: $mobile-size;
+    }
+  }
+}
+
 @mixin get-vw-no-max($property, $desktop-size, $mobile-size: false) {
   // Viewport width of design
   $reference-width: 1440;

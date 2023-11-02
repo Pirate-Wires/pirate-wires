@@ -2,7 +2,7 @@
 import IframePreview from './previews/iframe';
 import TablePreview from './previews/table';
 import CustomBlockEditor from './CustomBlockEditor'; // Import the CustomBlockEditor component
-
+import { LuBoxSelect } from 'react-icons/lu';
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -51,8 +51,10 @@ const schema = {
           {
             title: 'Section Content',
             value: 'sectionContent',
-            icon: "SC",
-            component: CustomBlockEditor
+            icon: () => LuBoxSelect,
+            blockEditor: {
+              render: CustomBlockEditor // Use the CustomBlockEditor component
+            }
           }
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.

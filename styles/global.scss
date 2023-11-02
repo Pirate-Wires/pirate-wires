@@ -51,6 +51,24 @@
   color: var(--color);
   padding-top: 80px;
   height: 100%;
+  &.the-wire {
+    header, footer {
+      --color: #E3E3E3;
+      --bgColor: #060606;
+    }
+  }
+  &.the-white-pill {
+    header, footer {
+      --color: #060606;
+      --bgColor: #F1CB45;
+    }
+  }
+  &.the-industry {
+    header, footer {
+      --color: #060606;
+      --bgColor: #9474F1;
+    }
+  }
   &.reducedHeaderPage {
     padding-top: 50px;
   }

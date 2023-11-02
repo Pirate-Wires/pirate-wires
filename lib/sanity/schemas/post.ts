@@ -17,6 +17,27 @@ const schema = {
       type: 'string'
     },
     {
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for SEO accessiblity.'
+        },
+        {
+          name: 'caption',
+          type: 'blockContent',
+          title: 'Optional caption'
+        }
+      ],
+      options: {
+        hotspot: true
+      }
+    },
+    {
       name: 'author',
       title: 'Author',
       type: 'reference',
@@ -67,29 +88,12 @@ const schema = {
       name: 'body',
       title: 'Body',
       type: 'blockContent',
-
     },
     // {
     //   name: 'paidContent',
     //   title: 'Paid Content',
     //   type: 'blockContent'
     // },
-    {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO accessiblity.'
-        }
-      ],
-      options: {
-        hotspot: true
-      }
-    },
     {
       name: 'slug',
       title: 'Slug',

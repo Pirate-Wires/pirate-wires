@@ -14,7 +14,7 @@ import { useDateFormatter } from "@/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss"
 import articleCountStyles from "@/components/_styles/articleCountEls.module.scss"
 // import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
-import React from "react";
+import React, {useState} from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
@@ -39,28 +39,27 @@ export default function Post(props, session) {
     notFound();
   }
   useScrollBasedAnims()
-  // const [loaded, setLoaded] = useState(false)
-  // const onLoad = () => {
-  //   setTimeout(() => {
-  //     setLoaded(true)
-  //   }, 250)
-  // }
-
+  const [loaded, setLoaded] = useState(false)
+  const onLoad = () => {
+    setTimeout(() => {
+      setLoaded(true)
+    }, 250)
+  }
+  console.log(post.mainImage.alt)
   return (
     <>
       <section className={`${styles.articleHero} ${post.wide_image_top ? styles.wideImageTop : ""} ${post.wide_image_top ? "c-20" : ""}`}>
         {!post.wide_image_top ?
           <>
             <div className={`${styles.imageWrapper} imageWrapper`}>
-              {/*{!loaded &&*/}
-              {/*  <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>*/}
-              {/*}*/}
+              {!loaded &&
+                <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
+              }
               <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
               <picture>
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
-                {/*<img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>*/}
-                <img alt="" decoding="async" loading="lazy" className="cover-image" />
+                <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>
               </picture>
               <figcaption>
                 {post?.mainImage.caption && (

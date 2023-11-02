@@ -19,6 +19,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning>
       <body>
+
         <Providers>
           {/* <UserContextProvider supabaseClient={supabase}> */}
           <ThemeProvider attribute="class">{children}</ThemeProvider>

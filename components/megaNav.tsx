@@ -6,11 +6,10 @@ import { usePathname } from 'next/navigation';
 import React from "react";
 
 export default function MegaNav({ globalFields, publication }) {
-  const currentRoute = usePathname();
-  // const loggedIn = condition
   return (
     <>
-      <nav className={styles.megaNav} id="mega-nav">
+      <div className={styles.navBackdrop} id="mega-nav-backdrop"></div>
+      <nav className={`${styles.megaNav} unprepped`} id="mega-nav">
         <button className={`${styles.closeNav} close-trigger hitbox`}>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="1.63306" y="0.00151062" width="20" height="2" transform="rotate(45 1.63306 0.00151062)" fill="#1C1C1C"/>
@@ -18,20 +17,20 @@ export default function MegaNav({ globalFields, publication }) {
           </svg>
         </button>
         <div className={`${styles.top} fade-el`}>
-          <Link href="/subscribe">Subscribe</Link>
-          <Link href="/sign-in">Sign In</Link>
-          <Link href="/newsletters">Newsletters</Link>
+          <Link className="nav-link" href="/subscribe">Subscribe</Link>
+          <Link className="nav-link" href="/sign-in">Sign In</Link>
+          <Link className="nav-link" href="/newsletters">Newsletters</Link>
         </div>
         <div className={`${styles.middle} fade-el`}>
-          <Link href="/wires">Pirate Wires</Link>
-          <Link href="/white-pill">The White Pill</Link>
-          <Link href="/industry">The Industry</Link>
+          <Link className="nav-link" href="/wires">Pirate Wires</Link>
+          <Link className="nav-link" href="/white-pill">The White Pill</Link>
+          <Link className="nav-link" href="/the-industry">The Industry</Link>
         </div>
         <div className={`${styles.bottom} fade-el`}>
-          <Link href="/search">Search</Link>
-          <Link href="/about-us">About</Link>
-          <Link href="/authors">Writers</Link>
-          <Link href="/careers">Careers</Link>
+          <Link className="nav-link" href="/search">Search</Link>
+          <Link className="nav-link" href="/about-us">About</Link>
+          <Link className="nav-link" href="/authors">Writers</Link>
+          <Link className="nav-link" href="/careers">Careers</Link>
         </div>
 
         <div className={styles.socialRow}>

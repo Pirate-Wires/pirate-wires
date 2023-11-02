@@ -1,47 +1,63 @@
 @import "../../styles/abstracts";
 .megaNav {
-  @include get-vw(width, 400px, 400px);
-  @include get-vw(padding-left, 20px, 20px);
-  @include get-vw(padding-right, 20px, 20px);
-  @include get-vw(padding-bottom, 35px, 35px);
+  @include get-vw-large-increase(width, 400px, 400px);
+  @include get-vw-large-increase(padding-left, 20px, 20px);
+  @include get-vw-large-increase(padding-right, 20px, 20px);
+  @include get-vw-large-increase(padding-bottom, 35px, 35px);
   display: flex;
-  visibility: hidden;
   pointer-events: none;
   flex-direction: column;
   height: 100%;
   position: fixed;
+  opacity: 0;
   right: 0;
-  background-color: var(--bgColor);
-  color: var(--color);
-  z-index: 2;
+  font-family: $neueBold;
+  background-color: #e3e3e3;
+  color: #060606;
+  z-index: 102;
   top: 0;
 
   @include bp-767 {
     width: 100%;
   }
 }
+.navBackdrop {
+  position: fixed;
+  z-index: 101;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  background: rgba(6, 6, 6, 0.50);
+  opacity: 0;
+  pointer-events: none;
+  @include bp-767 {
+    display: none;
+  }
+}
 .top, .middle, .bottom {
   display: flex;
   flex-direction: column;
-  @include get-vw(font-size, 18px, 18px);
-  @include get-vw(margin-bottom, 24px, 24px);
+  @include get-vw-large-increase(font-size, 18px, 18px);
+  @include get-vw-large-increase(margin-bottom, 24px, 24px);
   position: relative;
   
 }
 .closeNav {
   z-index: 3;
   position: absolute;
-  @include get-vw(top, 20px, 20px);
-  @include get-vw(right, 22px, 22px);
-  @include get-vw(width, 16px, 16px);
-  @include get-vw(height, 16px, 16px);
+  @include get-vw-large-increase(top, 20px, 20px);
+  @include get-vw-large-increase(right, 22px, 22px);
+  @include get-vw-large-increase(width, 16px, 16px);
+  @include get-vw-large-increase(height, 16px, 16px);
   rect {
-    fill: var(--color);
+    fill: #060606;
   }
 }
 .top {
-  @include get-vw(gap, 19px, 19px);
-  @include get-vw(padding-top, 54px, 54px);
+  @include get-vw-large-increase(gap, 19px, 19px);
+  @include get-vw-large-increase(padding-top, 54px, 54px);
 
   @include bp-767 {
     a {
@@ -51,13 +67,13 @@
 }
 
 .middle {
-  @include get-vw(gap, 15px, 15px);
-  @include get-vw(padding-top, 19px, 19px);
+  @include get-vw-large-increase(gap, 15px, 15px);
+  @include get-vw-large-increase(padding-top, 19px, 19px);
   &:after {
     width: 100%;
     position: absolute;
     height: 0.5px;
-    background: var(--color);
+    background: #060606;
     opacity: 0.55;
     content: "";
     top: 0;
@@ -72,15 +88,15 @@
 }
 
 .bottom {
-  @include get-vw(gap, 13px, 13px);
-  @include get-vw(font-size, 12px, 12px);
-  @include get-vw(padding-top, 27px, 27px);
+  @include get-vw-large-increase(gap, 13px, 13px);
+  @include get-vw-large-increase(font-size, 12px, 12px);
+  @include get-vw-large-increase(padding-top, 27px, 27px);
   font-family: $neueReg;
   &:after {
     width: 100%;
     position: absolute;
     height: 0.5px;
-    background: var(--color);
+    background: #060606;
     opacity: 0.55;
     content: "";
     top: 0;
@@ -94,18 +110,18 @@
 }
 .socialRow {
   display: flex;
-  @include get-vw(gap, 23px, 23px);
+  @include get-vw-large-increase(gap, 23px, 23px);
   align-items: center;
   margin-top: auto;
   path {
-    fill: var(--color);
+    fill: #060606;
   }
 
   @include bp-767 {
     justify-content: center;
-    gap: 35px;
+    @include get-vw-large-increase(gap, 35px, 35px);
     a {
-      height: 20px;
+      @include get-vw-large-increase(height, 20px, 20px);
     }
     svg {
       height: 100%;

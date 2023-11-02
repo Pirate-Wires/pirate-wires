@@ -27,21 +27,21 @@ export async function generateMetadata({ params }) {
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
   const globalFields = await getGlobalFields();
+  const publication = post.section
   const [session, userDetails, products, subscription] = await Promise.all([
     getSession(),
     getUserDetails(),
     getActiveProductsWithPrices(),
     getSubscription()
   ]);
-  console.log(post)
   return (
     <>
-      <div className="colorWrapper" style={{
+      <div className={`colorWrapper ${post.section}`} style={{
         "--color": "#060606",
         "--bgColor": "#E3E3E3",
         "--accentLight": "rgba(43, 43, 43, 0.45)",
       } as React.CSSProperties}>
-        <Navigation globalFields={globalFields} />
+        <Navigation publication={publication} />
         <PostPage post={post} session={session} />
         <Footer globalFields={globalFields} />
       </div>
