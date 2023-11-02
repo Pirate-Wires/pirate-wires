@@ -29,7 +29,7 @@ export default function MegaNav({ globalFields, publication }) {
         </div>
         <div className={`${styles.bottom} fade-el`}>
           <Link href="/search">Search</Link>
-          <Link href="/about">About</Link>
+          <Link href="/about-us">About</Link>
           <Link href="/authors">Writers</Link>
           <Link href="/careers">Careers</Link>
         </div>

@@ -32,7 +32,7 @@ export default function Footer({globalFields}) {
           <Link href="/newsletters">Newsletter</Link>
         </div>
         <div className="right">
-          All rights reserved. © {new Date().getFullYear()} Pirate Wires
+          All rights reserved.<br /> © {new Date().getFullYear()} Pirate Wires
         </div>
       </div>
     </footer>

@@ -73,13 +73,6 @@ const schema = {
     //   title: 'Paid Content',
     //   type: 'blockContent'
     // },
-
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }]
-    },
     {
       name: 'mainImage',
       title: 'Main image',

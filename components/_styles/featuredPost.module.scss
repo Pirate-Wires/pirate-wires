@@ -5,7 +5,8 @@
   height: 100%;
 
   @include bp-767 {
-    height: 248px;
+    height: auto;
+    aspect-ratio: 1.49/1;
   }
 }
 .postInfo {

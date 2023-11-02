@@ -1,11 +1,9 @@
 "use client"
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
-import { urlForImage } from "@/lib/sanity/image";
 import PostList from "@/components/postlist";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import React, {useState} from "react";
-import styles from "../../../../styles/pages/authors.module.scss"
+import styles from "@/styles/pages/authors.module.scss"
 import Link from "next/link";
 import {useHoverArrow} from "@/hooks/useHoverArrow";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";

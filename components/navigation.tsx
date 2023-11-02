@@ -166,7 +166,7 @@ export default function Navigation({ globalFields, publication }) {
             <div className={styles.right}>
               <Link href="/newsletters">Newsletters</Link>
               <Link href="/subscribe" className={`${styles.btn} btn square`}>Subscribe</Link>
-              <Link href="/account">Sign In</Link>
+              <Link href="/sign-in">Sign In</Link>
               <button className={`${styles.hammy} hitbox`} id="mega-nav-trigger" aria-label={'Open main menu'}>
                 <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <line x1="20" y1="1" y2="1" stroke="var(--color)" strokeWidth="2" />

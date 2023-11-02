@@ -11,7 +11,7 @@ export default function Wires({ pageData, publicationPosts, publicationNewslette
   useScrollBasedAnims()
   return (
     <>
-      <div className="featuredPostsTop pb-20 c-20">
+      <div className="featuredPostsTop ptb-20 c-20">
         {pageData.tagline}
         <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Pirate Wires Newsletter</Link></span>
       </div>
