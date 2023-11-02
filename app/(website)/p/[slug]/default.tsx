@@ -45,7 +45,6 @@ export default function Post(props, session) {
       setLoaded(true)
     }, 250)
   }
-  console.log(post.mainImage.alt)
   return (
     <>
       <section className={`${styles.articleHero} ${post.wide_image_top ? styles.wideImageTop : ""} ${post.wide_image_top ? "c-20" : ""}`}>
@@ -61,7 +60,7 @@ export default function Post(props, session) {
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
                 <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>
               </picture>
-              <figcaption>
+              <figcaption className={`imageCaption`}>
                 {post?.mainImage.caption && (
                   <span>
                     {post?.mainImage.caption}
@@ -102,7 +101,6 @@ export default function Post(props, session) {
               </div>
             </div>
             <div className={`${styles.imageWrapper} imageWrapper`}>
-
               <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
               <picture>
                 <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
@@ -110,7 +108,7 @@ export default function Post(props, session) {
                 {/*<img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>*/}
                 <img alt="" decoding="async" loading="lazy" className="cover-image" />
               </picture>
-              <figcaption>
+              <figcaption className={`imageCaption`}>
                 {post?.mainImage.caption && (
                   <span>
                     {post?.mainImage.caption}

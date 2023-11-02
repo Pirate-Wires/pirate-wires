@@ -152,6 +152,7 @@ export const singlePostQuery = groq`
   author->,
   mainImage {
     asset->,
+    caption,
     "blurDataURL":asset->metadata.lqip
   },
   section,

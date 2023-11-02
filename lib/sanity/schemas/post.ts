@@ -29,8 +29,9 @@ const schema = {
         },
         {
           name: 'caption',
-          type: 'blockContent',
-          title: 'Optional caption'
+          type: 'text',
+          title: 'Optional caption',
+          rows: 1
         }
       ],
       options: {

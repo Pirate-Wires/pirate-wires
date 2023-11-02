@@ -747,6 +747,18 @@ footer {
 .imageWrapper {
   position: relative;
 }
+.imageCaption {
+  color: #E3E3E3;
+  font-family: $neueReg;
+  @include get-vw(font-size, 8px, 8px);
+  @include get-vw(left, 23px, 23px);
+  @include get-vw(bottom, 17px, 17px);
+  text-shadow: 1px 1px 3px rgba(0,0,0,.4);
+  position: absolute;
+  white-space: nowrap;
+  z-index: 2;
+
+}
 .hasHoverArrow {
   display: flex;
   align-items: center;
