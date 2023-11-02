@@ -7,6 +7,12 @@ import React from "react";
 import Navigation from "@/components/navigation";
 import Newsletters from "@/app/(website)/newsletters/newsletters";
 import Footer from "@/components/footer";
+import {
+  getActiveProductsWithPrices,
+  getSession,
+  getSubscription,
+  getUserDetails
+} from "@/app/(website)/supabase-server";
 
 export async function generateStaticParams() {
   return await getAllPostsSlugs();
@@ -21,16 +27,22 @@ export async function generateMetadata({ params }) {
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
   const globalFields = await getGlobalFields();
-  console.log(post)
+  const publication = post.section
+  const [session, userDetails, products, subscription] = await Promise.all([
+    getSession(),
+    getUserDetails(),
+    getActiveProductsWithPrices(),
+    getSubscription()
+  ]);
   return (
     <>
-      <div className="colorWrapper" style={{
+      <div className={`colorWrapper ${post.section}`} style={{
         "--color": "#060606",
         "--bgColor": "#E3E3E3",
         "--accentLight": "rgba(43, 43, 43, 0.45)",
       } as React.CSSProperties}>
-        <Navigation globalFields={globalFields} />
-        <PostPage post={post} />
+        <Navigation publication={publication} />
+        <PostPage post={post} session={session} />
         <Footer globalFields={globalFields} />
       </div>
     </>)

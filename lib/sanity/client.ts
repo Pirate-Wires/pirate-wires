@@ -21,7 +21,7 @@ import {
   authorsQuery,
   postBySectionQuery,
   allauthorsquery,
-  authorSlugsQuery, newslettersBySectionQuery, authorQuery
+  authorSlugsQuery, newslettersBySectionQuery, authorQuery, utilityPageQuery, utilityPageSlugsQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -112,6 +112,13 @@ export async function getAuthorData(slug) {
   return {};
 }
 
+export async function getUtilityPageData(slug) {
+  if (client) {
+    return (await client.fetch(utilityPageQuery, { slug })) || {};
+  }
+  return {};
+}
+
 export async function getPublicationData(slug) {
   if (client) {
     return (await client.fetch(publicationDocQuery, { slug })) || {};
@@ -155,32 +162,16 @@ export async function getAllAuthorsSlugs() {
   return [];
 }
 
+export async function getAllUtilityPageSlugs() {
+  if (client) {
+    return (await client.fetch(utilityPageSlugsQuery)) || [];
+  }
+  return [];
+}
+
 export async function getAllAuthors() {
   if (client) {
     return (await client.fetch(allauthorsquery)) || [];
-  }
-  return [];
-}
-
-// Category
-export async function getAllCategories() {
-  if (client) {
-    const slugs = (await client.fetch(catpathquery)) || [];
-    return slugs.map((slug) => ({ slug }));
-  }
-  return [];
-}
-
-export async function getPostsByCategory(slug) {
-  if (client) {
-    return (await client.fetch(postsbycatquery, { slug })) || {};
-  }
-  return {};
-}
-
-export async function getTopCategories() {
-  if (client) {
-    return (await client.fetch(catquery)) || [];
   }
   return [];
 }

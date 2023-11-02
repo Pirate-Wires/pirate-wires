@@ -6,6 +6,7 @@ import Navigation from '@/components/navigation';
 import SectionTabs from '@/components/section-tabs';
 import React from "react";
 import { headers } from "next/headers";
+import MegaNav from "@/components/megaNav";
 
 export async function sharedMetaData(params) {
   const settings = await getSettings();

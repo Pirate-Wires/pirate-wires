@@ -85,6 +85,10 @@
 }
 .hammy {
   display: flex;
+  width: 20px;
+  svg {
+    width: 100%;
+  }
   &:focus {
     outline: none;
   }

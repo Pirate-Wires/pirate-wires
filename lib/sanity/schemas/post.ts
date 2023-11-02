@@ -1,6 +1,6 @@
 // /lib/sanity/schemas/post.ts
 import SendEmailCustomerIO from './SendEmailCustomerIO';
-import {defineField} from "sanity";
+import {defineArrayMember, defineField} from "sanity";
 
 const schema = {
   name: 'post',
@@ -15,6 +15,27 @@ const schema = {
       placeholder: 'Enter title here',
       title: 'Title',
       type: 'string'
+    },
+    {
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for SEO accessiblity.'
+        },
+        {
+          name: 'caption',
+          type: 'blockContent',
+          title: 'Optional caption'
+        }
+      ],
+      options: {
+        hotspot: true
+      }
     },
     {
       name: 'author',
@@ -66,36 +87,13 @@ const schema = {
     {
       name: 'body',
       title: 'Body',
-      type: 'blockContent'
+      type: 'blockContent',
     },
     // {
     //   name: 'paidContent',
     //   title: 'Paid Content',
     //   type: 'blockContent'
     // },
-
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }]
-    },
-    {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO accessiblity.'
-        }
-      ],
-      options: {
-        hotspot: true
-      }
-    },
     {
       name: 'slug',
       title: 'Slug',

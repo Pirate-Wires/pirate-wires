@@ -1,13 +1,16 @@
+"use client"
 import Link from "next/link";
 import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function WhitePill({ pageData, publicationPosts, publicationNewsletters }) {
+  useScrollBasedAnims()
   return (
     <>
-      <div className="featuredPostsTop pb-20 c-20">
+      <div className="featuredPostsTop ptb-20 c-20">
         {pageData.tagline}
         <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
       </div>

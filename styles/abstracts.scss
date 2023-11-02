@@ -4,7 +4,7 @@ $gtBold: "Gt America Compressed Bold", sans-serif;
 $neueReg: "Neue Reg", sans-serif;
 $neueMed: "Neue Med", sans-serif;
 $neueBold: "Neue Bold", sans-serif;
-$caslon: "adobe-caslon-pro", serif;
+$caslonReg: "Caslon Pro Reg", serif;
 
 $ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
 $ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -161,6 +161,29 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   $minBp: ($reference-width * 1.05px);
   @media screen and (min-width: $minBp) {
     #{$property}: (strip-unit($desktop-size) * 1.05px);
+  }
+
+  // Mobile size
+  @if $mobile-size {
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
+
+    @media screen and (max-width: $bp) {
+      #{$property}: $mobile-size;
+    }
+  }
+}
+
+@mixin get-vw-large-increase($property, $desktop-size, $mobile-size: false) {
+  // Viewport width of design
+  $reference-width: 1440;
+
+  //Desktop size
+  $vw-context: $reference-width * 0.01 * 1px;
+  #{$property}: math.div($desktop-size, $vw-context) * 1vw;
+
+  $minBp: ($reference-width * 1.4px);
+  @media screen and (min-width: $minBp) {
+    #{$property}: (strip-unit($desktop-size) * 1.4px);
   }
 
   // Mobile size

@@ -7,9 +7,8 @@ export const postquery = groq`
   _createdAt,
   publishedAt,
   mainImage {
-    ...,
-    "blurDataURL":asset->metadata.lqip,
-    "ImageColor": asset->metadata.palette.dominant.background,
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
   },
   featured,
   excerpt,
@@ -21,7 +20,6 @@ export const postquery = groq`
     slug,
     name
   },
-  categories[]->,
   section,
 }
 `;
@@ -30,7 +28,6 @@ export const limitquery = groq`
 *[_type == "post"] | order(publishedAt desc, _createdAt desc) [0..$limit] {
   ...,
   author->,
-  categories[]->
 }
 `;
 // [(($pageIndex - 1) * 10)...$pageIndex * 10]{
@@ -39,7 +36,6 @@ export const paginatedquery = groq`
 *[_type == "post"] | order(publishedAt desc, _createdAt desc) [$pageIndex...$limit] {
   ...,
   author->,
-  categories[]->,
   section,
 }
 `;
@@ -111,6 +107,12 @@ export const authorQuery = groq`
 }
 `;
 
+export const utilityPageQuery = groq`
+*[_type == "utilityPage" && $slug match slug.current][0] {
+  ...,
+}
+`;
+
 export const newsletterQuery = groq`
 *[slug.current == 'newsletters'] {
   ...,
@@ -152,15 +154,8 @@ export const singlePostQuery = groq`
     asset->,
     "blurDataURL":asset->metadata.lqip
   },
-  categories[]->,
   section,
   "estReadingTime": round(length(pt::text(body)) / 5 / 180 ),
-  "related": *[_type == "post" && count(categories[@._ref in ^.^.categories[]._ref]) > 0 ] | order(publishedAt desc, _createdAt desc) [0...5] {
-    title,
-    slug,
-    "date": coalesce(publishedAt,_createdAt),
-    "image": mainImage
-  },
 }
 `;
 
@@ -168,11 +163,11 @@ export const singlePostQuery = groq`
 export const pathquery = groq`
 *[_type == "post" && defined(slug.current)][].slug.current
 `;
-export const catpathquery = groq`
-*[_type == "category" && defined(slug.current)][].slug.current
-`;
 export const authorSlugsQuery = groq`
 *[_type == "author" && defined(slug.current)][].slug.current
+`;
+export const utilityPageSlugsQuery = groq`
+*[_type == "utility" && defined(slug.current)][].slug.current
 `;
 
 // Get Posts by Authors
@@ -180,7 +175,6 @@ export const postsbyauthorquery = groq`
 *[_type == "post" && $slug match author->slug.current ] {
   ...,
   author->,
-  categories[]->,
   section,
   mainImage {
     asset->,
@@ -235,22 +229,6 @@ export const newslettersBySectionQuery = groq`
 }
 `;
 
-// Get Posts by Category
-export const postsbycatquery = groq`
-*[_type == "post" && $slug in categories[]->slug.current ] {
-  ...,
-  author->,
-  categories[]->,
-  section,
-}
-`;
-
-// Get top 5 categories
-export const catquery = groq`*[_type == "category"] {
-  ...,
-  "count": count(*[_type == "post" && references(^._id)])
-} | order(count desc) [0...5]`;
-
 export const searchquery = groq`*[_type == "post" && _score > 0]
 | score(title match $query || excerpt match $query || pt::text(body) match $query)
 | order(_score desc)
@@ -258,9 +236,12 @@ export const searchquery = groq`*[_type == "post" && _score > 0]
   _score,
   _id,
   _createdAt,
-  mainImage,
+  mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  },
+  excerpt,
   author->,
-  categories[]->,
   section,
    title,
    slug

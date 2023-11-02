@@ -1,7 +1,10 @@
+"use client"
 import Link from "next/link";
 import styles from "../../../styles/pages/careers.module.scss"
 import {useDateFormatter} from "@/hooks/useDateFormatter";
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 export default function Authors({ pageData }) {
+  useScrollBasedAnims()
   return (
     <section className={`${styles.careersPage} c-20`}>
       <h1 className={`pageTitle pb-40`}>

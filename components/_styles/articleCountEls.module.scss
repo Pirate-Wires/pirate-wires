@@ -109,7 +109,7 @@
   font-family: $gtBold;
   @include get-vw(font-size, 80px, 60px);
   line-height: .9;
-  letter-spacing: -2.4px;
+  @include get-vw(letter-spacing, -2.4px, -1.8px);
   @include get-vw(margin-bottom, 20px, 20px);
 }
 
