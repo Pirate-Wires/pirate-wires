@@ -3,15 +3,14 @@ import React from 'react';
 
 const customStyles = {
   // Add your custom styles here
-  cursor: 'pointer',
-  border: '1px dotted #333',
+  background: 'rgb(0 170 255 / 27%)',
 };
 
 const CustomBlockEditor = (props) => {
   return (
-    <div id="sectionContent" style={customStyles} onClick={props.onClick}>
+    <span id="sectionContent" style={customStyles} onClick={props.onClick}>
       {props.children}
-    </div>
+    </span>
   );
 };
 

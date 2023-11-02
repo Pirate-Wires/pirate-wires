@@ -1,6 +1,6 @@
 // /lib/sanity/schemas/post.ts
 import SendEmailCustomerIO from './SendEmailCustomerIO';
-import {defineField} from "sanity";
+import {defineArrayMember, defineField} from "sanity";
 
 const schema = {
   name: 'post',
@@ -66,7 +66,8 @@ const schema = {
     {
       name: 'body',
       title: 'Body',
-      type: 'blockContent'
+      type: 'blockContent',
+
     },
     // {
     //   name: 'paidContent',

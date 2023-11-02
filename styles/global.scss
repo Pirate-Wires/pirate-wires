@@ -817,14 +817,17 @@ footer {
   @include get-vw-small-increase(max-width, 600px, 600px);
   display: flex;
   flex-direction: column;
-
+  [class*="sectionContent"] {
+    border: 1px solid #1c1c1c;
+    padding: 20px 30px 30px 22px;
+    display: block;
+  }
   h2, h3, h4 {
     font-family: $gtBold;
     @include get-vw-small-increase(font-size, 40px, 40px);
     line-height: .95;
     @include get-vw-small-increase(letter-spacing, -1.2px, -1.2px);
     @include get-vw-small-increase(margin-top, 40px, 40px);
-    //@include get-vw-small-increase()(margin-bottom, 20px, 20px);
   }
 
   p {
@@ -834,17 +837,12 @@ footer {
   }
 
   blockquote {
-    @include get-vw-small-increase(margin-top, 20px, 20px);
-  }
-
-  blockquote {
-    font-family: $neueMed;
-    @include get-vw-small-increase(font-size, 54px, 42px);
-    line-height: .97;
+    @include get-vw-small-increase(font-size, 48px, 38px);
+    line-height: 1;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    @include get-vw-small-increase(margin-top, 20px, 20px);
+    @include get-vw-small-increase(margin-top, 35px, 35px);
   }
 
   img {
@@ -872,8 +870,15 @@ footer {
   }
 
   @include bp-767 {
+    blockquote {
+      font-size: 28px;
+      line-height: 1.2;
+    }
     p {
       font-size: 18px;
+    }
+    [class*="sectionContent"] {
+      padding: 20px 20px 22px;
     }
   }
 }

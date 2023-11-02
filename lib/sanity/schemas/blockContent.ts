@@ -3,6 +3,7 @@ import IframePreview from './previews/iframe';
 import TablePreview from './previews/table';
 import CustomBlockEditor from './CustomBlockEditor'; // Import the CustomBlockEditor component
 
+
 /**
  * This is the schema definition for the rich text fields used for
  * for this blog studio. When you import it in schemas.js it can be
@@ -50,10 +51,8 @@ const schema = {
           {
             title: 'Section Content',
             value: 'sectionContent',
-            icon: () => 'SC',
-            blockEditor: {
-              render: CustomBlockEditor // Use the CustomBlockEditor component
-            }
+            icon: "SC",
+            component: CustomBlockEditor
           }
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
