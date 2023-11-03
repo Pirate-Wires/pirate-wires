@@ -21,7 +21,7 @@ import {
   authorsQuery,
   postBySectionQuery,
   allauthorsquery,
-  authorsquery, newslettersBySectionQuery
+  authorSlugsQuery, newslettersBySectionQuery, authorQuery, utilityPageQuery, utilityPageSlugsQuery
 } from './groq';
 import { createClient } from 'next-sanity';
 
@@ -45,13 +45,6 @@ export const fetcher = async ([query, params]) => {
 export async function getAllPosts() {
   if (client) {
     return (await client.fetch(postquery)) || [];
-  }
-  return [];
-}
-
-export async function getAllPodcasts() {
-  if (client) {
-    return (await client.fetch(allpodcastsquery)) || [];
   }
   return [];
 }
@@ -112,6 +105,20 @@ export async function getAuthorsData() {
   return {};
 }
 
+export async function getAuthorData(slug) {
+  if (client) {
+    return (await client.fetch(authorQuery, { slug })) || {};
+  }
+  return {};
+}
+
+export async function getUtilityPageData(slug) {
+  if (client) {
+    return (await client.fetch(utilityPageQuery, { slug })) || {};
+  }
+  return {};
+}
+
 export async function getPublicationData(slug) {
   if (client) {
     return (await client.fetch(publicationDocQuery, { slug })) || {};
@@ -141,7 +148,7 @@ export async function getAllPostsSlugs() {
   return [];
 }
 
-export async function getAuthorPostsBySlug(slug) {
+export async function getAuthorPosts(slug) {
   if (client) {
     return (await client.fetch(postsbyauthorquery, { slug })) || {};
   }
@@ -150,7 +157,14 @@ export async function getAuthorPostsBySlug(slug) {
 
 export async function getAllAuthorsSlugs() {
   if (client) {
-    return (await client.fetch(authorsquery)) || [];
+    return (await client.fetch(authorSlugsQuery)) || [];
+  }
+  return [];
+}
+
+export async function getAllUtilityPageSlugs() {
+  if (client) {
+    return (await client.fetch(utilityPageSlugsQuery)) || [];
   }
   return [];
 }
@@ -158,29 +172,6 @@ export async function getAllAuthorsSlugs() {
 export async function getAllAuthors() {
   if (client) {
     return (await client.fetch(allauthorsquery)) || [];
-  }
-  return [];
-}
-
-// Category
-export async function getAllCategories() {
-  if (client) {
-    const slugs = (await client.fetch(catpathquery)) || [];
-    return slugs.map((slug) => ({ slug }));
-  }
-  return [];
-}
-
-export async function getPostsByCategory(slug) {
-  if (client) {
-    return (await client.fetch(postsbycatquery, { slug })) || {};
-  }
-  return {};
-}
-
-export async function getTopCategories() {
-  if (client) {
-    return (await client.fetch(catquery)) || [];
   }
   return [];
 }

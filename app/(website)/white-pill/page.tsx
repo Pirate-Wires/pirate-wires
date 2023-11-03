@@ -5,16 +5,17 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 
 export default async function IndustryPage() {
-  const pageData = await getPublicationData("the-industry")
+  const pageData = await getPublicationData("white-pill")
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts('the-white-pill')
   const publicationNewsletters = await getPublicationNewsletters('the-white-pill')
   return <div className="colorWrapper interiorPub" style={{
     "--color": globalFields.white_pill_color,
     "--bgColor": globalFields.white_pill_bgcolor,
+    "--accentLight": "rgba(43, 43, 43, 0.45)",
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
-    <WhitePill pageData={pageData[1]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
+    <WhitePill pageData={pageData[0]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
     <Footer globalFields={globalFields} />
   </div>
 }

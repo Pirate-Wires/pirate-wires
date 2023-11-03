@@ -1,0 +1,147 @@
+@import "../abstracts";
+
+.contributorsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  @include get-vw(padding-top, 23px, 23px);
+  @include get-vw(margin-top, 57px, 57px);
+  @include get-vw(padding-bottom, 89px, 89px);
+  border-top: 0.5px solid #323232;
+  border-bottom: 0.5px solid #323232;
+  a {
+    width: 33.33%;
+    display: flex;
+    @include get-vw(font-size, 40px, 36px);
+    @include get-vw(padding-top, 20px, 20px);
+    @include get-vw(padding-bottom, 20px, 20px);
+    @include get-vw(margin-bottom, 37px, 37px);
+    @include get-vw(letter-spacing, -1.2px, -1.08px);
+    font-family: $gtBold;
+    line-height: 95%;
+  }
+
+  @include bp-767 {
+    padding-bottom: 20px;
+    a {
+      width: 50%;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+  }
+}
+.authorsPage {
+  h1 {
+    @include get-vw(padding-top, 18px, 18px);
+  }
+}
+.contributorsHeader {
+  @include get-vw(font-size, 100px, 85px);
+  @include get-vw(letter-spacing, -3px, 2.55px);
+  @include get-vw(margin-bottom, 20px, 20px);
+  font-family: $gtBold;
+  line-height: 94%;
+  display: flex;
+  width: 100%;
+}
+.hiringLink {
+  @include get-vw(font-size, 18px, 18px);
+  @include get-vw(margin-left, 6px, 6px);
+  @include get-vw(letter-spacing, -0.527px, -0.527px);
+  font-family: $neueMed;
+  line-height: 84%;
+  text-decoration-line: underline;
+}
+
+.singleTop {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  @include get-vw(padding-top, 72px, 20px);
+  @include get-vw(margin-bottom, 140px, 100px);
+
+  @include bp-767 {
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
+}
+.singleRight {
+  display: flex;
+  flex-direction: column;
+  @include get-vw(width, 491px, 370px);
+
+  @include bp-767 {
+    width: 100%;
+    text-align: center;
+  }
+}
+.portraitWrapper {
+  @include get-vw(width, 267px, 180px);
+  height: auto;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 50%;
+  @include get-vw(margin-right, 49px, 20px);
+  position: relative;
+
+}
+.name {
+  font-family: $gtBold;
+  @include get-vw(font-size, 80px, 60px);
+  @include get-vw(letter-spacing, -2.4px, -1.8px);
+  @include get-vw(margin-bottom, 24px, 24px);
+  line-height: 90%;
+  @include bp-1024 {
+    font-size: 55px;
+  }
+  @include bp-959 {
+    font-size: 40px;
+  }
+  @include bp-767 {
+    position: relative;
+  }
+}
+.bio {
+  font-family: $neueMed;
+  @include get-vw(font-size, 22px, 22px);
+  line-height: 1.45;
+  a {
+    position: relative;
+    &:after {
+      width: 100%;
+      height: 0.5px;
+      content: "";
+      background-color: var(--color);
+      left: 0;
+      bottom: -1px;
+      position: absolute;
+    }
+  }
+}
+.socialRow {
+  display: flex;
+  @include get-vw(gap, 25px, 25px);
+  @include get-vw(font-size, 18px, 18px);
+  @include get-vw(margin-top, 25px, 25px);
+  font-family: $neueMed;
+  a {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  svg {
+    @include get-vw(margin-left, 9px, 9px);
+    @include get-vw(width, 12.5px, 12.5px);
+    @include get-vw(height, 12.5px, 12.5px);
+  }
+  path {
+    stroke: var(--color);
+  }
+
+  @include bp-767 {
+    font-size: 14px;
+  }
+}
+
+

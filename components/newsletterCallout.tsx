@@ -5,7 +5,28 @@ import { useEffect } from "react";
 import { ScrollBasedAnims } from "@/utils/classes/ScrollBasedAnims";
 
 
-export default function NewsletterCallout({ newsletterData, user }) {
+
+// const getCustomer = async () => {
+//     try {
+//         const email = 'joshuavaage@icloud.com';
+//         const response = await fetch(`/api/customer-io/route?email=${email}`);
+
+//         if (response.ok) {
+//             const data = await response.json();
+//             return data;
+//         } else {
+//             throw new Error('Failed to fetch customer data');
+//         }
+//     } catch (error) {
+//         console.error('Error fetching customer data:', error);
+//         return null;
+//     }
+// };
+
+// console.log(getCustomer());
+
+
+export default function NewsletterCallout({ newsletterData }) {
 
     const currentRoute = usePathname();
     const interiorPage = currentRoute === "/newsletters"
@@ -22,11 +43,7 @@ export default function NewsletterCallout({ newsletterData, user }) {
     return (
         <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
 
-
-
-            <hr />
-
-            <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="https://customerioforms.com/forms/submit_action?site_id=e50062905af0da787a5c&form_id=a353adc38376458&success_url=https://piratewires.us/account">
+            <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="">
 
                 <div className={styles.top}>
                     {!interiorPage && <h4>Sign up for our Newsletters</h4>}

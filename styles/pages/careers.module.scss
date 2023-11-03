@@ -1,0 +1,83 @@
+@import "../abstracts";
+.careersPage {
+  h1 {
+    @include get-vw(padding-top, 18px, 18px);
+  }
+  @include bp-767 {
+    h1 {
+      border-bottom: 0.5px solid var(--color);
+    }
+  }
+}
+.careersGrid {
+  display: flex;
+  flex-direction: column;
+}
+.openCasting {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  h4 {
+    @include get-vw(font-size, 40px, 36px);
+    @include get-vw(margin-bottom, 20px, 18px);
+    @include get-vw(letter-spacing, -1.2px, -1.08px);
+    font-family: $gtBold;
+    line-height: 95%;
+  }
+  a {
+    text-decoration: underline;
+  }
+
+  @include bp-767 {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    h4 {
+      font-size: 26px;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+.careerRow {
+  display: flex;
+  justify-content: space-between;
+  @include get-vw(padding-top, 34px, 34px);
+  @include get-vw(padding-bottom, 46px, 46px);
+  border-bottom: 0.5px solid var(--color);
+  h3 {
+    font-family: $gtBold;
+    @include get-vw(font-size, 80px, 60px);
+    @include get-vw(letter-spacing, -2.4px, -1.8px);
+    line-height: 90%;
+  }
+
+  @include bp-767 {
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    h3 {
+      font-size: 40px;
+      letter-spacing: -1.2px;
+      margin-bottom: 20px;
+    }
+  }
+}
+.right {
+  display: flex;
+  align-items: center;
+  position: relative;
+  @include get-vw(bottom, -8px, -8px);
+  @include get-vw(gap, 22px, 22px);
+
+  @include bp-767 {
+    justify-content: space-between;
+    width: 100%;
+    bottom: 0;
+
+  }
+}
+.date {
+  font-family: $neueBold;
+  @include get-vw(font-size, 14px, 14px);
+}

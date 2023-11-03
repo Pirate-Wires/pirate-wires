@@ -6,6 +6,7 @@ import Navigation from '@/components/navigation';
 import SectionTabs from '@/components/section-tabs';
 import React from "react";
 import { headers } from "next/headers";
+import MegaNav from "@/components/megaNav";
 
 export async function sharedMetaData(params) {
   const settings = await getSettings();
@@ -16,7 +17,7 @@ export async function sharedMetaData(params) {
       default:
         settings?.title ||
         "Pirate Wires",
-      template: "%s | Stablo"
+      template: "%s | Pirate Wires"
     },
     description:
       settings?.description ||
@@ -61,8 +62,7 @@ export default async function Layout({ children, params }) {
           "--whitePillBgColor": globalFields.white_pill_bgcolor,
           "--industryColor": globalFields.industry_color,
           "--industryBgColor": globalFields.industry_bgcolor,
-          "--accentLight": "rgba(227, 227, 227, 0.28)",
-          "--accentDark": "rgba(227, 227, 227, 0.45)"
+          "--accentLight": "rgba(227, 227, 227, 0.45)"
         } as React.CSSProperties}>
           <div>{children}</div>
         </main>

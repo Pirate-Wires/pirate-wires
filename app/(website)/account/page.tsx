@@ -25,6 +25,11 @@ export default async function Account() {
     getSubscription()
   ]);
 
+  // console.log('session', session);
+  // console.log('userDetails', userDetails);
+  // console.log('products', products);
+  // console.log('subscription', subscription);
+
   const user = session?.user;
   console.log('user', user?.email);
 

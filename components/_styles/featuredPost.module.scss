@@ -5,7 +5,8 @@
   height: 100%;
 
   @include bp-767 {
-    height: 248px;
+    height: auto;
+    aspect-ratio: 1.49/1;
   }
 }
 .postInfo {
@@ -19,7 +20,7 @@
     content: "";
     height: 0.5px;
     width: 100%;
-    background-color: var(--accentDark);
+    background-color: var(--accentLight);
     position: absolute;
     left: 0;
     top: 0;
@@ -28,10 +29,18 @@
     content: "";
     height: 0.5px;
     width: 100%;
-    background-color: var(--accentDark);
+    background-color: var(--accentLight);
     position: absolute;
     left: 0;
     bottom: 0;
+  }
+
+  @include bp-767 {
+    padding-top: 0;
+    &:before {
+      content: none;
+    }
+
   }
 }
 .title {
@@ -50,4 +59,6 @@
 .bottom {
   display: flex;
   flex-direction: column;
+  position: relative;
+
 }

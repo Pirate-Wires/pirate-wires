@@ -12,9 +12,10 @@ export default async function WiresPage() {
   return <div className="colorWrapper interiorPub pirate-wires" style={{
     "--color": "#E3E3E3",
     "--bgColor": "#060606",
+    "--accentLight": "rgba(227, 227, 227, 0.45)"
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
-    <Wires pageData={pageData[1]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
+    <Wires pageData={pageData[0]} publicationPosts={publicationPosts} publicationNewsletters={publicationNewsletters} />
     <Footer globalFields={globalFields} />
   </div>
 }

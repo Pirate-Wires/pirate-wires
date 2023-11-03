@@ -1,0 +1,20 @@
+@import "../abstracts";
+.signInWrapper {
+  font-family: $neueMed;
+  @include get-vw(font-size, 14px, 14px);
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > div {
+    width: 100%;
+  }
+}
+.disclaimer {
+  position: absolute;
+  bottom: 20px;
+  a {
+    text-decoration: underline;
+  }
+}

@@ -4,8 +4,8 @@ import SendEmailCustomerIOComponent from './SendEmailCustomerIOComponent';
 import authors from './authors';
 import author from './author';
 import blockContent from './blockContent';
-import category from './category';
 import podcasts from './podcasts';
+import utilityPages from './utilityPage';
 import podcast from './podcast';
 import careers from './careers';
 import career from './career';
@@ -27,13 +27,13 @@ export const schemaTypes = [
   subscribe,
   authors,
   author,
-  category,
   settings,
   globalFields,
   home,
   pirateWires,
   theWhitePill,
   theIndustry,
+  utilityPages,
   blockContent,
   SendEmailCustomerIOComponent
 ];

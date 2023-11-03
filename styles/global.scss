@@ -29,17 +29,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Caslon Pro Reg';
+  src: url("../public/fonts/caslon-pro-reg.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 // Global elements
-html, body {
-  overscroll-behavior: none;
-}
-input {
-  border: none;
-  background-color: transparent;
-  &:focus {
-    outline: none;
-  }
-}
 .btn {
   display: flex;
   align-items: center;
@@ -49,30 +46,50 @@ input {
   }
 }
 
-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-  font-family: $neueBold;
-  color: var(--color);
-  background-color: var(--bgColor);
-  white-space: nowrap;
-}
-
-main {
-  padding-top: 80px;
-}
 .colorWrapper {
   background-color: var(--bgColor);
   color: var(--color);
+  padding-top: 80px;
+  height: 100%;
+  &.the-wire {
+    header, footer {
+      --color: #E3E3E3;
+      --bgColor: #060606;
+    }
+  }
+  &.the-white-pill {
+    header, footer {
+      --color: #060606;
+      --bgColor: #F1CB45;
+    }
+  }
+  &.the-industry {
+    header, footer {
+      --color: #060606;
+      --bgColor: #9474F1;
+    }
+  }
+  &.reducedHeaderPage {
+    padding-top: 50px;
+  }
+}
+.hitbox {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    left: -10px;
+    top: -10px;
+  }
 }
 .embla {
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
-  padding-right: 40px;
+  justify-content: flex-start;
   .prev, .next {
     transition: opacity .22s $ease-in-out-sine;
     &.disabled {
@@ -83,6 +100,8 @@ main {
 }
 .embla__container {
   display: flex;
+  width: 100%;
+  justify-content: flex-start;
 }
 .embla__slide {
   position: relative;
@@ -91,14 +110,12 @@ main {
   &.white-pill {
     background-color: var(--whitePillBgColor);
     color: var(--whitePillColor);
+    --color: var(--whitePillColor);
   }
   &.industry {
     background-color: var(--industryBgColor);
     color: var(--industryColor);
-  }
-  @include bp-767 {
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
+    --color: var(--industryColor);
   }
 }
 .pageTitle {
@@ -118,6 +135,11 @@ footer {
     align-items: center;
     font-family: $neueMed;
     font-size: 14px;
+  }
+  .right {
+    br {
+      display: none;
+    }
   }
   .left, .middle, .right {
     display: flex;
@@ -153,6 +175,7 @@ footer {
       width: 50%;
       order: 2;
       justify-content: flex-end;
+      text-align: right;
     }
   }
 
@@ -160,7 +183,12 @@ footer {
     padding-top: 20px;
     .bottom {
       align-items: flex-end;
-      padding-bottom: 72px;
+      padding-bottom: 20px;
+    }
+    .right {
+      br {
+        display: block;
+      }
     }
     .left {
       flex-direction: column;
@@ -174,6 +202,12 @@ footer {
   position: relative;
   width: 100%;
   height: auto;
+}
+
+.cover-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 // Global author styles
@@ -278,7 +312,12 @@ footer {
   &.pirate-wires {
     article, .pubLink {
       &:before, &:after {
-        background-color: var(--accentDark);
+        background-color: var(--accentLight);
+      }
+    }
+    .excerpt {
+      span {
+        opacity: .7;
       }
     }
   }
@@ -288,12 +327,19 @@ footer {
   }
   .postTitle {
     font-family: $gtBold;
+    text-wrap: balance;
     @include get-vw(font-size, 40px, 36px);
+    @include get-vw(padding-right, 40px, 40px);
     @include get-vw(letter-spacing, -1.2px, -1.08px);
     line-height: 95%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    position: relative;
+  }
+  .goIcon {
+    right: 0;
+    position: absolute;
   }
   .white-pill & {
     article, .pubLink {
@@ -331,6 +377,7 @@ footer {
       fill: var(--industryBgColor);
     }
   }
+
   .authorTile {
     &:before {
       background-color: #060606;
@@ -342,6 +389,15 @@ footer {
       aspect-ratio: 1/1;
     }
   }
+
+  &.related {
+    .excerpt {
+      line-height: 1.33;
+      span:after {
+        border-top: 1px solid var(--color);
+      }
+    }
+  }
   @include bp-959 {
     .postTitle {
       font-size: 26px;
@@ -349,13 +405,36 @@ footer {
   }
 
   @include bp-767 {
+    &.related {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      article, .pubLink, .dummyTile, .authorTile {
+        width: 100%;
+        &:nth-last-child(-n+2) {
+          margin-bottom: 20px;
+          &:before {
+            content: '';
+          }
+        }
+        &:after, &:nth-child(3n+3):after {
+          content: unset;
+        }
+      }
+    }
+    .postTitle {
+      padding-right: 0;
+    }
+    .goIcon {
+      bottom: 0;
+      transform: translateY(200%);
+    }
     article, .pubLink, .dummyTile, .authorTile {
       width: calc(50% - 10px);
       &:after {
         content: "";
         width: 0.5px;
         height: 100%;
-        background-color: var(--accentDark);
+        background-color: var(--accentLight);
         position: absolute;
         right: -10px;
         top: 0;
@@ -447,7 +526,7 @@ footer {
 
   @include bp-767 {
     flex-direction: column;
-    gap: 20px;
+    gap: 0px;
     .right {
       padding: 0;
       width: 100%;
@@ -512,6 +591,9 @@ footer {
     }
   }
 }
+.featNewslettersBorder {
+  border-top: 0.5px solid var(--color);
+}
 .interiorPub {
   .postInfo {
     padding-bottom: 0;
@@ -533,7 +615,10 @@ footer {
   }
   .featuredPostsTop {
     font-family: $neueMed;
-    @include get-vw(padding-top, 20px, 20px);
+    span {
+      position: relative;
+      bottom: -2px;
+    }
   }
   &.pirate-wires {
     .prev, .next {
@@ -542,6 +627,14 @@ footer {
       }
       path {
         fill: var(--bgColor);
+      }
+    }
+    .featNewslettersBorder {
+      border-top: 0.5px solid var(--color);
+    }
+    .postInfo {
+      &:before {
+        opacity: .45;
       }
     }
   }
@@ -583,8 +676,56 @@ footer {
 }
 
 .excerpt {
-  @include get-vw(font-size, 17px, 17px);
-  opacity: 0.7;
+  @include get-vw(font-size, 17px, 15px);
+  @include get-vw(margin-top, 23px, 23px);
+  position: relative;
+  @include get-vw(padding-right, 40px, 40px);
+  flex-wrap: wrap;
+  display: flex;
+  svg {
+    height: 1px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  span {
+    position: relative;
+    @include get-vw(padding-top, 20px, 10px);
+    opacity: 0.95;
+  }
+}
+
+.featuredPost {
+  @include bp-767 {
+    .excerpt {
+      padding-top: 10px;
+      margin-top: 20px;
+      &:before {
+        content: "";
+        height: 0.5px;
+        width: calc(100% - 40px);
+        background-color: var(--accentLight);
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+    .goIcon {
+      position: absolute;
+      right: 0;
+      top: 20px;
+    }
+  }
+}
+
+.relatedPosts {
+  .excerpt {
+    line-height: 1.33;
+  }
+  .excerpt span:after {
+    border-top: 2px solid var(--color);
+  }
 }
 
 // Global form styles
@@ -603,6 +744,36 @@ footer {
 }
 
 // Global other
+.imageWrapper {
+  position: relative;
+}
+.imageCaption {
+  color: #E3E3E3;
+  font-family: $neueReg;
+  @include get-vw(font-size, 8px, 8px);
+  @include get-vw(left, 23px, 23px);
+  @include get-vw(bottom, 17px, 17px);
+  text-shadow: 1px 1px 3px rgba(0,0,0,.4);
+  position: absolute;
+  white-space: nowrap;
+  z-index: 2;
+
+}
+.hasHoverArrow {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  span {
+    @include get-vw(margin-left, 9px, 9px);
+    position: relative;
+    display: flex;
+  }
+  svg {
+    @include get-vw(width, 12.5px, 12.5px);
+    @include get-vw(height, 12.5px, 12.5px);
+  }
+}
 .hasGoIcon {
   .date {
     opacity: 0;
@@ -671,13 +842,83 @@ footer {
   }
 }
 
+// Rich text
+.richText {
+  @include get-vw-small-increase(max-width, 600px, 600px);
+  display: flex;
+  flex-direction: column;
+  [class*="sectionContent"] {
+    border: 1px solid #1c1c1c;
+    padding: 20px 30px 30px 22px;
+    display: block;
+  }
+  h2, h3, h4 {
+    font-family: $gtBold;
+    @include get-vw-small-increase(font-size, 40px, 40px);
+    line-height: .95;
+    @include get-vw-small-increase(letter-spacing, -1.2px, -1.2px);
+    @include get-vw-small-increase(margin-top, 40px, 40px);
+  }
+
+  p {
+    @include get-vw-small-increase(font-size, 22px, 20px);
+    line-height: 1.49;
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+  }
+
+  blockquote {
+    @include get-vw-small-increase(font-size, 48px, 38px);
+    line-height: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    @include get-vw-small-increase(margin-top, 35px, 35px);
+  }
+
+  img {
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+    height: 100%;
+    position: relative;
+  }
+
+  ul {
+    @include get-vw-small-increase(padding-left, 30px, 30px);
+    @include get-vw-small-increase(margin-top, 20px, 20px);
+    margin-bottom: 0;
+  }
+
+  li {
+    @include get-vw-small-increase(font-size, 20px, 18px);
+    line-height: 160%;
+  }
+
+  @include bp-1024 {
+    max-width: 740px;
+  }
+  @include bp-959 {
+    max-width: 100%;
+  }
+
+  @include bp-767 {
+    blockquote {
+      font-size: 28px;
+      line-height: 1.2;
+    }
+    p {
+      font-size: 18px;
+    }
+    [class*="sectionContent"] {
+      padding: 20px 20px 22px;
+    }
+  }
+}
 // font classes
 .caslon-reg {
-  font-family: $caslon;
+  font-family: $caslonReg;
   font-weight: 400;
 }
 .caslon-med {
-  font-family: $caslon;
+  font-family: $caslonReg;
   font-weight: 500;
 }
 
@@ -685,6 +926,25 @@ footer {
 .c-20 {
   @include get-vw(padding-left, 20px, 20px);
   @include get-vw(padding-right, 20px, 20px);
+  @include bp-767 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.flowContainer {
+  @include get-vw(padding-left, 20px, 20px);
+  @include get-vw(padding-right, 20px, 20px);
+  @include get-vw(max-width, 600px, 600px);
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    @include get-vw(font-size, 40px, 36px);
+    @include get-vw(margin-bottom, 20px, 18px);
+    @include get-vw(letter-spacing, -1.2px, -1.08px);
+    font-family: $gtBold;
+    line-height: 95%;
+  }
   @include bp-767 {
     padding-left: 10px;
     padding-right: 10px;
@@ -718,14 +978,24 @@ footer {
 }
 
 .ptb-40 {
-  @include get-vw(padding-top, 40px, 40px);
-  @include get-vw(padding-bottom, 40px, 40px);
+  @include get-vw(padding-top, 40px, 32px);
+  @include get-vw(padding-bottom, 40px, 32px);
+  @include bp-767 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
 .pt-40 {
-  @include get-vw(padding-top, 40px, 40px);
+  @include get-vw(padding-top, 40px, 32px);
+  @include bp-767 {
+    padding-top: 20px;
+  }
 }
 
 .pb-40 {
-  @include get-vw(padding-bottom, 40px, 40px);
+  @include get-vw(padding-bottom, 40px, 32px);
+  @include bp-767 {
+    padding-bottom: 20px;
+  }
 }

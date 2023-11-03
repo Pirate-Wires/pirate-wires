@@ -1,5 +1,6 @@
 // /lib/sanity/schemas/post.ts
 import SendEmailCustomerIO from './SendEmailCustomerIO';
+import {defineArrayMember, defineField} from "sanity";
 
 const schema = {
   name: 'post',
@@ -14,6 +15,28 @@ const schema = {
       placeholder: 'Enter title here',
       title: 'Title',
       type: 'string'
+    },
+    {
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for SEO accessiblity.'
+        },
+        {
+          name: 'caption',
+          type: 'text',
+          title: 'Optional caption',
+          rows: 1
+        }
+      ],
+      options: {
+        hotspot: true
+      }
     },
     {
       name: 'author',
@@ -52,6 +75,11 @@ const schema = {
       validation: (Rule) => Rule.max(200)
     },
     {
+      title: 'Wide image top',
+      name: 'wide_image_top',
+      type: 'boolean'
+    },
+    {
       name: 'preface',
       title: 'Preface',
       description: 'Optional note from Solana/Editor preceding the article. ',
@@ -60,36 +88,13 @@ const schema = {
     {
       name: 'body',
       title: 'Body',
-      type: 'blockContent'
+      type: 'blockContent',
     },
     // {
     //   name: 'paidContent',
     //   title: 'Paid Content',
     //   type: 'blockContent'
     // },
-
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }]
-    },
-    {
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO accessiblity.'
-        }
-      ],
-      options: {
-        hotspot: true
-      }
-    },
     {
       name: 'slug',
       title: 'Slug',
@@ -99,18 +104,18 @@ const schema = {
         maxLength: 96
       }
     },
-    {
-      title: 'Newsletter',
-      name: 'SendEmailCustomerIOComponent',
-      type: 'SendEmailCustomerIOComponent',
-      components: {
-        input: SendEmailCustomerIO
-      },
-      options: {
-        title: 'title', // Pass the title field value to the component
-        body: 'body' // Pass the body field value to the component
-      }
-    }
+    defineField({
+      title: 'Related posts override',
+      description: 'Three posts of your choosing to be recirculated with this article',
+      name: 'related_posts',
+      type: 'array',
+      of: [{
+        title: 'Post',
+        name: 'related_post',
+        type: 'reference',
+        to: [{type: 'post'}]
+      }]
+    }),
   ],
 
   preview: {

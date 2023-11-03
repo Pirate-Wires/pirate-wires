@@ -22,7 +22,7 @@ export default function Footer({globalFields}) {
       </div>
       <div className="bottom ptb-20 mt-20">
         <div className="left">
-          <Link href="/terms-conditions">Terms & Conditions</Link>
+          <Link href="/terms-and-conditions">Terms & Conditions</Link>
           <Link href="/cookie-policy">Cookie Policy</Link>
         </div>
         <div className="middle">
@@ -32,7 +32,7 @@ export default function Footer({globalFields}) {
           <Link href="/newsletters">Newsletter</Link>
         </div>
         <div className="right">
-          All rights reserved. © {new Date().getFullYear()} Pirate Wires
+          All rights reserved.<br /> © {new Date().getFullYear()} Pirate Wires
         </div>
       </div>
     </footer>

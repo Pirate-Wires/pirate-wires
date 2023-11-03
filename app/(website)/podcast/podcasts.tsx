@@ -1,9 +1,12 @@
-import PodcastCard from "@/components/podcast-card";
-import styles from "../../../styles/pages/podcast.module.scss"
+"use client"
+import styles from "@/styles/pages/podcast.module.scss"
 import Link from "next/link";
+import {useHoverArrow} from "@/hooks/useHoverArrow";
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function Podcasts({ pageData }) {
-  console.log(pageData)
+  useHoverArrow()
+  useScrollBasedAnims()
   return (
     <div className="c-20">
       <div className={styles.top}>
@@ -15,27 +18,33 @@ export default function Podcasts({ pageData }) {
               <h3 className={styles.title}>{podcast.title}</h3>
               <div className={styles.linkRow}>
                 {podcast.youtube_link &&
-                  <Link target="_blank" href={podcast.youtube_link}>
+                  <Link target="_blank" href={podcast.youtube_link} className="hasHoverArrow">
                     Youtube
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
-                    </svg>
+                    <span>
+                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                      </svg>
+                    </span>
                   </Link>
                 }
                 {podcast.apple_link &&
-                  <Link target="_blank" href={podcast.apple_link}>
+                  <Link target="_blank" href={podcast.apple_link} className="hasHoverArrow">
                     Apple Podcasts
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
-                    </svg>
+                    <span>
+                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                      </svg>
+                    </span>
                   </Link>
                 }
                 {podcast.spotify_link &&
-                  <Link target="_blank" href={podcast.spotify_link}>
+                  <Link target="_blank" href={podcast.spotify_link} className="hasHoverArrow">
                     Spotify
-                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
-                    </svg>
+                    <span>
+                      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                      </svg>
+                    </span>
                   </Link>
                 }
               </div>
@@ -47,5 +56,5 @@ export default function Podcasts({ pageData }) {
           </div>
         ))}
     </div>
-  );
+  )
 }

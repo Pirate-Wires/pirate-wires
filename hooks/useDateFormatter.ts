@@ -1,4 +1,8 @@
-export const useDateFormatter = (date) => {
+export const useDateFormatter = (date, withYear = false) => {
   const unformattedDate = new Date(date)
-  return unformattedDate.toLocaleString('default', { month: 'short', day: 'numeric' })
+  if (withYear) {
+    return unformattedDate.toLocaleString('default', { month: 'short', day: 'numeric', year: 'numeric' })
+  } else {
+    return unformattedDate.toLocaleString('default', { month: 'short', day: 'numeric' })
+  }
 }

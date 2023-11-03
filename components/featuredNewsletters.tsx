@@ -1,23 +1,19 @@
 "use client"
 import Image from "next/image";
-import { urlForImage } from "@/lib/sanity/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
-import { useEffect } from "react";
-
-export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
-  const imageProps = post?.mainImage
-    ? urlForImage(post?.mainImage)
-    : null;
-  console.log(newsletters)
-  // Extract the image color
-  const imageColor = post?.mainImage?.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 1, containScroll: "trimSnaps" })
+import { useEffect, useState } from "react";
+export default function FeaturedNewsletters({ newsletters }) {
+  const [loaded, setLoaded] = useState(false)
+  const onLoad = () => {
+    setTimeout(() => {
+      setLoaded(true)
+    }, 250)
+  }
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
+      emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
       const prev = document.getElementById("prev")
       const next = document.getElementById("next")
       prev.addEventListener("click", () => {
@@ -42,14 +38,27 @@ export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
   }, [emblaApi]);
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
-      <div className={`${styles.left} pt-20`}>
+      <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
-            {newsletters.map(newsletter => (
+            {newsletters.slice(0, 10).map(newsletter => (
               <div key={newsletter.title} className={`${styles.slide} embla__slide`}>
                 <div className={styles.slideTop}>
-                  {/*<Image src={} alt={} />*/}
+                  <div className={styles.imageWrapper}>
+                    {(newsletter.mainImage && newsletter.mainImage.asset) && (
+                      <>
+                        {!loaded &&
+                          <img src={newsletter.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
+                        }
+                        <picture>
+                          <source srcSet={`${newsletter.mainImage.asset.url}?auto=format&w=50&q=100, ${newsletter.mainImage.asset.url}?auto=format&w=60&q=90 2x`} />
+                          <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad} />
+                        </picture>
+                      </>
+                    )}
+                  </div>
+
                   <h5>{newsletter.title}</h5>
                 </div>
                 <p className="caslon-med">{newsletter.excerpt}</p>
@@ -74,11 +83,11 @@ export default function FeaturedNewsletters({ post, pathPrefix, newsletters }) {
           </div>
         </div>
       </div>
-      <div className={`${styles.right} pt-20`}>
+      <div className={`${styles.right} featNewslettersBorder pt-20`}>
         <h3>Join, or die</h3>
         <p>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
         <form className={`${styles.form}`}>
-          <input type="email" />
+          <input type="email" required placeholder="Your email here..." />
           <button type="submit">Sign Up</button>
         </form>
         <p className={styles.tagline}></p>

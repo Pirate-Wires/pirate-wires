@@ -16,6 +16,4 @@ export default async function PodcastPage() {
     <Podcasts pageData={pageData} />;
     <Footer globalFields={globalFields} />
   </div>
-    ;
-
 }

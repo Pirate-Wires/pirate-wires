@@ -58,6 +58,36 @@ const schema = {
           lists: []
         }
       ]
+    },
+    {
+      name: 'twitter_link',
+      title: 'Twitter',
+      type: 'text',
+      rows: 1
+    },
+    {
+      name: 'social_text_two',
+      title: 'Social text two',
+      type: 'text',
+      rows: 1
+    },
+    {
+      name: 'social_link_two',
+      title: 'Social link two',
+      type: 'text',
+      rows: 1
+    },
+    {
+      name: 'social_text_three',
+      title: 'Social text three',
+      type: 'text',
+      rows: 1
+    },
+    {
+      name: 'social_link_three',
+      title: 'Social link three',
+      type: 'text',
+      rows: 1
     }
   ],
   preview: {
