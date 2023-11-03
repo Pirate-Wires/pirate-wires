@@ -1,4 +1,4 @@
-import { definitions } from '@lib/types/supabase';
+import { definitions } from '../..//types/supabase';
 import React from 'react';
 import cn from 'classnames';
 

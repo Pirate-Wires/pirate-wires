@@ -2,7 +2,7 @@ import { Session, SupabaseClient, User } from '@supabase/supabase-js';
 import { createContext, useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import supabase from '../utils/initSupabase';
-import { definitions } from '@lib/types/supabase';
+import { definitions } from '../types/supabase';
 
 interface AuthSessionProps {
   user: User | null;

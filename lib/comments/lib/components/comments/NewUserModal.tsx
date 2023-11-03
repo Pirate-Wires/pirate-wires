@@ -1,8 +1,8 @@
 import { Transition } from '@headlessui/react';
 import React, { useEffect, useState } from 'react';
-import supabase from '@lib/utils/initSupabase';
-import { useUser } from '@lib/hooks/use-user';
-import { useModal } from '@lib/hooks/use-modal';
+import supabase from '../..//utils/initSupabase';
+import { useUser } from '../..//hooks/use-user';
+import { useModal } from '../..//hooks/use-modal';
 import Avatar from './Avatar';
 
 const NewUserModal = (): JSX.Element => {

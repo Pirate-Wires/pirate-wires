@@ -1,8 +1,8 @@
-import Comment from '@lib/components/comments/Comment';
-import CommentSkeleton from '@lib/components/comments/CommentSkeleton';
-import { SCROLL_OFFSET_PX } from '@lib/constants/pagination';
-import { useComments } from '@lib/hooks/use-comments';
-import { CommentType } from '@lib/utils/types';
+import Comment from '../../components/comments/Comment';
+import CommentSkeleton from '../../components/comments/CommentSkeleton';
+import { SCROLL_OFFSET_PX } from '../../constants/pagination';
+import { useComments } from '../../hooks/use-comments';
+import { CommentType } from '../../utils/types';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -64,7 +64,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
   if (error || commentsError) {
     console.log(error);
     return (
-      <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
+      <div>
         An error occurred.
       </div>
     );
@@ -72,7 +72,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
 
   if (!isLoadingInitialData && !rootComment) {
     return (
-      <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
+      <div>
         This post does not exist.
       </div>
     );

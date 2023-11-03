@@ -1,9 +1,9 @@
-import { invokeVote } from '@lib/components/comments/VoteButtons';
-import { useComments } from '@lib/hooks/use-comments';
-import { useModal } from '@lib/hooks/use-modal';
-import { useUser } from '@lib/hooks/use-user';
-import Heart from '@lib/icons/Heart';
-import { CommentType } from '@lib/utils/types';
+import { invokeVote } from '../..//components/comments/VoteButtons';
+import { useComments } from '../..//hooks/use-comments';
+import { useModal } from '../..//hooks/use-modal';
+import { useUser } from '../..//hooks/use-user';
+import Heart from '../..//icons/Heart';
+import { CommentType } from '../..//utils/types';
 import cn from 'classnames';
 import React from 'react';
 

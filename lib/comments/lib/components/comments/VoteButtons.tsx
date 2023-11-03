@@ -1,13 +1,13 @@
-import { useComments } from '@lib/hooks/use-comments';
-import { useUser } from '@lib/hooks/use-user';
-import Heart from '@lib/icons/Heart';
-import ThumbsUpFilled from '@lib/icons/ThumbUpFilled';
-import ThumbsUpOutlined from '@lib/icons/ThumbUpOutlined';
-import supabase from '@lib/utils/initSupabase';
-import type { CommentType } from '@lib/utils/types';
+import { useComments } from '../..//hooks/use-comments';
+import { useUser } from '../..//hooks/use-user';
+import Heart from '../..//icons/Heart';
+import ThumbsUpFilled from '../..//icons/ThumbUpFilled';
+import ThumbsUpOutlined from '../..//icons/ThumbUpOutlined';
+import supabase from '../..//utils/initSupabase';
+import type { CommentType } from '../..//utils/types';
 import cn from 'classnames';
 import React from 'react';
-import { useModal } from '@lib/hooks/use-modal';
+import { useModal } from '../..//hooks/use-modal';
 
 type StatusType = 'upvoted' | 'unvoted' | 'downvoted';
 

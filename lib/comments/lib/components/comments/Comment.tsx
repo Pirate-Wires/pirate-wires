@@ -1,9 +1,9 @@
-import NewCommentForm from '@lib/components/comments/NewCommentForm';
-// import { useComments } from '@lib/hooks/use-comments';
-import Plus from '@lib/icons/Plus';
-import supabase from '@lib/utils/initSupabase';
-import type { CommentType } from '@lib/utils/types';
-// import { useUser } from '@lib/hooks/use-user';
+import NewCommentForm from '../../components/comments/NewCommentForm';
+// import { useComments } from '../../hooks/use-comments';
+import Plus from '../../icons/Plus';
+import supabase from '../../utils/initSupabase';
+import type { CommentType } from '../../utils/types';
+// import { useUser } from '../../hooks/use-user';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';

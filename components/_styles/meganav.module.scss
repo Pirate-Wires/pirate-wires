@@ -47,6 +47,7 @@
 .closeNav {
   z-index: 3;
   position: absolute;
+  transform: translateZ(0);
   @include get-vw-large-increase(top, 20px, 20px);
   @include get-vw-large-increase(right, 22px, 22px);
   @include get-vw-large-increase(width, 16px, 16px);

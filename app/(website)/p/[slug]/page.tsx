@@ -2,7 +2,7 @@
 // app/(website)/p/[slug]/page.tsx
 import PostPage from "./default";
 // import { CommentsContextProvider } from '@/lib/supabase-comments/hooks/use-comments';
-import { getAllPostsSlugs, getGlobalFields, getPostBySlug } from "@/lib/sanity/client";
+import {getAllPostsSlugs, getGlobalFields, getPostBySlug, getPublicationPosts} from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Newsletters from "@/app/(website)/newsletters/newsletters";
@@ -26,6 +26,7 @@ export async function generateMetadata({ params }) {
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
+  const allRelatedArticles = await getPublicationPosts(post.section)
   const globalFields = await getGlobalFields();
   const publication = post.section
   const [session, userDetails, products, subscription] = await Promise.all([
@@ -42,7 +43,7 @@ export default async function PostDefault({ params }) {
         "--accentLight": "rgba(43, 43, 43, 0.45)",
       } as React.CSSProperties}>
         <Navigation publication={publication} />
-        <PostPage post={post} session={session} />
+        <PostPage post={post} session={session} thisSectionArticles={allRelatedArticles} />
         <Footer globalFields={globalFields} />
       </div>
     </>)

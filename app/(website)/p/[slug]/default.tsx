@@ -18,9 +18,11 @@ import React, {useState} from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {CommentsContextProvider, useComments} from "@/lib/comments/lib/hooks/use-comments";
+import CommentSection from "@/lib/comments/lib/components/comments/CommentSection";
 
-export default function Post(props, session) {
-
+export default function Post(props) {
+  const { loading, post, session, thisSectionArticles } = props;
   const user = session?.user;
   console.log('user', user)
 
@@ -30,14 +32,24 @@ export default function Post(props, session) {
   console.log(user?.role);
 
 
+  const { count } = useComments();
 
-  const { loading, post } = props;
 
   const slug = post?.slug;
 
   if (!loading && !slug) {
     notFound();
   }
+  let relatedArticles = post.related_posts
+  if (!relatedArticles) {
+    relatedArticles = []
+    for (let i = 0; i < 4; i++) {
+      if (relatedArticles.length < 3 && thisSectionArticles[i].title !== post.title) {
+        relatedArticles.push(thisSectionArticles[i])
+      }
+    }
+  }
+  console.log(relatedArticles)
   useScrollBasedAnims()
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {
@@ -126,6 +138,18 @@ export default function Post(props, session) {
         </div>
       </section>
 
+      <CommentsContextProvider postId={1}>
+        <section className={`${styles.commentsSection} pb-40`}>
+          <div className={styles.commentsTop}>
+            {count ? count : 0} Comments
+          </div>
+
+          <div className={`${styles.commentsBottom} pt-40`}>
+            <CommentSection />
+          </div>
+        </section>
+      </CommentsContextProvider>
+
       <RemainingArticleEls />
 
       {/* Paid Content
@@ -161,9 +185,7 @@ export default function Post(props, session) {
       </Container > */}
 
 
-      {(post.related_posts && post.related_posts.length > 0) &&
-        <RelatedArticles relatedArticles={post.related_posts} />
-      }
+      <RelatedArticles relatedArticles={relatedArticles} />
     </>
   );
 }

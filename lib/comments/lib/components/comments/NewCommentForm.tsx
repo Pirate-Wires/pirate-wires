@@ -1,18 +1,18 @@
-// import { useSignInModal } from '@lib/components/comments/SignInModal';
-import SignInModal from '@lib/components/comments/SignInModal';
-import User from '@lib/icons/User';
-import updateFieldHeight from '@lib/utils/autosize';
-import supabase from '@lib/utils/initSupabase';
-import punctuationRegex from '@lib/utils/regex/punctuationRegex';
-import { CommentType } from '@lib/utils/types';
-import { useUser } from '@lib/hooks/use-user';
+// import { useSignInModal } from '../..//components/comments/SignInModal';
+import SignInModal from '../..//components/comments/SignInModal';
+import User from '../..//icons/User';
+import updateFieldHeight from '../..//utils/autosize';
+import supabase from '../..//utils/initSupabase';
+import punctuationRegex from '../..//utils/regex/punctuationRegex';
+import { CommentType } from '../..//utils/types';
+import { useUser } from '../..//hooks/use-user';
 import cn from 'classnames';
 import cuid from 'cuid';
 import React, { useRef, useState, useEffect } from 'react';
-import NewUserModal from '@lib/components/comments/NewUserModal';
-import { useComments } from '@lib/hooks/use-comments';
+import NewUserModal from '../..//components/comments/NewUserModal';
+import { useComments } from '../..//hooks/use-comments';
 import Avatar from './Avatar';
-import { useModal } from '@lib/hooks/use-modal';
+import { useModal } from '../..//hooks/use-modal';
 
 interface Props {
   parentId?: number | null;
@@ -158,54 +158,29 @@ const NewCommentForm = ({
 
   return (
     <>
-      <div className="flex flex-grow flex-col min-h-14">
-        <div className="flex-grow flex items-center space-x-2">
-          {!user && (
-            <button
-              className="focus-ring"
-              onClick={() => open('signInModal')}
-              aria-label="Create new account"
-            >
-              <User className="text-gray-600 w-7 h-7" />
-            </button>
-          )}
-          {user && (
-            <button className="focus-ring" aria-label="View profile information">
-              <Avatar profile={profile} />
-              {/* <Smile className="w-7 h-7 text-gray-500 hover:text-gray-800 transition" /> */}
-            </button>
-          )}
+      {!user && (
+        <button
+          onClick={() => open('signInModal')}
+          aria-label="Create new account"
+        >Sign in to leave a comment</button>
+      )}
 
-          <label className="flex-grow flex items-center cursor-text select-none focus-within-ring min-h-14">
-            <span className="sr-only">Enter a comment</span>
-            <textarea
-              className="block bg-transparent flex-grow leading-5 min-h-5 max-h-36 resize-none m-0 px-0 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-300 border-none overflow-auto text-sm transition-opacity disabled:opacity-50 focus:outline-none focus:shadow-none focus:ring-0"
-              placeholder="Add a comment..."
-              rows={1}
-              value={content}
-              onChange={handleChange}
-              ref={textareaRef}
-              disabled={isLoading}
-            ></textarea>
-          </label>
+      <textarea
+        placeholder="Write a comment..."
+        rows={1}
+        value={content}
+        onChange={handleChange}
+        ref={textareaRef}
+        disabled={isLoading}
+      ></textarea>
 
-          <div className="h-full flex items-center justify-center w-12">
-            <button
-              className={cn(
-                'text-indigo-500 dark:text-indigo-400 font-semibold px-2 text-sm h-full max-h-10 border border-transparent focus-ring',
-                {
-                  'cursor-not-allowed opacity-50': content.length < 1 || isLoading,
-                }
-              )}
-              disabled={content.length < 1}
-              onClick={handleSubmit}
-              aria-label="Submit new post"
-            >
-              Post
-            </button>
-          </div>
-        </div>
-      </div>
+      <button
+        disabled={content.length < 1}
+        onClick={handleSubmit}
+        aria-label="Submit new post"
+      >
+        Post
+      </button>
     </>
   );
 };

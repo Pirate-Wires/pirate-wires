@@ -1,11 +1,12 @@
-import { PAGE_SIZE } from '@lib/constants/pagination';
-import { useUser } from '@lib/hooks/use-user';
-import { definitions } from '@lib/types/supabase';
-import supabase from '@lib/utils/initSupabase';
-import type { CommentType, User } from '@lib/utils/types';
+import { PAGE_SIZE } from '../constants/pagination';
+import { useUser } from '../hooks/use-user';
+import { definitions } from '../types/supabase';
+import supabase from '../utils/initSupabase';
+import type { CommentType, User } from '../utils/types';
 import { arrayToTree } from 'performant-array-to-tree';
 import { createContext, useContext, useState } from 'react';
-import useSWR, { useSWRInfinite } from 'swr';
+import useSWR from 'swr';
+import useSWRInfinite from 'swr/infinite'
 
 export type SortingBehavior = 'pathVotesRecent' | 'pathLeastRecent' | 'pathMostRecent';
 
@@ -73,7 +74,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
   const { user } = useUser();
   const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathVotesRecent');
 
-
+  console.log(postId)
   const { data: count, mutate: mutateGlobalCount, error: commentsError } = useSWR<
     number | null,
     any

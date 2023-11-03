@@ -1,8 +1,8 @@
-import CommentsList from '@lib/components/comments/CommentsList';
-import NewCommentForm from '@lib/components/comments/NewCommentForm';
-import { NoAnimationSidebar } from '@lib/components/comments/Sidebar';
-import { useComments } from '@lib/hooks/use-comments';
-import { X } from '@lib/icons/X';
+import CommentsList from '../..//components/comments/CommentsList';
+import NewCommentForm from '../..//components/comments/NewCommentForm';
+import { NoAnimationSidebar } from '../..//components/comments/Sidebar';
+import { useComments } from '../..//hooks/use-comments';
+import { X } from '../..//icons/X';
 import Portal from '@reach/portal';
 import { useEffect, useState } from 'react';
 import SortCommentsSelect from './SortCommentsSelect';

@@ -178,3 +178,29 @@
 
   }
 }
+
+.commentsSection {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  @include get-vw-small-increase(max-width, 600px, 600px);
+}
+.commentsTop {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #060606;
+  @include get-vw-small-increase(padding-bottom, 20px, 20px);
+}
+.commentsBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  textarea {
+    width: 100%;
+    border: 1px solid #060606;
+    background: #F8F8F8;
+    @include get-vw-small-increase(height, 107px, 107px);
+    @include get-vw-small-increase(padding, 10px, 10px);
+  }
+}

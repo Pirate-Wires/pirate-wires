@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MessageBubble from '@lib/icons/MessageBubble';
-import { useComments } from '@lib/hooks/use-comments';
+import MessageBubble from '../..//icons/MessageBubble';
+import { useComments } from '../..//hooks/use-comments';
 
 const MessageBubbleButton = (): JSX.Element => {
   const { count } = useComments();
