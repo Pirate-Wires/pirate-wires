@@ -3,45 +3,20 @@ import { gsap } from 'gsap';
 import isMobile from 'ismobilejs';
 
 export class ScrollBasedAnims {
-  constructor(options = {}) {
+  constructor() {
     const mobile = isMobile(window.navigator).any;
     if(mobile && !document.body.classList.contains("touch")) {
       document.body.classList.add('touch');
     }
 
+    window.scrollInstantiated = true
     this.bindMethods();
 
-    this.el = document.documentElement;
-
-    this.thisPagesTLs = [];
-    this.offsetVal = 0;
     this.body = document.body;
-    this.direction = 'untouched';
-    this.transitioning = false;
-    this.isMobile = false;
+
+    this.isMobile = mobile;
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
-    this.header = document.getElementById('header');
-
-    const {
-      dataFromElems = document.querySelectorAll('[data-from]'),
-      dataHeroFromElems = document.querySelectorAll('[data-h-from]'),
-      heroMeasureEl = document.querySelector('.hero-measure-el'),
-      scrollBasedElems = document.querySelectorAll('[data-entrance]'),
-      threshold = 0.01,
-    } = options;
-
-    this.dom = {
-      el: this.el,
-      dataFromElems: dataFromElems,
-      dataHeroFromElems: dataHeroFromElems,
-      scrollBasedElems: scrollBasedElems,
-      heroMeasureEl: heroMeasureEl,
-    };
-
-    this.dataFromElems = null;
-    this.dataHeroFromElems = null;
-    this.scrollBasedElems = null;
 
     this.raf = null;
 
@@ -49,7 +24,45 @@ export class ScrollBasedAnims {
       resizing: false,
     };
 
-    let startingScrollTop = this.el.scrollTop;
+    this.init();
+  }
+
+  bindMethods() {
+    ['run', 'event', 'resize'].forEach(
+      (fn) => (this[fn] = this[fn].bind(this))
+    );
+  }
+
+  init() {
+    this.on();
+  }
+
+  getCache() {
+    this.thisPagesTLs = [];
+    this.offsetVal = 0;
+    this.direction = 'untouched';
+    this.headerScrolled = false
+    this.headerFullyHidden = false
+    this.transitioning = false;
+    this.articlePage = window.location.href.includes("/p/")
+    this.header = document.getElementById('header');
+
+    const dataFromElems = document.querySelectorAll('[data-from]');
+    const dataHeroFromElems = document.querySelectorAll('[data-h-from]');
+    const heroMeasureEl = document.querySelector('.hero-measure-el');
+    const scrollBasedElems = document.querySelectorAll('[data-entrance]');
+    const threshold = 0.01;
+
+    this.dom = {
+      el: document.documentElement,
+      dataFromElems: dataFromElems,
+      dataHeroFromElems: dataHeroFromElems,
+      scrollBasedElems: scrollBasedElems,
+      heroMeasureEl: heroMeasureEl,
+    };
+
+    let startingScrollTop = this.dom.el.scrollTop;
+
     this.data = {
       threshold: threshold,
       current: startingScrollTop,
@@ -61,9 +74,7 @@ export class ScrollBasedAnims {
       scrollY: startingScrollTop,
     };
 
-    let length = this.dom.scrollBasedElems.length;
-
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < this.dom.scrollBasedElems.length; i++) {
       const entranceEl = this.dom.scrollBasedElems[i];
       const entranceType = entranceEl.dataset.entrance;
       const entranceTL = new gsap.timeline({ paused: true });
@@ -91,23 +102,17 @@ export class ScrollBasedAnims {
       }
     }
 
-    this.init();
-  }
-
-  bindMethods() {
-    ['run', 'event', 'resize'].forEach(
-      (fn) => (this[fn] = this[fn].bind(this))
-    );
-  }
-
-  init() {
-    this.on();
+    // calcs
+    this.getVideos();
+    this.getScrollBasedSections();
+    this.getDataFromElems();
+    this.getHeroMeasureEl();
   }
 
   on() {
     document.addEventListener('scroll', this.event, true);
-    this.getBounding();
     this.getCache();
+    this.getBounding();
     this.requestAnimationFrame();
   }
 
@@ -122,7 +127,7 @@ export class ScrollBasedAnims {
 
   run() {
     if (this.state.resizing || this.transitioning) return;
-    this.data.scrollY = this.el.scrollTop;
+    this.data.scrollY = this.dom.el.scrollTop;
     if (this.isMobile) {
       this.data.current = this.data.scrollY;
     } else {
@@ -132,7 +137,7 @@ export class ScrollBasedAnims {
     }
 
     this.getDirection();
-    this.data.last = this.data.current;
+    this.data.last = this.data.scrollY;
     this.checkScrollBasedLoadins();
     this.animateDataHeroFromElems();
     this.animateDataFromElems();
@@ -142,14 +147,13 @@ export class ScrollBasedAnims {
   }
 
   getDirection() {
+    console.log(this.data.last, this.data.scrollY)
     if (this.data.last - this.data.scrollY < 0) {
-      // DOWN
       if (this.direction === 'down' || this.data.scrollY <= 0) {
         return;
       }
       this.direction = 'down';
     } else if (this.data.last - this.data.scrollY > 0) {
-      // UP
       if (this.direction === 'up') {
         return;
       }
@@ -378,31 +382,35 @@ export class ScrollBasedAnims {
     cancelAnimationFrame(this.raf);
   }
 
-  getCache() {
-    this.getVideos();
-    this.getScrollBasedSections();
-    this.getDataFromElems();
-    this.getHeroMeasureEl();
-    gsap.to(this.header, {y: 0, autoAlpha: 1, ease: 'sine.inOut', duration: 0.4, force3D: true});
-  }
-
   hideShowHeader() {
     if (this.direction === 'untouched') {
       return;
     }
-
-    if (this.direction === 'down' && !this.headerScrolled && this.data.scrollY >= 100) {
+    if (this.direction === 'down' && !this.headerScrolled) {
       this.headerScrolled = true;
-      gsap.to(this.header, {y: -30, autoAlpha: 0, ease: 'sine.inOut', duration: 0.3, force3D: true});
+      if (this.articlePage && !(this.data.scrollY > this.windowHeight * .8)) {
+        gsap.to(this.header, { y: -30, ease: 'sine.inOut', duration: 0.2, force3D: true });
+      } else if (!this.articlePage) {
+        gsap.to(this.header, { y: -30, ease: 'sine.inOut', duration: 0.2, force3D: true });
+      }
     } else if (this.direction === 'up' && this.headerScrolled) {
-      gsap.to(this.header, {y: 0, autoAlpha: 1, ease: 'sine.inOut', duration: 0.3, force3D: true});
+      gsap.to(this.header, {y: 0, ease: 'sine.inOut', duration: this.headerFullyHidden ? 0.3 : 0.2, force3D: true});
       this.headerScrolled = false;
+      this.headerFullyHidden = false;
     }
+
+    if (this.articlePage) {
+      if (this.direction === 'down' && !this.headerFullyHidden && this.data.scrollY > this.windowHeight * .8) {
+        this.headerFullyHidden = true;
+        gsap.to(this.header, { y: -80, ease: 'sine.inOut', duration: 0.35, force3D: true });
+      }
+    }
+
   }
 
   getBounding() {
     this.data.height = this.windowHeight;
-    this.data.max = Math.floor(this.el.getBoundingClientRect().height - this.data.height + this.data.scrollY);
+    this.data.max = Math.floor(this.dom.el.getBoundingClientRect().height - this.data.height + this.data.scrollY);
   }
 
   resize(omnibar = false) {
@@ -419,7 +427,7 @@ export class ScrollBasedAnims {
 
   scrollTo(val, dur = 1, ease = 'expo.inOut', fn = false) {
     this.state.scrollingTo = true;
-    gsap.to(this.el, {
+    gsap.to(this.dom.el, {
       scrollTop: val,
       duration: dur,
       ease: ease,
@@ -432,8 +440,6 @@ export class ScrollBasedAnims {
 
   destroy() {
     this.transitioning = true;
-    console.log("destroying")
-    document.removeEventListener('scroll', this.event, true);
 
     this.state.rafCancelled = true;
     this.cancelAnimationFrame();

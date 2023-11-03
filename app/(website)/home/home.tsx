@@ -114,7 +114,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
 
               <Link
                 href={`/white-pill`} className="pubLink hasGoIcon mtb-20">
-                <h2>Dive into Tech, Politics & Culture.</h2>
+                <h2>Better than Drugs. Says You.</h2>
                 <div className="goIconWrapper caslon-reg">
                   Dive into it
                   <div className="goIcon">
@@ -165,8 +165,8 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
             ))}
 
             <Link
-              href={`/wires`} className="pubLink hasGoIcon mtb-20">
-              <h2>Dive into Tech, Politics & Culture.</h2>
+              href={`/the-industry`} className="pubLink hasGoIcon mtb-20">
+              <h2>About The Industry, by The Industry</h2>
               <div className="goIconWrapper caslon-reg">
                 Dive into it
                 <div className="goIcon">

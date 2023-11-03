@@ -13,7 +13,21 @@ export const useScrollBasedAnims = () => {
     setOnce(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     onceVar = true;
-    const $scroll = new ScrollBasedAnims();
+    if (!window.scrollBasedAnims) {
+      window.scrollBasedAnims = new ScrollBasedAnims();
+      window.addEventListener("popstate", (event) => {
+        console.log("popstate")
+        window.scrollBasedAnims.destroy()
+      })
+    } else {
+      window.scrollBasedAnims.getCache()
+      window.scrollBasedAnims.getBounding()
+      window.scrollBasedAnims.requestAnimationFrame()
+      console.log("getting cache")
+    }
+
+
+
     // router.events.on('routeChangeStart', () => {
     //   $scroll.destroy();
     // });
