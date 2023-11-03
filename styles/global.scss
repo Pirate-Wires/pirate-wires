@@ -425,8 +425,12 @@ footer {
       padding-right: 0;
     }
     .goIcon {
-      bottom: 0;
-      transform: translateY(200%);
+      top: 100%;
+      transform: translateY(32px);
+    }
+    .goIconWrapper .goIcon {
+      top: -2.5px;
+      transform: none;
     }
     article, .pubLink, .dummyTile, .authorTile {
       width: calc(50% - 10px);
@@ -693,6 +697,11 @@ footer {
     position: relative;
     @include get-vw(padding-top, 20px, 10px);
     opacity: 0.95;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
 }
 
@@ -798,7 +807,7 @@ footer {
   @include get-vw(font-size, 14px, 14px);
   .goIcon {
     position: relative;
-    top: -2px;
+    top: -2.5px;
   }
 }
 .goIcon {

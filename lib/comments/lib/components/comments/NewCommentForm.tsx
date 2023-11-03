@@ -12,7 +12,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import NewUserModal from '../..//components/comments/NewUserModal';
 import { useComments } from '../..//hooks/use-comments';
 import Avatar from './Avatar';
-import { useModal } from '../..//hooks/use-modal';
 
 interface Props {
   parentId?: number | null;
@@ -32,7 +31,6 @@ const NewCommentForm = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user, profile } = useUser();
   const { mutateGlobalCount, rootId, mutateComments } = useComments();
-  const { open, isOpen } = useModal({ signInModal: SignInModal, newUserModal: NewUserModal });
 
   useEffect(() => {
     if (user && profile && (!profile.full_name || !profile.username)) {

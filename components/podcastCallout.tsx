@@ -6,7 +6,7 @@ export default function PodcastCallout({videoLink}) {
     <div className={styles.podcastCallout}>
       <div className={`${styles.inner} c-20`}>
         <h3 className="pageTitle">Your <span className={styles.video}>
-          <video muted playsInline autoPlay loop src={videoLink.url}></video>
+          <video muted playsInline loop src={videoLink.url} className="auto"></video>
         </span> Favorite Streaming Service has our Podcast</h3>
         <Link href={'/podcast'} className="hasGoIcon">
           <div className="goIconWrapper">
