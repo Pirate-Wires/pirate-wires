@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { ScrollBasedAnims } from '@/utils/classes/ScrollBasedAnims';
 
 export const useScrollBasedAnims = () => {
-  const [once, setOnce] = useState(false);
   const router = useRouter();
+  const [once, setOnce] = useState(false);
   let onceVar = false;
   useEffect(() => {
     if (once || onceVar) {
@@ -15,15 +15,10 @@ export const useScrollBasedAnims = () => {
     onceVar = true;
     if (!window.scrollBasedAnims) {
       window.scrollBasedAnims = new ScrollBasedAnims();
-      window.addEventListener("popstate", (event) => {
-        console.log("popstate")
-        window.scrollBasedAnims.destroy()
-      })
     } else {
       window.scrollBasedAnims.getCache()
       window.scrollBasedAnims.getBounding()
       window.scrollBasedAnims.requestAnimationFrame()
-      console.log("getting cache")
     }
 
 
