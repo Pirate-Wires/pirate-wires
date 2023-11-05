@@ -6,7 +6,7 @@ One of the most important aspects of this project is newlsetter sending. We are 
 
 ## Supabase
 
-[commenting_user_profiles.sql](/pirate-wires/supabase/commenting_user_profiles.sql) and [stripe_customers.sql](/pirate-wires/supabase/stripe_customers.sql) are the two table sets we have created in Supabase which deal with commenting and payments respectively.
+[commenting_user_profiles.sql](/pirate-wires/supabase/commenting_user_profiles.sql) and [stripe_customers.sql](/pirate-wires/supabase/stripe_customers.sql) are the two table sets we have created in Supabase which deal with commenting and payments.
 
 The site is deployed as "production" to https://pirate-wires.vercel.app
 Only the main branch is being worked on as the site is still in development. The day will come when we point piratewires.com to this vercel app and then we will have a "staging" branch and a "production" branch. Best to commit directly to main now and avoid branching.
