@@ -49,7 +49,7 @@ export default function Post(props) {
       }
     }
   }
-  console.log(relatedArticles)
+
   useScrollBasedAnims()
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {

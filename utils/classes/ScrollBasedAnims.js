@@ -131,9 +131,7 @@ export class ScrollBasedAnims {
     if (this.isMobile) {
       this.data.current = this.data.scrollY;
     } else {
-      this.data.current += Math.round(
-        (this.data.scrollY - this.data.current) * this.data.ease
-      );
+      this.data.current += Math.round((this.data.scrollY - this.data.current) * this.data.ease);
     }
 
     this.getDirection();
@@ -147,7 +145,6 @@ export class ScrollBasedAnims {
   }
 
   getDirection() {
-    console.log(this.data.last, this.data.scrollY)
     if (this.data.last - this.data.scrollY < 0) {
       if (this.direction === 'down' || this.data.scrollY <= 0) {
         return;

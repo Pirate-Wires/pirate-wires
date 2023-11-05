@@ -15,6 +15,7 @@
     @include get-vw(font-size, 14px, 14px);
     @include get-vw(margin-bottom, 20px, 20px);
     line-height: 1.42;
+    pointer-events: none;
   }
 
   @include bp-767 {
@@ -22,7 +23,7 @@
   }
 }
 .btn {
-  padding: 12px 20px 11px;
+  padding: 12px 20px 12px;
   font-family: $neueMed;
 }
 .imagesWrapper {
@@ -33,6 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transform-style: preserve-3d;
+  perspective: 750px;
 
   @include bp-1024 {
     flex-direction: column;
@@ -43,8 +46,9 @@
 }
 .imageWrapper {
   position: relative;
-  @include get-vw-no-max(width, 590px, 530px);
+  width: 48%;
   aspect-ratio: 1/.58;
+  transform-style: preserve-3d;
   img {
     height: auto;
   }

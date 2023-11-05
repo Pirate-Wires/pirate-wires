@@ -7,8 +7,8 @@ import Link from "next/link";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function Utility({ pageData }) {
-  const slug = pageData.slug.current;
-  if (!slug) {
+
+  if (!pageData.slug) {
     notFound();
   }
   useScrollBasedAnims()
