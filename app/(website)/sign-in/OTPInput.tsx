@@ -1,3 +1,4 @@
+// /app/(website)/sign-in/OTPInput.tsx
 import React, { useState, useRef, ChangeEvent, KeyboardEvent, FormEvent } from 'react';
 
 interface OTPInputProps {
@@ -54,21 +55,30 @@ const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {otp.map((value, index) => (
-        <input
-          key={index}
-          type="text"
-          maxLength={1}
-          value={value}
-          onChange={(event) => handleChange(event, index)}
-          onKeyUp={(event) => handleBackspace(event, index)}
-          ref={inputRefs[index]}
-          onPaste={handlePaste}
-        />
-      ))}
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <h2>Confirm Your Sign In</h2>
+      <p>We just sent a 6 digit code to your email</p>
+      <form onSubmit={handleSubmit}>
+        <div className="otp-input-container">
+
+          {otp.map((value, index) => (
+            <input
+              key={index}
+              type="text"
+              maxLength={1}
+              value={value}
+              onChange={(event) => handleChange(event, index)}
+              onKeyUp={(event) => handleBackspace(event, index)}
+              ref={inputRefs[index]}
+              onPaste={handlePaste}
+            />
+          ))}
+        </div>
+
+        <button type="submit">Confirm</button>
+        <a href="#">Resend Code</a>
+      </form>
+    </>
   );
 };
 
