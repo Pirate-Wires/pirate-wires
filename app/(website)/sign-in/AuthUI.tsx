@@ -20,15 +20,12 @@ export default function AuthUI() {
         try {
             await supabase.auth.signInWithOtp({
                 email,
-                options: {
-                    emailRedirectTo: '/verify-otp'
-                }
             });
         } catch (error) {
             setError('Error sending OTP. Please try again.');
         }
 
-        setEmail(e.target.email.value) // Save email
+        setEmail(email) // Save email
 
     }
 
@@ -36,14 +33,15 @@ export default function AuthUI() {
         e.preventDefault();
         setError(null); // Clear previous errors
 
-        const otp = e.target.otp.value; // get from input
+        const token = e.target.otp.value; // get from input
 
         try {
-            await supabase.auth.signInWithOtp({
+            await supabase.auth.verifyOtp({
                 email, // Use saved email
-                otp: e.target.otp.value,
+                token,
+                type: 'email',
                 options: {
-                    emailRedirectTo: '/account'
+                    redirectTo: '/account'
                 }
             });
         } catch (error) {
