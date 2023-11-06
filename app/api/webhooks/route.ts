@@ -3,6 +3,7 @@ import { stripe } from '@/utils/stripe';
 import {
   upsertProductRecord,
   upsertPriceRecord,
+  createAuthUser,
   manageSubscriptionStatusChange
 } from '@/utils/supabase-admin';
 import { headers } from 'next/headers';
@@ -42,6 +43,9 @@ export async function POST(req: Request) {
         case 'price.created':
         case 'price.updated':
           await upsertPriceRecord(event.data.object as Stripe.Price);
+          break;
+        case 'customer.created':
+          await createAuthUser(event.data.object as Stripe.Customer);
           break;
         case 'customer.subscription.created':
         case 'customer.subscription.updated':
