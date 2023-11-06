@@ -220,9 +220,9 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
-const createAuthUser = async (customer: Stripe.Customer) => {
+const createAuthUser = async (email: string) => {
   const userData: User = {
-    email: customer.email!,
+    email: email,
     password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD as string,
     email_confirm: true,
   };
@@ -232,12 +232,18 @@ const createAuthUser = async (customer: Stripe.Customer) => {
     throw error;
   }
   console.log(`Auth user created: ${user?.id}`);
+  return user;
+};
 
-  const { error: insertError } = await supabaseAdmin
+const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
+  console.log(customer);
+  const user = await createAuthUser(customer.email!);
+
+  const { error } = await supabaseAdmin
     .from('customers')
     .upsert({ id: user?.id!, stripe_customer_id: customer.id});
 
-  if (insertError) throw insertError;
+  if (error) throw error;
 
   console.log(`Customer inserted/updated: ${user?.id}`);
 };
@@ -247,5 +253,6 @@ export {
   upsertPriceRecord,
   createOrRetrieveCustomer,
   manageSubscriptionStatusChange,
-  createAuthUser
+  createAuthUser,
+  syncSupbaseUserWithStripe
 };
