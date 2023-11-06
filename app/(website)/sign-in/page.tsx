@@ -1,6 +1,7 @@
+// /app/(website)/sign-in/page.tsx
 import { getSession } from '@/app/(website)/supabase-server';
 import AuthUI from './AuthUI';
-import {getGlobalFields} from "@/lib/sanity/client";
+import { getGlobalFields } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
