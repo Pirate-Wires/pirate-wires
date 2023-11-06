@@ -27,6 +27,9 @@ export default function AuthUI() {
         } catch (error) {
             setError('Error sending OTP. Please try again.');
         }
+
+        setEmail(e.target.email.value) // Save email
+
     }
 
     const handleOTPSubmit = async (e) => {
@@ -37,8 +40,8 @@ export default function AuthUI() {
 
         try {
             await supabase.auth.signInWithOtp({
-                email,
-                otp,
+                email, // Use saved email
+                otp: e.target.otp.value,
                 options: {
                     emailRedirectTo: '/account'
                 }
