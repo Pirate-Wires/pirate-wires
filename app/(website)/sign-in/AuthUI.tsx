@@ -4,18 +4,18 @@ import React, { useState } from 'react';
 import styles from "@/styles/pages/signIn.module.scss";
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import Link from "next/link";
+import OTPInput from './OTPInput';
 
 export default function AuthUI() {
     const [email, setEmail] = useState('');
-    const [otp, setOtp] = useState('');
     const [error, setError] = useState(null);
     const { supabase } = useSupabase();
 
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
-        setError(null); // Clear previous errors
+        setError(null);
 
-        const email = e.target.email.value; // get from input
+        const email = e.target.email.value;
 
         try {
             await supabase.auth.signInWithOtp({
@@ -25,20 +25,16 @@ export default function AuthUI() {
             setError('Error sending OTP. Please try again.');
         }
 
-        setEmail(email) // Save email
-
+        setEmail(email);
     }
 
-    const handleOTPSubmit = async (e) => {
-        e.preventDefault();
-        setError(null); // Clear previous errors
-
-        const token = e.target.otp.value; // get from input
+    const handleOTPSubmit = async (otp: string) => {
+        setError(null);
 
         try {
             await supabase.auth.verifyOtp({
-                email, // Use saved email
-                token,
+                email,
+                token: otp,
                 type: 'email',
                 options: {
                     redirectTo: '/account'
@@ -47,7 +43,8 @@ export default function AuthUI() {
         } catch (error) {
             setError('Invalid OTP. Please check your email and try again.');
         }
-    }
+    };
+
 
     return (
         <section className={`${styles.signInWrapper} flowContainer c-20 pb-20`}>
@@ -62,11 +59,7 @@ export default function AuthUI() {
                         <button type="submit">Send OTP</button>
                     </form>
                     <h2>Verify OTP</h2>
-                    <form onSubmit={(e) => handleOTPSubmit(e)}>
-                        <label htmlFor="otp">OTP:</label>
-                        <input type="text" name="otp" id="otp" required />
-                        <button type="submit">Verify</button>
-                    </form>
+                    <OTPInput onOTPSubmit={handleOTPSubmit} /> {/* Pass the onOTPSubmit function */}
                     {error && <p className={styles.error}>{error}</p>}
                     <p>Check your email for the OTP!</p>
                 </div>
