@@ -18,9 +18,12 @@ export default function AuthUI() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const { error } = await supabase.auth.signInWithOtp({
+        const { data, error } = await supabase.auth.signInWithOtp({
             email,
             otp,
+            options: {
+                emailRedirectTo: '/account'
+            }
         })
 
         if (!error) {
