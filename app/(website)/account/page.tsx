@@ -127,15 +127,30 @@ export default async function Account() {
 
       <section>
         <h3>Email Preferences</h3>
-        <p>If subscribed: Email notifications are currently enabled.</p>
+        <p>Subscribe or unsubscribe to our newsletters</p>
+        <ul>
+          <li>Pirate Wires</li>
+          <li>The White Pill</li>
+          <li>The Industry</li>
+        </ul>
       </section>
 
       <hr />
 
       <section>
         <h3>Commenting</h3>
-        <p>If subscribed: Commenting is currently enabled.</p>
-        notify me of replies to my comments
+        <form id="emailForm" action={updateEmail}>
+          <label htmlFor="firstName">Comment username:</label>
+          <input
+            type="text"
+            id="commentUsername"
+            name="commentUsername"
+            required
+          />
+          <br />
+          <p>Change this to add comments with another username</p>
+          <button type="submit">Save</button>
+        </form>
       </section>
 
       <hr />
@@ -144,15 +159,16 @@ export default async function Account() {
         <div>
           <h3>Subscription & Billing</h3>
           <p>
+            {/* all subscriptionf from stipe must be aggregated into a single "product" */}
             {subscription
-              ? `You are currently on the ${subscription?.prices?.products?.name} plan.`
+              ? `You are currently subscribed - ${subscription?.prices?.products?.name}.`
               : 'You are not currently subscribed to any plan.'}
           </p>
-          <div className="mt-8 mb-4 text-xl font-semibold">
+          <div className="">
             {subscription ? (
               `${subscriptionPrice}/${subscription?.prices?.interval}`
             ) : (
-              <Link href="/">Choose your plan</Link>
+              <Link href="/">Subscribe</Link>
             )}
           </div>
         </div>
