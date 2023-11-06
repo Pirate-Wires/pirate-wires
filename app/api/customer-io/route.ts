@@ -1,14 +1,39 @@
 // app/api/customer-io/route.ts
-// import cio from '../../../lib/cioClient';
+import crypto from 'crypto';
+import { trackerCio, apiCio } from '../../../lib/cioClient';
 
-// export default async function handler(req, res) {
-//   const { email } = req.query;
+export async function PUT(req: Request) {
+  const body = await req.json();
+  const { email, subscription } = body;
 
-//   try {
-//     const customer = await cio.getCustomersByEmail(email);
+  try {
+    const response = await apiCio.getCustomersByEmail(email!);
+    const customer = response.results[0];
 
-//     res.status(200).json(customer);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// }
+    if(customer) {
+      const topics = ['Wires', 'The Industry', 'The White Pill'];
+
+      trackerCio.identify(`cio_${customer.cio_id}`, {
+        'cio_subscription_preferences' : `{
+          "topics": {
+            ${topics.map((item, index) =>
+                `"topic_${index + 1}": ${subscription.indexOf(item) > -1}`)
+              .join(',')}
+          }
+        }`
+      });
+    } else {
+      const cio_id = crypto.createHash('sha256')
+        .update(email)
+        .digest('hex')
+        .slice(0, 12);
+      trackerCio.identify(cio_id, {
+        email,
+      });
+    }
+
+    return new Response(JSON.stringify({'success': true}), { status: 200 });
+  } catch (err) {
+    return new Response(`Error: ${err.message}`, { status: 500 });
+  }
+}
