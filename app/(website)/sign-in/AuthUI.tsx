@@ -11,11 +11,18 @@ export default function AuthUI() {
 
     const { supabase } = useSupabase()
 
-    const handleEmailChange = (e) => setEmail(e.target.value)
+    const handleEmailSubmit = async (e) => {
+        e.preventDefault()
 
-    const handleOtpChange = (e) => setOtp(e.target.value)
+        const { data, error } = await supabase.auth.signInWithOtp({
+            email,
+            options: {
+                emailRedirectTo: '/verify-otp'
+            }
+        })
+    }
 
-    const handleSubmit = async (e) => {
+    const handleOTPSubmit = async (e) => {
         e.preventDefault()
 
         const { data, error } = await supabase.auth.signInWithOtp({
@@ -25,11 +32,9 @@ export default function AuthUI() {
                 emailRedirectTo: '/account'
             }
         })
-
-        if (!error) {
-            // Sign in successful
-        }
     }
+
+
 
     return (
         <section className={`${styles.signInWrapper} flowContainer c-20 pb-20`}>
@@ -38,23 +43,24 @@ export default function AuthUI() {
             <div>
                 <h2>Sign in with OTP</h2>
 
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={handleEmailChange}
-                    />
+                <div>
+                    <h2>Request OTP</h2>
 
-                    <input
-                        type="text"
-                        placeholder="OTP"
-                        value={otp}
-                        onChange={handleOtpChange}
-                    />
+                    <form onSubmit={handleEmailSubmit}>
+                        <input type="email" />
+                        <button type="submit">Send OTP</button>
+                    </form>
 
-                    <button type="submit">Sign In</button>
-                </form>
+                    <h2>Verify OTP</h2>
+
+                    <form onSubmit={handleOTPSubmit}>
+                        <input type="text" />
+                        <button type="submit">Verify</button>
+                    </form>
+
+                    <p>Check your email for the OTP!</p>
+                </div>
+
             </div>
 
             <p className={styles.disclaimer}>By continuing, you agree to the <Link href={'/terms-conditions'}>Terms & Conditions</Link> and <Link href={'/privacy-policy'}>Privacy Policy</Link></p>
