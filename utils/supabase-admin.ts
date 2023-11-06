@@ -236,7 +236,6 @@ const createAuthUser = async (email: string) => {
 };
 
 const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
-  console.log(customer);
   const user = await createAuthUser(customer.email!);
 
   const { error } = await supabaseAdmin

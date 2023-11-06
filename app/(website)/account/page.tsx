@@ -11,7 +11,7 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import Navbar from '@/components/ui/Navbar';
-
+import { EmailPreferences } from './EmailPreferences';
 
 export default async function Account() {
   const [session, userDetails, products, subscription] = await Promise.all([
@@ -72,7 +72,6 @@ export default async function Account() {
 
   return (
     <div>
-
       <Navbar />
 
       <hr />
@@ -92,20 +91,10 @@ export default async function Account() {
         <h3>My Details</h3>
         <form>
           <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            required
-          />
+          <input type="text" id="firstName" name="firstName" required />
           <br />
           <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            required
-          />
+          <input type="text" id="lastName" name="lastName" required />
           <br />
           <button type="submit">Save</button>
         </form>
@@ -126,13 +115,7 @@ export default async function Account() {
       <hr />
 
       <section>
-        <h3>Email Preferences</h3>
-        <p>Subscribe or unsubscribe to our newsletters</p>
-        <ul>
-          <li>Pirate Wires</li>
-          <li>The White Pill</li>
-          <li>The Industry</li>
-        </ul>
+        <EmailPreferences user={user} />
       </section>
 
       <hr />
@@ -182,12 +165,6 @@ export default async function Account() {
         products={products}
         subscription={subscription}
       /> */}
-
-
     </div>
   );
 }
-
-
-
-

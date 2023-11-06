@@ -3,7 +3,8 @@
 
 	- Global reset _styles
 -------------------------------------------------- */
-html, body {
+html,
+body {
   overscroll-behavior: none;
   overflow-x: hidden;
   margin: 0;
@@ -55,9 +56,7 @@ h6 {
 
 input,
 select {
-  -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
   border-radius: 0;
   box-shadow: none;
 }
