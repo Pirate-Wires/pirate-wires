@@ -227,11 +227,19 @@ const createAuthUser = async (customer: Stripe.Customer) => {
     email_confirm: true,
   };
 
-  const { data: { user }, error } = await supabaseAdmin.auth.admin.createUser({...userData});
+  const { data: { user }, error } = await supabaseAdmin.auth.admin.createUser(userData);
   if (error) {
     throw error;
   }
   console.log(`Auth user created: ${user?.id}`);
+
+  const { error: insertError } = await supabaseAdmin
+    .from('customers')
+    .upsert({ id: user?.id!, stripe_customer_id: customer.id});
+
+  if (insertError) throw insertError;
+
+  console.log(`Customer inserted/updated: ${user?.id}`);
 };
 
 export {
