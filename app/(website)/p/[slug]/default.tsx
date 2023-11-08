@@ -127,13 +127,18 @@ export default function Post(props) {
         </div>
       </section>
 
-      {/* 
-      if supabase auth session and supabase subscriptions.status === active
+      {/*
+
+      @jaredhwlt
       
-      if auth session and subscribed is true 
+      if supabase auth session is true and supabase subscriptions.status === active
+    
         <div>comments section</div>
+
         else
+
         <div>subscribe to comment</div>
+
       endif 
       
       */}
