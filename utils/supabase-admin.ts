@@ -247,11 +247,24 @@ const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
   console.log(`Customer inserted/updated: ${user?.id}`);
 };
 
+const getPostBySlug = async (slug: string) => {
+  const { data, error } = await supabaseAdmin
+    .from('countries')
+    .select()
+    .eq('slug', slug);
+  if(error) {
+    console.log(`Error fetching post data: ${error.message}`);
+    return;
+  }
+  return data;
+};
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
   createOrRetrieveCustomer,
   manageSubscriptionStatusChange,
   createAuthUser,
-  syncSupbaseUserWithStripe
+  syncSupbaseUserWithStripe,
+  getPostBySlug
 };
