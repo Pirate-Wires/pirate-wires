@@ -1,7 +1,6 @@
 "use client"
 import {useState } from 'react';
 import { usePathname } from "next/navigation";
-import axios from 'axios';
 
 import styles from "./_styles/newsletterCallout.module.scss"
 
@@ -9,6 +8,7 @@ export default function NewsletterCallout({ newsletterData }) {
     const currentRoute = usePathname();
     const interiorPage = currentRoute === "/newsletters";
     const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -17,14 +17,25 @@ export default function NewsletterCallout({ newsletterData }) {
 
         if(!email || !selectedNewsLetters.length)   return;
 
-        const { data } = await axios.put(`/api/customer-io`, {
-            email,
-            subscription: selectedNewsLetters
-        });
+        try {
+            const response = await fetch('/api/customer-io', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    email,
+                    subscription: selectedNewsLetters,
+                })
+            });
 
-        if(data.success) {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            setIsLoading(true);
+
             event.target.email.value = '';
             setSelectedNewsLetters([]);
+        } catch (error) {
+            console.error('There was an error!', error);
         }
     }
 

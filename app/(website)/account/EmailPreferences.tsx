@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
 
 export const EmailPreferences = ({ user }) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
@@ -17,12 +16,24 @@ export const EmailPreferences = ({ user }) => {
   };
 
   const sendAPI = useCallback(async () => {
-    await axios.put(`/api/customer-io`, {
-      email: user?.email,
-      existingUser: true,
-      subscription: selectedNewsLetters
-    });
-    setIsProgress(false);
+      try {
+        const response = await fetch('/api/customer-io', {
+            method: 'PUT',
+            body: JSON.stringify({
+              email: user?.email,
+              existingUser: true,
+              subscription: selectedNewsLetters
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        setIsProgress(true);
+    } catch (error) {
+        console.error('There was an error!', error);
+    }
   }, [selectedNewsLetters, user?.email]);
 
   useEffect(() => {
