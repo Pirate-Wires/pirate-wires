@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 export const EmailPreferences = ({ user }) => {
@@ -16,20 +16,20 @@ export const EmailPreferences = ({ user }) => {
     );
   };
 
-  const sendAPI = async () => {
+  const sendAPI = useCallback(async () => {
     await axios.put(`/api/customer-io`, {
       email: user?.email,
       existingUser: true,
       subscription: selectedNewsLetters
     });
     setIsProgress(false);
-  };
+  }, [selectedNewsLetters, user?.email]);
 
   useEffect(() => {
     if (!selectedNewsLetters.length) return;
     setIsProgress(true);
     sendAPI();
-  }, [selectedNewsLetters]);
+  }, [selectedNewsLetters, sendAPI]);
 
   return (
     <>

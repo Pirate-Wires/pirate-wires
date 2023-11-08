@@ -17,7 +17,6 @@ import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
 
-
 export default function Post(props) {
   const { loading, post, session, thisSectionArticles } = props;
   const user = session?.user;
@@ -27,6 +26,9 @@ export default function Post(props) {
   if (!loading && !slug) {
     notFound();
   }
+
+  const formattedDate = useDateFormatter(post?.publishedAt || post._createdAt, true);
+
   let relatedArticles = post.related_posts
   if (!relatedArticles) {
     relatedArticles = []
@@ -78,7 +80,7 @@ export default function Post(props) {
                 <Link href={`/author/${post.author.slug.current}`}>
                   {post.author.name}
                 </Link>
-                <p>{useDateFormatter(post?.publishedAt || post._createdAt, true)}</p>
+                <p>{formattedDate}</p>
               </div>
             </div>
 
@@ -96,7 +98,7 @@ export default function Post(props) {
                 <Link href={`/author/${post.author.slug.current}`}>
                   {post.author.name}
                 </Link>
-                <p>{useDateFormatter(post?.publishedAt || post._createdAt, true)}</p>
+                <p>{formattedDate}</p>
               </div>
             </div>
             <div className={`${styles.imageWrapper} imageWrapper`}>
@@ -125,7 +127,7 @@ export default function Post(props) {
         </div>
       </section>
 
-      <RemainingArticleEls />
+      <RemainingArticleEls relatedArticles={[]} />
 
       <RelatedArticles relatedArticles={relatedArticles} />
     </>

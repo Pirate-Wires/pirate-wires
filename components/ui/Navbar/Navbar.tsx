@@ -55,6 +55,7 @@ export default async function Navbar() {
           <img
             src={user?.user_metadata.avatar_url}
             style={{ width: '75px' }}
+            alt={user?.email}
           />
         </li>
       </ul>

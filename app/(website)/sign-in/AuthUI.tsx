@@ -10,7 +10,7 @@ import EmailInput from './EmailInput';
 export default function AuthUI() {
     const [email, setEmail] = useState('');
     const [otpVisible, setOtpVisible] = useState(false); // State to control OTP input visibility
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const { supabase } = useSupabase();
 
     const handleEmailSubmit = async (e) => {
@@ -52,7 +52,7 @@ export default function AuthUI() {
             <h1>Sign In to Pirate Wires</h1>
             <div>
                 {otpVisible ? ( // Show OTPInput component when otpVisible is true
-                    <OTPInput onOTPSubmit={handleOTPSubmit} email={email} />
+                    <OTPInput onOTPSubmit={handleOTPSubmit} />
                 ) : (
                     <EmailInput onSubmit={handleEmailSubmit} />
                 )}

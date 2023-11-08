@@ -13,21 +13,21 @@ export default function FeaturedNewsletters({ newsletters }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
+      // emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
       const prev = document.getElementById("prev")
       const next = document.getElementById("next")
-      prev.addEventListener("click", () => {
+      prev?.addEventListener("click", () => {
         emblaApi.scrollPrev()
-        if (next.classList.contains("disabled")) {
+        if (next?.classList.contains("disabled")) {
           next.classList.remove("disabled")
         }
         if (!emblaApi.canScrollPrev()) {
           prev.classList.add("disabled")
         }
       })
-      next.addEventListener("click", () => {
+      next?.addEventListener("click", () => {
         emblaApi.scrollNext()
-        if (prev.classList.contains("disabled")) {
+        if (prev?.classList.contains("disabled")) {
           prev.classList.remove("disabled")
         }
         if (!emblaApi.canScrollNext()) {

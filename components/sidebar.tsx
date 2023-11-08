@@ -1,4 +1,3 @@
-import SearchInput from "@/components/ui/search";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +29,7 @@ function Searchbar() {
       </h3>
       <form action="/search" method="GET" className="mt-4">
         {/* @ts-ignore */}
-        <SearchInput placeholder="Search" />
+        <input placeholder="Search" />
       </form>
     </div>
   );

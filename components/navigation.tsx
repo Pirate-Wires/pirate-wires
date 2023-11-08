@@ -20,7 +20,12 @@ const tabs: Tab[] = [
   { name: 'The White Pill', href: '/white-pill' },
 ];
 
-export default function Navigation({ publication }) {
+interface NavigationProps {
+  publication?: any; // Type should be replaced with a more specific type if possible
+  globalFields?: any; // Same here
+}
+
+const Navigation: React.FC<NavigationProps> = ({ publication, globalFields }) => {
   const currentRoute = usePathname();
   const flowNav = currentRoute === "/subscribe" || currentRoute === "/sign-in"
   const simpleNav = currentRoute === "/account"
@@ -29,36 +34,37 @@ export default function Navigation({ publication }) {
   const whitePillPage = currentRoute === "/white-pill" || publication === "the-white-pill"
 
   const [once, setOnce] = useState(false);
-  let onceVar = false;
 
   useEffect(() => {
-    if (once || onceVar) {
+    if (once) {
       return;
     }
     setOnce(true);
-    onceVar = true;
 
     if (!flowNav) {
       if (!simpleNav) {
         if (window.innerWidth < 768) {
           const track = document.getElementById("top-tabs")
-          track.scrollLeft = globalObject.navScrollX
-          track.addEventListener("scroll", (event) => {
-            globalObject.navScrollX = event.target.scrollLeft
-          })
+          if(track) {
+            track.scrollLeft = globalObject.navScrollX
+            track.addEventListener("scroll", (event) => {
+              const target = event.target as HTMLElement;
+              globalObject.navScrollX = target.scrollLeft
+            })
+          }
         }
       }
 
       const hammy = document.getElementById("mega-nav-trigger")
       let megaNav = document.getElementById("mega-nav")
       let megaNavBackdrop = document.getElementById("mega-nav-backdrop")
-      const navLinks = megaNav.querySelectorAll(".nav-link")
-      const closeTrigger = megaNav.querySelector(".close-trigger")
-      const navTL = new gsap.timeline()
+      const navLinks = megaNav?.querySelectorAll(".nav-link")
+      const closeTrigger = megaNav?.querySelector(".close-trigger")
+      const navTL = gsap.timeline()
       let navOpen = false
 
-      if (megaNav.classList.contains("unprepped")) {
-        megaNav.classList.remove("unprepped")
+      if (megaNav?.classList.contains("unprepped")) {
+        megaNav?.classList.remove("unprepped")
         gsap.set(megaNav, { xPercent: 20 })
       }
 
@@ -83,7 +89,7 @@ export default function Navigation({ publication }) {
           .to(megaNavBackdrop, { opacity: 0, pointerEvents: "none", ease: "sine.inOut", duration: .12, force3D: true }, 0)
       }
 
-      hammy.addEventListener("click", () => {
+      hammy?.addEventListener("click", () => {
         if (!navOpen) {
           navOpen = true
           navOpen = true
@@ -96,20 +102,22 @@ export default function Navigation({ publication }) {
         }
       })
 
-      for (let i = 0; i < navLinks.length; i++) {
-        navLinks[i].addEventListener("click", () => {
-          navOpen = false
-          closeNavNavigating()
-        })
+      if(navLinks) {
+        for (let i = 0; i < navLinks.length; i++) {
+          navLinks[i].addEventListener("click", () => {
+            navOpen = false
+            closeNavNavigating()
+          })
+        }
       }
 
-      closeTrigger.addEventListener("click", () => {
+      closeTrigger?.addEventListener("click", () => {
         if (navOpen) {
           navOpen = false
           closeNav()
         }
       })
-      megaNavBackdrop.addEventListener("click", () => {
+      megaNavBackdrop?.addEventListener("click", () => {
         if (navOpen) {
           navOpen = false
           closeNav()
@@ -126,7 +134,7 @@ export default function Navigation({ publication }) {
         }
       });
     }
-  });
+  }, [once, flowNav, simpleNav]);
   return (
     <>
       {!flowNav ?
@@ -230,3 +238,5 @@ export default function Navigation({ publication }) {
     </>
   )
 }
+
+export default Navigation;

@@ -33,7 +33,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
       </div>
 
       <div className="theme-color pt-40 pb-20">
-        <Featured post={wirePosts[0]} includeTop={false} pathPrefix="" />
+        <Featured post={wirePosts[0]} priority={false} pathPrefix="" />
         {wirePosts && (
           <div className="postGrid pirate-wires c-20">
             {wirePosts.slice(1, 4).map(post => (

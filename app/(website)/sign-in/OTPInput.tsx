@@ -1,5 +1,5 @@
 // /app/(website)/sign-in/OTPInput.tsx
-import React, { useState, useRef, ChangeEvent, KeyboardEvent, FormEvent } from 'react';
+import React, { useState, useRef, ChangeEvent, KeyboardEvent, FormEvent, ClipboardEventHandler } from 'react';
 
 interface OTPInputProps {
   onOTPSubmit: (otp: string) => void;
@@ -7,7 +7,15 @@ interface OTPInputProps {
 
 const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(''));
-  const inputRefs = Array.from({ length: 6 }, () => useRef<HTMLInputElement | null>(null));
+
+  const ref0 = useRef<HTMLInputElement>(null);
+  const ref1 = useRef<HTMLInputElement>(null);
+  const ref2 = useRef<HTMLInputElement>(null);
+  const ref3 = useRef<HTMLInputElement>(null);
+  const ref4 = useRef<HTMLInputElement>(null);
+  const ref5 = useRef<HTMLInputElement>(null);
+
+  const inputRefs = [ref0, ref1, ref2, ref3, ref4, ref5];
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = event.target.value;
@@ -33,15 +41,16 @@ const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
     }
   };
 
-  const handlePaste = (event: ClipboardEvent) => {
+  const handlePaste = (event) => {
     const pastedData = event.clipboardData.getData('text');
     if (/^\d{6}$/.test(pastedData)) {
       // If the pasted data is a 6-digit numeric code, fill the OTP fields
       const newOtp = pastedData.split('');
       setOtp(newOtp);
-      newOtp.forEach((value, index) => {
-        if (inputRefs[index] && inputRefs[index].current) {
-          inputRefs[index].current.value = value;
+      newOtp.forEach((value: string, index: number) => {
+        const inputRef = inputRefs[index].current;
+        if (inputRef) {
+          inputRef.value = value;
         }
       });
     }
