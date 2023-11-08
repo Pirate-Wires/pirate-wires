@@ -3,14 +3,14 @@
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import { useRouter } from 'next/navigation';
 
-import s from './Navbar.module.css';
+import styles from "@/styles/pages/account.module.scss";
 
 export default function SignOutButton() {
   const router = useRouter();
   const { supabase } = useSupabase();
   return (
     <button
-      className={s.link}
+      className={`${styles.cardTrigger}`}
       onClick={async () => {
         await supabase.auth.signOut();
         router.push('/sign-in');

@@ -20,7 +20,7 @@ export default function LatestWriters({ latestAuthors }) {
       <div className={`${styles.inner} c-20`}>
         <div className={styles.top}>
           <div className={styles.left}>
-            <h3>Latest Writers</h3>
+            <h3>Staff Writers</h3>
             <p className={styles.blurb}></p>
           </div>
           <Link
