@@ -127,6 +127,17 @@ export default function Post(props) {
         </div>
       </section>
 
+      {/* 
+      if supabase auth session and supabase subscriptions.status === active
+      
+      if auth session and subscribed is true 
+        <div>comments section</div>
+        else
+        <div>subscribe to comment</div>
+      endif 
+      
+      */}
+
       <RemainingArticleEls relatedArticles={[]} />
 
       <RelatedArticles relatedArticles={relatedArticles} />
