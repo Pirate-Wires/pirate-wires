@@ -9,17 +9,20 @@ import {
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
+import revalidateTag from "@/app/actions";
 
 export async function generateStaticParams() {
   return await getAllAuthorsSlugs();
 }
 
 export async function generateMetadata({ params }) {
+
   const author = await getAuthorData(params.author);
   return { title: author.name + " - " + author.title };
 }
 
 export default async function AuthorPage({ params }) {
+  await revalidateTag("author")
   const posts = await getAuthorPosts(params.author);
   const authorData = await getAuthorData(params.author);
   const globalFields = await getGlobalFields();

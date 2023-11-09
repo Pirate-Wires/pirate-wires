@@ -105,7 +105,6 @@ export async function getAuthorsData() {
 
 export async function getAuthorData(slug) {
   if (client) {
-    await revalidateTag("author")
     return (await client.fetch(authorQuery, { slug })) || {};
   }
   return {};
