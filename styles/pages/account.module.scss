@@ -8,24 +8,29 @@
 
   @include get-vw-small-increase(gap, 20px, 20px);
 }
+
 .cardWrapper {
   flex-direction: column;
   display: none;
   align-items: flex-start;
   @include get-vw-small-increase(gap, 20px, 20px);
+
   &.activeCard {
     display: flex;
   }
+
   form {
     flex-direction: column;
     @include get-vw-small-increase(gap, 20px, 20px);
     display: flex;
   }
+
   label {
     font-family: $neueMed;
     @include get-vw-small-increase(font-size, 14px, 14px);
     text-align: left;
   }
+
   input {
     border: 1px solid #060606;
     background: #E3E3E3;
@@ -38,12 +43,14 @@
     align-items: center;
   }
 }
+
 .bottom {
   display: flex;
   align-items: flex-start;
   width: 100%;
   @include get-vw-small-increase(gap, 173px, 173px);
 }
+
 .infoGroup {
   display: flex;
   flex-direction: column;
@@ -52,22 +59,28 @@
   @include get-vw-small-increase(gap, 20px, 20px);
   @include get-vw-small-increase(padding-bottom, 20px, 20px);
 }
+
 .top {
   width: 100%;
   @include get-vw-small-increase(padding-bottom, 14px, 14px);
   @include get-vw-small-increase(margin-bottom, 33px, 33px);
   border-bottom: 0.5px solid #000000;
 }
-.cardTrigger, .pseudoLabel {
+
+.cardTrigger,
+.pseudoLabel {
   font-family: $neueMed;
   @include get-vw-small-increase(font-size, 14px, 14px);
 }
+
 .textGroup {
   gap: 3px;
+
   p:last-child {
     font-family: $neueReg;
   }
 }
+
 .right {
   display: flex;
   flex-direction: column;
