@@ -98,7 +98,7 @@ export async function getCareersData() {
 
 export async function getAuthorsData() {
   if (client) {
-    return (await client.fetch(authorsQuery, undefined, { next: { tags: ["singleAuthors"] } })) || {};
+    return (await client.fetch(authorsQuery, undefined, { next: { tags: ["singleAuthors", "author"] } })) || {};
   }
   return {};
 }
@@ -119,7 +119,7 @@ export async function getUtilityPageData(slug) {
 
 export async function getPublicationData(slug) {
   if (client) {
-    return (await client.fetch(publicationDocQuery, { slug }, { next: { tags: ["theIndustry", "pirateWires", "whitePill"] } })) || {};
+    return (await client.fetch(publicationDocQuery, { slug }, { next: { tags: ["home", "theIndustry", "pirateWires", "whitePill"] } })) || {};
   }
   return {};
 }
