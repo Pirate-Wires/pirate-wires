@@ -64,7 +64,10 @@ export async function POST(req: Request) {
 
     const cioId = await getCustomerId(email);
     const customerSubscription = await getCustomerSubscription(cioId);
-    const subscription = customerSubscription.indexOf(section) > -1 ? customerSubscription : [...customerSubscription, section];
+    const subscription =
+      customerSubscription.indexOf(section) > -1
+        ? customerSubscription
+        : [...customerSubscription, section];
     const topics = ['Wires', 'The Industry', 'The White Pill'];
 
     console.log(email, subscription);
@@ -108,3 +111,27 @@ export async function POST(req: Request) {
     return new Response(`Error: ${err.message}`, { status: 500 });
   }
 }
+
+// export async function GET(req: Request) {
+//   const { email } = req.query;
+
+//   try {
+//     const response = await apiCio.getCustomersByEmail(email);
+
+//     if (response.results.length > 0) {
+//       const customer = response.results[0];
+//       const subscriptionPreferences = customer.cio_subscription_preferences;
+
+//       if (subscriptionPreferences) {
+//         // Extract the preferences from the subscriptionPreferences data
+//         const preferences = JSON.parse(subscriptionPreferences);
+
+//         return new Response(JSON.stringify({ preferences }), { status: 200 });
+//       }
+//     }
+
+//     return new Response(JSON.stringify({ preferences: [] }), { status: 200 });
+//   } catch (err) {
+//     return new Response(`Error: ${err.message}`, { status: 500 });
+//   }
+// }
