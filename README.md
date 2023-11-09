@@ -13,7 +13,7 @@ Only the main branch is being worked on as the site is still in development. The
 
 ## Next.js
 
-We are using Next.js 13 w/ `@supabase/auth-helpers-nextjs` for authentication which is a slightly different flavor than next-auth but the patterns are mostly the same. The front-end is React components w/ Tailwind and most components can be found in `/components/` and `/lib/supabase-comments/components/` for the comments related components.
+We are using Next.js 13 w/ `@supabase/auth-helpers-nextjs` for authentication which is a slightly different flavor than next-auth but the patterns are mostly the same. Most components can be found in `/components/` and `/lib/supabase-comments/components/` for the comments related components.
 
 `/app/(website)/` is the main site liveing in the app dir. Apart from the `public` directory and the `(website)` directory, no "front-end" content is anywhere else.
 
@@ -30,7 +30,7 @@ See Supabase section above. We are using Supabase with Stripe payments to handle
 
 ## Customer.io
 
-Email template design happens here. Presently we are using a Foundation based CSS library that customer.io has by default, however a Tailwind library would be prefereable.
+Email template design happens here.
 
 ## Local Development
 
