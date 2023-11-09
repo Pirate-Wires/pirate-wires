@@ -942,15 +942,38 @@ footer {
 }
 
 .flowContainer {
-  @include get-vw(padding-left, 20px, 20px);
-  @include get-vw(padding-right, 20px, 20px);
-  @include get-vw(max-width, 600px, 600px);
+  @include get-vw-small-increase(padding-left, 20px, 20px);
+  @include get-vw-small-increase(padding-right, 20px, 20px);
+  @include get-vw-small-increase(max-width, 600px, 600px);
   margin: 0 auto;
   text-align: center;
+  min-height: 100vh;
   h1 {
     @include get-vw(font-size, 40px, 36px);
     @include get-vw(margin-bottom, 20px, 18px);
     @include get-vw(letter-spacing, -1.2px, -1.08px);
+    font-family: $gtBold;
+    line-height: 95%;
+  }
+  @include bp-767 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.accountContainer {
+  @include get-vw(padding-left, 20px, 20px);
+  @include get-vw(padding-right, 20px, 20px);
+  @include get-vw(max-width, 720px, 720px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 100vh;
+  h1 {
+    @include get-vw-small-increase(font-size, 60px, 60px);
+    @include get-vw-small-increase(letter-spacing, -1.8px, -1.8px);
+    @include get-vw(margin-bottom, 14px, 14px);
     font-family: $gtBold;
     line-height: 95%;
   }

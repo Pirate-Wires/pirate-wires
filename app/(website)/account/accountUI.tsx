@@ -1,4 +1,3 @@
-// /app/(website)/account/accountUI.tsx
 'use client';
 import styles from "@/styles/pages/account.module.scss"
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
@@ -29,7 +28,7 @@ export default function AccountUI(
     }
     setActiveTab(newArr);
   };
-
+          
   const user = session?.user;
   const subscriptionPrice =
     subscription &&
@@ -104,6 +103,7 @@ export default function AccountUI(
             </div>
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
+
             <EmailPreferences user={user} />
 
           </div>
@@ -113,7 +113,6 @@ export default function AccountUI(
 
           <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
 
-            subscription and billing
             <div className={styles.infoGroup}>
               {subscription ? (
                 `${subscriptionPrice}/${subscription?.prices?.interval}`
