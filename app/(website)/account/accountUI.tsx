@@ -9,7 +9,6 @@ import { EmailPreferences } from "./EmailPreferences";
 export default function AccountUI(
   {
     userDetails,
-    subscription,
     session,
     updateName,
     updateEmail
@@ -28,14 +27,6 @@ export default function AccountUI(
   };
 
   const user = session?.user;
-  const subscriptionPrice =
-    subscription &&
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: subscription?.prices?.currency!,
-      minimumFractionDigits: 0
-    }).format((subscription?.prices?.unit_amount || 0) / 100);
-
 
   return (
     <section className="accountContainer c-20">
