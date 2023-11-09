@@ -1,3 +1,4 @@
+// /app/(website)/account/page.tsx
 import {
   getSession,
   getUserDetails,
@@ -8,10 +9,11 @@ import type { Database } from '@/types/supabase';
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import Navbar from '@/components/ui/Navbar';
-import { EmailPreferences } from './EmailPreferences';
+import React from 'react';
+import Navigation from '@/components/navigation';
+import { getGlobalFields } from "@/lib/sanity/client";
+import AccountUI from "@/app/(website)/account/accountUI";
 
 export default async function Account() {
   const [session, userDetails, products, subscription] = await Promise.all([
@@ -21,21 +23,11 @@ export default async function Account() {
     getSubscription()
   ]);
 
-  const user = session?.user;
-  console.log('user', user?.email);
+  const globalFields = await getGlobalFields();
 
   if (!session) {
     return redirect('/sign-in');
   }
-
-  const subscriptionPrice =
-    subscription &&
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: subscription?.prices?.currency!,
-      minimumFractionDigits: 0
-    }).format((subscription?.prices?.unit_amount || 0) / 100);
-
   const updateName = async (formData: FormData) => {
     'use server';
 
@@ -69,102 +61,19 @@ export default async function Account() {
     }
     revalidatePath('/account');
   };
-
-  return (
-    <div>
-      <Navbar />
-
-      <hr />
-
-      {/* nav */}
-      <ul>
-        <li>My details</li>
-        <li>Email Preferences</li>
-        <li>Commenting</li>
-        <li>Subscription & Billing</li>
-        <li>Sign Out</li>
-      </ul>
-
-      <hr />
-
-      <section>
-        <h3>My Details</h3>
-        <form>
-          <label htmlFor="firstName">First Name:</label>
-          <input type="text" id="firstName" name="firstName" required />
-          <br />
-          <label htmlFor="lastName">Last Name:</label>
-          <input type="text" id="lastName" name="lastName" required />
-          <br />
-          <button type="submit">Save</button>
-        </form>
-        <form id="emailForm" action={updateEmail}>
-          <label htmlFor="firstName">Update your email:</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            value={user ? user.email : ''}
-            required
-          />
-          <br />
-          <button type="submit">Save</button>
-        </form>
-      </section>
-
-      <hr />
-
-      <section>
-        <EmailPreferences user={user} />
-      </section>
-
-      <hr />
-
-      <section>
-        <h3>Commenting</h3>
-        <form id="emailForm" action={updateEmail}>
-          <label htmlFor="firstName">Comment username:</label>
-          <input
-            type="text"
-            id="commentUsername"
-            name="commentUsername"
-            required
-          />
-          <br />
-          <p>Change this to add comments with another username</p>
-          <button type="submit">Save</button>
-        </form>
-      </section>
-
-      <hr />
-
-      <section>
-        <div>
-          <h3>Subscription & Billing</h3>
-          <p>
-            {/* all subscriptionf from stipe must be aggregated into a single "product" */}
-            {subscription
-              ? `You are currently subscribed - ${subscription?.prices?.products?.name}.`
-              : 'You are not currently subscribed to any plan.'}
-          </p>
-          <div className="">
-            {subscription ? (
-              `${subscriptionPrice}/${subscription?.prices?.interval}`
-            ) : (
-              <Link href="/">Subscribe</Link>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <hr />
-
-      {/* <Pricing
-        session={session}
-        user={session?.user}
-        products={products}
-        subscription={subscription}
-      /> */}
-    </div>
-  );
+  return <div className="colorWrapper reducedHeaderPage" style={{
+    "--color": "#060606",
+    "--bgColor": "#E3E3E3",
+    "--accentLight": "rgba(43, 43, 43, 0.45)",
+  } as React.CSSProperties}>
+    <Navigation globalFields={globalFields} />
+    <AccountUI
+      userDetails={userDetails}
+      subscription={subscription}
+      session={session}
+      products={products}
+      updateName={updateName}
+      updateEmail={updateEmail}
+    />
+  </div>
 }
