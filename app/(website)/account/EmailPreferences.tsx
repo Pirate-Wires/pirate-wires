@@ -6,6 +6,20 @@ export const EmailPreferences = ({ user }) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
 
+  // Fetch and update user preferences on component mount
+  useEffect(() => {
+    // Make a GET request to fetch the user's preferences from the new API endpoint
+    fetch(`/api/customer-io?email=${user.email}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const userPreferences = data.preferences;
+        setSelectedNewsLetters(userPreferences);
+      })
+      .catch((error) => {
+        console.error('Error fetching user preferences:', error);
+      });
+  }, [user.email]);
+
   const handleSelect = (event) => {
     const name = event.target.name;
     setSelectedNewsLetters(
@@ -16,25 +30,31 @@ export const EmailPreferences = ({ user }) => {
   };
 
   const sendAPI = useCallback(async () => {
-      try {
-        const response = await fetch('/api/customer-io', {
-            method: 'PUT',
-            body: JSON.stringify({
-              email: user?.email,
-              existingUser: true,
-              subscription: selectedNewsLetters
-            })
-        });
+    try {
+      const response = await fetch('/api/customer-io', {
+        method: 'PUT',
+        body: JSON.stringify({
+          email: user?.email,
+          existingUser: true,
+          subscription: selectedNewsLetters
+        })
+      });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-        setIsProgress(true);
+      // API call successful
+      // Set isProgress to false to hide the "Processing..." message
+      setIsProgress(false);
     } catch (error) {
-        console.error('There was an error!', error);
+      console.error('There was an error!', error);
+      // Handle the error if needed
+      // Set isProgress to false even if there's an error
+      setIsProgress(false);
     }
   }, [selectedNewsLetters, user?.email]);
+
 
   useEffect(() => {
     if (!selectedNewsLetters.length) return;
@@ -49,7 +69,7 @@ export const EmailPreferences = ({ user }) => {
           style={{
             position: 'absolute',
             width: '100%',
-            height: '110px',
+            height: '30px',
             zIndex: '100',
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
             display: 'flex',
