@@ -148,7 +148,7 @@ export async function getAllPostsSlugs() {
 
 export async function getAuthorPosts(slug) {
   if (client) {
-    return (await client.fetch(postsbyauthorquery, { slug }, { next: { tags: ['author'] } })) || {};
+    return (await client.fetch(postsbyauthorquery, { slug }, { next: { tags: ['author', 'post'] } })) || {};
   }
   return {};
 }
