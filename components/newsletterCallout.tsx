@@ -10,7 +10,7 @@ export default function NewsletterCallout({ newsletterData }) {
     const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -69,11 +69,11 @@ export default function NewsletterCallout({ newsletterData }) {
             }
 
             setIsLoading(false);
-            setError('');
+            setError(null);
         } catch (error) {
             console.error('There was an error!', error);
             setIsLoading(false);
-            setError('');
+            setError(error.message);
         }
     }
 
@@ -128,7 +128,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected2">Selected</label>
-                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected2" name="The White Phill" onChange={handleSelect} checked={selectedNewsLetters.indexOf('The White Phill') > -1} />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected2" name="The White Pill" onChange={handleSelect} checked={selectedNewsLetters.indexOf('The White Pill') > -1} />
                             </div>
                         </div>
                     </div>
