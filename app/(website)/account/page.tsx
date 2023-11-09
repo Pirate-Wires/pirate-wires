@@ -67,6 +67,7 @@ export default async function Account() {
     "--accentLight": "rgba(43, 43, 43, 0.45)",
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
+    {/* @ts-ignore */}
     <AccountUI
       userDetails={userDetails}
       subscription={subscription}
