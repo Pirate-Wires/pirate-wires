@@ -1,5 +1,5 @@
 "use client"
-import {useState } from 'react';
+import { useState } from 'react';
 import { usePathname } from "next/navigation";
 
 import styles from "./_styles/newsletterCallout.module.scss"
@@ -17,12 +17,12 @@ export default function NewsletterCallout({ newsletterData }) {
 
         const email = event.target.email.value;
 
-        if(!email) {
+        if (!email) {
             setIsSuccess(false);
             setError('Email is required');
             return;
         }
-        if(!selectedNewsLetters.length) {
+        if (!selectedNewsLetters.length) {
             setIsSuccess(false);
             setError('Newsletter selection is required');
             return;
@@ -32,7 +32,22 @@ export default function NewsletterCallout({ newsletterData }) {
         setIsSuccess(false);
 
         try {
-            const response = await fetch('/api/customer-io', {
+            // Check if the email already exists in Customer.io
+            const checkResponse = await fetch(`/api/customer-io?email=${email}`);
+            const checkData = await checkResponse.json();
+
+            if (!checkResponse.ok) {
+                throw new Error(`Error checking email existence! Status: ${checkResponse.status}`);
+            }
+
+            if (checkData.exists) {
+                // Email exists, retrieve existing preferences and update selectedNewsLetters
+                const existingPreferences = checkData.preferences || [];
+                setSelectedNewsLetters(existingPreferences);
+            }
+
+            // Proceed with updating or creating the user in Customer.io
+            const updateResponse = await fetch('/api/customer-io', {
                 method: 'PUT',
                 body: JSON.stringify({
                     email,
@@ -40,17 +55,17 @@ export default function NewsletterCallout({ newsletterData }) {
                 })
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            if (!updateResponse.ok) {
+                throw new Error(`HTTP error! Status: ${updateResponse.status}`);
             }
 
-            const data = await response.json();
+            const updateData = await updateResponse.json();
 
-            if(data.success) {
-              setIsSuccess(true);
+            if (updateData.success) {
+                setIsSuccess(true);
 
-              event.target.email.value = '';
-              setSelectedNewsLetters([]);
+                event.target.email.value = '';
+                setSelectedNewsLetters([]);
             }
 
             setIsLoading(false);
@@ -61,6 +76,7 @@ export default function NewsletterCallout({ newsletterData }) {
             setError('');
         }
     }
+
 
     const handleSelect = (event) => {
         const name = event.target.name;
@@ -99,7 +115,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected1">Selected</label>
-                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected1" name="Wires" onChange={handleSelect} checked={selectedNewsLetters.indexOf('Wires') > -1}/>
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected1" name="Wires" onChange={handleSelect} checked={selectedNewsLetters.indexOf('Wires') > -1} />
                             </div>
                         </div>
                     </div>
