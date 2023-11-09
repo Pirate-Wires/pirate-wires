@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 
 interface EmailInputProps {
   onSubmit: (e: React.FormEvent, email: string) => void;
+  isLoading: boolean;
 }
 
-const EmailInput: React.FC<EmailInputProps> = ({ onSubmit }) => {
+const EmailInput: React.FC<EmailInputProps> = ({ onSubmit, isLoading }) => {
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +25,7 @@ const EmailInput: React.FC<EmailInputProps> = ({ onSubmit }) => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button type="submit">Send OTP</button>
+      <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Send OTP'}</button>
     </form>
   );
 };

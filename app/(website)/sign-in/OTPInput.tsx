@@ -1,11 +1,11 @@
 // /app/(website)/sign-in/OTPInput.tsx
-import React, { useState, useRef, ChangeEvent, KeyboardEvent, FormEvent, ClipboardEventHandler } from 'react';
+import React, { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 
 interface OTPInputProps {
-  onOTPSubmit: (otp: string) => void;
+  onOTPChange: (otp: string) => void;
 }
 
-const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
+const OTPInput: React.FC<OTPInputProps> = ({ onOTPChange }) => {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(''));
 
   const ref0 = useRef<HTMLInputElement>(null);
@@ -29,6 +29,9 @@ const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
     newOtp[index] = value;
     setOtp(newOtp);
 
+    const fullOTP = newOtp.join('');
+    onOTPChange(fullOTP);
+
     // Move focus to the next input field if a digit is entered
     if (index < 5 && value !== '') {
       inputRefs[index + 1]?.current?.focus();
@@ -39,6 +42,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
     if (event.key === 'Backspace' && index > 0 && otp[index] === '') {
       inputRefs[index - 1]?.current?.focus();
     }
+    inputRefs.map(item => item.current?.value).join('');
   };
 
   const handlePaste = (event) => {
@@ -53,41 +57,26 @@ const OTPInput: React.FC<OTPInputProps> = ({ onOTPSubmit }) => {
           inputRef.value = value;
         }
       });
+      inputRefs[inputRefs.length - 1].current?.focus();
+      onOTPChange(pastedData);
     }
   };
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    // Combine the OTP digits to form the full OTP code
-    const fullOTP = otp.join('');
-    onOTPSubmit(fullOTP); // Pass the OTP to the parent component for submission
-  };
-
   return (
-    <>
-      <h2>Confirm Your Sign In</h2>
-      <p>We just sent a 6 digit code to your email</p>
-      <form onSubmit={handleSubmit}>
-        <div className="otp-input-container">
-
-          {otp.map((value, index) => (
-            <input
-              key={index}
-              type="text"
-              maxLength={1}
-              value={value}
-              onChange={(event) => handleChange(event, index)}
-              onKeyUp={(event) => handleBackspace(event, index)}
-              ref={inputRefs[index]}
-              onPaste={handlePaste}
-            />
-          ))}
-        </div>
-
-        <button type="submit">Confirm</button>
-        <a href="#">Resend Code</a>
-      </form>
-    </>
+    <div className="otp-input-container">
+      {otp.map((value, index) => (
+        <input
+          key={index}
+          type="text"
+          maxLength={1}
+          value={value}
+          onChange={(event) => handleChange(event, index)}
+          onKeyUp={(event) => handleBackspace(event, index)}
+          ref={inputRefs[index]}
+          onPaste={handlePaste}
+        />
+      ))}
+    </div>
   );
 };
 
