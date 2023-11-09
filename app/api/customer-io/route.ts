@@ -70,8 +70,6 @@ export async function POST(req: Request) {
         : [...customerSubscription, section];
     const topics = ['Wires', 'The Industry', 'The White Pill'];
 
-    console.log(email, subscription);
-
     if (cioId) {
       trackerCio.identify(`cio_${cioId}`, {
         cio_subscription_preferences: `{
@@ -111,27 +109,3 @@ export async function POST(req: Request) {
     return new Response(`Error: ${err.message}`, { status: 500 });
   }
 }
-
-// export async function GET(req: Request) {
-//   const { email } = req.query;
-
-//   try {
-//     const response = await apiCio.getCustomersByEmail(email);
-
-//     if (response.results.length > 0) {
-//       const customer = response.results[0];
-//       const subscriptionPreferences = customer.cio_subscription_preferences;
-
-//       if (subscriptionPreferences) {
-//         // Extract the preferences from the subscriptionPreferences data
-//         const preferences = JSON.parse(subscriptionPreferences);
-
-//         return new Response(JSON.stringify({ preferences }), { status: 200 });
-//       }
-//     }
-
-//     return new Response(JSON.stringify({ preferences: [] }), { status: 200 });
-//   } catch (err) {
-//     return new Response(`Error: ${err.message}`, { status: 500 });
-//   }
-// }
