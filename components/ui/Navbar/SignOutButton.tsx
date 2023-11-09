@@ -2,7 +2,6 @@
 
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import { useRouter } from 'next/navigation';
-
 import styles from "@/styles/pages/account.module.scss";
 
 export default function SignOutButton() {

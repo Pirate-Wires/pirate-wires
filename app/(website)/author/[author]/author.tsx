@@ -81,10 +81,10 @@ export default function Author({ posts, authorData }) {
       </div>
 
       <section className="postGrid c-20">
-        {posts.map(post => (
+        {posts.map((post, index) => (
           // @ts-ignore
           <PostList
-            key={post._id}
+            key={index}
             post={post}
             aspect="landscape"
             preloadImage={true}

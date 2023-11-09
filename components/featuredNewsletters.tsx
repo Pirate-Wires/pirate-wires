@@ -2,8 +2,11 @@
 import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
-import { useEffect, useState } from "react";
-export default function FeaturedNewsletters({ newsletters }) {
+import { useEffect, useState, FormEvent } from "react";
+
+export default function FeaturedNewsletters({ newsletters, section }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {
     setTimeout(() => {
@@ -13,21 +16,21 @@ export default function FeaturedNewsletters({ newsletters }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
+      // emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
       const prev = document.getElementById("prev")
       const next = document.getElementById("next")
-      prev.addEventListener("click", () => {
+      prev?.addEventListener("click", () => {
         emblaApi.scrollPrev()
-        if (next.classList.contains("disabled")) {
+        if (next?.classList.contains("disabled")) {
           next.classList.remove("disabled")
         }
         if (!emblaApi.canScrollPrev()) {
           prev.classList.add("disabled")
         }
       })
-      next.addEventListener("click", () => {
+      next?.addEventListener("click", () => {
         emblaApi.scrollNext()
-        if (prev.classList.contains("disabled")) {
+        if (prev?.classList.contains("disabled")) {
           prev.classList.remove("disabled")
         }
         if (!emblaApi.canScrollNext()) {
@@ -36,6 +39,43 @@ export default function FeaturedNewsletters({ newsletters }) {
       })
     }
   }, [emblaApi]);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setIsLoading(true);
+    setIsSuccess(false);
+
+    const form = event.target as HTMLFormElement;
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+    const email = emailInput.value;
+
+    try {
+      const response = await fetch('/api/customer-io', {
+          method: 'POST',
+          body: JSON.stringify({
+            email,
+            section,
+          })
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if(data.success) {
+        setIsSuccess(true);
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+        console.error('There was an error!', error);
+        setIsLoading(false);
+    }
+  }
+
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
@@ -86,11 +126,15 @@ export default function FeaturedNewsletters({ newsletters }) {
       <div className={`${styles.right} featNewslettersBorder pt-20`}>
         <h3>Join, or die</h3>
         <p>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
-        <form className={`${styles.form}`}>
-          <input type="email" required placeholder="Your email here..." />
-          <button type="submit">Sign Up</button>
+        <form className={`${styles.form}`} onSubmit={handleSubmit}>
+          <input type="email" name="email" required placeholder="Your email here..." />
+          <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Sign Up'}</button>
         </form>
-        <p className={styles.tagline}></p>
+        {isSuccess &&
+          <p className={styles.tagline}>
+           Thanks for subscribing!
+          </p>
+        }
       </div>
     </section>
   );

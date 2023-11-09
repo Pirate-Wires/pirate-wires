@@ -1,5 +1,4 @@
 // /lib/sanity/schemas/post.ts
-import SendEmailCustomerIO from './SendEmailCustomerIO';
 import {defineArrayMember, defineField} from "sanity";
 
 const schema = {

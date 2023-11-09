@@ -3,10 +3,21 @@ import Link from "next/link";
 import {useDateFormatter} from "@/hooks/useDateFormatter";
 import {useState} from "react";
 
-export default function PostList({
+import { Post } from "@/types";
+
+interface PostListProps {
+  post: Post;
+  pathPrefix?: string;
+  aspect?: string;
+  preloadImage?: boolean;
+}
+
+const PostList: React.FC<PostListProps> = ({
   post,
   pathPrefix,
-}) {
+  aspect,
+  preloadImage
+}) => {
 
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {
@@ -22,7 +33,7 @@ export default function PostList({
           {(post.mainImage && post.mainImage.asset) && (
             <>
               {!loaded &&
-                <img src={post.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
+                <img src={post.mainImage.blurDataURL} alt={post.mainImage.alt} decoding="async" loading="lazy" className="cover-image"/>
               }
               <picture>
                 <source srcSet={`${post.mainImage.asset.url}?auto=format&w=600&q=90, ${post.mainImage.asset.url}?auto=format&w=800&q=90 2x`} media="(min-width: 768px)" />
@@ -64,3 +75,5 @@ export default function PostList({
     </article>
   );
 }
+
+export default PostList;

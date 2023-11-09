@@ -1,45 +1,29 @@
+// /app/(website)/p/[slug]/default.tsx
 "use client"
-// app/(website)/p/[slug]/home.tsx
-import {
-  getSession,
-  getUserDetails,
-  getSubscription,
-  getActiveProductsWithPrices
-} from '@/app/(website)/supabase-server';
 import Link from "next/link";
-import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { useDateFormatter } from "@/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss"
 import articleCountStyles from "@/components/_styles/articleCountEls.module.scss"
-// import CommentSection from '@/lib/supabase-comments/components/comments/CommentSection';
 import React, { useState } from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
-import { CommentsContextProvider, useComments } from "@/lib/comments/lib/hooks/use-comments";
-import CommentSection from "@/lib/comments/lib/components/comments/CommentSection";
+import { commentsConditional } from '@/components/commentsConditional';
 
 export default function Post(props) {
-  const { loading, post, session, thisSectionArticles } = props;
-  const user = session?.user;
-  console.log('user', user)
 
-  console.log(user?.id);
-  console.log(user?.email);
-  console.log(user?.aud);
-  console.log(user?.role);
-
-
-  const { count } = useComments();
-
+  const { loading, post, thisSectionArticles } = props;
 
   const slug = post?.slug;
 
   if (!loading && !slug) {
     notFound();
   }
+
+  const formattedDate = useDateFormatter(post?.publishedAt || post._createdAt, true);
+
   let relatedArticles = post.related_posts
   if (!relatedArticles) {
     relatedArticles = []
@@ -91,7 +75,7 @@ export default function Post(props) {
                 <Link href={`/author/${post.author.slug.current}`}>
                   {post.author.name}
                 </Link>
-                <p>{useDateFormatter(post?.publishedAt || post._createdAt, true)}</p>
+                <p>{formattedDate}</p>
               </div>
             </div>
 
@@ -109,7 +93,7 @@ export default function Post(props) {
                 <Link href={`/author/${post.author.slug.current}`}>
                   {post.author.name}
                 </Link>
-                <p>{useDateFormatter(post?.publishedAt || post._createdAt, true)}</p>
+                <p>{formattedDate}</p>
               </div>
             </div>
             <div className={`${styles.imageWrapper} imageWrapper`}>
@@ -138,7 +122,20 @@ export default function Post(props) {
         </div>
       </section>
 
-      <RemainingArticleEls />
+      {/*
+      // components/commentsConditional.tsx
+       subscription status here
+      */}
+
+      {/* {isUserAuthenticated ? (
+        <div>comments section</div>
+      ) : (
+        <div>
+          <a href="/subscribe">subscribe</a> or <a href="/sign-in">sign-in</a> to comment
+        </div>
+      )} */}
+
+      <RemainingArticleEls relatedArticles={[]} />
 
       <RelatedArticles relatedArticles={relatedArticles} />
     </>

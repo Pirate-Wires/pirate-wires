@@ -1,33 +1,34 @@
 'use client';
 import styles from "@/styles/pages/account.module.scss"
-import Link from "next/link";
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
-import ManageSubscriptionButton from "@/app/(website)/account/ManageSubscriptionButton";
+import React, { useState } from "react";
+import { EmailPreferences } from "./EmailPreferences";
+import Link from "next/link";
 import Pricing from "@/components/Pricing";
-import React, {useState} from "react";
 
 export default function AccountUI(
   {
     userDetails,
     subscription,
-    session,
     products,
+    session,
     updateName,
     updateEmail
   }) {
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
-  const updateActiveTab = (idx) => {
-    const newArr = []
+  const updateActiveTab = (idx: number) => {
+    const newArr: boolean[] = [];
     for (let i = 0; i < tabVisibility.length; i++) {
       if (idx === i) {
-        newArr.push(true)
+        newArr.push(true);
       } else {
-        newArr.push(false)
+        newArr.push(false);
       }
     }
-    setActiveTab(newArr)
-  }
+    setActiveTab(newArr);
+  };
+          
   const user = session?.user;
   const subscriptionPrice =
     subscription &&
@@ -36,7 +37,6 @@ export default function AccountUI(
       currency: subscription?.prices?.currency!,
       minimumFractionDigits: 0
     }).format((subscription?.prices?.unit_amount || 0) / 100);
-
 
   return (
     <section className="accountContainer c-20">
@@ -103,7 +103,9 @@ export default function AccountUI(
             </div>
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
-            Email preferences
+
+            <EmailPreferences user={user} />
+
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-preferences`}>
             Commenting
