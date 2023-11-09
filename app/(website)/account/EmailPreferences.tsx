@@ -5,18 +5,22 @@ import { useState, useEffect, useCallback } from 'react';
 export const EmailPreferences = ({ user }) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Fetch and update user preferences on component mount
   useEffect(() => {
+    setIsLoading(true);
     // Make a GET request to fetch the user's preferences from the new API endpoint
-    fetch(`/api/customer-io?email=${user.email}`)
+    fetch(`/api/customer-io/preferences?email=${user.email}`)
       .then((response) => response.json())
       .then((data) => {
         const userPreferences = data.preferences;
         setSelectedNewsLetters(userPreferences);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching user preferences:', error);
+        setIsLoading(false);
       });
   }, [user.email]);
 
@@ -64,6 +68,22 @@ export const EmailPreferences = ({ user }) => {
 
   return (
     <>
+      {isLoading && (
+        <div
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '30px',
+            zIndex: '100',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          Loading...
+        </div>
+      )}
       {isProgress && (
         <div
           style={{
@@ -94,11 +114,11 @@ export const EmailPreferences = ({ user }) => {
       <input
         type="checkbox"
         id="topic2"
-        name="The White Phill"
-        checked={selectedNewsLetters.indexOf('The White Phill') > -1}
+        name="The White Pill"
+        checked={selectedNewsLetters.indexOf('The White Pill') > -1}
         onChange={handleSelect}
       />
-      <label>The White Phill</label>
+      <label>The White Pill</label>
       <br />
       <input
         type="checkbox"
