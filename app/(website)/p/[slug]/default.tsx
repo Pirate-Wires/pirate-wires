@@ -1,12 +1,6 @@
+// /app/(website)/p/[slug]/default.tsx
 "use client"
-import {
-  getSession,
-  getUserDetails,
-  getSubscription,
-  getActiveProductsWithPrices
-} from '@/app/(website)/supabase-server';
 import Link from "next/link";
-import Container from "@/components/container";
 import { notFound } from "next/navigation";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import { useDateFormatter } from "@/hooks/useDateFormatter";
@@ -17,11 +11,14 @@ import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
 
+import { commentsConditional } from '@/components/commentsConditional';
+
 export default function Post(props) {
-  const { loading, post, session, thisSectionArticles } = props;
-  const user = session?.user;
+
+  const { loading, post, thisSectionArticles } = props;
 
   const slug = post?.slug;
+
 
   if (!loading && !slug) {
     notFound();
@@ -128,20 +125,23 @@ export default function Post(props) {
       </section>
 
       {/*
-
-      @jaredhwlt
-      
-      if supabase auth session is true and supabase subscriptions.status === active
-    
-        <div>comments section</div>
-
-        else
-
-        <div>subscribe to comment</div>
-
-      endif 
+      // components/commentsConditional.tsx
+       subscription status here
       
       */}
+
+
+      {/* {isUserAuthenticated ? (
+        <div>comments section</div>
+      ) : (
+        <div>
+          <a href="/subscribe">subscribe</a> or <a href="/sign-in">sign-in</a> to comment
+        </div>
+      )} */}
+
+
+
+
 
       <RemainingArticleEls relatedArticles={[]} />
 

@@ -1,8 +1,7 @@
-
 // app/(website)/p/[slug]/page.tsx
 import PostPage from "./default";
 // import { CommentsContextProvider } from '@/lib/supabase-comments/hooks/use-comments';
-import {getAllPostsSlugs, getGlobalFields, getPostBySlug, getPublicationPosts} from "@/lib/sanity/client";
+import { getAllPostsSlugs, getGlobalFields, getPostBySlug, getPublicationPosts } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Newsletters from "@/app/(website)/newsletters/newsletters";
