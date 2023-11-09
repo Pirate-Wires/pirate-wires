@@ -9,13 +9,27 @@ export default function NewsletterCallout({ newsletterData }) {
     const interiorPage = currentRoute === "/newsletters";
     const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const email = event.target.email.value;
 
-        if(!email || !selectedNewsLetters.length)   return;
+        if(!email) {
+            setIsSuccess(false);
+            setError('Email is required');
+            return;
+        }
+        if(!selectedNewsLetters.length) {
+            setIsSuccess(false);
+            setError('Newsletter selection is required');
+            return;
+        }
+
+        setIsLoading(true);
+        setIsSuccess(false);
 
         try {
             const response = await fetch('/api/customer-io', {
@@ -30,12 +44,21 @@ export default function NewsletterCallout({ newsletterData }) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            setIsLoading(true);
+            const data = await response.json();
 
-            event.target.email.value = '';
-            setSelectedNewsLetters([]);
+            if(data.success) {
+              setIsSuccess(true);
+
+              event.target.email.value = '';
+              setSelectedNewsLetters([]);
+            }
+
+            setIsLoading(false);
+            setError('');
         } catch (error) {
             console.error('There was an error!', error);
+            setIsLoading(false);
+            setError('');
         }
     }
 
@@ -55,8 +78,14 @@ export default function NewsletterCallout({ newsletterData }) {
                     {!interiorPage && <h4>Sign up for our Newsletters</h4>}
                     <div className={`${styles.inputWrapper} inputWrapper`}>
                         <input id="email_input" name="email" type="email" placeholder="Your email here..." />
-                        <button type="submit" name="Submit newsletter signup" id="submit">Sign Up</button>
+                        <button type="submit" name="Submit newsletter signup" id="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Sign Up'}</button>
                     </div>
+                    {isSuccess &&
+                        <p className={styles.successMessage}>Thanks for subscribing!</p>
+                    }
+                    {!!error &&
+                        <p className={styles.errorMessage}>{error}</p>
+                    }
                     <p className={styles.selectedCount}>(<span>{selectedNewsLetters.length}</span>) Newsletters Selected</p>
                 </div>
 

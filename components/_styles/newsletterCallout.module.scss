@@ -35,6 +35,17 @@
   font-family: $neueMed;
   font-size: 16px;
 }
+.successMessage {
+  margin-top: 12px;
+  font-family: $neueMed;
+  font-size: 16px;
+}
+.errorMessage {
+  margin-top: 12px;
+  font-family: $neueMed;
+  font-size: 16px;
+  color: red;
+}
 .inputWrapper {
   @include get-vw(width, 520px, 520px);
   input {
