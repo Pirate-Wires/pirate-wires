@@ -52,10 +52,10 @@ export default function FeaturedNewsletters({ newsletters, section }) {
 
     try {
       const response = await fetch('/api/customer-io', {
-          method: 'PUT',
+          method: 'POST',
           body: JSON.stringify({
             email,
-            subscription: [section],
+            section,
           })
       });
 
