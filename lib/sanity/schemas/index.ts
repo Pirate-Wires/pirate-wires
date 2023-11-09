@@ -1,6 +1,5 @@
 // /lib/sanity/schemas/index.ts
 
-import SendEmailCustomerIOComponent from './SendEmailCustomerIOComponent';
 import authors from './authors';
 import author from './author';
 import blockContent from './blockContent';
@@ -34,6 +33,5 @@ export const schemaTypes = [
   theWhitePill,
   theIndustry,
   utilityPages,
-  blockContent,
-  SendEmailCustomerIOComponent
+  blockContent
 ];

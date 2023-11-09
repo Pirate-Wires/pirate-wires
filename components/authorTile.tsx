@@ -13,7 +13,7 @@ export default function AuthorTile({ authorData }) {
       href={`/author/${authorData.slug.current}`} className="authorTile hasGoIcon mb-20 pb-20">
       <div className={`${styles.imgWrapper} imgWrapper mb-20`}>
         <Image
-          src={imageProps.src}
+          src={imageProps?.src}
           {...(authorData.image.blurDataURL && {
             placeholder: "blur",
             blurDataURL: authorData.image.blurDataURL

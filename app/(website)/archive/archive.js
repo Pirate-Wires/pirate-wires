@@ -90,8 +90,8 @@ export default function Post({ posts: initialposts }) {
         )}
         {posts && !isLoading && !isValidating && (
           <div className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-10 xl:grid-cols-4">
-            {posts.map(post => (
-              <PostList key={post._id} post={post} aspect="square" />
+            {posts.map((post, index) => (
+              <PostList key={index} post={post} aspect="square" />
             ))}
           </div>
         )}

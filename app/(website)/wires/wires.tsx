@@ -17,13 +17,13 @@ export default function Wires({ pageData, publicationPosts, publicationNewslette
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 
-      <FeaturedNewsletters newsletters={publicationNewsletters} />
+      <FeaturedNewsletters newsletters={publicationNewsletters} section={'Wires'}  />
 
       <section className="postGrid c-20">
-        {publicationPosts.slice(1).map(post => (
+        {publicationPosts.slice(1).map((post, index) => (
           // @ts-ignore
           <PostList
-            key={post._id}
+            key={index}
             post={post}
             aspect="landscape"
             preloadImage={true}

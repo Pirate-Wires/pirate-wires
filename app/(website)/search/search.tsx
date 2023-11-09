@@ -64,7 +64,7 @@ export default function Search({posts}) {
         <div className="postGrid mt-20">
           {data &&
             data.map((post, index) => (
-              <PostList key={post._id} post={post} aspect="landscape" />
+              <PostList key={index} post={post} aspect="landscape" />
             ))
           }
         </div>

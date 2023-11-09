@@ -2,6 +2,12 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ScrollBasedAnims } from '@/utils/classes/ScrollBasedAnims';
 
+declare global {
+  interface Window {
+    scrollBasedAnims?: ScrollBasedAnims;
+  }
+}
+
 export const useScrollBasedAnims = () => {
   const router = useRouter();
   const [once, setOnce] = useState(false);

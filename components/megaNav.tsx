@@ -5,7 +5,7 @@ import styles from "./_styles/meganav.module.scss"
 import { usePathname } from 'next/navigation';
 import React from "react";
 
-export default function MegaNav({ globalFields, publication }) {
+export default function MegaNav() {
   return (
     <>
       <div className={styles.navBackdrop} id="mega-nav-backdrop"></div>

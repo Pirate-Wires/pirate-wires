@@ -1,14 +1,137 @@
 // app/api/customer-io/route.ts
-// import cio from '../../../lib/cioClient';
+import crypto from 'crypto';
+import { trackerCio, apiCio, getCustomerId } from '@/lib/cioClient';
+import { createAuthUser } from '@/utils/supabase-admin';
+import { getCustomerSubscription } from '@/utils/cio-api';
 
-// export default async function handler(req, res) {
+export async function PUT(req: Request) {
+  const body = await req.json();
+  const { email, subscription } = body;
+
+  try {
+    await createAuthUser(email);
+
+    const response = await apiCio.getCustomersByEmail(email!);
+    const customer = response.results[0];
+    const topics = ['Wires', 'The Industry', 'The White Pill'];
+
+    if (customer) {
+      trackerCio.identify(`cio_${customer.cio_id}`, {
+        cio_subscription_preferences: `{
+          "topics": {
+            ${topics
+              .map(
+                (item, index) =>
+                  `"topic_${index + 1}": ${subscription.indexOf(item) > -1}`
+              )
+              .join(',')}
+          }
+        }`
+      });
+    } else {
+      const cio_id = crypto
+        .createHash('sha256')
+        .update(email)
+        .digest('hex')
+        .slice(0, 12);
+      trackerCio.identify(cio_id, {
+        email,
+        cio_subscription_preferences: `{
+          "topics": {
+            ${topics
+              .map(
+                (item, index) =>
+                  `"topic_${index + 1}": ${subscription.indexOf(item) > -1}`
+              )
+              .join(',')}
+          }
+        }`
+      });
+    }
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (err) {
+    return new Response(`Error: ${err.message}`, { status: 500 });
+  }
+}
+
+export async function POST(req: Request) {
+  const body = await req.json();
+  const { email, section } = body;
+
+  try {
+    await createAuthUser(email);
+
+    const cioId = await getCustomerId(email);
+    const customerSubscription = await getCustomerSubscription(cioId);
+    const subscription =
+      customerSubscription.indexOf(section) > -1
+        ? customerSubscription
+        : [...customerSubscription, section];
+    const topics = ['Wires', 'The Industry', 'The White Pill'];
+
+    console.log(email, subscription);
+
+    if (cioId) {
+      trackerCio.identify(`cio_${cioId}`, {
+        cio_subscription_preferences: `{
+          "topics": {
+            ${topics
+              .map(
+                (item, index) =>
+                  `"topic_${index + 1}": ${subscription.indexOf(item) > -1}`
+              )
+              .join(',')}
+          }
+        }`
+      });
+    } else {
+      const cio_id = crypto
+        .createHash('sha256')
+        .update(email)
+        .digest('hex')
+        .slice(0, 12);
+      trackerCio.identify(cio_id, {
+        email,
+        cio_subscription_preferences: `{
+          "topics": {
+            ${topics
+              .map(
+                (item, index) =>
+                  `"topic_${index + 1}": ${subscription.indexOf(item) > -1}`
+              )
+              .join(',')}
+          }
+        }`
+      });
+    }
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (err) {
+    return new Response(`Error: ${err.message}`, { status: 500 });
+  }
+}
+
+// export async function GET(req: Request) {
 //   const { email } = req.query;
 
 //   try {
-//     const customer = await cio.getCustomersByEmail(email);
+//     const response = await apiCio.getCustomersByEmail(email);
 
-//     res.status(200).json(customer);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
+//     if (response.results.length > 0) {
+//       const customer = response.results[0];
+//       const subscriptionPreferences = customer.cio_subscription_preferences;
+
+//       if (subscriptionPreferences) {
+//         // Extract the preferences from the subscriptionPreferences data
+//         const preferences = JSON.parse(subscriptionPreferences);
+
+//         return new Response(JSON.stringify({ preferences }), { status: 200 });
+//       }
+//     }
+
+//     return new Response(JSON.stringify({ preferences: [] }), { status: 200 });
+//   } catch (err) {
+//     return new Response(`Error: ${err.message}`, { status: 500 });
 //   }
 // }

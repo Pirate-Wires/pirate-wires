@@ -1,57 +1,92 @@
 "use client"
-import styles from "./_styles/newsletterCallout.module.scss"
+import {useState } from 'react';
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
-import { ScrollBasedAnims } from "@/utils/classes/ScrollBasedAnims";
 
-
-
-// const getCustomer = async () => {
-//     try {
-//         const email = 'joshuavaage@icloud.com';
-//         const response = await fetch(`/api/customer-io/route?email=${email}`);
-
-//         if (response.ok) {
-//             const data = await response.json();
-//             return data;
-//         } else {
-//             throw new Error('Failed to fetch customer data');
-//         }
-//     } catch (error) {
-//         console.error('Error fetching customer data:', error);
-//         return null;
-//     }
-// };
-
-// console.log(getCustomer());
-
+import styles from "./_styles/newsletterCallout.module.scss"
 
 export default function NewsletterCallout({ newsletterData }) {
-
     const currentRoute = usePathname();
-    const interiorPage = currentRoute === "/newsletters"
-    let bound = false
-    useEffect(() => {
-        if (!bound) {
-            const form = document.getElementById("newsletter-form")
-            form.addEventListener("submit", (event) => {
-                event.preventDefault();
-                //
-            });
+    const interiorPage = currentRoute === "/newsletters";
+    const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [error, setError] = useState('');
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const email = event.target.email.value;
+
+        if(!email) {
+            setIsSuccess(false);
+            setError('Email is required');
+            return;
         }
-    }, [bound]);
+        if(!selectedNewsLetters.length) {
+            setIsSuccess(false);
+            setError('Newsletter selection is required');
+            return;
+        }
+
+        setIsLoading(true);
+        setIsSuccess(false);
+
+        try {
+            const response = await fetch('/api/customer-io', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    email,
+                    subscription: selectedNewsLetters,
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            if(data.success) {
+              setIsSuccess(true);
+
+              event.target.email.value = '';
+              setSelectedNewsLetters([]);
+            }
+
+            setIsLoading(false);
+            setError('');
+        } catch (error) {
+            console.error('There was an error!', error);
+            setIsLoading(false);
+            setError('');
+        }
+    }
+
+    const handleSelect = (event) => {
+        const name = event.target.name;
+        setSelectedNewsLetters(selectedNewsLetters.indexOf(name) > -1 ?
+            selectedNewsLetters.filter(item => item !== name) :
+            [...selectedNewsLetters, name]);
+    }
+
     return (
         <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
 
-            <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="">
+            <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="" onSubmit={handleSubmit}>
 
                 <div className={styles.top}>
                     {!interiorPage && <h4>Sign up for our Newsletters</h4>}
                     <div className={`${styles.inputWrapper} inputWrapper`}>
                         <input id="email_input" name="email" type="email" placeholder="Your email here..." />
-                        <button type="submit" name="Submit newsletter signup" id="submit">Sign Up</button>
+                        <button type="submit" name="Submit newsletter signup" id="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Sign Up'}</button>
                     </div>
-                    <p className={styles.selectedCount}>(<span>0</span>) Newsletters Selected</p>
+                    {isSuccess &&
+                        <p className={styles.successMessage}>Thanks for subscribing!</p>
+                    }
+                    {!!error &&
+                        <p className={styles.errorMessage}>{error}</p>
+                    }
+                    <p className={styles.selectedCount}>(<span>{selectedNewsLetters.length}</span>) Newsletters Selected</p>
                 </div>
 
                 <div className={styles.bottom}>
@@ -64,7 +99,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected1">Selected</label>
-                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected1" name="Selected" />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected1" name="Wires" onChange={handleSelect} checked={selectedNewsLetters.indexOf('Wires') > -1}/>
                             </div>
                         </div>
                     </div>
@@ -77,7 +112,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected2">Selected</label>
-                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected2" name="Selected" />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected2" name="The White Phill" onChange={handleSelect} checked={selectedNewsLetters.indexOf('The White Phill') > -1} />
                             </div>
                         </div>
                     </div>
@@ -90,7 +125,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected3">Selected</label>
-                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected3" name="Selected" />
+                                <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected3" name="The Industry" onChange={handleSelect} checked={selectedNewsLetters.indexOf('The Industry') > -1} />
                             </div>
                         </div>
                     </div>

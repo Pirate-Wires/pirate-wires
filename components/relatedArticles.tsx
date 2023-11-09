@@ -7,10 +7,10 @@ export default function RelatedArticles({ relatedArticles }) {
     <section className={`${styles.relatedPosts} c-20 ptb-40`}>
       <h5 className={`mb-40`}>Related articles</h5>
       <div className={`postGrid related`}>
-        {relatedArticles.map(post => (
+        {relatedArticles.map((post, index) => (
           // @ts-ignore
           <PostList
-            key={post.title}
+            key={index}
             post={post}
             aspect="landscape"
             preloadImage={true}

@@ -7,6 +7,11 @@ import Stripe from 'stripe';
 
 type Product = Database['public']['Tables']['products']['Row'];
 type Price = Database['public']['Tables']['prices']['Row'];
+type User = {
+  email: string;
+  password: string;
+  email_confirm: boolean;
+}
 
 // Note: supabaseAdmin uses the SERVICE_ROLE_KEY which you must only use in a secure server-side context
 // as it has admin privileges and overwrites RLS policies!
@@ -215,9 +220,66 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+const createAuthUser = async (email: string) => {
+  const userData: User = {
+    email: email,
+    password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD as string,
+    email_confirm: true,
+  };
+
+  const { data: { user }, error } = await supabaseAdmin.auth.admin.createUser(userData);
+  if (error) {
+    return { data: null, error};
+  }
+  console.log(`Auth user created: ${user?.id}`);
+  return { data: user, error: null};
+};
+
+const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
+  const { data: user } = await createAuthUser(customer.email!);
+
+  const { error } = await supabaseAdmin
+    .from('customers')
+    .upsert({ id: user?.id!, stripe_customer_id: customer.id});
+
+  if (error) throw error;
+
+  console.log(`Customer inserted/updated: ${user?.id}`);
+};
+
+const getPostBySlug = async (slug: string) => {
+  const { data, error } = await supabaseAdmin
+    .from('countries')
+    .select()
+    .eq('slug', slug);
+  if(error) {
+    console.log(`Error fetching post data: ${error.message}`);
+    return;
+  }
+  return data;
+};
+
+const getUserByEmail = async (email: string) => {
+  const { data, error } = await supabaseAdmin
+    .from('users')
+    .select()
+    .eq('email', email);
+
+  if(error) {
+    console.log(`Error fetching post data: ${error.message}`);
+    return;
+  }
+
+  return data;
+}
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
   createOrRetrieveCustomer,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
+  createAuthUser,
+  syncSupbaseUserWithStripe,
+  getPostBySlug,
+  getUserByEmail
 };

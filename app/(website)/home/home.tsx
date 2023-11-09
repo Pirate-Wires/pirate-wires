@@ -33,13 +33,13 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
       </div>
 
       <div className="theme-color pt-40 pb-20">
-        <Featured post={wirePosts[0]} includeTop={false} pathPrefix="" />
+        <Featured post={wirePosts[0]} priority={false} pathPrefix="" />
         {wirePosts && (
           <div className="postGrid pirate-wires c-20">
-            {wirePosts.slice(1, 4).map(post => (
+            {wirePosts.slice(1, 4).map((post, index) => (
               // @ts-ignore
               <PostList
-                key={post._id}
+                key={index}
                 post={post}
                 aspect="landscape"
                 preloadImage={true}
@@ -61,10 +61,10 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
               </div>
             </Link>
 
-            {wirePosts.slice(4, 6).map(post => (
+            {wirePosts.slice(4, 6).map((post, index) => (
               // @ts-ignore
               <PostList
-                key={post._id}
+                key={post.index}
                 post={post}
                 aspect="landscape"
                 preloadImage={true}
@@ -102,10 +102,10 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
           </div>
           <Featured post={whitePillPosts[0]} pathPrefix="" />
             <div className="postGrid c-20">
-              {whitePillPosts.slice(1, 6).map(post => (
+              {whitePillPosts.slice(1, 6).map((post, index) => (
                 // @ts-ignore
                 <PostList
-                  key={post._id}
+                  key={index}
                   post={post}
                   aspect="landscape"
                   preloadImage={true}
@@ -154,10 +154,10 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
           </div>
           <Featured post={industryPosts[0]} pathPrefix="" />
           <div className="postGrid c-20">
-            {industryPosts.slice(1, 4).map(post => (
+            {industryPosts.slice(1, 4).map((post, index) => (
               // @ts-ignore
               <PostList
-                key={post._id}
+                key={index}
                 post={post}
                 aspect="landscape"
                 preloadImage={true}
@@ -179,10 +179,10 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
               </div>
             </Link>
 
-            {industryPosts.slice(4, 6).map(post => (
+            {industryPosts.slice(4, 6).map((post, index) => (
               // @ts-ignore
               <PostList
-                key={post._id}
+                key={index}
                 post={post}
                 aspect="landscape"
                 preloadImage={true}
