@@ -229,14 +229,14 @@ const createAuthUser = async (email: string) => {
 
   const { data: { user }, error } = await supabaseAdmin.auth.admin.createUser(userData);
   if (error) {
-    throw error;
+    return { data: null, error};
   }
   console.log(`Auth user created: ${user?.id}`);
-  return user;
+  return { data: user, error: null};
 };
 
 const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
-  const user = await createAuthUser(customer.email!);
+  const { data: user } = await createAuthUser(customer.email!);
 
   const { error } = await supabaseAdmin
     .from('customers')
@@ -259,6 +259,20 @@ const getPostBySlug = async (slug: string) => {
   return data;
 };
 
+const getUserByEmail = async (email: string) => {
+  const { data, error } = await supabaseAdmin
+    .from('users')
+    .select()
+    .eq('email', email);
+
+  if(error) {
+    console.log(`Error fetching post data: ${error.message}`);
+    return;
+  }
+
+  return data;
+}
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
@@ -266,5 +280,6 @@ export {
   manageSubscriptionStatusChange,
   createAuthUser,
   syncSupbaseUserWithStripe,
-  getPostBySlug
+  getPostBySlug,
+  getUserByEmail
 };

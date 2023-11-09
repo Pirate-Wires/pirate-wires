@@ -5,12 +5,10 @@ import { createAuthUser } from '@/utils/supabase-admin';
 
 export async function PUT(req: Request) {
   const body = await req.json();
-  const { email, existingUser, subscription } = body;
+  const { email, subscription } = body;
 
   try {
-    if (!existingUser) {
-      await createAuthUser(email);
-    }
+    await createAuthUser(email);
 
     const response = await apiCio.getCustomersByEmail(email!);
     const customer = response.results[0];
