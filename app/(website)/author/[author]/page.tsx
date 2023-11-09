@@ -22,7 +22,6 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function AuthorPage({ params }) {
-  await revalidateTag("author")
   const posts = await getAuthorPosts(params.author);
   const authorData = await getAuthorData(params.author);
   const globalFields = await getGlobalFields();
