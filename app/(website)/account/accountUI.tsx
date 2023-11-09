@@ -18,17 +18,18 @@ export default function AccountUI(
     updateEmail
   }) {
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
-  const updateActiveTab = (idx) => {
-    const newArr = []
+  const updateActiveTab = (idx: number) => {
+    const newArr: boolean[] = [];
     for (let i = 0; i < tabVisibility.length; i++) {
       if (idx === i) {
-        newArr.push(true)
+        newArr.push(true);
       } else {
-        newArr.push(false)
+        newArr.push(false);
       }
     }
-    setActiveTab(newArr)
-  }
+    setActiveTab(newArr);
+  };
+
   const user = session?.user;
   const subscriptionPrice =
     subscription &&
