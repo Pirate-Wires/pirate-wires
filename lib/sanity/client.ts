@@ -70,7 +70,7 @@ export async function getPostBySlug(slug) {
 
 export async function getHomeData(slug) {
   if (client) {
-    return (await client.fetch(homeQuery, { slug }, { next: { tags: ["singleHome"] } })) || {};
+    return (await client.fetch(homeQuery, { slug, next: { tags: ["singleHome"] } })) || {};
   }
   return {};
 }
