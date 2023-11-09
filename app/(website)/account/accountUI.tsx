@@ -1,10 +1,8 @@
 // /app/(website)/account/accountUI.tsx
 'use client';
 import styles from "@/styles/pages/account.module.scss"
-import Link from "next/link";
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
-import Pricing from "@/components/Pricing";
 import React, { useState } from "react";
 import { EmailPreferences } from "./EmailPreferences";
 
@@ -13,7 +11,6 @@ export default function AccountUI(
     userDetails,
     subscription,
     session,
-    products,
     updateName,
     updateEmail
   }) {
@@ -114,19 +111,7 @@ export default function AccountUI(
 
           <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
 
-            <div className={styles.infoGroup}>
-              {subscription ? (
-                `${subscriptionPrice}/${subscription?.prices?.interval}`
-              ) : (
-                <Link href="/">Choose your plan</Link>
-              )}
-            </div>
-            <Pricing
-              session={session}
-              user={session?.user}
-              products={products}
-              subscription={subscription}
-            />
+            subscription and billing
           </div>
 
 
