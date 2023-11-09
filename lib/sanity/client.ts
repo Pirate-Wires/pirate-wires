@@ -1,5 +1,6 @@
 // lib/sanity/client.ts
 import { apiVersion, dataset, projectId, useCdn } from './config';
+import revalidateTag from "../../app/actions"
 import {
   postquery,
   limitquery,
@@ -104,6 +105,7 @@ export async function getAuthorsData() {
 
 export async function getAuthorData(slug) {
   if (client) {
+    await revalidateTag("author")
     return (await client.fetch(authorQuery, { slug })) || {};
   }
   return {};
@@ -139,7 +141,7 @@ export async function getPublicationNewsletters(section) {
 
 export async function getAllPostsSlugs() {
   if (client) {
-    const slugs = (await client.fetch(pathquery)) || [];
+    const slugs = (await client.fetch(pathquery, { next: { tags: ['posts'] } })) || [];
     return slugs.map((slug) => ({ slug }));
   }
   return [];
@@ -147,21 +149,21 @@ export async function getAllPostsSlugs() {
 
 export async function getAuthorPosts(slug) {
   if (client) {
-    return (await client.fetch(postsbyauthorquery, { slug })) || {};
+    return (await client.fetch(postsbyauthorquery, { slug }, { next: { tags: ['authorPosts'] } })) || {};
   }
   return {};
 }
 
 export async function getAllAuthorsSlugs() {
   if (client) {
-    return (await client.fetch(authorSlugsQuery)) || [];
+    return (await client.fetch(authorSlugsQuery, { next: { tags: ['authors'] } })) || [];
   }
   return [];
 }
 
 export async function getAllUtilityPageSlugs() {
   if (client) {
-    return (await client.fetch(utilityPageSlugsQuery)) || [];
+    return (await client.fetch(utilityPageSlugsQuery, { next: { tags: ['utility'] } })) || [];
   }
   return [];
 }
