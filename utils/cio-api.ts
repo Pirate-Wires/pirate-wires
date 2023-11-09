@@ -26,6 +26,4 @@ export const getCustomerSubscription = async (cioId: string) => {
     console.error('Error:', err);
     return [];
   }
-
-  return [];
 };
