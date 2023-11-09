@@ -5,10 +5,14 @@ import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
 import React, { useState } from "react";
 import { EmailPreferences } from "./EmailPreferences";
+import Link from "next/link";
+import Pricing from "@/components/Pricing";
 
 export default function AccountUI(
   {
     userDetails,
+    subscription,
+    products,
     session,
     updateName,
     updateEmail
@@ -27,6 +31,13 @@ export default function AccountUI(
   };
 
   const user = session?.user;
+  const subscriptionPrice =
+    subscription &&
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: subscription?.prices?.currency!,
+      minimumFractionDigits: 0
+    }).format((subscription?.prices?.unit_amount || 0) / 100);
 
   return (
     <section className="accountContainer c-20">
@@ -103,6 +114,19 @@ export default function AccountUI(
           <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
 
             subscription and billing
+            <div className={styles.infoGroup}>
+              {subscription ? (
+                `${subscriptionPrice}/${subscription?.prices?.interval}`
+              ) : (
+                <Link href="/">Choose your plan</Link>
+              )}
+            </div>
+            <Pricing
+              session={session}
+              user={session?.user}
+              products={products}
+              subscription={subscription}
+            />
           </div>
 
 
