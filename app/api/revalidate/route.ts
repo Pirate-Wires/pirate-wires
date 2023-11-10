@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const secret = process.env.SANITY_REVALIDATE_SECRET
     if (!isValidSignature) {
       const message = 'Invalid signature'
-      return new Response(JSON.stringify({message, isValidSignature, body, secret, headers}), {status: 401})
+      return new Response(JSON.stringify({message, isValidSignature, body}), {status: 401})
     }
 
     if (!body?._type) {
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     // `{next: {tags: ['page']}}` will be revalidated
     revalidateTag(body._type)
 
-    return NextResponse.json({body})
+    return NextResponse.json({body, secret, headers})
   } catch (err) {
     console.error(err)
     return new Response(err.message, {status: 500})
