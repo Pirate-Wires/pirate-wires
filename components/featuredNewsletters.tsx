@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from 'embla-carousel-react'
 import { useEffect, useState, FormEvent } from "react";
+import Link from "next/link";
 
 export default function FeaturedNewsletters({ newsletters, section }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -75,7 +76,7 @@ export default function FeaturedNewsletters({ newsletters, section }) {
         setIsLoading(false);
     }
   }
-
+  console.log(newsletters)
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
@@ -83,7 +84,7 @@ export default function FeaturedNewsletters({ newsletters, section }) {
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
             {newsletters.slice(0, 10).map(newsletter => (
-              <div key={newsletter.title} className={`${styles.slide} embla__slide`}>
+              <Link href={"/p/"+newsletter.slug.current} key={newsletter.title} className={`${styles.slide} embla__slide`}>
                 <div className={styles.slideTop}>
                   <div className={styles.imageWrapper}>
                     {(newsletter.mainImage && newsletter.mainImage.asset) && (
@@ -102,7 +103,7 @@ export default function FeaturedNewsletters({ newsletters, section }) {
                   <h5>{newsletter.title}</h5>
                 </div>
                 <p className="caslon-med">{newsletter.excerpt}</p>
-              </div>
+              </Link>
             ))}
           </div>
           <div className={styles.controls}>
