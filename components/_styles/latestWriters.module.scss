@@ -54,6 +54,9 @@
 
   @include bp-767 {
     margin-bottom: 0;
+    a {
+      display: none;
+    }
   }
 }
 .left  {
@@ -77,6 +80,7 @@
   @include bp-767 {
     font-size: 26px;
     letter-spacing: -0.78px;
+    align-items: center;
   }
 }
 .title {
@@ -84,4 +88,10 @@
   line-height: 133.333%;
   letter-spacing: -0.45px;
   margin-top: 10px;
+}
+.mobileViewAll {
+  display: none;
+  @include bp-767 {
+    display: flex;
+  }
 }

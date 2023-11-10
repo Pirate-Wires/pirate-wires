@@ -37,6 +37,11 @@ export default function LatestWriters({ latestAuthors }) {
             <AuthorTile key={author.name} authorData={author} />
           ))}
         </div>
+        <Link
+          href={`/authors`}
+          className={`${styles.mobileViewAll} btn`}>
+          See all
+        </Link>
       </div>
     </div>
   );

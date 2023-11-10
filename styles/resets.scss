@@ -20,6 +20,7 @@ a {
 }
 input, textarea {
   border: none;
+  -webkit-appearance: none;
   background-color: transparent;
   font-size: 16px;
   font-family: $neueMed;

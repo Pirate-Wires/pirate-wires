@@ -85,6 +85,15 @@ export default function NewsletterCallout({ newsletterData }) {
             [...selectedNewsLetters, name]);
     }
 
+    const clickInnerInput = (event) => {
+        console.log(event.target)
+        if (!event.target.classList.contains("newsletter-tile")) {
+            event.target.closest(".newsletter-tile").querySelector("input").click();
+        } else {
+            event.target.querySelector("input").click();
+        }
+    }
+
     return (
         <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
 
@@ -106,7 +115,7 @@ export default function NewsletterCallout({ newsletterData }) {
                 </div>
 
                 <div className={styles.bottom}>
-                    <div className={`${styles.tile} ${styles.pirateWires}`}>
+                    <div className={`${styles.tile} ${styles.pirateWires} newsletter-tile`} onClick={clickInnerInput}>
                         <p className={styles.eyebrow}>{newsletterData.pirate_wires_frequency}</p>
                         <p className={styles.title}>Pirate Wires</p>
                         <p className={`${styles.subtitle} caslon-med`}>Technology, Politics, Culture.</p>
@@ -119,7 +128,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             </div>
                         </div>
                     </div>
-                    <div className={`${styles.tile} ${styles.whitePill}`}>
+                    <div className={`${styles.tile} ${styles.whitePill} newsletter-tile`} onClick={clickInnerInput}>
                         <p className={styles.eyebrow}>{newsletterData.white_pill_frequency}</p>
                         <p className={styles.title}>The White Pill</p>
                         <p className={`${styles.subtitle} caslon-med`}>Science, Progress, Optimism, Innovation.</p>
@@ -132,7 +141,7 @@ export default function NewsletterCallout({ newsletterData }) {
                             </div>
                         </div>
                     </div>
-                    <div className={`${styles.tile} ${styles.industry}`}>
+                    <div className={`${styles.tile} ${styles.industry} newsletter-tile`} onClick={clickInnerInput}>
                         <p className={styles.eyebrow}>{newsletterData.industry_frequency}</p>
                         <p className={styles.title}>The Industry</p>
                         <p className={`${styles.subtitle} caslon-med`}>Technology, Business.</p>
