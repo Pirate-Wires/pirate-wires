@@ -47,7 +47,9 @@
     white-space: nowrap;
     @include get-vw(font-size, 17.5px, 17.5px);
     @include get-vw(gap, 9px, 9px);
+    @include get-vw(top, -6px, -6px);
     font-family: $neueMed;
+    position: relative;
   }
 
   @include bp-767 {
@@ -60,8 +62,7 @@
   gap: 21px;
 }
 .blurb {
-  font-family: $neueMed;
-  @include get-vw(font-size, 14px, 14px);
+  @include get-vw(font-size, 17px, 17px);
   line-height: 142.857%;
 }
 .name {
