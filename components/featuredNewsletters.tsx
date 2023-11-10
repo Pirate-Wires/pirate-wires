@@ -106,7 +106,6 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
       setIsLoading(false);
     }
   }
-  console.log(newsletters)
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>

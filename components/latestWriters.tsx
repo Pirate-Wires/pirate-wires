@@ -21,7 +21,7 @@ export default function LatestWriters({ latestAuthors }) {
         <div className={styles.top}>
           <div className={styles.left}>
             <h3>Staff Writers</h3>
-            <p className={styles.blurb}></p>
+            <p className={`${styles.blurb} caslon-reg`}>Learn more about the People behind what you read.</p>
           </div>
           <Link
             href={`/authors`}>
@@ -37,6 +37,11 @@ export default function LatestWriters({ latestAuthors }) {
             <AuthorTile key={author.name} authorData={author} />
           ))}
         </div>
+        <Link
+          href={`/authors`}
+          className={`${styles.mobileViewAll} btn`}>
+          See all
+        </Link>
       </div>
     </div>
   );

@@ -90,7 +90,7 @@
 
 .bottom {
   @include get-vw-large-increase(gap, 15px, 15px);
-  @include get-vw-large-increase(font-size, 16px, 16px);
+  @include get-vw-large-increase(font-size, 15px, 15px);
   @include get-vw-large-increase(padding-top, 27px, 27px);
   font-family: $neueReg;
   &:after {

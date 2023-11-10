@@ -31,9 +31,9 @@
   }
 
   @include bp-767 {
-    padding: 10px 10px 20px;
+    padding: 20px 10px 20px;
     h3 {
-      font-size: 60px;
+      font-size: 15.38vw;
     }
   }
 }
@@ -57,5 +57,8 @@
     object-fit: contain;
     width: 100%;
     height: 100%;
+  }
+  @include bp-767 {
+    width: 24vw;
   }
 }
