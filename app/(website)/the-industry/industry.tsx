@@ -7,7 +7,12 @@ import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
-export default function Industry({ pageData, publicationPosts, publicationNewsletters }) {
+export default function Industry({
+  pageData,
+  publicationPosts,
+  publicationNewsletters,
+  user
+}) {
   useScrollBasedAnims()
   return (
     <>
@@ -18,7 +23,11 @@ export default function Industry({ pageData, publicationPosts, publicationNewsle
 
         <Featured post={publicationPosts[0]} pathPrefix="" />
 
-        <FeaturedNewsletters newsletters={publicationNewsletters} section={'The Industry'} />
+        <FeaturedNewsletters
+          newsletters={publicationNewsletters}
+          section={'The Industry'}
+          user={user}
+        />
 
         <section className="postGrid c-20">
           {publicationPosts.slice(1).map((post, index) => (
