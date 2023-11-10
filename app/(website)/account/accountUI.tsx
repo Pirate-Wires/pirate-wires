@@ -28,7 +28,7 @@ export default function AccountUI(
     }
     setActiveTab(newArr);
   };
-          
+
   const user = session?.user;
   const subscriptionPrice =
     subscription &&
@@ -37,6 +37,21 @@ export default function AccountUI(
       currency: subscription?.prices?.currency!,
       minimumFractionDigits: 0
     }).format((subscription?.prices?.unit_amount || 0) / 100);
+
+
+
+  const handleSubmitName = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    await updateName(formData);
+  };
+
+  const handleSubmitEmail = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    await updateEmail(formData);
+  };
+
 
   return (
     <section className="accountContainer c-20">
@@ -55,7 +70,7 @@ export default function AccountUI(
         <div className={`${styles.right}`}>
           <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
             <div className={styles.infoGroup}>
-              <form id="nameForm" action={updateName}>
+              <form id="nameForm" onSubmit={handleSubmitName}>
                 <label>Full name</label>
                 <input
                   type="text"
@@ -78,7 +93,7 @@ export default function AccountUI(
 
 
             <div className={`${styles.infoGroup}`}>
-              <form id="emailForm" action={updateEmail}>
+              <form id="emailForm" onSubmit={handleSubmitEmail}>
                 <label>Email</label>
                 <input
                   type="text"
