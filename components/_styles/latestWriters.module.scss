@@ -93,5 +93,10 @@
   display: none;
   @include bp-767 {
     display: flex;
+    border: 1px solid #e3e3e3;
+    padding: 8px 18px 8px;
+    align-self: center;
+    font-family: $neueMed;
+    font-size: 14px;
   }
 }

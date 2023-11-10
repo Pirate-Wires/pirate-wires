@@ -44,18 +44,6 @@
       button:hover {
         background-color: #111;
       }
-
-      .otp-input-container {
-        display: flex;
-
-        input {
-          width: 40px;
-          padding: 10px;
-          margin-right: 10px;
-          border: 1px solid #000 !important;
-          background-color: aqua;
-        }
-      }
     }
 
     .error {
@@ -67,7 +55,17 @@
     }
   }
 }
+.otp-input-container {
+  display: flex;
 
+  input {
+    width: 40px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #000 !important;
+    background-color: aqua;
+  }
+}
 .disclaimer {
   position: absolute;
   bottom: 20px;

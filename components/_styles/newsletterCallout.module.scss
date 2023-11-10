@@ -120,6 +120,7 @@
         width: 100%;
         background-color: var(--color);
         position: absolute;
+        opacity: 0.6;
         top: -20px;
         right: 0;
       }
@@ -136,6 +137,7 @@
       &:before {
         content: "";
         height: 0.5px;
+        opacity: 0.6;
         width: 100%;
         background-color: var(--color);
         position: absolute;

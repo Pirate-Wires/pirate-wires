@@ -262,6 +262,7 @@ footer {
         position: absolute;
         left: 0;
         top: -20px;
+        opacity: 0.6;
       }
     }
     &:nth-child(even) {
@@ -280,6 +281,9 @@ footer {
   article, .pubLink, .dummyTile, .authorTile {
     width: calc((100% / 3) - 27px);
     position: relative;
+    a {
+      position: relative;
+    }
     &:before {
       content: "";
       height: 0.5px;
@@ -423,10 +427,11 @@ footer {
     }
     .postTitle {
       padding-right: 0;
+      position: unset;
     }
     .goIcon {
       top: 100%;
-      transform: translateY(32px);
+      transform: translateY(-100%);
     }
     .goIconWrapper .goIcon {
       top: -2.5px;
@@ -530,7 +535,10 @@ footer {
 
   @include bp-767 {
     flex-direction: column;
-    gap: 0px;
+    gap: 20px;
+    span {
+      line-height: 1.8em;
+    }
     .right {
       padding: 0;
       width: 100%;
@@ -666,7 +674,13 @@ footer {
     h2, h3, h4 {
       font-size: 40px;
     }
-
+  }
+  @include bp-767 {
+   padding: 10px;
+    .goIconWrapper {
+      bottom: -4px;
+      position: relative;
+    }
   }
 }
 .postAuthor {
@@ -677,6 +691,9 @@ footer {
   @include get-vw(font-size, 14px, 14px);
   @include get-vw(letter-spacing, 0.07px, 0.07px);
   margin-top: 13px;
+  @include bp-767 {
+    margin-top: 15px;
+  }
 }
 
 .excerpt {
@@ -695,7 +712,7 @@ footer {
   }
   span {
     position: relative;
-    @include get-vw(padding-top, 20px, 10px);
+    @include get-vw(padding-top, 20px, 12px);
     opacity: 0.95;
     -webkit-box-orient: vertical;
     display: -webkit-box;
@@ -703,27 +720,32 @@ footer {
     -webkit-line-clamp: 3;
     overflow: hidden;
   }
+  @include bp-767 {
+    margin-top: 20px;
+    padding-right: 0;
+  }
 }
 
 .featuredPost {
+  .excerpt {
+    svg {
+      display: none;
+    }
+  }
   @include bp-767 {
     .excerpt {
-      padding-top: 10px;
+      padding-top: 12px;
       margin-top: 20px;
-      &:before {
-        content: "";
-        height: 0.5px;
-        width: calc(100% - 40px);
-        background-color: var(--accentLight);
+      svg {
+        width: 100%;
+        display: flex;
         position: absolute;
         left: 0;
         top: 0;
       }
     }
-    .goIcon {
-      position: absolute;
-      right: 0;
-      top: 20px;
+    .postAuthor {
+      position: relative;
     }
   }
 }

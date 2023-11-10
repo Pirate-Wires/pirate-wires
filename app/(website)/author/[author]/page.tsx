@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const author = await getAuthorData(params.author);
-  return { title: author.name + " - " + author.title };
+  return { title: author.name + " - " + author.title + " | Pirate Wires" };
 }
 
 export default async function AuthorPage({ params }) {
