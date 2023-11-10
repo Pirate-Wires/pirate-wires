@@ -105,7 +105,7 @@ export async function getAuthorsData() {
 
 export async function getAuthorData(slug) {
   if (client) {
-    return (await client.fetch(authorQuery, { slug }, { next: { tags: ["author"] } })) || {};
+    return (await client.fetch(authorQuery, { slug, next: { tags: ["author"] } })) || {};
   }
   return {};
 }

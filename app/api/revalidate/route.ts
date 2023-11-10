@@ -8,8 +8,7 @@ export async function POST(req: NextRequest) {
       req,
       process.env.SANITY_REVALIDATE_SECRET,
     )
-    const headers = req.headers
-    const secret = process.env.SANITY_REVALIDATE_SECRET
+
     if (!isValidSignature) {
       const message = 'Invalid signature'
       return new Response(JSON.stringify({message, isValidSignature, body}), {status: 401})
