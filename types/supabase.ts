@@ -180,10 +180,11 @@ export interface Database {
       };
       users: {
         Row: {
+          id: string;
+          full_name: string | null;
+          email: string | null;
           avatar_url: string | null;
           billing_address: Json | null;
-          full_name: string | null;
-          id: string;
           payment_method: Json | null;
         };
         Insert: {

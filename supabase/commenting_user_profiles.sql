@@ -1,4 +1,4 @@
--- We are creating the tables profiles, posts, sites, and votes to support our commenting and user profile systems. 
+-- We are creating the tables profiles, posts, sites, and votes to support our commenting and user profile systems.
 
 -- We are also creating a root user and initial post to get started with. This needs to be looked at so that we are accounting for the initial post being the example with which we will be assigning sanity post ids for.
 
@@ -9,6 +9,7 @@ create table profiles (
   username text unique,
   full_name text,
   avatar_url text,
+  email text,
   website text,
 
   primary key (id),

@@ -1,20 +1,20 @@
+// /app/(website)/account/accountUI.tsx
 'use client';
 import styles from "@/styles/pages/account.module.scss"
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
 import React, { useState } from "react";
 import { EmailPreferences } from "./EmailPreferences";
-import Link from "next/link";
-import Pricing from "@/components/Pricing";
 
 export default function AccountUI(
   {
     userDetails,
     subscription,
-    products,
     session,
     updateName,
-    updateEmail
+    updateEmail,
+    updateCommentsNotifications
+
   }) {
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const updateActiveTab = (idx: number) => {
@@ -28,15 +28,28 @@ export default function AccountUI(
     }
     setActiveTab(newArr);
   };
-          
+
   const user = session?.user;
-  const subscriptionPrice =
-    subscription &&
-    new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: subscription?.prices?.currency!,
-      minimumFractionDigits: 0
-    }).format((subscription?.prices?.unit_amount || 0) / 100);
+
+  const handleSubmitName = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    await updateName(formData);
+  };
+
+  const handleSubmitEmail = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    await updateEmail(formData);
+  };
+
+  const handleToggleCommentsNotifications = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('comments_notifications', String(!userDetails?.comments_notifications));
+    await updateCommentsNotifications(formData);
+  };
+
 
   return (
     <section className="accountContainer c-20">
@@ -55,7 +68,7 @@ export default function AccountUI(
         <div className={`${styles.right}`}>
           <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
             <div className={styles.infoGroup}>
-              <form id="nameForm" action={updateName}>
+              <form id="nameForm" onSubmit={handleSubmitName}>
                 <label>Full name</label>
                 <input
                   type="text"
@@ -71,14 +84,13 @@ export default function AccountUI(
                 type="submit"
                 form="nameForm"
               >
-                {/* WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! */}
                 Update Name
               </Button>
             </div>
 
 
             <div className={`${styles.infoGroup}`}>
-              <form id="emailForm" action={updateEmail}>
+              <form id="emailForm" onSubmit={handleSubmitEmail}>
                 <label>Email</label>
                 <input
                   type="text"
@@ -93,7 +105,6 @@ export default function AccountUI(
                 type="submit"
                 form="emailForm"
               >
-                {/* WARNING - In Next.js 13.4.x server actions are in alpha and should not be used in production code! */}
                 Update Email
               </Button>
             </div>
@@ -107,25 +118,26 @@ export default function AccountUI(
             <EmailPreferences user={user} />
 
           </div>
-          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-preferences`}>
-            Commenting
+          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} comments-notifications`}>
+            <label>
+              Receive email notifications for comments
+              <input
+                type="checkbox"
+                checked={userDetails?.comments_notifications || false}
+                onChange={(event) => {
+                  // Toggle the comments_notifications value and update
+                  handleToggleCommentsNotifications(event);
+                }}
+              />
+
+            </label>
           </div>
 
           <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
 
             <div className={styles.infoGroup}>
-              {subscription ? (
-                `${subscriptionPrice}/${subscription?.prices?.interval}`
-              ) : (
-                <Link href="/">Choose your plan</Link>
-              )}
+              Subscription & Billing
             </div>
-            <Pricing
-              session={session}
-              user={session?.user}
-              products={products}
-              subscription={subscription}
-            />
           </div>
 
 
