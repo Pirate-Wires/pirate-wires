@@ -63,14 +63,14 @@ export async function getGlobalFields() {
 
 export async function getPostBySlug(slug) {
   if (client) {
-    return (await client.fetch(singlePostQuery, { slug }, { next: { tags: ["post"] } })) || {};
+    return (await client.fetch(singlePostQuery, { slug, next: { tags: ["post"] } })) || {};
   }
   return {};
 }
 
 export async function getHomeData(slug) {
   if (client) {
-    return (await client.fetch(homeQuery, { slug }, { next: { tags: ["singleHome", "post"] } })) || {};
+    return (await client.fetch(homeQuery, { slug, next: { tags: ["singleHome", "post"] } })) || {};
   }
   return {};
 }
@@ -105,35 +105,35 @@ export async function getAuthorsData() {
 
 export async function getAuthorData(slug) {
   if (client) {
-    return (await client.fetch(authorQuery, { slug, next: { tags: ["author"] } })) || {};
+    return (await client.fetch(authorQuery, { slug, next: { tags: ["author", "home"] } })) || {};
   }
   return {};
 }
 
 export async function getUtilityPageData(slug) {
   if (client) {
-    return (await client.fetch(utilityPageQuery, { slug }, { next: { tags: ["utilityPage"] } })) || {};
+    return (await client.fetch(utilityPageQuery, { slug, next: { tags: ["utilityPage"] } })) || {};
   }
   return {};
 }
 
 export async function getPublicationData(slug) {
   if (client) {
-    return (await client.fetch(publicationDocQuery, { slug }, { next: { tags: ["home", "theIndustry", "pirateWires", "whitePill", "post"] } })) || {};
+    return (await client.fetch(publicationDocQuery, { slug, next: { tags: ["home", "theIndustry", "pirateWires", "whitePill", "post"] } })) || {};
   }
   return {};
 }
 
 export async function getPublicationPosts(section) {
   if (client) {
-    return (await client.fetch(postBySectionQuery, { section }, { next: { tags: ['post'] } })) || {};
+    return (await client.fetch(postBySectionQuery, { section, next: { tags: ['post'] } })) || {};
   }
   return {};
 }
 
 export async function getPublicationNewsletters(section) {
   if (client) {
-    return (await client.fetch(newslettersBySectionQuery, { section }, { next: { tags: ['post'] } })) || {};
+    return (await client.fetch(newslettersBySectionQuery, { section, next: { tags: ['post'] } })) || {};
   }
   return {};
 }
