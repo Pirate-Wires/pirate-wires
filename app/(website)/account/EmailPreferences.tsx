@@ -35,11 +35,10 @@ export const EmailPreferences = ({ user }) => {
 
   const sendAPI = useCallback(async () => {
     try {
-      const response = await fetch('/api/customer-io', {
+      const response = await fetch('/api/customer-io/preferences', {
         method: 'PUT',
         body: JSON.stringify({
           email: user?.email,
-          existingUser: true,
           subscription: selectedNewsLetters
         })
       });
