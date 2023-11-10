@@ -70,7 +70,7 @@ export async function getPostBySlug(slug) {
 
 export async function getHomeData(slug) {
   if (client) {
-    return (await client.fetch(homeQuery, { slug, next: { tags: ["singleHome", "post"] } })) || {};
+    return (await client.fetch(homeQuery, { slug, next: { tags: ["singleHome", "post", "author"] } })) || {};
   }
   return {};
 }
@@ -105,7 +105,7 @@ export async function getAuthorsData() {
 
 export async function getAuthorData(slug) {
   if (client) {
-    return (await client.fetch(authorQuery, { slug, next: { tags: ["author", "home"] } })) || {};
+    return (await client.fetch(authorQuery, { slug, next: { tags: ["author"] } })) || {};
   }
   return {};
 }
@@ -119,7 +119,7 @@ export async function getUtilityPageData(slug) {
 
 export async function getPublicationData(slug) {
   if (client) {
-    return (await client.fetch(publicationDocQuery, { slug, next: { tags: ["home", "theIndustry", "pirateWires", "whitePill", "post"] } })) || {};
+    return (await client.fetch(publicationDocQuery, { slug, next: { tags: ["theIndustry", "pirateWires", "whitePill", "post"] } })) || {};
   }
   return {};
 }
@@ -165,23 +165,4 @@ export async function getAllUtilityPageSlugs() {
     return (await client.fetch(utilityPageSlugsQuery, { next: { tags: ['utility'] } })) || [];
   }
   return [];
-}
-
-export async function getAllAuthors() {
-  if (client) {
-    return (await client.fetch(allauthorsquery)) || [];
-  }
-  return [];
-}
-
-export async function getPaginatedPosts(limit) {
-  if (client) {
-    return (
-      (await client.fetch(paginatedquery, {
-        pageIndex: 0,
-        limit: limit
-      })) || {}
-    );
-  }
-  return {};
 }
