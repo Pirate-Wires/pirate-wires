@@ -7,7 +7,8 @@ import Stripe from 'stripe';
 
 type Product = Database['public']['Tables']['products']['Row'];
 type Price = Database['public']['Tables']['prices']['Row'];
-type User = {
+type User = Database['public']['Tables']['users']['Row'];
+type AuthUser = {
   email: string;
   password: string;
   email_confirm: boolean;
@@ -84,11 +85,13 @@ const upsertPriceRecord = async (price: Stripe.Price) => {
 };
 
 const createOrRetrieveCustomer = async ({
+  uuid,
   email,
-  uuid
+  name = '',
 }: {
-  email: string;
   uuid: string;
+  email: string;
+  name?: string;
 }) => {
   const { data, error } = await supabaseAdmin
     .from('customers')
@@ -97,13 +100,17 @@ const createOrRetrieveCustomer = async ({
     .single();
   if (error || !data?.stripe_customer_id) {
     // No customer record found, let's create one.
-    const customerData: { metadata: { supabaseUUID: string }; email?: string } =
-      {
-        metadata: {
-          supabaseUUID: uuid
-        }
-      };
+    const customerData: {
+      metadata: { supabaseUUID: string };
+      email?: string;
+      name?: string;
+    } = {
+      metadata: {
+        supabaseUUID: uuid
+      }
+    };
     if (email) customerData.email = email;
+    if (name) customerData.name = name;
     const customer = await stripe.customers.create(customerData);
     // Now insert the customer ID into our Supabase mapping table.
     const { error: supabaseError } = await supabaseAdmin
@@ -221,9 +228,9 @@ const manageSubscriptionStatusChange = async (
 };
 
 const createAuthUser = async (email: string) => {
-  const userData: User = {
+  const userData: AuthUser = {
     email: email,
-    password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD as string,
+    password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || '12345678' as string,
     email_confirm: true,
   };
 
@@ -273,6 +280,26 @@ const getUserByEmail = async (email: string) => {
   return data;
 }
 
+const upsertUserRecord = async (
+  id: string,
+  email: string,
+  full_name: string
+) => {
+  const userData: User = {
+    id,
+    full_name,
+    email,
+    avatar_url: null,
+    billing_address: null,
+    payment_method: null
+  };
+
+  const { error } = await supabaseAdmin.from('users').upsert([userData]);
+  if (error) return { error };
+  console.log(`User inserted/updated: ${id}`);
+  return { error: null};
+};
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
@@ -281,5 +308,6 @@ export {
   createAuthUser,
   syncSupbaseUserWithStripe,
   getPostBySlug,
-  getUserByEmail
+  getUserByEmail,
+  upsertUserRecord
 };
