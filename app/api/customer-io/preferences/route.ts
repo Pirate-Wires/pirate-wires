@@ -116,7 +116,7 @@ export async function POST(req: Request) {
     }
 
     return new Response(JSON.stringify({ message: `Thanks for subscribing` }), {
-      status: 409
+      status: 200
     });
   } catch (err) {
     return new Response(`Error: ${err.message}`, { status: 500 });
