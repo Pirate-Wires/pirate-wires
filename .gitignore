@@ -1,6 +1,6 @@
 .env-backup
 .react-email
-
+.vscode
 
 /app/(website)/test
 /pirate-wires-export
