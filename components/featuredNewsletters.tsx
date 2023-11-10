@@ -69,7 +69,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
     };
 
     subscribeStatus();
-  }, []);
+  }, [section, user]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -183,7 +183,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
         {isChecking ? (
           <p>Checking your status...</p>
         ) : isAlreadySubscribed ? (
-          <p>You&apos;ve subscribed already.</p>
+          <p>{`You've subscribed already.`}</p>
         ) : (
           <>
             <h3>Join, or die</h3>
