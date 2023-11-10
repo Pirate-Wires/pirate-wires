@@ -12,9 +12,28 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import Navigation from '@/components/navigation';
-import { getGlobalFields } from "@/lib/sanity/client";
+import {getAuthorsData, getGlobalFields, getSettings} from "@/lib/sanity/client";
 import AccountUI from "@/app/(website)/account/accountUI";
+import {urlForImage} from "@/lib/sanity/image";
 
+export async function generateMetadata({ params }) {
+  const settings = await getSettings();
+  const title = "Account | Pirate Wires"
+  const description = settings.meta_description
+  const image = urlForImage(settings?.openGraphImage)?.src
+
+  return { title: title, description: description, openGraph: {
+      title: title,
+      description: description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 600,
+        },
+      ]
+    }};
+}
 export default async function Account() {
   const [session, userDetails, products, subscription] = await Promise.all([
     getSession(),

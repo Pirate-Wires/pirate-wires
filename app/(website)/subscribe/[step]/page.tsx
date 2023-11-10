@@ -1,14 +1,32 @@
 import React from "react";
 import { notFound } from 'next/navigation'
 
-import {getGlobalFields} from "@/lib/sanity/client";
+import {getGlobalFields, getPodcastData, getSettings} from "@/lib/sanity/client";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
+import {urlForImage} from "@/lib/sanity/image";
+export async function generateMetadata({ params }) {
+  const settings = await getSettings();
+  const title = "Subscribe | Pirate Wires"
+  const description = settings.meta_description
+  const image = urlForImage(settings?.openGraphImage)?.src
 
+  return { title: title, description: description, openGraph: {
+      title: title,
+      description: description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 600,
+        },
+      ]
+    }};
+}
 export default async function SubscribePage({ params }) {
   const globalFields = await getGlobalFields();
 
