@@ -119,7 +119,7 @@ export async function getUtilityPageData(slug) {
 
 export async function getPublicationData(slug) {
   if (client) {
-    return (await client.fetch(publicationDocQuery, { slug }, { next: { tags: ["home", "theIndustry", "pirateWires", "whitePill"] } })) || {};
+    return (await client.fetch(publicationDocQuery, { slug }, { next: { tags: ["home", "theIndustry", "pirateWires", "whitePill", "post"] } })) || {};
   }
   return {};
 }
