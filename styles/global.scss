@@ -900,7 +900,11 @@ footer {
     @include get-vw-small-increase(font-size, 20px, 18px);
     line-height: 160%;
   }
-
+  p, h2, h3, h4, blockquote, img, ul, li {
+    &:first-child {
+      margin-top: 0;
+    }
+  }
   @include bp-1024 {
     max-width: 740px;
   }
