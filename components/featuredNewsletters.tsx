@@ -82,27 +82,27 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
 
     try {
       const response = await fetch('/api/customer-io/preferences', {
-          method: 'POST',
-          body: JSON.stringify({
-            email,
-            section,
-          })
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          section,
+        })
       });
 
       if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
 
-      if(data.success) {
+      if (data.success) {
         setIsSuccess(true);
       }
 
       setIsLoading(false);
     } catch (error) {
-        console.error('There was an error!', error);
-        setIsLoading(false);
+      console.error('There was an error!', error);
+      setIsLoading(false);
     }
   }
 
@@ -186,7 +186,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
         {isChecking ? (
           <p>Checking your status...</p>
         ) : isAlreadySubscribed ? (
-          <p>You've subscribed already.</p>
+          <p>You&apos;ve subscribed already.</p>
         ) : (
           <>
             <h3>Join, or die</h3>
