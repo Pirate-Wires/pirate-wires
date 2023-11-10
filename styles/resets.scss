@@ -1,8 +1,5 @@
-/*
-	CUSTOM RESET
+@import "./abstracts";
 
-	- Global reset _styles
--------------------------------------------------- */
 html,
 body {
   overscroll-behavior: none;
@@ -21,9 +18,11 @@ a {
     outline: 0 none;
   }
 }
-input {
+input, textarea {
   border: none;
   background-color: transparent;
+  font-size: 16px;
+  font-family: $neueMed;
   &:focus {
     outline: none;
   }

@@ -39,8 +39,8 @@
 .top, .middle, .bottom {
   display: flex;
   flex-direction: column;
-  @include get-vw-large-increase(font-size, 18px, 18px);
-  @include get-vw-large-increase(margin-bottom, 24px, 24px);
+  @include get-vw-large-increase(font-size, 22px, 22px);
+  @include get-vw-large-increase(margin-bottom, 26px, 26px);
   position: relative;
   
 }
@@ -68,7 +68,7 @@
 }
 
 .middle {
-  @include get-vw-large-increase(gap, 15px, 15px);
+  @include get-vw-large-increase(gap, 19px, 19px);
   @include get-vw-large-increase(padding-top, 19px, 19px);
   &:after {
     width: 100%;
@@ -89,8 +89,8 @@
 }
 
 .bottom {
-  @include get-vw-large-increase(gap, 13px, 13px);
-  @include get-vw-large-increase(font-size, 12px, 12px);
+  @include get-vw-large-increase(gap, 15px, 15px);
+  @include get-vw-large-increase(font-size, 16px, 16px);
   @include get-vw-large-increase(padding-top, 27px, 27px);
   font-family: $neueReg;
   &:after {
@@ -111,19 +111,28 @@
 }
 .socialRow {
   display: flex;
-  @include get-vw-large-increase(gap, 23px, 23px);
+  @include get-vw-large-increase(gap, 25px, 25px);
   align-items: center;
   margin-top: auto;
   path {
     fill: #060606;
   }
-
+  svg {
+    height: auto;
+  }
+  a {
+    @include get-vw-large-increase(height, 20px, 20px);
+    @include get-vw-large-increase(width, 20px, 20px);
+    display: flex;
+    align-items: center;
+    &:nth-child(3) {
+      @include get-vw-large-increase(height, 25px, 25px);
+      @include get-vw-large-increase(width, 25px, 25px);
+    }
+  }
   @include bp-767 {
     justify-content: center;
     @include get-vw-large-increase(gap, 35px, 35px);
-    a {
-      @include get-vw-large-increase(height, 20px, 20px);
-    }
     svg {
       height: 100%;
     }

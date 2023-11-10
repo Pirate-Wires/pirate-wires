@@ -24,6 +24,9 @@
 
   &.wideImageTop {
     flex-direction: column;
+    align-items: center;
+    @include get-vw(padding-top, 47px, 47px);
+    max-height: none;
     .bottom {
       position: relative;
     }
@@ -40,7 +43,7 @@
       width: calc(100% - 20px);
     }
     &.wideImageTop {
-      flex-direction: column;
+      padding-top: 0;
       .bottom {
         width: 100%;
         left: auto;
