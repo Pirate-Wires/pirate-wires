@@ -33,7 +33,7 @@ export default function NewsletterCallout({ newsletterData }) {
 
         try {
             // Check if the email already exists in Customer.io
-            const checkResponse = await fetch(`/api/customer-io?email=${email}`);
+            const checkResponse = await fetch(`/api/customer-io/preferences?email=${email}`);
             const checkData = await checkResponse.json();
 
             if (!checkResponse.ok) {
@@ -47,7 +47,7 @@ export default function NewsletterCallout({ newsletterData }) {
             }
 
             // Proceed with updating or creating the user in Customer.io
-            const updateResponse = await fetch('/api/customer-io', {
+            const updateResponse = await fetch('/api/customer-io/preferences', {
                 method: 'PUT',
                 body: JSON.stringify({
                     email,

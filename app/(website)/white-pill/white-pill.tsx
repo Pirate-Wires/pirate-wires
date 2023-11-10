@@ -6,7 +6,12 @@ import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
-export default function WhitePill({ pageData, publicationPosts, publicationNewsletters }) {
+export default function WhitePill({
+  pageData,
+  publicationPosts,
+  publicationNewsletters,
+  user
+}) {
   useScrollBasedAnims()
   return (
     <>
@@ -16,7 +21,11 @@ export default function WhitePill({ pageData, publicationPosts, publicationNewsl
       </div>
       <Featured post={publicationPosts[0]} pathPrefix="" />
 
-      <FeaturedNewsletters newsletters={publicationNewsletters} section={'The White Pill'}  />
+      <FeaturedNewsletters
+        newsletters={publicationNewsletters}
+        section={'The White Pill'}
+        user={user}
+      />
 
       <section className="postGrid c-20">
         {publicationPosts.slice(1).map((post, index) => (

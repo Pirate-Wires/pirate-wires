@@ -254,7 +254,7 @@ const getPostBySlug = async (slug: string) => {
     .eq('slug', slug);
   if(error) {
     console.log(`Error fetching post data: ${error.message}`);
-    return;
+    return null;
   }
   return data;
 };
@@ -267,7 +267,7 @@ const getUserByEmail = async (email: string) => {
 
   if(error) {
     console.log(`Error fetching post data: ${error.message}`);
-    return;
+    return null;
   }
 
   return data;
