@@ -65,7 +65,7 @@ const StepThree: React.FC<StepThreeProps> = ({ email, customerId, subscription }
       )}
       {subscription ? (
         <>
-          <p>You have already subscribed</p>
+          <h1>You have already subscribed</h1>
           <button onClick={handleClickSkip}>Next</button>
         </>
       ) : (

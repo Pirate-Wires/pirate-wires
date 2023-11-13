@@ -14,8 +14,7 @@ interface CheckoutFormProps {
   customerId: string;
 }
 
-const HOST_NAME = process.env.NEXT_PUBLIC_HOSTNAME;
-const PRICE_ID = `price_1OBsEaBkYPy9DRcAT36VqYH3`;
+const PRICE_ID = `price_1OC2psBkYPy9DRcAeTacJpsM`;
 
 const CheckoutForm: React.FC<CheckoutFormProps> = ({ email, customerId }) => {
   const router = useRouter();
