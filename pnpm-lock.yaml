@@ -28,7 +28,7 @@ dependencies:
     version: 0.0.5
   '@sanity/code-input':
     specifier: ^4.1.1
-    version: 4.1.1(@babel/runtime@7.23.2)(@codemirror/lint@6.4.2)(@codemirror/theme-one-dark@6.1.2)(@lezer/common@1.1.0)(codemirror@6.0.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(sanity@3.18.1)(styled-components@5.3.11)
+    version: 4.1.1(@babel/runtime@7.23.2)(@codemirror/lint@6.4.2)(@codemirror/theme-one-dark@6.1.2)(@lezer/common@1.1.1)(codemirror@6.0.1)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(sanity@3.18.1)(styled-components@5.3.11)
   '@sanity/dashboard':
     specifier: ^3.1.5
     version: 3.1.5(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(sanity@3.18.1)(styled-components@5.3.11)
@@ -40,7 +40,7 @@ dependencies:
     version: 1.0.2
   '@sanity/preview-kit':
     specifier: ^3.2.6
-    version: 3.2.6(@sanity/client@6.7.0)(react@18.2.0)
+    version: 3.2.6(@sanity/client@6.8.0)(react@18.2.0)
   '@sanity/scheduled-publishing':
     specifier: ^1.2.1
     version: 1.2.1(@types/react@18.2.33)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(sanity@3.18.1)(styled-components@5.3.11)
