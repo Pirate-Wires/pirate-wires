@@ -14,7 +14,10 @@ export default function AccountUI(
     updateName,
     updateEmail,
     updateCommentsNotifications
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   }) {
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const updateActiveTab = (idx: number) => {
@@ -49,6 +52,8 @@ export default function AccountUI(
     formData.append('comments_notifications', String(!userDetails?.comments_notifications));
     await updateCommentsNotifications(formData);
   };
+
+
 
 
   return (
@@ -118,6 +123,7 @@ export default function AccountUI(
             <EmailPreferences user={user} />
 
           </div>
+<<<<<<< Updated upstream
           <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} comments-notifications`}>
             <label>
               Receive email notifications for comments
@@ -130,6 +136,19 @@ export default function AccountUI(
                 }}
               />
 
+=======
+          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-notifictation-preferences`}>
+            <label>
+              <input
+                type="checkbox"
+                checked={userDetails?.comments_notifications || false}
+                onChange={() => {
+                  // Toggle the comments_notifications value and update
+                  updateCommentsNotifications(!userDetails?.comments_notifications);
+                }}
+              />
+              Receive email notifications for comments
+>>>>>>> Stashed changes
             </label>
           </div>
 
@@ -137,7 +156,13 @@ export default function AccountUI(
 
             <div className={styles.infoGroup}>
               Subscription & Billing
+<<<<<<< Updated upstream
             </div>
+=======
+              {/* stripe account link */}
+            </div>
+
+>>>>>>> Stashed changes
           </div>
 
 

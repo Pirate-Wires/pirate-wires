@@ -2,8 +2,7 @@
 import {
   getSession,
   getUserDetails,
-  getSubscription,
-  getActiveProductsWithPrices
+  getSubscription
 } from '@/app/(website)/supabase-server';
 import type { Database } from '@/types/supabase';
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
@@ -35,10 +34,9 @@ export async function generateMetadata({ params }) {
     }};
 }
 export default async function Account() {
-  const [session, userDetails, products, subscription] = await Promise.all([
+  const [session, userDetails, subscription] = await Promise.all([
     getSession(),
     getUserDetails(),
-    getActiveProductsWithPrices(),
     getSubscription()
   ]);
 
@@ -81,27 +79,51 @@ export default async function Account() {
     revalidatePath('/account');
   };
 
+<<<<<<< Updated upstream
   const updateCommentsNotifications = async (formData: FormData) => {
     'use server';
 
     const commentsNotifications = formData.get('comments_notifications') as string;
     const supabase = createServerActionClient<Database>({ cookies });
     const session = await getSession();
+=======
+
+  const updateCommentsNotifications = async (newCommentsNotifications: boolean) => {
+    'use server';
+
+    const supabase = createServerActionClient<Database>({ cookies });
+>>>>>>> Stashed changes
     const user = session?.user;
 
     if (user) {
       const { error } = await supabase
         .from('users')
+<<<<<<< Updated upstream
         .update({ comments_notifications: commentsNotifications })
         .eq('id', user.id);
 
       if (error) {
         console.log(error);
+=======
+        .update({ comments_notifications: newCommentsNotifications })
+        .eq('id', user.id);
+
+      if (error) {
+        console.error(error);
+>>>>>>> Stashed changes
       }
     }
 
     revalidatePath('/account');
+<<<<<<< Updated upstream
   }
+=======
+  };
+
+
+
+
+>>>>>>> Stashed changes
   return <div className="colorWrapper reducedHeaderPage" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
@@ -115,7 +137,10 @@ export default async function Account() {
       updateName={updateName}
       updateEmail={updateEmail}
       updateCommentsNotifications={updateCommentsNotifications}
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     />
   </div>
 }
