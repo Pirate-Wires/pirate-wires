@@ -11,7 +11,7 @@ export async function generateMetadata() {
   const settings = await getSettings();
   const title = pageData.meta_title ? pageData.meta_title : settings.meta_title
   const description = pageData.meta_description ? pageData.meta_description : settings.meta_description
-  const image = pageData.openGraphImage ? urlForImage(pageData.openGraphImage).src : urlForImage(settings?.openGraphImage)?.src
+  const image = pageData.openGraphImage ? urlForImage(pageData.openGraphImage)?.src : urlForImage(settings?.openGraphImage)?.src
 
   return { title: title, description: description, openGraph: {
       title: title,
