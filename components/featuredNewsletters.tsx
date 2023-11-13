@@ -96,9 +96,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
 
       const data = await response.json();
 
-      if (data.success) {
-        setIsSuccess(true);
-      }
+      setIsSuccess(true);
 
       setIsLoading(false);
     } catch (error) {
