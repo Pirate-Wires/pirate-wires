@@ -2,8 +2,7 @@
 import {
   getSession,
   getUserDetails,
-  getSubscription,
-  getActiveProductsWithPrices
+  getSubscription
 } from '@/app/(website)/supabase-server';
 import type { Database } from '@/types/supabase';
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
@@ -12,9 +11,9 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import Navigation from '@/components/navigation';
-import {getAuthorsData, getGlobalFields, getSettings} from "@/lib/sanity/client";
+import { getAuthorsData, getGlobalFields, getSettings } from "@/lib/sanity/client";
 import AccountUI from "@/app/(website)/account/accountUI";
-import {urlForImage} from "@/lib/sanity/image";
+import { urlForImage } from "@/lib/sanity/image";
 
 export async function generateMetadata({ params }) {
   const settings = await getSettings();
@@ -22,7 +21,8 @@ export async function generateMetadata({ params }) {
   const description = settings.meta_description
   const image = urlForImage(settings?.openGraphImage)?.src
 
-  return { title: title, description: description, openGraph: {
+  return {
+    title: title, description: description, openGraph: {
       title: title,
       description: description,
       images: [
@@ -32,13 +32,13 @@ export async function generateMetadata({ params }) {
           height: 600,
         },
       ]
-    }};
+    }
+  };
 }
 export default async function Account() {
-  const [session, userDetails, products, subscription] = await Promise.all([
+  const [session, userDetails, subscription] = await Promise.all([
     getSession(),
     getUserDetails(),
-    getActiveProductsWithPrices(),
     getSubscription()
   ]);
 
@@ -81,27 +81,30 @@ export default async function Account() {
     revalidatePath('/account');
   };
 
-  const updateCommentsNotifications = async (formData: FormData) => {
+
+  const updateCommentsNotifications = async (newCommentsNotifications: boolean) => {
     'use server';
 
-    const commentsNotifications = formData.get('comments_notifications') as string;
     const supabase = createServerActionClient<Database>({ cookies });
-    const session = await getSession();
     const user = session?.user;
 
     if (user) {
       const { error } = await supabase
         .from('users')
-        .update({ comments_notifications: commentsNotifications })
+        .update({ comments_notifications: newCommentsNotifications })
         .eq('id', user.id);
 
       if (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 
     revalidatePath('/account');
-  }
+  };
+
+
+
+
   return <div className="colorWrapper reducedHeaderPage" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
@@ -115,7 +118,6 @@ export default async function Account() {
       updateName={updateName}
       updateEmail={updateEmail}
       updateCommentsNotifications={updateCommentsNotifications}
-
     />
   </div>
 }

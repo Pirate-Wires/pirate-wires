@@ -52,6 +52,8 @@ export default function AccountUI(
   };
 
 
+
+
   return (
     <section className="accountContainer c-20">
       <div className={styles.top} data-name={userDetails?.full_name}>
@@ -119,18 +121,17 @@ export default function AccountUI(
             <EmailPreferences user={user} />
 
           </div>
-          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} comments-notifications`}>
+          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-notifictation-preferences`}>
             <label>
-              Receive email notifications for comments
               <input
                 type="checkbox"
                 checked={userDetails?.comments_notifications || false}
-                onChange={(event) => {
+                onChange={() => {
                   // Toggle the comments_notifications value and update
-                  handleToggleCommentsNotifications(event);
+                  updateCommentsNotifications(!userDetails?.comments_notifications);
                 }}
               />
-
+              Receive email notifications for comments
             </label>
           </div>
 
@@ -138,13 +139,14 @@ export default function AccountUI(
 
             <div className={styles.infoGroup}>
               Subscription & Billing
+              {/* stripe account link */}
             </div>
 
-            { userDetails.subscription_id ? (
-                <CurrentSubscription subscription={subscription} />
-              ) : (
-                <h2>Not subscribed yet</h2>
-              )
+            {userDetails?.subscription_id ? (
+              <CurrentSubscription subscription={subscription} />
+            ) : (
+              <h2>Not subscribed yet</h2>
+            )
             }
           </div>
 
