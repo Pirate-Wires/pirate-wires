@@ -1,58 +1,49 @@
-import React from "react";
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation';
 
-import {getGlobalFields, getPodcastData, getSettings} from "@/lib/sanity/client";
-import Navigation from "@/components/navigation";
-import Footer from "@/components/footer";
-import StepOne from "./StepOne";
-import StepTwo from "./StepTwo";
-import StepThree from "./StepThree";
-import StepFour from "./StepFour";
-import {urlForImage} from "@/lib/sanity/image";
-export async function generateMetadata({ params }) {
-  const settings = await getSettings();
-  const title = "Subscribe | Pirate Wires"
-  const description = settings.meta_description
-  const image = urlForImage(settings?.openGraphImage)?.src
+import { getUserDetails } from '@/app/(website)/supabase-server';
+import { getGlobalFields } from '@/lib/sanity/client';
+import Navigation from '@/components/navigation';
+import Footer from '@/components/footer';
 
-  return { title: title, description: description, openGraph: {
-      title: title,
-      description: description,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 600,
-        },
-      ]
-    }};
-}
-export default async function SubscribePage({ params }) {
+import StepOne from './StepOne';
+import StepTwo from './StepTwo';
+import StepThree from './StepThree';
+import StepFour from './StepFour';
+
+export default async function SubscribePage({ params, searchParams }) {
+  const user = await getUserDetails();
   const globalFields = await getGlobalFields();
+  const { email, customerId } = searchParams;
 
-  const StepSwitcher = ({currentStep}) => {
-    console.log(currentStep);
-    switch (currentStep) {
+  const StepSwitcher = ({ step }: { step: string }) => {
+    switch (step) {
       case 'step-1':
-        return <StepOne />
+        return <StepOne />;
       case 'step-2':
-        return <StepTwo />
+        return <StepTwo email={email} customerId={customerId} />;
       case 'step-3':
-        return <StepThree />
+        return <StepThree email={email} customerId={customerId} subscription={user?.subscription_id!} />;
       case 'step-4':
-        return <StepFour />
+        return <StepFour email={email} />;
       default:
         return notFound();
     }
-  }
+  };
 
-  return <div className="colorWrapper reducedHeaderPage" style={{
-    "--color": "#060606",
-    "--bgColor": "#E3E3E3",
-    "--accentLight": "rgba(43, 43, 43, 0.45)",
-  } as React.CSSProperties}>
-    <Navigation globalFields={globalFields} />
-    <StepSwitcher currentStep={params.step} />
-    <Footer globalFields={globalFields} />
-  </div>
+  return (
+    <div
+      className="colorWrapper reducedHeaderPage"
+      style={
+        {
+          '--color': '#060606',
+          '--bgColor': '#E3E3E3',
+          '--accentLight': 'rgba(43, 43, 43, 0.45)'
+        } as React.CSSProperties
+      }
+    >
+      <Navigation globalFields={globalFields} />
+      <StepSwitcher step={params.step} />
+      <Footer globalFields={globalFields} />
+    </div>
+  );
 }
