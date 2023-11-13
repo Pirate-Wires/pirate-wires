@@ -61,6 +61,28 @@ export default async function Account() {
     }
     revalidatePath('/account');
   };
+
+  const updateCommentsNotifications = async (formData: FormData) => {
+    'use server';
+
+    const commentsNotifications = formData.get('comments_notifications') as string;
+    const supabase = createServerActionClient<Database>({ cookies });
+    const session = await getSession();
+    const user = session?.user;
+
+    if (user) {
+      const { error } = await supabase
+        .from('users')
+        .update({ comments_notifications: commentsNotifications })
+        .eq('id', user.id);
+
+      if (error) {
+        console.log(error);
+      }
+    }
+
+    revalidatePath('/account');
+  }
   return <div className="colorWrapper reducedHeaderPage" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
@@ -71,9 +93,10 @@ export default async function Account() {
       userDetails={userDetails}
       subscription={subscription}
       session={session}
-      products={products}
       updateName={updateName}
       updateEmail={updateEmail}
+      updateCommentsNotifications={updateCommentsNotifications}
+
     />
   </div>
 }
