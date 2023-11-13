@@ -1,16 +1,13 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState, FormEvent } from 'react';
 
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import styles from '@/styles/pages/subscribe.module.scss';
 
-interface StepOneProps {
-  onSubmitEmail: (value: string) => void;
-  onNextStep: (step: number) => void;
-}
-
-const StepOne: React.FC<StepOneProps> = ({ onSubmitEmail, onNextStep }) => {
+const StepOne = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { supabase } = useSupabase();
@@ -44,7 +41,7 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmitEmail, onNextStep }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/create-user', {
+      const response = await fetch('/api/user', {
         method: 'POST',
         body: JSON.stringify({
           email,
@@ -56,13 +53,15 @@ const StepOne: React.FC<StepOneProps> = ({ onSubmitEmail, onNextStep }) => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      const data = await response.json();
+      const customerId = data.payload.customerId;
+
       setIsLoading(false);
       setError(null);
 
       await sendOTP(email);
 
-      onSubmitEmail(email);
-      onNextStep(2);
+      router.push(`/subscribe/step-2?email=${email}&customerId=${customerId}`);
     } catch (error) {
       console.error('There was an error!', error);
       setIsLoading(false);

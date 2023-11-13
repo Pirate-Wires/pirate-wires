@@ -270,7 +270,8 @@ const getUserByEmail = async (email: string) => {
   const { data, error } = await supabaseAdmin
     .from('users')
     .select()
-    .eq('email', email);
+    .eq('email', email)
+    .single();
 
   if(error) {
     console.log(`Error fetching post data: ${error.message}`);

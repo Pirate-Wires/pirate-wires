@@ -13,3 +13,20 @@ export const stripe = new Stripe(
     }
   }
 );
+
+export const createPaymentIntent = async (customerId: string) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 1200,
+      currency: 'usd',
+      customer: customerId,
+      payment_method_types: ['card'],
+      setup_future_usage: 'on_session'
+    });
+
+    return { data: paymentIntent.client_secret, error: null };
+  } catch (error) {
+    console.error(`Error creating payment intent: ${error.message}`);
+    return { data: null, error };
+  }
+};

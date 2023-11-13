@@ -1,15 +1,17 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/pages/subscribe.module.scss';
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import OTPInput from '@/app/(website)/sign-in/OTPInput';
 
 interface StepTwoProps {
   email: string;
-  onNextStep: (step: number) => void;
+  customerId: string;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({ email, onNextStep }) => {
+const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -33,9 +35,8 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, onNextStep }) => {
         throw error;
       }
 
-      onNextStep(4);
-
       setIsLoading(false);
+      router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
@@ -68,6 +69,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, onNextStep }) => {
   const handleOTPChange = (value: string) => {
     setOtp(value);
   };
+
   return (
     <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
       <h1>Confirm Your Subscription </h1>
