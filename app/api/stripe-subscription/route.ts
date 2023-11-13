@@ -1,15 +1,23 @@
-import { createCustomerSubscription } from '@/utils/stripe';
+import {
+  setDefaultPaymentMethod,
+  createCustomerSubscription
+} from '@/utils/stripe';
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { customerId, priceId } = body;
+  const { paymentMethodId, customerId, priceId } = body;
   try {
-    const { data: subscriptionId, error } = await createCustomerSubscription(
-      customerId,
-      priceId
-    );
+    const { error } = await setDefaultPaymentMethod({
+      paymentMethodId,
+      customerId
+    });
 
     if (error) throw error;
+
+    const { data: subscriptionId, error: subscriptionError } =
+      await createCustomerSubscription(customerId, priceId);
+
+    if (subscriptionError) throw error;
 
     return new Response(JSON.stringify({ subscriptionId }), { status: 200 });
   } catch (err) {

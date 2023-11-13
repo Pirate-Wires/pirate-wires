@@ -217,6 +217,17 @@ const manageSubscriptionStatusChange = async (
     `Inserted/updated subscription [${subscription.id}] for user [${uuid}]`
   );
 
+  const { error: updateError } = await supabaseAdmin
+    .from('users')
+    .update({ subscription_id: subscription.id})
+    .eq('id', uuid)
+    .select()
+    .single();
+  if (updateError) throw error;
+  console.log(
+    `Updated subscription_id [${subscription.id}] for user [${uuid}]`
+  );
+
   // For a new subscription copy the billing details to the customer object.
   // NOTE: This is a costly operation and should happen at the very end.
   if (createAction && subscription.default_payment_method && uuid)
@@ -290,9 +301,6 @@ const upsertUserRecord = async (
     id,
     full_name,
     email,
-    avatar_url: null,
-    billing_address: null,
-    payment_method: null
   };
 
   const { error } = await supabaseAdmin.from('users').upsert([userData]);

@@ -56,7 +56,6 @@ const StepOne = () => {
       const data = await response.json();
       const customerId = data.payload.customerId;
 
-      setIsLoading(false);
       setError(null);
 
       await sendOTP(email);
@@ -78,9 +77,15 @@ const StepOne = () => {
         period.
       </p>
       <form onSubmit={handleSubmit}>
+        <label>First Name:</label>
         <input type="text" name="fname" placeholder="First name" required />
+        <br />
+        <label>Last Name:</label>
         <input type="text" name="lname" placeholder="Last name" required />
+        <br />
+        <label>Email:</label>
         <input type="email" name="email" placeholder="Email" required />
+        <br />
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Continue'}
         </button>

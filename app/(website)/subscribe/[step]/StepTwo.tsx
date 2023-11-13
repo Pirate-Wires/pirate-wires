@@ -35,7 +35,6 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
         throw error;
       }
 
-      setIsLoading(false);
       router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
     } catch (error) {
       setError(error.message);

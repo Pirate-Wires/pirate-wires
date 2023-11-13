@@ -181,12 +181,13 @@ export interface Database {
       users: {
         Row: {
           id: string;
-          full_name: string | null;
-          email: string | null;
-          avatar_url: string | null;
-          billing_address: Json | null;
-          payment_method: Json | null;
-          comments_notifications: Json | null;
+          full_name?: string | null;
+          email?: string | null;
+          avatar_url?: string | null;
+          billing_address?: Json | null;
+          payment_method?: Json | null;
+          comments_notifications?: Json | null;
+          subscription_id?: string | null;
         };
         Insert: {
           avatar_url?: string | null;
@@ -195,6 +196,7 @@ export interface Database {
           id: string;
           payment_method?: Json | null;
           comments_notifications?: Json | null;
+          subscription_id?: string | null;
         };
         Update: {
           avatar_url?: string | null;
@@ -203,6 +205,7 @@ export interface Database {
           id?: string;
           payment_method?: Json | null;
           comments_notifications?: Json | null;
+          subscription_id?: string | null;
         };
         Relationships: [
           {

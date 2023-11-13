@@ -14,21 +14,14 @@ const stripePromise = loadStripe('pk_test_81KfkhavLe3j0FbgVinVWlRH');
 interface StepThreeProps {
   email: string;
   customerId: string;
+  subscription: string | null;
 }
 
-const StepThree: React.FC<StepThreeProps> = ({ email, customerId }) => {
+const StepThree: React.FC<StepThreeProps> = ({ email, customerId, subscription }) => {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const handleChangeLoading = (value: boolean) => {
-    setIsLoading(value);
-  };
-
-  const handleChangeError = (value: string) => {
-    setError(value);
-  };
 
   useEffect(() => {
     const createPaymentIntent = async () => {
@@ -50,7 +43,6 @@ const StepThree: React.FC<StepThreeProps> = ({ email, customerId }) => {
         setClientSecret(data.clientSecret);
         setIsLoading(false);
         setError(null);
-        //router.push(`/subscribe/step-4?email=${email}`);
       } catch (error) {
         console.error(`Error creating payment intent: ${error.message}`);
         setIsLoading(false);
@@ -59,22 +51,30 @@ const StepThree: React.FC<StepThreeProps> = ({ email, customerId }) => {
     };
 
     createPaymentIntent();
-  }, []);
+  }, [customerId]);
+
+  const handleClickSkip = () => {
+    router.push(`/subscribe/step-4?email=${email}`);
+  }
 
   return (
     <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
-      {isLoading ? (
+      <SubscriptionPlan />
+      {isLoading && (
         <div>Loading...</div>
+      )}
+      {subscription ? (
+        <>
+          <p>You have already subscribed</p>
+          <button onClick={handleClickSkip}>Next</button>
+        </>
       ) : (
         clientSecret && (
           <>
-            <SubscriptionPlan />
             <Elements stripe={stripePromise} options={{ clientSecret }}>
               <CheckoutForm
                 email={email}
                 customerId={customerId}
-                handleChangeLoading={handleChangeLoading}
-                handleChangeError={handleChangeError}
               />
             </Elements>
           </>

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { getUserDetails } from '@/app/(website)/supabase-server';
 import { getGlobalFields } from '@/lib/sanity/client';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
@@ -10,6 +11,7 @@ import StepThree from './StepThree';
 import StepFour from './StepFour';
 
 export default async function SubscribePage({ params, searchParams }) {
+  const user = await getUserDetails();
   const globalFields = await getGlobalFields();
   const { email, customerId } = searchParams;
 
@@ -20,7 +22,7 @@ export default async function SubscribePage({ params, searchParams }) {
       case 'step-2':
         return <StepTwo email={email} customerId={customerId} />;
       case 'step-3':
-        return <StepThree email={email} customerId={customerId} />;
+        return <StepThree email={email} customerId={customerId} subscription={user?.subscription_id!} />;
       case 'step-4':
         return <StepFour email={email} />;
       default:
