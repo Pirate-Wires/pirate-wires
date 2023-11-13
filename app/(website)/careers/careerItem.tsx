@@ -15,7 +15,7 @@ export default function CareerItem({ career }) {
     >
       <h3>{career.title}</h3>
       <div className={styles.right}>
-        <p className={styles.date}>{useDateFormatter(career.date, true)}</p>
+        <p className={styles.date}>{formattedDate}</p>
         <div className="goIcon">
           <div className="leftHalf"></div>
           <div className="rightHalf"></div>

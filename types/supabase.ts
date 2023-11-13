@@ -186,6 +186,7 @@ export interface Database {
           avatar_url: string | null;
           billing_address: Json | null;
           payment_method: Json | null;
+          comments_notifications: Json | null;
         };
         Insert: {
           avatar_url?: string | null;
@@ -193,6 +194,7 @@ export interface Database {
           full_name?: string | null;
           id: string;
           payment_method?: Json | null;
+          comments_notifications?: Json | null;
         };
         Update: {
           avatar_url?: string | null;
@@ -200,6 +202,7 @@ export interface Database {
           full_name?: string | null;
           id?: string;
           payment_method?: Json | null;
+          comments_notifications?: Json | null;
         };
         Relationships: [
           {

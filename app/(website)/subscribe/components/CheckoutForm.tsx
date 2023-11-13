@@ -1,39 +1,63 @@
+import React from 'react';
 import {
   useStripe,
   useElements,
   PaymentElement
 } from '@stripe/react-stripe-js';
 
-const CheckoutForm = () => {
+interface CheckoutFormProps {
+  email: string;
+  customerId: string;
+  handleChangeError: (value: string) => void;
+  handleChangeLoading: (value: boolean) => void;
+}
+
+const HOST_NAME = process.env.NEXT_PUBLIC_HOSTNAME;
+const PRICE_ID = `price_1OBsEaBkYPy9DRcAT36VqYH3`;
+
+const CheckoutForm: React.FC<CheckoutFormProps> = ({
+  email,
+  customerId,
+  handleChangeError,
+  handleChangeLoading
+}) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const handleSubmit = async (event) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
     event.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
-    const result = await stripe.confirmPayment({
-      //`Elements` instance that was used to create the Payment Element
-      elements,
-      confirmParams: {
-        return_url: 'https://example.com/order/123/complete'
-      }
-    });
+    handleChangeLoading(true);
 
-    if (result.error) {
-      // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message);
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+    try {
+      const response = await fetch('/api/stripe-subscription', {
+        method: 'POST',
+        body: JSON.stringify({ customerId, priceId: PRICE_ID })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${HOST_NAME}/subscribe/step-4?email=${email}`
+        }
+      });
+
+      if (result.error) {
+        throw result.error;
+      }
+      handleChangeLoading(false);
+    } catch (error) {
+      console.log(`Error creating subscription: ${error.message}`);
+      handleChangeError(error.message);
+      handleChangeLoading(false);
     }
   };
 
