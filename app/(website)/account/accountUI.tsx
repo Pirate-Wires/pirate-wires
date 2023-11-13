@@ -14,10 +14,7 @@ export default function AccountUI(
     updateName,
     updateEmail,
     updateCommentsNotifications
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
   }) {
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const updateActiveTab = (idx: number) => {
@@ -123,20 +120,6 @@ export default function AccountUI(
             <EmailPreferences user={user} />
 
           </div>
-<<<<<<< Updated upstream
-          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} comments-notifications`}>
-            <label>
-              Receive email notifications for comments
-              <input
-                type="checkbox"
-                checked={userDetails?.comments_notifications || false}
-                onChange={(event) => {
-                  // Toggle the comments_notifications value and update
-                  handleToggleCommentsNotifications(event);
-                }}
-              />
-
-=======
           <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-notifictation-preferences`}>
             <label>
               <input
@@ -148,7 +131,6 @@ export default function AccountUI(
                 }}
               />
               Receive email notifications for comments
->>>>>>> Stashed changes
             </label>
           </div>
 
@@ -156,13 +138,9 @@ export default function AccountUI(
 
             <div className={styles.infoGroup}>
               Subscription & Billing
-<<<<<<< Updated upstream
-            </div>
-=======
               {/* stripe account link */}
             </div>
 
->>>>>>> Stashed changes
           </div>
 
 
