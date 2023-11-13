@@ -5,6 +5,7 @@ import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
 import React, { useState } from "react";
 import { EmailPreferences } from "./EmailPreferences";
+import CurrentSubscription from "./CurrentSubscription";
 
 export default function AccountUI(
   {
@@ -138,6 +139,13 @@ export default function AccountUI(
             <div className={styles.infoGroup}>
               Subscription & Billing
             </div>
+
+            { userDetails.subscription_id ? (
+                <CurrentSubscription subscription={subscription} />
+              ) : (
+                <h2>Not subscribed yet</h2>
+              )
+            }
           </div>
 
 
