@@ -15,30 +15,33 @@ export async function sharedMetaData(params) {
     metadataBase: new URL(settings.url),
     title: {
       default:
-        settings?.title ||
-        "Pirate Wires",
-      template: "%s | Pirate Wires"
+        settings?.meta_title ||
+        "Pirate Wires"
     },
     description:
       settings?.description ||
-      "Pirate Wires",
+      "Technology, politics, culture",
     keywords: ["politics", "news", "media", "journalism", "blog", "opinion", "culture", "technology"],
     authors: [{ name: "Pirate Wires" }],
     canonical: settings?.url,
     openGraph: {
+      title: settings?.meta_title ||
+        "Pirate Wires",
+      description: settings?.description ||
+        "Technology, politics, culture",
+      url: settings.url || "https://piratewires.us",
+      siteName: 'Pirate Wires',
       images: [
         {
           url:
             urlForImage(settings?.openGraphImage)?.src ||
             "/img/opengraph.jpg",
-          width: 800,
+          width: 1200,
           height: 600
         }
-      ]
-    },
-    twitter: {
-      title: settings?.title || "Pirate Wires",
-      card: "summary_large_image"
+      ],
+      locale: 'en_US',
+      type: 'website',
     },
     robots: {
       index: true,

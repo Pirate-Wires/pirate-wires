@@ -1,7 +1,13 @@
 // app/(website)/p/[slug]/page.tsx
 import PostPage from "./default";
 // import { CommentsContextProvider } from '@/lib/supabase-comments/hooks/use-comments';
-import { getAllPostsSlugs, getGlobalFields, getPostBySlug, getPublicationPosts } from "@/lib/sanity/client";
+import {
+  getAllPostsSlugs,
+  getGlobalFields,
+  getPodcastData,
+  getPostBySlug,
+  getPublicationPosts, getSettings
+} from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Newsletters from "@/app/(website)/newsletters/newsletters";
@@ -12,15 +18,30 @@ import {
   getSubscription,
   getUserDetails
 } from "@/app/(website)/supabase-server";
+import {urlForImage} from "@/lib/sanity/image";
 
 export async function generateStaticParams() {
   return await getAllPostsSlugs();
 }
 
 export async function generateMetadata({ params }) {
-  const post = await getPostBySlug(params.slug);
-  return { title: post.title };
+  const pageData = await getPostBySlug(params.slug);
+  const settings = await getSettings();
+  const title = pageData.meta_title ? pageData.meta_title : pageData.title + " | Pirate Wires"
+  const description = pageData.meta_description ? pageData.meta_description : pageData.excerpt
+  const image = pageData.openGraphImage ? urlForImage(pageData.openGraphImage).src : urlForImage(settings?.openGraphImage)?.src
 
+  return { title: title, description: description, openGraph: {
+      title: title,
+      description: description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 600,
+        },
+      ]
+    }};
 }
 
 export default async function PostDefault({ params }) {

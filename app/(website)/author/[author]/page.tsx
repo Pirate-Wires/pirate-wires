@@ -4,11 +4,12 @@ import {
   getAllAuthorsSlugs,
   getAuthorData,
   getAuthorPosts,
-  getGlobalFields
+  getGlobalFields, getSettings
 } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
+import {urlForImage} from "@/lib/sanity/image";
 
 export async function generateStaticParams() {
   return await getAllAuthorsSlugs();
@@ -16,7 +17,22 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const author = await getAuthorData(params.author);
-  return { title: author.name + " - " + author.title };
+  const settings = await getSettings();
+  const title = author.meta_title ? author.meta_title : author.name + " - " + author.title + " | Pirate Wires"
+  const description = author.meta_description ? author.meta_description : settings.meta_description
+  const image = author.openGraphImage ? urlForImage(author.openGraphImage).src : urlForImage(settings?.openGraphImage)?.src
+
+  return { title: title, description: description, openGraph: {
+      title: title,
+      description: description,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 600,
+        },
+      ]
+    }};
 }
 
 export default async function AuthorPage({ params }) {
