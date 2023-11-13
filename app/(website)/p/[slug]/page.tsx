@@ -25,6 +25,10 @@ export async function generateMetadata({ params }) {
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
+  if (!post.section) {
+    // quick fix. if section is not available, make 'the-wire' as ddfault
+    post.section = 'the-wire';
+  }
   const allRelatedArticles = await getPublicationPosts(post.section)
   const globalFields = await getGlobalFields();
   const publication = post.section
