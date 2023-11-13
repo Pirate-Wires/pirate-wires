@@ -142,7 +142,7 @@ export default function AccountUI(
               {/* stripe account link */}
             </div>
 
-            {userDetails.subscription_id ? (
+            {userDetails?.subscription_id ? (
               <CurrentSubscription subscription={subscription} />
             ) : (
               <h2>Not subscribed yet</h2>
