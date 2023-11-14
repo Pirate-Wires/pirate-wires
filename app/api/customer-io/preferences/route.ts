@@ -15,6 +15,12 @@ export async function PUT(req: Request) {
     await createAuthUser(email);
 
     const cioId = await getCustomerId(email);
+    const { data: currentSubscription, error } = await getCustomerSubscription(email);
+
+    if (error) {
+      throw error;
+    }
+
     const topics = ['Wires', 'The Industry', 'The White Pill'];
 
     if (cioId) {
@@ -24,7 +30,7 @@ export async function PUT(req: Request) {
             ${topics
               .map(
                 (item, index) =>
-                  `"topic_${index + 1}": ${subscription.indexOf(item) > -1}`
+                  `"topic_${index + 1}": ${currentSubscription!.indexOf(item) > -1 || subscription.indexOf(item) > -1}`
               )
               .join(',')}
           }
