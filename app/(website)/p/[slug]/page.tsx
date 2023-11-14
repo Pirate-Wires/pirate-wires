@@ -67,7 +67,7 @@ export default async function PostDefault({ params }) {
         "--accentLight": "rgba(43, 43, 43, 0.45)",
       } as React.CSSProperties}>
         <Navigation publication={publication} />
-        <PostPage post={post} session={session} thisSectionArticles={allRelatedArticles} />
+        <PostPage post={post} userDetails={userDetails} thisSectionArticles={allRelatedArticles} />
         <Footer globalFields={globalFields} />
       </div>
     </>)

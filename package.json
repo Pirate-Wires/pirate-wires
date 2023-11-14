@@ -16,6 +16,7 @@
     "syncsanity": "node scripts/syncSanity"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@paralleldrive/cuid2": "^2.2.2",
     "@portabletext/react": "^2.0.3",
@@ -86,7 +87,7 @@
     "stripe": "^12.18.0",
     "styled-components": "^5.3.11",
     "suspend-react": "^0.1.3",
-    "swr": "^2.2.4",
+    "swr": "^0.5.5",
     "typescript": "^5.2.2"
   },
   "devDependencies": {
