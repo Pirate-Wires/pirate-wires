@@ -145,7 +145,10 @@ export default function AccountUI(
             {userDetails?.subscription_id ? (
               <CurrentSubscription subscription={subscription} />
             ) : (
-              <h2>Not subscribed yet</h2>
+              <>
+                <h2>Not subscribed yet</h2>
+                <a href="/subscribe">Subscribe</a>
+              </>
             )
             }
           </div>

@@ -10,11 +10,10 @@ import React, { useState } from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
-import { commentsConditional } from '@/components/commentsConditional';
+import Comment from '@/components/comment';
 
 export default function Post(props) {
-
-  const { loading, post, thisSectionArticles } = props;
+  const { loading, post, thisSectionArticles, userDetails } = props;
 
   const slug = post?.slug;
 
@@ -122,18 +121,18 @@ export default function Post(props) {
         </div>
       </section>
 
-      {/*
-      // components/commentsConditional.tsx
-       subscription status here
-      */}
-
-      {/* {isUserAuthenticated ? (
-        <div>comments section</div>
+      {userDetails?.subscription_id ? (
+        <Comment />
       ) : (
-        <div>
-          <a href="/subscribe">subscribe</a> or <a href="/sign-in">sign-in</a> to comment
-        </div>
-      )} */}
+        <h2>
+          {userDetails ? (
+            <Link href="/subscribe">Subscribe</Link>
+          ) : (
+            <Link href="/sign-in">Sign-In</Link>
+          )}
+           to comment
+        </h2>
+      )}
 
       <RemainingArticleEls relatedArticles={[]} />
 
