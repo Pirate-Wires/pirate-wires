@@ -1,45 +1,51 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 
 export const EmailPreferences = ({ user }) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(0);
 
   // Fetch and update user preferences on component mount
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(prev => prev + 1);
     // Make a GET request to fetch the user's preferences from the new API endpoint
     fetch(`/api/customer-io/preferences?email=${user.email}`)
       .then((response) => response.json())
       .then((data) => {
         const userPreferences = data.preferences;
         setSelectedNewsLetters(userPreferences);
-        setIsLoading(false);
+        setIsLoading(prev => prev - 1);
       })
       .catch((error) => {
         console.error('Error fetching user preferences:', error);
-        setIsLoading(false);
+        setIsLoading(prev => prev - 1);
       });
   }, [user.email]);
 
   const handleSelect = (event) => {
+    if (isLoading || isProgress) return;
+
     const name = event.target.name;
-    setSelectedNewsLetters(
-      selectedNewsLetters.indexOf(name) > -1
-        ? selectedNewsLetters.filter((item) => item !== name)
-        : [...selectedNewsLetters, name]
-    );
+    const newSubscription = selectedNewsLetters.indexOf(name) > -1
+      ? selectedNewsLetters.filter((item) => item !== name)
+      : [...selectedNewsLetters, name];
+    setPreferences(newSubscription);
+    setSelectedNewsLetters(newSubscription);
   };
 
-  const sendAPI = useCallback(async () => {
+  const setPreferences = async (subscription: string[]) => {
+    if (isLoading || isProgress) return;
+
+    setIsProgress(true);
+
     try {
       const response = await fetch('/api/customer-io/preferences', {
         method: 'PUT',
         body: JSON.stringify({
           email: user?.email,
-          subscription: selectedNewsLetters
+          subscription
         })
       });
 
@@ -56,23 +62,18 @@ export const EmailPreferences = ({ user }) => {
       // Set isProgress to false even if there's an error
       setIsProgress(false);
     }
-  }, [selectedNewsLetters, user?.email]);
-
-
-  useEffect(() => {
-    if (!selectedNewsLetters.length) return;
-    setIsProgress(true);
-    sendAPI();
-  }, [selectedNewsLetters, sendAPI]);
+  };
 
   return (
     <>
-      {isLoading && (
+      {!!isLoading && (
         <div
           style={{
-            position: 'absolute',
+            position: 'absolute', // Changed to absolute
+            top: 0,
+            left: 0,
             width: '100%',
-            height: '30px',
+            height: '100%',
             zIndex: '100',
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
             display: 'flex',
@@ -86,9 +87,11 @@ export const EmailPreferences = ({ user }) => {
       {isProgress && (
         <div
           style={{
-            position: 'absolute',
+            position: 'absolute', // Changed to absolute
+            top: 0,
+            left: 0,
             width: '100%',
-            height: '30px',
+            height: '100%',
             zIndex: '100',
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
             display: 'flex',
