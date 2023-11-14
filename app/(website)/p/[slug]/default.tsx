@@ -130,7 +130,7 @@ export default function Post(props) {
           ) : (
             <Link href="/sign-in">Sign-In</Link>
           )}
-          to comment
+           to comment
         </h2>
       )}
 

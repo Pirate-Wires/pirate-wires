@@ -131,7 +131,7 @@ const NewCommentForm = ({
     } else {
       mutateComments(async (staleResponses: CommentType[]) => {
         const newResponse = ({
-          ...data?.[0],
+          ...(data?.[0] ?? {}),
           author: profile,
           responses: [],
           responsesCount: 0,

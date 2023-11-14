@@ -33,7 +33,7 @@ export const UserContextProvider = (props: Props): JSX.Element => {
     user?.id ? ['user_data', user.id] : null,
     async (_, userId) =>
       supabase
-        .from<definitions['profiles']>('profiles')
+        .from('profiles')
         .select('*')
         .eq('id', userId)
         .single()
@@ -49,27 +49,23 @@ export const UserContextProvider = (props: Props): JSX.Element => {
   }
 
   useEffect(() => {
-    const session = supabaseClient.auth.session();
+    const init = async () => {
+      const { data: { session } } = await supabaseClient.auth.getSession();
 
-    if (session) {
-      setSession(session);
-      setUser(session?.user ?? null);
-    }
-
-    const { data: authListener, error } = supabaseClient.auth.onAuthStateChange(
-      async (event, session) => {
+      if (session) {
         setSession(session);
         setUser(session?.user ?? null);
       }
-    );
 
-    if (error) {
-      throw error;
+      supabaseClient.auth.onAuthStateChange(
+        async (event, session) => {
+          setSession(session);
+          setUser(session?.user ?? null);
+        }
+      );
     }
 
-    return () => {
-      authListener!.unsubscribe();
-    };
+    init();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
