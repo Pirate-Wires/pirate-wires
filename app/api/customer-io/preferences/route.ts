@@ -14,7 +14,7 @@ export async function PUT(req: Request) {
   try {
     await createAuthUser(email);
 
-    const cioId = getCustomerId(email);
+    const cioId = await getCustomerId(email);
     const topics = ['Wires', 'The Industry', 'The White Pill'];
 
     if (cioId) {

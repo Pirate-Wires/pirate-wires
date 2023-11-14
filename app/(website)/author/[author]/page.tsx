@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
   const settings = await getSettings();
   const title = author.meta_title ? author.meta_title : author.name + " - " + author.title + " | Pirate Wires"
   const description = author.meta_description ? author.meta_description : settings.meta_description
-  const image = author.openGraphImage ? urlForImage(author.openGraphImage).src : urlForImage(settings?.openGraphImage)?.src
+  const image = author.openGraphImage ? urlForImage(author.openGraphImage)?.src : urlForImage(settings?.openGraphImage)?.src
 
   return { title: title, description: description, openGraph: {
       title: title,
