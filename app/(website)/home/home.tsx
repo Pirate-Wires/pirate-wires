@@ -64,7 +64,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
             {wirePosts.slice(4, 6).map((post, index) => (
               // @ts-ignore
               <PostList
-                key={post.index}
+                key={index}
                 post={post}
                 aspect="landscape"
                 preloadImage={true}

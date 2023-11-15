@@ -263,6 +263,17 @@ const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
   if (error) throw error;
 
   console.log(`Customer inserted/updated: ${user?.id}`);
+
+  const { data: updatedUser, error: updateError } = await supabaseAdmin
+    .from('users')
+    .update({ full_name: customer.name })
+    .eq('id', user?.id!)
+    .select()
+    .single();
+
+  if (updateError) throw updateError;
+
+  console.log(`User full_name updated for ${updatedUser?.id}: ${updatedUser?.full_name}`);
 };
 
 const getPostBySlug = async (slug: string) => {

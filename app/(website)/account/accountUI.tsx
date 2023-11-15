@@ -1,5 +1,6 @@
 // /app/(website)/account/accountUI.tsx
 'use client';
+import Link from "next/link";
 import styles from "@/styles/pages/account.module.scss"
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
@@ -147,7 +148,7 @@ export default function AccountUI(
             ) : (
               <>
                 <h2>Not subscribed yet</h2>
-                <a href="/subscribe">Subscribe</a>
+                <Link href="/subscribe">Subscribe</Link>
               </>
             )
             }
