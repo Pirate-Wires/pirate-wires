@@ -21,11 +21,12 @@ export async function POST(req: Request) {
       }
 
       userId = user?.id!;
+      if (fullName) {
+        const { error } = await upsertUserRecord(userId, email, fullName);
 
-      const { error } = await upsertUserRecord(userId, email, fullName);
-
-      if (error) {
-        return new Response(`${error.message}`, { status: 500 });
+        if (error) {
+          return new Response(`${error.message}`, { status: 500 });
+        }
       }
     }
 

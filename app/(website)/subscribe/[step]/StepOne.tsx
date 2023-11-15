@@ -1,16 +1,21 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import styles from '@/styles/pages/subscribe.module.scss';
 
-const StepOne = () => {
+const StepOne = ({ user }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentEmail, setCurrentEmail] = useState<string | null>(null);
   const { supabase } = useSupabase();
+
+  useEffect(() => {
+    setCurrentEmail(user?.email ?? null);
+  }, [user?.email]);
 
   const sendOTP = async (email: string) => {
     const { error } = await supabase.auth.signInWithOtp({
@@ -26,45 +31,78 @@ const StepOne = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
-    const fnameInput = form.elements.namedItem('fname') as HTMLInputElement;
-    const fname = fnameInput.value;
-    const lnameInput = form.elements.namedItem('lname') as HTMLInputElement;
-    const lname = lnameInput.value;
-    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
-    const email = emailInput.value;
-    const fullName = `${fname} ${lname}`;
+    if(!!currentEmail) {
+      setError(null);
+      setIsLoading(true);
 
-    if (!fname || !lname || !email) return;
+      try {
+        const response = await fetch('/api/user', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: currentEmail,
+            fullName: null
+          })
+        });
 
-    setError(null);
-    setIsLoading(true);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-    try {
-      const response = await fetch('/api/user', {
-        method: 'POST',
-        body: JSON.stringify({
-          email,
-          fullName
-        })
-      });
+        const data = await response.json();
+        const customerId = data.payload.customerId;
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        setError(null);
+
+        router.push(`/subscribe/step-3?email=${currentEmail}&customerId=${customerId}`);
+      } catch (error) {
+        console.error('There was an error!', error);
+        setIsLoading(false);
+        setError(error.message);
       }
+    } else {
+      const form = event.target as HTMLFormElement;
+      const fnameInput = form.elements.namedItem('fname') as HTMLInputElement;
+      const fname = fnameInput.value;
+      const lnameInput = form.elements.namedItem('lname') as HTMLInputElement;
+      const lname = lnameInput.value;
+      const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+      const email = emailInput.value;
+      const fullName = `${fname} ${lname}`;
 
-      const data = await response.json();
-      const customerId = data.payload.customerId;
+      if (!fname || !lname || !email) return;
 
       setError(null);
+      setIsLoading(true);
 
-      await sendOTP(email);
+      try {
+        const response = await fetch('/api/user', {
+          method: 'POST',
+          body: JSON.stringify({
+            email,
+            fullName
+          })
+        });
 
-      router.push(`/subscribe/step-2?email=${email}&customerId=${customerId}`);
-    } catch (error) {
-      console.error('There was an error!', error);
-      setIsLoading(false);
-      setError(error.message);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const customerId = data.payload.customerId;
+
+        setError(null);
+
+        if (currentEmail) {
+          router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
+        } else {
+          await sendOTP(email);
+          router.push(`/subscribe/step-2?email=${email}&customerId=${customerId}`);
+        }
+      } catch (error) {
+        console.error('There was an error!', error);
+        setIsLoading(false);
+        setError(error.message);
+      }
     }
   };
 
@@ -77,14 +115,22 @@ const StepOne = () => {
         period.
       </p>
       <form onSubmit={handleSubmit}>
-        <label>First Name:</label>
-        <input type="text" name="fname" placeholder="First name" required />
-        <br />
-        <label>Last Name:</label>
-        <input type="text" name="lname" placeholder="Last name" required />
-        <br />
-        <label>Email:</label>
-        <input type="email" name="email" placeholder="Email" required />
+        {!!currentEmail ? (
+          <>
+            <label>Email: {currentEmail || ''}</label>
+          </>
+        ) : (
+          <>
+            <label>First Name:</label>
+            <input type="text" name="fname" placeholder="First name" required />
+            <br />
+            <label>Last Name:</label>
+            <input type="text" name="lname" placeholder="Last name" required />
+            <br />
+            <label>Email:</label>
+            <input type="email" name="email" placeholder="Email" required />
+          </>
+        )}
         <br />
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Continue'}
