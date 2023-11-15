@@ -6,6 +6,14 @@ import React, { useState, FormEvent } from 'react';
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import styles from '@/styles/pages/subscribe.module.scss';
 
+
+// if the user has a session (is auhtenticated), prefill the email field with their email address and the name fields can be hidden
+// also, if the user has a session (is auhtenticated), the OTP step is unnessesary and should be skipped
+
+
+// if the user does not have a session, show the name fields and the email fields like we already have as this is the first step in the signup proces
+
+
 const StepOne = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
