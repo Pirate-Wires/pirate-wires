@@ -121,8 +121,6 @@ export default function Post(props) {
         </div>
       </section>
 
-
-
       {/* For convenience showing comment component regardless of a user's subscription status
       so that it can be styled  */}
 
