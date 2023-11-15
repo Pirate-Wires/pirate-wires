@@ -121,7 +121,14 @@ export default function Post(props) {
         </div>
       </section>
 
-      {userDetails?.subscription_id ? (
+      {/* For convenience showing comment component regardless of a user's subscription status
+      so that it can be styled  */}
+
+      <Comment />
+
+      {/* Conditionally showing comment component based on a user's subscription status */}
+
+      {/* {userDetails?.subscription_id ? (
         <Comment />
       ) : (
         <h2>
@@ -130,9 +137,9 @@ export default function Post(props) {
           ) : (
             <Link href="/sign-in">Sign-In</Link>
           )}
-           to comment
+          to comment
         </h2>
-      )}
+      )} */}
 
       <RemainingArticleEls relatedArticles={[]} />
 

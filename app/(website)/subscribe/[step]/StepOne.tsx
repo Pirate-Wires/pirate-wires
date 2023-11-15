@@ -31,7 +31,7 @@ const StepOne = ({ user }) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if(!!currentEmail) {
+    if (!!currentEmail) {
       setError(null);
       setIsLoading(true);
 
@@ -136,12 +136,26 @@ const StepOne = ({ user }) => {
           {isLoading ? 'Loading...' : 'Continue'}
         </button>
       </form>
-      <p>
-        Already have an account?
-        <Link className="nav-link" href="/sign-in">
-          Sign In
-        </Link>
-      </p>
+
+      {!!currentEmail ? (
+        <>
+          <p>
+            {/* ... */}
+          </p>
+        </>
+      ) : (
+        <>
+          <p>
+            Already have an account?
+            <Link className="nav-link" href="/sign-in">
+              Sign In
+            </Link>
+          </p>
+        </>
+      )}
+
+
+
       {error && <p className={styles.error}>{error}</p>}
     </section>
   );
