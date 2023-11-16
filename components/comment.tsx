@@ -11,7 +11,7 @@ import styles from "@/components/_styles/comments.module.scss";
 export default function Comment(): JSX.Element {
   return (
     <CommentsContextProvider postId={1}>
-      <ModalProvider>
+      {/* <ModalProvider> */}
         <div className="min-w-full min-h-screen dark:bg-gray-800 transition-all">
           <div className="p-2 sm:p-4 z-40 md:fixed top-0">
             <div className="flex md:flex-col flex-grow-0 space-x-1 md:space-x-0 md:space-y-2">
@@ -29,7 +29,7 @@ export default function Comment(): JSX.Element {
           </div>
           <SidebarComments />
         </div>
-      </ModalProvider>
+      {/* </ModalProvider> */}
     </CommentsContextProvider>
   );
 }
