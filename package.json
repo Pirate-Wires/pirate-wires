@@ -13,7 +13,8 @@
     "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhooks --project-name=saas-starter",
     "generate-types": "npx supabase gen types typescript --project-id YOUR_PROJECT_ID --schema public > @/types/supabase.ts",
     "syncstripe": "node scripts/syncStripe",
-    "syncsanity": "node scripts/syncSanity"
+    "syncsanity": "node scripts/syncSanity",
+    "remove:stripe-duplicates": "node scripts/remove-stripe-duplicates"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
