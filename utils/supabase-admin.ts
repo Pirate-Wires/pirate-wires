@@ -276,18 +276,6 @@ const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
   console.log(`User full_name updated for ${updatedUser?.id}: ${updatedUser?.full_name}`);
 };
 
-const getPostBySlug = async (slug: string) => {
-  const { data, error } = await supabaseAdmin
-    .from('countries')
-    .select()
-    .eq('slug', slug);
-  if(error) {
-    console.log(`Error fetching post data: ${error.message}`);
-    return null;
-  }
-  return data;
-};
-
 const getUserByEmail = async (email: string) => {
   const { data, error } = await supabaseAdmin
     .from('users')
@@ -327,7 +315,6 @@ export {
   manageSubscriptionStatusChange,
   createAuthUser,
   syncSupbaseUserWithStripe,
-  getPostBySlug,
   getUserByEmail,
   upsertUserRecord
 };
