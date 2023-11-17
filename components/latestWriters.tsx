@@ -21,7 +21,7 @@ export default function LatestWriters({ latestAuthors }) {
         <div className={styles.top}>
           <div className={styles.left}>
             <h3>Staff Writers</h3>
-            <p className={`${styles.blurb} caslon-reg`}>Learn more about the People behind what you read.</p>
+            <p className={`${styles.blurb} martina-light`}>Learn more about the People behind what you read.</p>
           </div>
           <Link
             href={`/authors`}>

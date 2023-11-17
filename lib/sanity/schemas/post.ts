@@ -13,12 +13,14 @@ const schema = {
       name: 'title',
       placeholder: 'Enter title here',
       title: 'Title',
-      type: 'string'
+      type: 'string',
+      validation: Rule => Rule.required()
     },
     {
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
+      validation: Rule => Rule.required(),
       fields: [
         {
           name: 'alt',
@@ -41,6 +43,7 @@ const schema = {
       name: 'author',
       title: 'Author',
       type: 'reference',
+      validation: Rule => Rule.required(),
       to: { type: 'author' }
     },
     {
@@ -52,6 +55,7 @@ const schema = {
       name: 'section',
       title: 'Section',
       type: 'string',
+      validation: Rule => Rule.required(),
       options: {
         list: [
           { title: 'The Wire', value: 'the-wire' },
@@ -64,6 +68,7 @@ const schema = {
     {
       name: 'publishedAt',
       title: 'Published at',
+      validation: Rule => Rule.required(),
       type: 'datetime'
     },
     {
@@ -71,7 +76,7 @@ const schema = {
       title: 'Excerpt / Subtitle',
       type: 'text',
       rows: 3,
-      validation: (Rule) => Rule.max(200)
+      validation: (Rule) => Rule.required().max(200)
     },
     {
       title: 'Wide image top',
@@ -79,14 +84,9 @@ const schema = {
       type: 'boolean'
     },
     {
-      name: 'preface',
-      title: 'Preface',
-      description: 'Optional note from Solana/Editor preceding the article. ',
-      type: 'text'
-    },
-    {
       name: 'body',
       title: 'Body',
+      validation: Rule => Rule.required(),
       type: 'blockContent',
     },
     // {
@@ -98,6 +98,7 @@ const schema = {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      validation: Rule => Rule.required(),
       options: {
         source: 'title',
         maxLength: 96
@@ -119,6 +120,7 @@ const schema = {
       title: 'Meta Title',
       name: 'meta_title',
       type: 'text',
+      validation: Rule => Rule.required(),
       rows: 1
     }),
 
@@ -127,7 +129,7 @@ const schema = {
       name: 'meta_description',
       type: 'text',
       rows: 5,
-      validation: (Rule) => Rule.min(20).max(200)
+      validation: (Rule) => Rule.required().min(20).max(200)
     }),
 
     defineField({

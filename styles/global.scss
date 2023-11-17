@@ -30,8 +30,29 @@
 }
 
 @font-face {
-  font-family: 'Caslon Pro Reg';
-  src: url("../public/fonts/caslon-pro-reg.woff2") format("woff2");
+  font-family: 'Martina Reg';
+  src: url("../public/fonts/martina-plantijn-light.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Martina Med';
+  src: url("../public/fonts/martina-plantijn-medium.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Martina Italic';
+  src: url("../public/fonts/martina-plantijn-italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Martina Bold';
+  src: url("../public/fonts/martina-plantijn-bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -891,21 +912,30 @@ footer {
     @include get-vw-small-increase(margin-top, 40px, 40px);
   }
 
-  p {
+  p, blockquote {
     @include get-vw-small-increase(font-size, 22px, 20px);
-    line-height: 1.49;
+    line-height: 1.51;
     @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
+  li {
+    @include get-vw-small-increase(font-size, 22px, 20px);
+    line-height: 1.6;
+  }
+
+  em {
+    font-family: $martinaItalic;
+  }
+
   blockquote {
-    @include get-vw-small-increase(font-size, 48px, 38px);
-    line-height: 1;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
     @include get-vw-small-increase(margin-top, 35px, 35px);
   }
-
+  strong, b {
+    font-family: $martinaBold;
+  }
   img {
     @include get-vw-small-increase(margin-top, 20px, 20px);
     height: 100%;
@@ -918,14 +948,13 @@ footer {
     margin-bottom: 0;
   }
 
-  li {
-    @include get-vw-small-increase(font-size, 20px, 18px);
-    line-height: 160%;
-  }
-  p, h2, h3, h4, blockquote, img, ul, li {
+  p, h2, h3, h4, blockquote, img, ul {
     &:first-child {
       margin-top: 0;
     }
+  }
+  a {
+    text-decoration: underline;
   }
   @include bp-1024 {
     max-width: 740px;
@@ -948,13 +977,11 @@ footer {
   }
 }
 // font classes
-.caslon-reg {
-  font-family: $caslonReg;
-  font-weight: 400;
+.martina-light {
+  font-family: $martinaLight;
 }
-.caslon-med {
-  font-family: $caslonReg;
-  font-weight: 500;
+.martina-med {
+  font-family: $martinaMed;
 }
 
 // container & spacing styles

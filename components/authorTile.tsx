@@ -33,7 +33,7 @@ export default function AuthorTile({ authorData }) {
           </svg>
         </div>
       </p>
-      <p className={`${styles.title} caslon-med`}>{authorData.title}</p>
+      <p className={`${styles.title} martina-med`}>{authorData.title}</p>
     </Link>
   );
 }

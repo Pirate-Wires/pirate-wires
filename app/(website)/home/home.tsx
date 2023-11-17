@@ -49,7 +49,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
             <Link
               href={`/wires`} className="pubLink hasGoIcon mtb-20">
               <h2>Dive into Tech, Politics & Culture.</h2>
-              <div className="goIconWrapper caslon-reg">
+              <div className="goIconWrapper martina-light">
                 Dive into it
                 <div className="goIcon">
                   <div className="leftHalf"></div>
@@ -100,7 +100,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
 
             <div className="right">
               Excellent developments in technology, engineering, physics, space, and more
-              <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
+              <span className="martina-med">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
             </div>
           </div>
           <Featured post={whitePillPosts[0]} pathPrefix="" />
@@ -118,7 +118,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
               <Link
                 href={`/white-pill`} className="pubLink hasGoIcon mtb-20">
                 <h2>Better than Drugs. Says You.</h2>
-                <div className="goIconWrapper caslon-reg">
+                <div className="goIconWrapper martina-light">
                   Dive into it
                   <div className="goIcon">
                     <div className="leftHalf"></div>
@@ -154,7 +154,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
 
             <div className="right">
               News from the Tech World
-              <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
+              <span className="martina-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
             </div>
           </div>
           <Featured post={industryPosts[0]} pathPrefix="" />
@@ -172,7 +172,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
             <Link
               href={`/the-industry`} className="pubLink hasGoIcon mtb-20">
               <h2>About The Industry, by The Industry</h2>
-              <div className="goIconWrapper caslon-reg">
+              <div className="goIconWrapper martina-light">
                 Dive into it
                 <div className="goIcon">
                   <div className="leftHalf"></div>

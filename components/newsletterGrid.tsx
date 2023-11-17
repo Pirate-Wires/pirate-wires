@@ -44,7 +44,7 @@ export default function LatestWriters({ author }) {
                 </svg>
               </div>
             </p>
-            <p className={`${styles.title} caslon-med`}>Founder & Writer</p>
+            <p className={`${styles.title} martina-med`}>Founder & Writer</p>
           </Link>
           <Link
             href={`/author/author-name`} className="authorTile hasGoIcon">
@@ -60,7 +60,7 @@ export default function LatestWriters({ author }) {
                 </svg>
               </div>
             </p>
-            <p className={`${styles.title} caslon-med`}>Founder & Writer</p>
+            <p className={`${styles.title} martina-med`}>Founder & Writer</p>
           </Link>
           <Link
             href={`/author/author-name`} className="authorTile hasGoIcon">
@@ -76,7 +76,7 @@ export default function LatestWriters({ author }) {
                 </svg>
               </div>
             </p>
-            <p className={`${styles.title} caslon-med`}>Founder & Writer</p>
+            <p className={`${styles.title} martina-med`}>Founder & Writer</p>
           </Link>
           <Link
             href={`/author/author-name`} className="authorTile hasGoIcon">
@@ -92,7 +92,7 @@ export default function LatestWriters({ author }) {
                 </svg>
               </div>
             </p>
-            <p className={`${styles.title} caslon-med`}>Founder & Writer</p>
+            <p className={`${styles.title} martina-med`}>Founder & Writer</p>
           </Link>
         </div>
       </div>

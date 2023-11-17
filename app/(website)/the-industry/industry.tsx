@@ -18,7 +18,7 @@ export default function Industry({
     <>
         <div className="featuredPostsTop ptb-20 c-20">
           {pageData.tagline}
-          <span className="caslon-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
+          <span className="martina-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
         </div>
 
         <Featured post={publicationPosts[0]} pathPrefix="" />
