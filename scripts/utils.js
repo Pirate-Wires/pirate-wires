@@ -224,6 +224,28 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+const removeCanceledSupabaseSubscriptions = async (subscriptionIds) => {
+  const { error: updateError } = await supabaseAdmin
+    .from('users')
+    .update({ subscription_id: null })
+    .not('subscription_id', 'in', `(${subscriptionIds})`);
+  if(updateError) {
+    console.error(`Error updating user subscription_id: ${updateError.message}`);
+    throw updateError;
+  }
+  console.log('Updated user subscription_id');
+
+  const { error: deleteError } = await supabaseAdmin
+    .from('subscriptions')
+    .delete()
+    .not('id', 'in', `(${subscriptionIds})`);
+  if(deleteError) {
+    console.error(`Error updating user subscription_id: ${deleteError.message}`);
+    throw deleteError;
+  }
+  console.log('Updated subscription records');
+}
+
 const updateSupabaseFromStripe = async ({
   users,
   customers,
@@ -311,6 +333,8 @@ const updateSupabaseFromStripe = async ({
       `--------------------------------------------------------------------------`
     );
   }
+
+  await removeCanceledSupabaseSubscriptions(subscriptions.map(item => item.id));
 };
 
 const updateStripeFromSupabase = async ({ users, customers }) => {
@@ -367,4 +391,5 @@ module.exports = {
   manageSubscriptionStatusChange,
   updateSupabaseFromStripe,
   updateStripeFromSupabase,
+  removeCanceledSupabaseSubscriptions,
 };
