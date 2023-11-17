@@ -16,7 +16,7 @@
     "sync:supabase-stripe": "node scripts/syncStripeWithSupabase",
     "syncstripe": "node scripts/syncStripe",
     "syncsanity": "node scripts/syncSanity",
-    "remove:stripe-duplicates": "node scripts/remove-stripe-duplicates"
+    "remove:stripe-duplicates": "node scripts/removeDuplicatedStripeCustomer"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
