@@ -93,6 +93,11 @@
   &.reducedHeaderPage {
     padding-top: 50px;
   }
+  &.search {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 }
 .hitbox {
   position: relative;
@@ -904,22 +909,39 @@ footer {
     padding: 20px 30px 30px 22px;
     display: block;
   }
+  [class*="horRule"] {
+    height: 1px;
+    display: block;
+    width: 100%;
+    background-color: var(--color);
+    opacity: 0.4;
+    text-indent: -999999px;
+  }
   h2, h3, h4 {
     font-family: $gtBold;
     @include get-vw-small-increase(font-size, 40px, 40px);
     line-height: .95;
-    @include get-vw-small-increase(letter-spacing, -1.2px, -1.2px);
+    @include get-vw-small-increase(letter-spacing, -.8px, -.8px);
     @include get-vw-small-increase(margin-top, 40px, 40px);
   }
 
-  p, blockquote {
+  h3, h4 {
+    @include get-vw-small-increase(font-size, 32px, 32px);
+    @include get-vw-small-increase(margin-top, 32px, 32px);
+  }
+  h2 + p, h2 + blockquote, h2 + ul,
+  h3 + p, h3 + blockquote, h3 + ul,
+  h4 + p, h4 + blockquote, h4 + ul {
+    @include get-vw-small-increase(margin-top, 24px, 24px);
+  }
+
+  p, blockquote, li {
     @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.51;
     @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
   li {
-    @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.6;
   }
 
@@ -931,7 +953,8 @@ footer {
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    @include get-vw-small-increase(margin-top, 35px, 35px);
+    padding-left: 19px;
+    border-left: 1px solid rgba(0,0,0,.4);
   }
   strong, b {
     font-family: $martinaBold;
@@ -964,11 +987,7 @@ footer {
   }
 
   @include bp-767 {
-    blockquote {
-      font-size: 28px;
-      line-height: 1.2;
-    }
-    p {
+    p, blockquote, li {
       font-size: 18px;
     }
     [class*="sectionContent"] {

@@ -17,6 +17,26 @@ const schema = {
       validation: Rule => Rule.required()
     },
     {
+      name: 'excerpt',
+      title: 'Excerpt / Subtitle',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required().max(200)
+    },
+    {
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      validation: Rule => Rule.required(),
+      to: { type: 'author' }
+    },
+    {
+      name: 'body',
+      title: 'Body',
+      validation: Rule => Rule.required(),
+      type: 'blockContent',
+    },
+    {
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
@@ -40,15 +60,18 @@ const schema = {
       }
     },
     {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      validation: Rule => Rule.required(),
-      to: { type: 'author' }
+      title: 'Wide image top',
+      name: 'wide_image_top',
+      type: 'boolean'
     },
     {
       title: 'Newsletter',
       name: 'newsletter',
+      type: 'boolean'
+    },
+    {
+      title: 'Show newsletter in grid',
+      name: 'newsletter_in_grid',
       type: 'boolean'
     },
     {
@@ -66,35 +89,6 @@ const schema = {
       }
     },
     {
-      name: 'publishedAt',
-      title: 'Published at',
-      validation: Rule => Rule.required(),
-      type: 'datetime'
-    },
-    {
-      name: 'excerpt',
-      title: 'Excerpt / Subtitle',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.required().max(200)
-    },
-    {
-      title: 'Wide image top',
-      name: 'wide_image_top',
-      type: 'boolean'
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      validation: Rule => Rule.required(),
-      type: 'blockContent',
-    },
-    // {
-    //   name: 'paidContent',
-    //   title: 'Paid Content',
-    //   type: 'blockContent'
-    // },
-    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -104,18 +98,11 @@ const schema = {
         maxLength: 96
       }
     },
-    defineField({
-      title: 'Related posts override',
-      description: 'Three posts of your choosing to be recirculated with this article',
-      name: 'related_posts',
-      type: 'array',
-      of: [{
-        title: 'Post',
-        name: 'related_post',
-        type: 'reference',
-        to: [{type: 'post'}]
-      }]
-    }),
+    // {
+    //   name: 'paidContent',
+    //   title: 'Paid Content',
+    //   type: 'blockContent'
+    // },
     defineField({
       title: 'Meta Title',
       name: 'meta_title',
@@ -137,7 +124,24 @@ const schema = {
       type: 'image',
       title: 'Open Graph Image',
       description: 'Image for sharing previews on Facebook, Twitter etc.'
-    })
+    }),
+    defineField({
+      title: 'Related posts override',
+      description: 'Three posts of your choosing to be recirculated with this article',
+      name: 'related_posts',
+      type: 'array',
+      of: [{
+        title: 'Post',
+        name: 'related_post',
+        type: 'reference',
+        to: [{type: 'post'}]
+      }]
+    }),
+    {
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime'
+    }
   ],
 
   preview: {
