@@ -106,6 +106,19 @@ const getAllStripeSubscriptions = async () => {
   return allSubscriptions;
 };
 
+const getAllSupabaseSubscriptions = async () => {
+  const { data, error } = await supabaseAdmin
+    .from('subscriptions')
+    .select();
+
+  if (error) {
+    console.error(`Error fetching supabase subscriptions: ${error.message}`);
+    return null;
+  }
+
+  return data;
+};
+
 const upsertSupabaseUserRecord = async (userData) => {
   const { email, full_name } = userData;
   const { error } = await supabaseAdmin.from('users').upsert([userData]);
@@ -246,6 +259,36 @@ const removeCanceledSupabaseSubscriptions = async (subscriptionIds) => {
   console.log('Updated subscription records');
 }
 
+const removeNonExistingStripeCustomers = async ({ customers }) => {
+  for(let customer of customers) {
+    const { data: customerData, error} = await supabaseAdmin
+      .from('customers')
+      .select()
+      .eq('stripe_customer_id', customer.id);
+
+    if(error) {
+      console.error(`Error fetching customer: ${error.message}`);
+      throw error;
+    }
+
+    if(customerData.length)   continue;
+
+    await stripe.customers.del(customer.id);
+
+    console.log(`Deleted stripe customer: ${customer.id}`);
+  }
+}
+
+const removeNonExistingStripeSubscriptions = async ({ subscriptions: supabaseSubscriptions }) => {
+  const subscriptions = await getAllStripeSubscriptions();
+  const nonExistingSubscriptionIds = subscriptions.filter(item => !supabaseSubscriptions.find(subscription => subscription.id === item.id)).map(item => item.id);
+
+  for(let subscriptionId of nonExistingSubscriptionIds) {
+    await stripe.subscriptions.cancel(subscriptionId);
+    console.log(`Deleted stripe subscription: ${subscriptionId}`);
+  }
+}
+
 const updateSupabaseFromStripe = async ({
   users,
   customers,
@@ -337,7 +380,7 @@ const updateSupabaseFromStripe = async ({
   await removeCanceledSupabaseSubscriptions(subscriptions.map(item => item.id));
 };
 
-const updateStripeFromSupabase = async ({ users, customers }) => {
+const updateStripeFromSupabase = async ({ users, customers, subscriptions }) => {
   console.log(
     `--------------------------------------------------------------------------`
   );
@@ -360,7 +403,8 @@ const updateStripeFromSupabase = async ({ users, customers }) => {
       );
     } else {
       stripeCustomer = await stripe.customers.create({
-        email: user.email
+        email: user.email,
+        name: user.full_name
       });
       console.log(
         `Stripe customer created with email ${user.email}: ${stripeCustomer.id}`
@@ -378,6 +422,9 @@ const updateStripeFromSupabase = async ({ users, customers }) => {
       `--------------------------------------------------------------------------`
     );
   }
+
+  await removeNonExistingStripeCustomers({ users, customers });
+  await removeNonExistingStripeSubscriptions({ subscriptions });
 };
 
 module.exports = {
@@ -385,6 +432,9 @@ module.exports = {
   getAllSupabaseUsers,
   getAllStripeCustomers,
   getAllStripeSubscriptions,
+  getAllSupabaseSubscriptions,
+  removeNonExistingStripeCustomers,
+  removeNonExistingStripeSubscriptions,
   upsertSupabaseUserRecord,
   upsertSupabaseCustomerRecord,
   copyBillingDetailsToCustomer,
