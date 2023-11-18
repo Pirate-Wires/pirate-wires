@@ -100,7 +100,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
 
             <div className="right">
               Excellent developments in technology, engineering, physics, space, and more
-              <span className="martina-med">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
+              <span className="martina-reg">Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link></span>
             </div>
           </div>
           <Featured post={whitePillPosts[0]} pathPrefix="" />
@@ -154,7 +154,7 @@ export default function DefaultHome({ pageData, globalFields, newsletterData }) 
 
             <div className="right">
               News from the Tech World
-              <span className="martina-med">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
+              <span className="martina-reg">Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link></span>
             </div>
           </div>
           <Featured post={industryPosts[0]} pathPrefix="" />

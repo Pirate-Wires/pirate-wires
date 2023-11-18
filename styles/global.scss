@@ -37,8 +37,8 @@
 }
 
 @font-face {
-  font-family: 'Martina Med';
-  src: url("../public/fonts/martina-plantijn-medium.woff2") format("woff2");
+  font-family: 'Martina Reg';
+  src: url("../public/fonts/martina-plantijn-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -73,22 +73,13 @@
   padding-top: 80px;
   height: 100%;
   &.the-wire {
-    header, footer {
-      --color: #E3E3E3;
-      --bgColor: #060606;
-    }
+
   }
   &.the-white-pill {
-    header, footer {
-      --color: #060606;
-      --bgColor: #F1CB45;
-    }
+
   }
   &.the-industry {
-    header, footer {
-      --color: #060606;
-      --bgColor: #9474F1;
-    }
+
   }
   &.reducedHeaderPage {
     padding-top: 50px;
@@ -653,9 +644,40 @@ footer {
   }
   .featuredPostsTop {
     font-family: $neueMed;
+    flex-wrap: wrap;
+    flex-direction: row;
+    @include get-vw-small-increase(padding-top, 15px, 15px);
+    @include get-vw-small-increase(gap, 30px, 20px);
+    > svg {
+      width: 100%;
+    }
     span {
       position: relative;
       bottom: -2px;
+      line-height: normal;
+    }
+    .taglineRow {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      width: 100%;
+    }
+    @include bp-1024 {
+      justify-content: space-between;
+      span {
+        bottom: auto;
+      }
+    }
+    @include bp-767 {
+      padding-top: 8px;
+      gap: 0;
+      > svg {
+        margin-bottom: 20px;
+      }
+      .taglineRow {
+        flex-wrap: wrap;
+        gap: 5px;
+      }
     }
   }
   &.pirate-wires {
@@ -901,7 +923,7 @@ footer {
 
 // Rich text
 .richText {
-  @include get-vw-small-increase(max-width, 600px, 600px);
+  @include get-vw-small-increase(max-width, 630px, 630px);
   display: flex;
   flex-direction: column;
   [class*="sectionContent"] {
@@ -941,7 +963,7 @@ footer {
 
   p, blockquote, li {
     @include get-vw-small-increase(font-size, 22px, 20px);
-    line-height: 1.51;
+    line-height: 1.49;
     @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
@@ -1003,8 +1025,8 @@ footer {
 .martina-light {
   font-family: $martinaLight;
 }
-.martina-med {
-  font-family: $martinaMed;
+.martina-reg {
+  font-family: $martinaReg;
 }
 
 // container & spacing styles
