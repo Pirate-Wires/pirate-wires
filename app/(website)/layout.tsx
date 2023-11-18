@@ -56,7 +56,6 @@ export async function generateMetadata({ params }) {
 
 export default async function Layout({ children, params }) {
   const globalFields = await getGlobalFields();
-  console.log(globalFields)
   return (
     <>
       <SupabaseProvider>

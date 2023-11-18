@@ -34,7 +34,6 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function UtilityPage({ params }) {
-  console.log(params)
   const pageData = await getUtilityPageData(params.utility);
   const globalFields = await getGlobalFields();
 

@@ -961,10 +961,16 @@ footer {
     @include get-vw-small-increase(margin-top, 10px, 10px);
   }
 
-  p, blockquote, li {
+  p, blockquote, ul {
     @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.49;
     @include get-vw-small-increase(margin-top, 20px, 20px);
+  }
+
+  p, blockquote, li {
+    &:empty {
+      display: none;
+    }
   }
 
   li {

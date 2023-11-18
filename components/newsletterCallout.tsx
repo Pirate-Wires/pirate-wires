@@ -86,7 +86,6 @@ export default function NewsletterCallout({ newsletterData }) {
     }
 
     const clickInnerInput = (event) => {
-        console.log(event.target)
         if (!event.target.classList.contains("newsletter-tile")) {
             event.target.closest(".newsletter-tile").querySelector("input").click();
         } else {
