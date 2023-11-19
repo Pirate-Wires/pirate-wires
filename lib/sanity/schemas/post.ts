@@ -13,12 +13,34 @@ const schema = {
       name: 'title',
       placeholder: 'Enter title here',
       title: 'Title',
-      type: 'string'
+      type: 'string',
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'excerpt',
+      title: 'Excerpt / Subtitle',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required().max(200)
+    },
+    {
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      validation: Rule => Rule.required(),
+      to: { type: 'author' }
+    },
+    {
+      name: 'body',
+      title: 'Body',
+      validation: Rule => Rule.required(),
+      type: 'blockContent',
     },
     {
       name: 'mainImage',
       title: 'Main image',
       type: 'image',
+      validation: Rule => Rule.required(),
       fields: [
         {
           name: 'alt',
@@ -38,10 +60,9 @@ const schema = {
       }
     },
     {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: { type: 'author' }
+      title: 'Wide image top',
+      name: 'wide_image_top',
+      type: 'boolean'
     },
     {
       title: 'Newsletter',
@@ -49,9 +70,15 @@ const schema = {
       type: 'boolean'
     },
     {
+      title: 'Show newsletter in grid',
+      name: 'newsletter_in_grid',
+      type: 'boolean'
+    },
+    {
       name: 'section',
       title: 'Section',
       type: 'string',
+      validation: Rule => Rule.required(),
       options: {
         list: [
           { title: 'The Wire', value: 'the-wire' },
@@ -62,47 +89,42 @@ const schema = {
       }
     },
     {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime'
-    },
-    {
-      name: 'excerpt',
-      title: 'Excerpt / Subtitle',
-      type: 'text',
-      rows: 3,
-      validation: (Rule) => Rule.max(200)
-    },
-    {
-      title: 'Wide image top',
-      name: 'wide_image_top',
-      type: 'boolean'
-    },
-    {
-      name: 'preface',
-      title: 'Preface',
-      description: 'Optional note from Solana/Editor preceding the article. ',
-      type: 'text'
-    },
-    {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      validation: Rule => Rule.required(),
+      options: {
+        source: 'title',
+        maxLength: 96
+      }
     },
     // {
     //   name: 'paidContent',
     //   title: 'Paid Content',
     //   type: 'blockContent'
     // },
-    {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96
-      }
-    },
+    defineField({
+      title: 'Meta Title',
+      name: 'meta_title',
+      type: 'text',
+      validation: Rule => Rule.required(),
+      rows: 1
+    }),
+
+    defineField({
+      title: 'Meta Description',
+      name: 'meta_description',
+      type: 'text',
+      rows: 5,
+      validation: (Rule) => Rule.required().min(20).max(200)
+    }),
+
+    defineField({
+      name: 'openGraphImage',
+      type: 'image',
+      title: 'Open Graph Image',
+      description: 'Image for sharing previews on Facebook, Twitter etc.'
+    }),
     defineField({
       title: 'Related posts override',
       description: 'Three posts of your choosing to be recirculated with this article',
@@ -115,27 +137,11 @@ const schema = {
         to: [{type: 'post'}]
       }]
     }),
-    defineField({
-      title: 'Meta Title',
-      name: 'meta_title',
-      type: 'text',
-      rows: 1
-    }),
-
-    defineField({
-      title: 'Meta Description',
-      name: 'meta_description',
-      type: 'text',
-      rows: 5,
-      validation: (Rule) => Rule.min(20).max(200)
-    }),
-
-    defineField({
-      name: 'openGraphImage',
-      type: 'image',
-      title: 'Open Graph Image',
-      description: 'Image for sharing previews on Facebook, Twitter etc.'
-    })
+    {
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime'
+    }
   ],
 
   preview: {

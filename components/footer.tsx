@@ -22,8 +22,8 @@ export default function Footer({globalFields}) {
       </div>
       <div className="bottom ptb-20 mt-20">
         <div className="left">
-          <Link href="/terms-and-conditions">Terms & Conditions</Link>
-          <Link href="/cookie-policy">Cookie Policy</Link>
+          <Link target={'_blank'} href="https://app.termly.io/document/terms-of-service/7109fc1e-402d-466e-9f79-fe8cbe4a2b71">Terms & Conditions</Link>
+          <Link target={'_blank'} href="https://app.termly.io/document/cookie-policy/694ea8ec-42f3-4c00-8199-cb2250a87dee">Cookie Policy</Link>
         </div>
         <div className="middle">
           <a href="https://twitter.com/PirateWires" target="_blank" rel="noopener">X (Twitter)</a>

@@ -44,7 +44,7 @@ export default function Search({posts}) {
         </div>
         {query ? (
           <p className={`${styles.resultsText}`}>
-            Showing {data?.length} results for {query}.
+            Showing {data?.length > 0 ? data?.length : 0} results for {query}.
           </p>
         ) : (
           <p className={`${styles.resultsText}`}>

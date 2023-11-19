@@ -49,7 +49,7 @@ export const configQuery = groq`
 
 // Get Global Fields (color defs, section defaults)
 export const globalFieldsQuery = groq`
-*[_type == "globalFields"][1] {
+*[_type == "globalFields"][0] {
   ...,
 }
 `;

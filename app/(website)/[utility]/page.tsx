@@ -34,11 +34,10 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function UtilityPage({ params }) {
-  console.log(params)
   const pageData = await getUtilityPageData(params.utility);
   const globalFields = await getGlobalFields();
 
-  return <div className="colorWrapper author" style={{
+  return <div className="colorWrapper" style={{
     "--color": "#060606",
     "--bgColor": "#E3E3E3",
     "--accentLight": "rgba(43, 43, 43, 0.45)",

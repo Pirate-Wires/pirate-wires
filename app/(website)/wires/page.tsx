@@ -38,9 +38,9 @@ export default async function WiresPage() {
   const session = await getSession();
   const user = session?.user;
   return <div className="colorWrapper interiorPub pirate-wires" style={{
-    "--color": "#E3E3E3",
-    "--bgColor": "#060606",
-    "--accentLight": "rgba(227, 227, 227, 0.45)"
+    "--color": "#060606",
+    "--bgColor": "#e3e3e3",
+    "--accentLight": "rgba(0, 0, 0, 0.45)"
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />
     <Wires

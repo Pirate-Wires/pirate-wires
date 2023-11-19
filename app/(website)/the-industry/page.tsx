@@ -38,8 +38,8 @@ export default async function IndustryPage() {
   const session = await getSession()
   const user = session?.user
   return <div className="colorWrapper interiorPub" style={{
-    "--color": globalFields.industry_color,
-    "--bgColor": globalFields.industry_bgcolor,
+    "--color": "#060606",
+    "--bgColor": "#e3e3e3",
     "--accentLight": "rgba(43, 43, 43, 0.45)",
   } as React.CSSProperties}>
     <Navigation globalFields={globalFields} />

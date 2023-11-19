@@ -30,8 +30,29 @@
 }
 
 @font-face {
-  font-family: 'Caslon Pro Reg';
-  src: url("../public/fonts/caslon-pro-reg.woff2") format("woff2");
+  font-family: 'Martina Light';
+  src: url("../public/fonts/martina-plantijn-light.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Martina Reg';
+  src: url("../public/fonts/martina-plantijn-regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Martina Italic';
+  src: url("../public/fonts/martina-plantijn-italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Martina Bold';
+  src: url("../public/fonts/martina-plantijn-bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -52,25 +73,21 @@
   padding-top: 80px;
   height: 100%;
   &.the-wire {
-    header, footer {
-      --color: #E3E3E3;
-      --bgColor: #060606;
-    }
+
   }
   &.the-white-pill {
-    header, footer {
-      --color: #060606;
-      --bgColor: #F1CB45;
-    }
+
   }
   &.the-industry {
-    header, footer {
-      --color: #060606;
-      --bgColor: #9474F1;
-    }
+
   }
   &.reducedHeaderPage {
     padding-top: 50px;
+  }
+  &.search {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 }
 .hitbox {
@@ -627,9 +644,40 @@ footer {
   }
   .featuredPostsTop {
     font-family: $neueMed;
+    flex-wrap: wrap;
+    flex-direction: row;
+    @include get-vw-small-increase(padding-top, 15px, 15px);
+    @include get-vw-small-increase(gap, 30px, 20px);
+    > svg {
+      width: 100%;
+    }
     span {
       position: relative;
       bottom: -2px;
+      line-height: normal;
+    }
+    .taglineRow {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      width: 100%;
+    }
+    @include bp-1024 {
+      justify-content: space-between;
+      span {
+        bottom: auto;
+      }
+    }
+    @include bp-767 {
+      padding-top: 8px;
+      gap: 0;
+      > svg {
+        margin-bottom: 20px;
+      }
+      .taglineRow {
+        flex-wrap: wrap;
+        gap: 5px;
+      }
     }
   }
   &.pirate-wires {
@@ -875,7 +923,7 @@ footer {
 
 // Rich text
 .richText {
-  @include get-vw-small-increase(max-width, 600px, 600px);
+  @include get-vw-small-increase(max-width, 630px, 630px);
   display: flex;
   flex-direction: column;
   [class*="sectionContent"] {
@@ -883,29 +931,66 @@ footer {
     padding: 20px 30px 30px 22px;
     display: block;
   }
+  [class*="horRule"] {
+    height: 1px;
+    display: block;
+    width: 100%;
+    background-color: var(--color);
+    opacity: 0.4;
+    text-indent: -999999px;
+  }
   h2, h3, h4 {
     font-family: $gtBold;
     @include get-vw-small-increase(font-size, 40px, 40px);
     line-height: .95;
-    @include get-vw-small-increase(letter-spacing, -1.2px, -1.2px);
+    @include get-vw-small-increase(letter-spacing, -.8px, -.8px);
     @include get-vw-small-increase(margin-top, 40px, 40px);
   }
 
-  p {
+  h3, h4 {
+    line-height: 1.46;
+    @include get-vw-small-increase(font-size, 26px, 26px);
+    @include get-vw-small-increase(margin-top, 32px, 32px);
+  }
+  h2 + p, h2 + blockquote, h2 + ul {
+    @include get-vw-small-increase(margin-top, 24px, 24px);
+  }
+
+  h3 + p, h3 + blockquote, h3 + ul,
+  h4 + p, h4 + blockquote, h4 + ul {
+    @include get-vw-small-increase(margin-top, 10px, 10px);
+  }
+
+  p, blockquote, ul {
     @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.49;
     @include get-vw-small-increase(margin-top, 20px, 20px);
   }
 
+  p, blockquote, li {
+    &:empty {
+      display: none;
+    }
+  }
+
+  li {
+    line-height: 1.6;
+  }
+
+  em {
+    font-family: $martinaItalic;
+  }
+
   blockquote {
-    @include get-vw-small-increase(font-size, 48px, 38px);
-    line-height: 1;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    @include get-vw-small-increase(margin-top, 35px, 35px);
+    padding-left: 19px;
+    border-left: 1px solid rgba(0,0,0,.4);
   }
-
+  strong, b {
+    font-family: $martinaBold;
+  }
   img {
     @include get-vw-small-increase(margin-top, 20px, 20px);
     height: 100%;
@@ -918,14 +1003,13 @@ footer {
     margin-bottom: 0;
   }
 
-  li {
-    @include get-vw-small-increase(font-size, 20px, 18px);
-    line-height: 160%;
-  }
-  p, h2, h3, h4, blockquote, img, ul, li {
+  p, h2, h3, h4, blockquote, img, ul {
     &:first-child {
       margin-top: 0;
     }
+  }
+  a {
+    text-decoration: underline;
   }
   @include bp-1024 {
     max-width: 740px;
@@ -935,11 +1019,7 @@ footer {
   }
 
   @include bp-767 {
-    blockquote {
-      font-size: 28px;
-      line-height: 1.2;
-    }
-    p {
+    p, blockquote, li {
       font-size: 18px;
     }
     [class*="sectionContent"] {
@@ -948,13 +1028,11 @@ footer {
   }
 }
 // font classes
-.caslon-reg {
-  font-family: $caslonReg;
-  font-weight: 400;
+.martina-light {
+  font-family: $martinaLight;
 }
-.caslon-med {
-  font-family: $caslonReg;
-  font-weight: 500;
+.martina-reg {
+  font-family: $martinaReg;
 }
 
 // container & spacing styles
