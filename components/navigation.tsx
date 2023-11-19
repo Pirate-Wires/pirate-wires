@@ -169,7 +169,7 @@ const Navigation: React.FC<NavigationProps> = ({ publication, globalFields }) =>
                   </svg>
                 </Link>
                 {homePage &&
-                  <h2 className="caslon-reg">Technology, Politics, Culture</h2>
+                  <h2 className="martina-light">Technology, Politics, Culture</h2>
                 }
                 {industryPage &&
                   <>

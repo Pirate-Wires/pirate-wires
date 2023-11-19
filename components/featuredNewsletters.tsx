@@ -143,7 +143,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
 
                   <h5>{newsletter.title}</h5>
                 </div>
-                <p className="caslon-med">{newsletter.excerpt}</p>
+                <p className="martina-reg">{newsletter.excerpt}</p>
               </Link>
             ))}
           </div>

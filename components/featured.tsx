@@ -23,7 +23,7 @@ export default function Featured({ post, pathPrefix, priority = true }) {
           </h1>
 
           <div className={styles.bottom}>
-            <p className="excerpt caslon-reg">
+            <p className="excerpt martina-light">
               <svg preserveAspectRatio="none" viewBox="0 0 400 1" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line vectorEffect="non-scaling-stroke" y1="0.65" x2="400" y2="0.65" stroke="var(--color)" strokeOpacity="0.5" strokeWidth="0.7" strokeDasharray="5 5"/>
               </svg>

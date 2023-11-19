@@ -17,7 +17,7 @@ export default function Utility({ pageData }) {
       <section className={`${styles.utilityPage} c-20`}>
         <h1>{pageData.title}</h1>
         <div className={`${styles.pageBody}`}>
-          <div className={`richText caslon-reg`}>
+          <div className={`richText martina-light`}>
             {pageData.body && <PortableText value={pageData.body} />}
           </div>
           {pageData.subscribeCta &&
