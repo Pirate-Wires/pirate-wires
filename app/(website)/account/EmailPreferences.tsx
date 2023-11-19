@@ -1,9 +1,14 @@
+// /app/(website)/account/EmailPreferences.tsx
 'use client';
 
 import { useState, useEffect, useReducer } from 'react';
 
-export const EmailPreferences = ({ user }) => {
-  const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
+type EmailPreferencesProps = {
+  user: { email: string }; // Replace this with the actual user type
+};
+
+export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
+  const [selectedNewsLetters, setSelectedNewsLetters] = useState<string[]>([]);
   const [isProgress, setIsProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(0);
 
@@ -24,13 +29,20 @@ export const EmailPreferences = ({ user }) => {
       });
   }, [user.email]);
 
-  const handleSelect = (event) => {
+  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (isLoading || isProgress) return;
 
     const name = event.target.name;
-    const newSubscription = selectedNewsLetters.indexOf(name) > -1
-      ? selectedNewsLetters.filter((item) => item !== name)
-      : [...selectedNewsLetters, name];
+    let newSubscription: string[] = [];
+
+    if (selectedNewsLetters.includes(name)) {
+      // Unchecking a checkbox
+      newSubscription = selectedNewsLetters.filter((item) => item !== name);
+    } else {
+      // Checking a checkbox
+      newSubscription = [...selectedNewsLetters, name];
+    }
+
     setPreferences(newSubscription);
     setSelectedNewsLetters(newSubscription);
   };
@@ -48,6 +60,8 @@ export const EmailPreferences = ({ user }) => {
           subscription
         })
       });
+
+      console.log('PUT request sent.');
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
