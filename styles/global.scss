@@ -952,19 +952,25 @@ footer {
     @include get-vw-small-increase(font-size, 26px, 26px);
     @include get-vw-small-increase(margin-top, 32px, 32px);
   }
-  h2 + p, h2 + blockquote, h2 + ul {
+  h2 + p, h2 + blockquote, h2 + ul, h2 + ol, h2 + img {
     @include get-vw-small-increase(margin-top, 24px, 24px);
   }
 
-  h3 + p, h3 + blockquote, h3 + ul,
-  h4 + p, h4 + blockquote, h4 + ul {
+  h3 + p, h3 + blockquote, h3 + ul, h3 + ol, h3 + img,
+  h4 + p, h4 + blockquote, h4 + ul, h4 + ol, h4 + img {
     @include get-vw-small-increase(margin-top, 10px, 10px);
   }
 
-  p, blockquote, ul {
+  p, blockquote, ul, ol {
     @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.49;
     @include get-vw-small-increase(margin-top, 20px, 20px);
+  }
+
+  iframe {
+    @include get-vw-small-increase(margin-top, 22px, 22px);
+    height: auto;
+    aspect-ratio: 1/.5625;
   }
 
   p, blockquote, li {
@@ -991,9 +997,13 @@ footer {
   strong, b {
     font-family: $martinaBold;
   }
+  h2 strong, h3 strong, h4 strong {
+    font-family: inherit;
+  }
   img {
-    @include get-vw-small-increase(margin-top, 20px, 20px);
-    height: 100%;
+    @include get-vw-small-increase(margin-top, 22px, 22px);
+    height: auto;
+    width: 100%;
     position: relative;
   }
 
@@ -1003,13 +1013,16 @@ footer {
     margin-bottom: 0;
   }
 
-  p, h2, h3, h4, blockquote, img, ul {
+  p, h2, h3, h4, blockquote, img, ul, ol, iframe {
     &:first-child {
       margin-top: 0;
     }
   }
   a {
-    text-decoration: underline;
+    text-decoration: underline rgba(0,0,0,0.5);
+    text-underline-position: under;
+    text-decoration-thickness: 0.05em;
+    text-underline-offset: 2px;
   }
   @include bp-1024 {
     max-width: 740px;
@@ -1024,6 +1037,9 @@ footer {
     }
     [class*="sectionContent"] {
       padding: 20px 20px 22px;
+    }
+    a {
+      text-underline-offset: 1px;
     }
   }
 }

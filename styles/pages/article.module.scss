@@ -126,7 +126,13 @@
     padding-top: 44px;
   }
 }
-
+.caption {
+  margin-top: 3px;
+  margin-left: 1px;
+  font-family: $martinaBold;
+  letter-spacing: 0.1px;
+  @include get-vw-small-increase(font-size, 14px, 14px);
+}
 .imageWrapper {
   width: 50%;
   aspect-ratio: 1/1;

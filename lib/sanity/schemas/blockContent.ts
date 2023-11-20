@@ -104,7 +104,19 @@ const schema = {
     // as a block type.
     {
       type: 'image',
-      options: { hotspot: true }
+      options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alt text',
+        },
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Optional caption'
+        }
+      ]
     },
     {
       type: 'code'
