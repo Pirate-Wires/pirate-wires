@@ -79,7 +79,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
 
     const form = event.target as HTMLFormElement;
     const emailInput = form.elements.namedItem('email') as HTMLInputElement;
-    const email = emailInput.value;
+    const email = user ? user.email : emailInput.value;
 
     try {
       const response = await fetch('/api/customer-io/preferences', {
@@ -192,15 +192,23 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
               science, from physics and astronomy to space and beyond.
             </p>
             <form className={`${styles.form}`} onSubmit={handleSubmit}>
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Your email here..."
-              />
-              <button type="submit" disabled={isLoading}>
-                {isLoading ? 'Loading...' : 'Sign Up'}
-              </button>
+              {!user ? (
+                <>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Your email here..."
+                  />
+                  <button type="submit" className="sign-up-btn" disabled={isLoading}>
+                    {isLoading ? 'Loading...' : 'Sign Up'}
+                  </button>
+                </>
+              ) : (
+                <button type="submit" disabled={isLoading}>
+                  {isLoading ? 'Loading...' : 'Join'}
+                </button>
+              )}
             </form>
             {isSuccess && (
               <p className={styles.tagline}>Thanks for subscribing!</p>
