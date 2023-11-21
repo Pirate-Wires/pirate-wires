@@ -107,7 +107,6 @@ const schema = {
       title: 'Meta Title',
       name: 'meta_title',
       type: 'text',
-      validation: Rule => Rule.required(),
       rows: 1
     }),
 
@@ -116,7 +115,7 @@ const schema = {
       name: 'meta_description',
       type: 'text',
       rows: 5,
-      validation: (Rule) => Rule.required().min(20).max(200)
+      validation: (Rule) => Rule.min(20).max(200)
     }),
 
     defineField({

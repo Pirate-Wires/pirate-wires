@@ -23,17 +23,17 @@ const CommentSection = ({ initialData = null }: Props): JSX.Element => {
 
   return (
     <>
-      <div className="flex-none flex flex-row items-center justify-between py-3 sm:py-4 px-3 sm:px-6 order-first">
-        <h2 className="text-xl font-semibold dark:text-gray-100">
+      <div className="">
+        <h2 className="">
           {count && <span>{count}</span>} Comments
         </h2>
       </div>
 
-      <div className="flex border-t border-gray-200 dark:border-gray-600 px-3 sm:px-6">
+      <div className="">
         <NewCommentForm />
       </div>
 
-      <div className="flex-grow flex flex-col overflow-hidden">
+      <div className="">
         <CommentsList initialData={initialData} useInfiniteScroll={false} />
       </div>
     </>
