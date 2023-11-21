@@ -158,29 +158,28 @@ const NewCommentForm = ({
 
   return (
     <>
-      <div className="flex flex-grow flex-col min-h-14">
-        <div className="flex-grow flex items-center space-x-2">
+      <div className="">
+        <div className="">
           {!user && (
             <button
-              className="focus-ring"
+              className=""
               onClick={() => open('signInModal')}
               aria-label="Create new account"
             >
-              <User className="text-gray-600 w-7 h-7" />
+              <User className="" />
             </button>
           )}
           {user && (
-            <button className="focus-ring" aria-label="View profile information">
+            <button className="" aria-label="View profile information">
               <Avatar profile={profile} />
-              {/* <Smile className="w-7 h-7 text-gray-500 hover:text-gray-800 transition" /> */}
             </button>
           )}
 
-          <label className="flex-grow flex items-center cursor-text select-none focus-within-ring min-h-14">
+          <label className="">
             <span className="sr-only">Enter a comment</span>
             <textarea
-              className="block bg-transparent flex-grow leading-5 min-h-5 max-h-36 resize-none m-0 px-0 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-300 border-none overflow-auto text-sm transition-opacity disabled:opacity-50 focus:outline-none focus:shadow-none focus:ring-0"
-              placeholder="Add a comment..."
+              className=""
+              placeholder="Write a comment..."
               rows={1}
               value={content}
               onChange={handleChange}
@@ -189,12 +188,11 @@ const NewCommentForm = ({
             ></textarea>
           </label>
 
-          <div className="h-full flex items-center justify-center w-12">
+          <div className="">
             <button
               className={cn(
-                'text-indigo-500 dark:text-indigo-400 font-semibold px-2 text-sm h-full max-h-10 border border-transparent focus-ring',
                 {
-                  'cursor-not-allowed opacity-50': content.length < 1 || isLoading,
+                  'disabled': content.length < 1 || isLoading,
                 }
               )}
               disabled={content.length < 1}

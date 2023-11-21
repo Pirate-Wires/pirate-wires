@@ -18,6 +18,9 @@ a {
     outline: 0 none;
   }
 }
+ol, ul {
+  margin-bottom: 0;
+}
 input, textarea {
   border: none;
   -webkit-appearance: none;

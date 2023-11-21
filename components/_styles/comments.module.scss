@@ -1,0 +1,11 @@
+@import "../../styles/abstracts";
+
+.commentsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentsTop {
+  display: flex;
+  justify-content: space-between;
+}

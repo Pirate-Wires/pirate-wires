@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PortableText as PortableTextComponent } from "@portabletext/react";
 import { urlForImage } from "@/lib/sanity/image";
 import Iframe from "react-iframe";
+import articleStyles from "@/styles/pages/article.module.scss";
 import getVideoId from "get-video-id";
 import { cx } from "@/utils/all";
 
@@ -28,13 +29,19 @@ Refractor.registerLanguage(bash);
 const ImageComponent = ({ value }) => {
   // const {width, height} = getImageDimensions(value)
   return (
-    <Image
-      src={urlForImage(value) || ""}
-      alt={value.alt || "Image"}
-      loading="lazy"
-      className="object-cover"
-      sizes="(max-width: 800px) 100vw, 800px"
-    />
+    <>
+      <Image
+        src={urlForImage(value) || ""}
+        alt={value.alt_text || ""}
+        loading="lazy"
+        className="object-cover"
+        sizes="800px"
+      />
+      {value.caption ?
+        <span className={articleStyles.caption}>{value.caption}</span> :
+        ""
+      }
+    </>
   );
 };
 
