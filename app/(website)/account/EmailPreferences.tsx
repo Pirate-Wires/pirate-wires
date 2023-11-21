@@ -53,11 +53,23 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
     setIsProgress(true);
 
     try {
+      const topics = {
+        Wires: 'topicWires',
+        'The White Pill': 'topicTheWhitePill',
+        'The Industry': 'topicTheIndustry',
+        'Dolores Park': 'topicDoloresPark',
+        'Important Pirate Wires Updates': 'topicImportantPirateWiresUpdates'
+      };
+
+      const updatedSubscription = Object.keys(topics).filter(key =>
+        subscription.includes(key)
+      );
+
       const response = await fetch('/api/customer-io/preferences', {
         method: 'PUT',
         body: JSON.stringify({
           email: user?.email,
-          subscription
+          subscription: updatedSubscription
         })
       });
 
@@ -77,6 +89,7 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
       setIsProgress(false);
     }
   };
+
 
   return (
     <>
@@ -117,10 +130,16 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         </div>
       )}
       <h3>Email Preferences</h3>
+      {/* // Topics in customer.io are given an id number in the order in which they were created. Re-ordering them in the UI will not change their id number.
+      // 1	Wires
+      // 2	The Industry
+      // 3	The White Pill
+      // 5	Dolores Park
+      // 4	Important Pirate Wires Updates */}
       <p>Subscribe or unsubscribe to our newsletters</p>
       <input
         type="checkbox"
-        id="topic1"
+        id="topicWires"
         name="Wires"
         checked={selectedNewsLetters.indexOf('Wires') > -1}
         onChange={handleSelect}
@@ -129,7 +148,7 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
       <br />
       <input
         type="checkbox"
-        id="topic2"
+        id="topicWhitePill"
         name="The White Pill"
         checked={selectedNewsLetters.indexOf('The White Pill') > -1}
         onChange={handleSelect}
@@ -138,12 +157,74 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
       <br />
       <input
         type="checkbox"
-        id="topic3"
+        id="topicIndustry"
         name="The Industry"
         checked={selectedNewsLetters.indexOf('The Industry') > -1}
         onChange={handleSelect}
       />
       <label>The Industry</label>
+      <br />
+      <input
+        type="checkbox"
+        id="topicDoloresPark" // Update the id accordingly
+        name="Dolores Park"
+        checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
+        onChange={handleSelect}
+      />
+      <label>Dolores Park</label>
+      <br />
+      <input
+        type="checkbox"
+        id="topicImportantPirateWiresUpdates" // Update the id accordingly
+        name="Important Pirate Wires Updates"
+        checked={selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1}
+        onChange={handleSelect}
+      />
     </>
   );
+  //     <input
+  //       type="checkbox"
+  //       id="topic1"
+  //       name="Wires"
+  //       checked={selectedNewsLetters.indexOf('Wires') > -1}
+  //       onChange={handleSelect}
+  //     />
+  //     <label>Wires</label>
+  //     <br />
+  //     <input
+  //       type="checkbox"
+  //       id="topic2"
+  //       name="The White Pill"
+  //       checked={selectedNewsLetters.indexOf('The White Pill') > -1}
+  //       onChange={handleSelect}
+  //     />
+  //     <label>The White Pill</label>
+  //     <br />
+  //     <input
+  //       type="checkbox"
+  //       id="topic3"
+  //       name="The Industry"
+  //       checked={selectedNewsLetters.indexOf('The Industry') > -1}
+  //       onChange={handleSelect}
+  //     />
+  //     <label>The Industry</label>
+  //     <br />
+  //     <input
+  //       type="checkbox"
+  //       id="topic5" // Update the id accordingly
+  //       name="Dolores Park"
+  //       checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
+  //       onChange={handleSelect}
+  //     />
+  //     <label>Dolores Park</label>
+  //     <br />
+  //     <input
+  //       type="checkbox"
+  //       id="topic4" // Update the id accordingly
+  //       name="Important Pirate Wires Updates"
+  //       checked={selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1}
+  //       onChange={handleSelect}
+  //     />
+  //   </>
+  // );
 };

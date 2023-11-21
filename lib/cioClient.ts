@@ -44,6 +44,8 @@ export const getCustomerSubscription = async (email: string) => {
     if (topics.topic_1) subscription.push('Wires');
     if (topics.topic_2) subscription.push('The Industry');
     if (topics.topic_3) subscription.push('The White Pill');
+    if (topics.topic_5) subscription.push('Dolores Park');
+    if (topics.topic_4) subscription.push('Important Pirate Wires Updates');
 
     return { data: subscription, error: null };
   } catch (err) {
