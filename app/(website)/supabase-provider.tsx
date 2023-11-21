@@ -3,20 +3,30 @@
 
 import type { Database } from 'types/supabase';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
-import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
+import type { SupabaseClient, Session } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect, useState } from 'react';
 
+type MaybeSession = Session | null
 type SupabaseContext = {
   supabase: SupabaseClient<Database>;
+  session: MaybeSession;
+  user: any;
+  globalFields: any;
 };
 
 const Context = createContext<SupabaseContext | undefined>(undefined);
 
 export default function SupabaseProvider({
-  children
+  children,
+  globalFields,
+  session,
+  user,
 }: {
   children: React.ReactNode;
+  globalFields: any;
+  session: MaybeSession;
+  user: any;
 }) {
   const [supabase] = useState(() => createPagesBrowserClient());
   const router = useRouter();
@@ -34,7 +44,7 @@ export default function SupabaseProvider({
   }, [router, supabase]);
 
   return (
-    <Context.Provider value={{ supabase }}>
+    <Context.Provider value={{ supabase, session, user, globalFields }}>
       <>{children}</>
     </Context.Provider>
   );

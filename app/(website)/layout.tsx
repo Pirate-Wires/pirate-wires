@@ -7,6 +7,7 @@ import SectionTabs from '@/components/section-tabs';
 import React from "react";
 import { headers } from "next/headers";
 import MegaNav from "@/components/megaNav";
+import { getSession, getUserDetails } from "./supabase-server";
 
 export async function sharedMetaData(params) {
   const settings = await getSettings();
@@ -56,9 +57,12 @@ export async function generateMetadata({ params }) {
 
 export default async function Layout({ children, params }) {
   const globalFields = await getGlobalFields();
+  const session = await getSession();
+  const user = await getUserDetails();
+
   return (
     <>
-      <SupabaseProvider>
+      <SupabaseProvider globalFields={globalFields} session={session} user={user}>
         <main style={{
           "--whitePillColor": globalFields.white_pill_color,
           "--whitePillBgColor": globalFields.white_pill_bgcolor,

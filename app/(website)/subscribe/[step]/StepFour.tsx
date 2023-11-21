@@ -100,7 +100,7 @@ const StepFour: React.FC<StepFourProps> = ({ email }) => {
 
         <br />
 
-        <Link className="nav-link" href="/account">
+        <Link className="nav-link" href="/home">
           No thanks, I just wanna start reading
         </Link>
       </form>
