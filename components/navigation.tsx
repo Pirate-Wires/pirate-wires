@@ -1,5 +1,6 @@
 "use client"
 
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import Link from 'next/link';
 import styles from "./_styles/header.module.scss"
 import { usePathname } from 'next/navigation';
@@ -27,13 +28,15 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ publication, globalFields }) => {
   const currentRoute = usePathname();
+  const { session, user: userDetails } = useSupabase();
   const flowNav = currentRoute === "/subscribe" || currentRoute === "/sign-in"
   const simpleNav = currentRoute === "/account"
-  const homePage = currentRoute === "/"
+  const homePage = currentRoute === "/" || currentRoute === "/home"
   const industryPage = currentRoute === "/the-industry" || publication === "the-industry"
   const whitePillPage = currentRoute === "/white-pill" || publication === "the-white-pill"
 
   const [once, setOnce] = useState(false);
+  const user = session?.user || null;
 
   useEffect(() => {
     if (once) {
@@ -209,9 +212,10 @@ const Navigation: React.FC<NavigationProps> = ({ publication, globalFields }) =>
                 }
               </div>
               <div className={styles.right}>
-                <Link href="/newsletters">Newsletters</Link>
-                <Link href="/subscribe" className={`${styles.btn} btn square`}>Subscribe</Link>
-                <Link href="/sign-in">Sign In</Link>
+                {!user && <Link href="/newsletters">Newsletters</Link>}
+                {(!user || (userDetails && !userDetails.subscription_id)) && <Link href="/subscribe" className={`${styles.btn} btn square`}>Subscribe</Link>}
+                {!user && <Link href="/sign-in">Sign In</Link>}
+                {user && <Link href="/account">My Account</Link>}
                 <button className={`${styles.hammy} hitbox`} id="mega-nav-trigger" aria-label={'Open main menu'}>
                   <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="20" y1="1" y2="1" stroke="var(--color)" strokeWidth="2" />
