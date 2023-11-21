@@ -6,6 +6,7 @@ import {
   getCustomerSubscription
 } from '@/lib/cioClient';
 import { createAuthUser } from '@/utils/supabase-admin';
+import { CustomerIORequestError } from 'customerio-node';
 
 export async function PUT(req: Request) {
   try {
@@ -19,16 +20,33 @@ export async function PUT(req: Request) {
       email
     );
 
+    console.log('currentSubscription', currentSubscription);
+
     if (error) {
       throw error;
     }
 
-    const topics = ['Wires', 'The Industry', 'The White Pill'];
+    const topics = {
+      topicWires: 'Wires',
+      topicTheWhitePill: 'The White Pill',
+      topicTheIndustry: 'The Industry',
+      topicDoloresPark: 'Dolores Park',
+      topicImportantPirateWiresUpdates: 'Important Pirate Wires Updates'
+    };
 
-    const updatedPreferences = topics.reduce((acc, item, index) => {
-      acc[`topic_${index + 1}`] = subscription.includes(item);
-      return acc;
-    }, {});
+    // Topics in customer.io are given an id number in the order in which they were created. Re-ordering them in the UI will not change their id number.
+    // 1	Wires
+    // 2	The Industry
+    // 3	The White Pill
+    // 5	Dolores Park
+    // 4	Important Pirate Wires Updates
+
+    const updatedPreferences = {};
+    Object.keys(topics).forEach((key, index) => {
+      updatedPreferences[`topic_${index + 1}`] = subscription.includes(
+        topics[key]
+      );
+    });
 
     const preferencesPayload = {
       cio_subscription_preferences: JSON.stringify({
@@ -73,12 +91,20 @@ export async function POST(req: Request) {
       ? customerSubscription.filter((item) => item !== section)
       : [...customerSubscription, section];
 
-    const topics = ['Wires', 'The Industry', 'The White Pill'];
+    const topics = {
+      topicWires: 'Wires',
+      topicTheWhitePill: 'The White Pill',
+      topicTheIndustry: 'The Industry',
+      topicDoloresPark: 'Dolores Park',
+      topicImportantPirateWiresUpdates: 'Important Pirate Wires Updates'
+    };
 
-    const updatedPreferences = topics.reduce((acc, item, index) => {
-      acc[`topic_${index + 1}`] = subscription.includes(item);
-      return acc;
-    }, {});
+    const updatedPreferences = {};
+    Object.keys(topics).forEach((key, index) => {
+      updatedPreferences[`topic_${index + 1}`] = subscription.includes(
+        topics[key]
+      );
+    });
 
     const preferencesPayload = {
       cio_subscription_preferences: JSON.stringify({
