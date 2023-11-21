@@ -18,7 +18,11 @@ export default function AccountUI(
     updateCommentsNotifications
 
   }) {
+  const user = session?.user;
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
+  const [detailUpdateMsg, setDetailUpdateMsg] = useState('');
+  const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? '');
+  const [lastUpdatedEmail, setLastUpdatedEmail] = useState(user ? user.email : '');
   const updateActiveTab = (idx: number) => {
     const newArr: boolean[] = [];
     for (let i = 0; i < tabVisibility.length; i++) {
@@ -31,18 +35,48 @@ export default function AccountUI(
     setActiveTab(newArr);
   };
 
-  const user = session?.user;
-
   const handleSubmitName = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    await updateName(formData);
+    setDetailUpdateMsg('');
+
+    try {
+      const formData = new FormData(event.target);
+      const newName = formData.get('name') as string;
+      if(newName === lastUpdatedName) {
+        setDetailUpdateMsg(`Different name required`);
+        return;
+      }
+
+      await updateName(formData);
+
+      setLastUpdatedName(newName);
+      setDetailUpdateMsg(`User name updated successfully`);
+    } catch (error) {
+      console.error(`Error updating name: ${error.message}`);
+      setDetailUpdateMsg(error.message);
+    }
   };
 
   const handleSubmitEmail = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    await updateEmail(formData);
+    setDetailUpdateMsg('');
+
+    try {
+      const formData = new FormData(event.target);
+      const newEmail = formData.get('email') as string;
+      if(newEmail === lastUpdatedEmail) {
+        setDetailUpdateMsg(`Different email required`);
+        return;
+      }
+
+      await updateEmail(formData);
+
+      setLastUpdatedName(newEmail);
+      setDetailUpdateMsg(`User email updated successfully`);
+    } catch (error) {
+      console.error(`Error updating email: ${error.message}`);
+      setDetailUpdateMsg(error.message);
+    }
   };
 
   const handleToggleCommentsNotifications = async (event) => {
@@ -71,6 +105,7 @@ export default function AccountUI(
 
         <div className={`${styles.right}`}>
           <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
+            {!!detailUpdateMsg && <h2>{detailUpdateMsg}</h2>}
             <div className={styles.infoGroup}>
               <form id="nameForm" onSubmit={handleSubmitName}>
                 <label>Full name</label>

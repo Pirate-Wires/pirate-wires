@@ -62,7 +62,7 @@ export default async function Account() {
         .eq('id', user.id);
 
       if (error) {
-        console.log(error);
+        throw error;
       }
     }
 
@@ -76,7 +76,7 @@ export default async function Account() {
     const supabase = createServerActionClient<Database>({ cookies });
     const { error } = await supabase.auth.updateUser({ email: newEmail });
     if (error) {
-      console.log(error);
+      throw error;
     }
     revalidatePath('/account');
   };
