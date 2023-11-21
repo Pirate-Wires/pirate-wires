@@ -3,6 +3,10 @@
 .commentsSection {
   display: flex;
   flex-direction: column;
+  @include get-vw-small-increase(max-width, 630px, 630px);
+  svg {
+    width: 20px;
+  }
 }
 
 .commentsTop {

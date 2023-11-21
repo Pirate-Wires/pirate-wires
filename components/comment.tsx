@@ -13,7 +13,6 @@ export default function Comment(): JSX.Element {
       {/* <ModalProvider> */}
         <section className={`${styles.commentsSection} c-20`}>
           <div className={`${styles.commentsTop}`}>
-            <MessageBubbleButton />
             <HeartButton />
           </div>
 

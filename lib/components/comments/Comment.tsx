@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 import VoteButtons from './VoteButtons';
 import Avatar from './Avatar';
-
+import styles from "@/components/_styles/comments.module.scss";
 const MAX_LINES = 10;
 const LINE_HEIGHT = 24; // in px
 const MAX_HEIGHT = MAX_LINES * LINE_HEIGHT;
@@ -146,10 +146,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
         )}
         {!hidden ? (
           <>
-            <div className="grid row-start-1 col-start-1 place-items-center focus-ring">
-              <Avatar profile={comment.author} isDeleted={comment.isDeleted} />
-            </div>
-            <div className="row-start-2 row-end-5 col-start-1 col-end-2 row-span-auto flex justify-center my-1 px-1">
+            <div className="">
               <button
                 className={cn(
                   'flex-grow flex justify-center border-none group focus-ring mb-1',

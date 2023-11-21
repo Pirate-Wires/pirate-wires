@@ -127,11 +127,23 @@
   }
 }
 .caption {
-  margin-top: 3px;
-  margin-left: 1px;
-  font-family: $martinaBold;
+  font-family: $martinaLight;
+  text-align: center;
   letter-spacing: 0.1px;
-  @include get-vw-small-increase(font-size, 14px, 14px);
+  width: 70%;
+  opacity: .7;
+  margin: 8px auto 0;
+  @include get-vw-small-increase(font-size, 13px, 13px);
+  p, a {
+    font-family: inherit;
+    font-size: inherit;
+  }
+  a {
+    text-decoration: underline rgba(0,0,0,1);
+    text-underline-position: under;
+    text-decoration-thickness: 0.05em;
+    text-underline-offset: 1px;
+  }
 }
 .imageWrapper {
   width: 50%;

@@ -113,8 +113,37 @@ const schema = {
         },
         {
           name: 'caption',
-          type: 'string',
-          title: 'Optional caption'
+          title: 'Optional caption',
+          type: 'array',
+          of: [
+            {
+              title: 'Block',
+              type: 'block',
+              styles: [
+                { title: 'Normal', value: 'normal' },
+              ],
+              lists: [],
+              // Marks let you mark up inline text in the block editor.
+              marks: {
+                decorators: [],
+                // Annotations can be any object structure – e.g. a link or a footnote.
+                annotations: [
+                  {
+                    title: 'URL',
+                    name: 'link',
+                    type: 'object',
+                    fields: [
+                      {
+                        title: 'URL',
+                        name: 'href',
+                        type: 'url'
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },
