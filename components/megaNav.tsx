@@ -4,8 +4,12 @@ import Link from 'next/link';
 import styles from "./_styles/meganav.module.scss"
 import { usePathname } from 'next/navigation';
 import React from "react";
+import { useSupabase } from '@/app/(website)/supabase-provider';
+
 
 export default function MegaNav() {
+  const { session, user: userDetails } = useSupabase();
+  const user = session?.user || null;
   return (
     <>
       <div className={styles.navBackdrop} id="mega-nav-backdrop"></div>
@@ -17,9 +21,10 @@ export default function MegaNav() {
           </svg>
         </button>
         <div className={`${styles.top} fade-el`}>
-          <Link className="nav-link" href="/subscribe">Subscribe</Link>
-          <Link className="nav-link" href="/sign-in">Sign In</Link>
-          <Link className="nav-link" href="/newsletters">Newsletters</Link>
+          {(!user || (userDetails && !userDetails.subscription_id)) && <Link href="/subscribe" className="nav-link">Subscribe</Link>}
+          {!user && <Link className="nav-link" href="/sign-in">Sign In</Link>}
+          {user && <Link className="nav-link" href="/account">My Account</Link>}
+          {!user && <Link className="nav-link" href="/newsletters">Newsletters</Link>}
         </div>
         <div className={`${styles.middle} fade-el`}>
           <Link className="nav-link" href="/wires">Pirate Wires</Link>
