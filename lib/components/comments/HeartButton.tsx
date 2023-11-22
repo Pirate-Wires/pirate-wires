@@ -33,7 +33,7 @@ const HeartButton = (): JSX.Element => {
 
   return (
     <button
-      className="flex items-center focus-ring p-1 text-gray-600 hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-50 text-sm"
+      className=""
       onClick={handleVote}
       aria-label={`Like comment by ${rootComment?.author.full_name}`}
     >

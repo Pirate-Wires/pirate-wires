@@ -18,6 +18,7 @@ import html from "refractor/lang/markup";
 import css from "refractor/lang/css";
 // @ts-ignore
 import bash from "refractor/lang/bash";
+import React from "react";
 
 Refractor.registerLanguage(js);
 Refractor.registerLanguage(jsx);
@@ -38,7 +39,9 @@ const ImageComponent = ({ value }) => {
         sizes="800px"
       />
       {value.caption ?
-        <span className={articleStyles.caption}>{value.caption}</span> :
+        <span className={articleStyles.caption}>
+          <PortableText value={value.caption} />
+        </span> :
         ""
       }
     </>
