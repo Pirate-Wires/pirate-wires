@@ -1,11 +1,24 @@
 require('dotenv').config({ path: './.env.local' });
+const axios = require('axios');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { createClient } = require('@supabase/supabase-js');
+const { TrackClient, APIClient, RegionUS } = require('customerio-node');
+const crypto = require('crypto');
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
+
+const CUSTOMER_IO_SEGMENT_ID = 24;
+const SITE_ID = process.env.CUSTOMER_IO_SITE_ID;
+const SITE_API_KEY = process.env.CUSTOMER_IO_API_KEY;
+const TRACKING_API_KEY = process.env.CUSTOMER_IO_TRACKING_API_KEY;
+const Authorization = `Bearer ${SITE_API_KEY}`;
+const trackerCio = new TrackClient(SITE_ID, TRACKING_API_KEY, {
+  region: RegionUS
+});
+const apiCio = new APIClient(SITE_API_KEY, { region: RegionUS });
 
 const toDateTime = (secs) => {
   const t = new Date('1970-01-01T00:30:00Z'); // Unix epoch start.
@@ -15,17 +28,19 @@ const toDateTime = (secs) => {
 
 const getAllSupabaseUsers = async () => {
   const allUsers = [];
-  let current = 1;
+  let current = 0;
   const perPage = 50;
+
+  console.log('Fetching all supabase users...');
 
   while (true) {
     const {
-      data: { users },
+      data: users,
       error
-    } = await supabaseAdmin.auth.admin.listUsers({
-      page: current++,
-      perPage: perPage
-    });
+    } = await supabaseAdmin
+      .from('users')
+      .select()
+      .range(current * perPage, (current + 1) * perPage - 1);
 
     if (error) throw error;
 
@@ -34,6 +49,8 @@ const getAllSupabaseUsers = async () => {
     if (users.length < perPage) {
       break;
     }
+
+    current++;
   }
 
   console.log(`Fetched ${allUsers.length} users from Supabase`);
@@ -45,6 +62,8 @@ const getAllStripeCustomers = async () => {
   let allCustomers = [];
   let lastId = null;
   const limit = 100;
+
+  console.log('Fetching all stripe customers...');
 
   while (true) {
     const params = {
@@ -69,6 +88,60 @@ const getAllStripeCustomers = async () => {
 
   return allCustomers;
 };
+
+const getAllCioCustomers = async () => {
+  const allCustomers = [];
+  let nextStart = '';
+  const limit = 100;
+
+  console.log('Fetching all customer.io customers...');
+
+  while (true) {
+    const response = await axios({
+      method: 'POST',
+      url: `https://api.customer.io/v1/customers?start=${nextStart}&limit=${limit}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization,
+      },
+      data: {
+        filter: {
+          and: [
+            {
+              segment: { id: CUSTOMER_IO_SEGMENT_ID },
+            }
+          ]
+        }
+      },
+    });
+
+    allCustomers.push(...response.data.identifiers);
+
+    if (response.data.identifiers.length < limit) {
+      break; // Exit the loop if there's no more data
+    }
+
+    nextStart = response.data.next;
+  }
+
+  console.log(`Fetched ${allCustomers.length} customers from Customer.io`);
+
+  return allCustomers;
+}
+
+const getCioCustomerAttributes = async ({ id }) => {
+  const options = {
+    method: 'GET',
+    url: `https://api.customer.io/v1/customers/${id}/attributes`,
+    headers: {
+      Authorization
+    }
+  };
+
+  const { data: { customer: { attributes } } } = await axios(options);
+
+  return attributes;
+}
 
 const getAllStripeSubscriptions = async () => {
   let allSubscriptions = [];
@@ -120,7 +193,7 @@ const getAllSupabaseSubscriptions = async () => {
 };
 
 const upsertSupabaseUserRecord = async (userData) => {
-  const { email, full_name } = userData;
+  const { email } = userData;
   const { error } = await supabaseAdmin.from('users').upsert([userData]);
 
   if (error) {
@@ -389,6 +462,8 @@ const updateStripeFromSupabase = async ({ users, customers, subscriptions }) => 
       (customer) => customer.email === user.email
     );
 
+    console.log('user.full_name', user.full_name);
+
     if (stripeCustomer) {
       console.log(
         `Stripe customer with the same email already exists: ${user.email}`
@@ -427,12 +502,122 @@ const updateStripeFromSupabase = async ({ users, customers, subscriptions }) => 
   await removeNonExistingStripeSubscriptions({ subscriptions });
 };
 
+const updateSupabaseFromCio = async ({
+  users,
+  customers,
+}) => {
+  console.log(
+    `--------------------------------------------------------------------------`
+  );
+  for(let customer of customers) {
+    let supabaseUser = users.find((user) => user.email === customer.email);
+    const data = await getCioCustomerAttributes({ id: customer.cio_id });
+    const customerName = data.Name || null;
+
+    console.log(`Processing Supabase user with email ${customer.email}`);
+    if (supabaseUser) {
+      console.log(
+        `Supabase User with the same email already exists: ${supabaseUser.email}`
+      );
+
+      const userData = {
+        id: supabaseUser.id,
+        email: customer.email,
+        full_name: customerName
+      };
+
+      await upsertSupabaseUserRecord(userData);
+
+      console.log(
+        `User full_name updated with email ${userData.email}: ${userData.full_name}`
+      );
+    } else {
+      const {
+        data: { user },
+        error
+      } = await supabaseAdmin.auth.admin.createUser({
+        email: customer.email,
+        password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || '12345678',
+        email_confirm: true
+      });
+
+      if (error) {
+        console.error(
+          `Error creating user with email ${user.email}: ${error.message}`
+        );
+        throw error;
+      }
+
+      const userData = {
+        id: user.id,
+        email: customer.email,
+        full_name: customerName
+      };
+
+      await upsertSupabaseUserRecord(userData);
+
+      console.log(`User created with email ${user.email}: ${user.id}`);
+    }
+
+    console.log(`Supabase user process with email ${customer.email} completed`);
+    console.log(
+      `--------------------------------------------------------------------------`
+    );
+  }
+};
+
+const updateCioFromSupabase = async ({ users, customers }) => {
+  console.log(
+    `--------------------------------------------------------------------------`
+  );
+  for (let user of users) {
+    let cioCustomer = customers.find((customer) => customer.email === user.email);
+
+    if (cioCustomer) {
+      console.log(
+        `Customer.io customer with the same email already exists: ${user.email}`
+      );
+
+      trackerCio.identify(cioCustomer.cio_id, {
+        created_at: user.created_at,
+        full_name: user.full_name,
+      });
+
+      console.log(
+        `Customer.io customer name updated with email ${user.email}: ${user.full_name}`
+      );
+    } else {
+      const cio_id = crypto
+        .createHash('sha256')
+        .update(user.email)
+        .digest('hex')
+        .slice(0, 12);
+
+      trackerCio.identify(cio_id, {
+        email: user.email,
+        full_name: user.full_name,
+        created_at: user.created_at,
+      });
+      console.log(
+        `Customer.io customer created with email ${user.email}: ${cio_id}`
+      );
+    }
+
+    console.log(`Customer.io customer process with email ${user.email} completed`);
+    console.log(
+      `--------------------------------------------------------------------------`
+    );
+  }
+};
+
 module.exports = {
   toDateTime,
   getAllSupabaseUsers,
   getAllStripeCustomers,
+  getAllCioCustomers,
   getAllStripeSubscriptions,
   getAllSupabaseSubscriptions,
+  getCioCustomerAttributes,
   removeNonExistingStripeCustomers,
   removeNonExistingStripeSubscriptions,
   upsertSupabaseUserRecord,
@@ -441,5 +626,7 @@ module.exports = {
   manageSubscriptionStatusChange,
   updateSupabaseFromStripe,
   updateStripeFromSupabase,
+  updateSupabaseFromCio,
+  updateCioFromSupabase,
   removeCanceledSupabaseSubscriptions,
 };
