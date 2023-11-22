@@ -11,7 +11,7 @@ export default async function NotFound() {
   const globalFields = await getGlobalFields();
 
   return (
-    <SupabaseProvider globalFields={globalFields} session={null} user={null}>
+    <SupabaseProvider globalFields={globalFields} session={null} user={null} profile={null}>
       <div className="colorWrapper" style={{
         "--color": "#E3E3E3",
         "--bgColor": "#060606",

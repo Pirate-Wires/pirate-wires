@@ -1,14 +1,14 @@
 import { invokeVote } from '@/lib/components/comments/VoteButtons';
 import { useComments } from '@/lib/hooks/use-comments';
 import { useModal } from '@/lib/hooks/use-modal';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import Heart from '@/lib/icons/Heart';
 import { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
 
 const HeartButton = (): JSX.Element => {
-  const { user } = useUser();
+  const { user } = useSupabase();
   const { rootComment, mutateRootComment } = useComments();
   const { open } = useModal();
 

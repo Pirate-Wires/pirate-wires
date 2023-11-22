@@ -1,5 +1,5 @@
 import { useComments } from '@/lib/hooks/use-comments';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import Heart from '@/lib/icons/Heart';
 import ThumbsUpFilled from '@/lib/icons/ThumbUpFilled';
 import ThumbsUpOutlined from '@/lib/icons/ThumbUpOutlined';
@@ -70,7 +70,7 @@ const VoteButtons = ({
   comment,
   config = { type: 'thumbs', canDownvote: true },
 }: Props): JSX.Element | null => {
-  const { user } = useUser();
+  const { user } = useSupabase();
   const { mutateComments } = useComments();
   const status = resolveStatus(comment.userVoteValue);
   const { open } = useModal();

@@ -1,5 +1,5 @@
 import { PAGE_SIZE } from '@/lib/constants/pagination';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import { definitions } from '@/lib/types/supabase';
 import supabase from '@/lib/utils/initSupabase';
 import type { CommentType, User } from '@/lib/utils/types';
@@ -70,7 +70,7 @@ const postgresArray = (arr: any[]): string => `{${arr.join(',')}}`;
 
 export const CommentsContextProvider = (props: CommentsContextProviderProps): JSX.Element => {
   const { postId } = props;
-  const { user } = useUser();
+  const { user } = useSupabase();
   const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathVotesRecent');
 
 
@@ -123,8 +123,6 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
       user,
     ];
   };
-
-  console.log('postId', postId);
 
   const { data, error, size, setSize, mutate: mutateComments } = useSWRInfinite(
     (pageIndex, previousPageData) =>
