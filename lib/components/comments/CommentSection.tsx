@@ -23,11 +23,6 @@ const CommentSection = ({ initialData = null }: Props): JSX.Element => {
     console.log(count)
     return (
         <>
-            {count &&
-                <h2 className={styles.commentsSection}>
-                    <span>{count} Comments</span>
-                </h2>
-            }
             <NewCommentForm />
 
             <div className="">

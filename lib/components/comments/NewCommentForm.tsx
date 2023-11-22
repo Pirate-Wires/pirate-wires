@@ -32,20 +32,6 @@ const NewCommentForm = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user, profile } = useUser();
   const { mutateGlobalCount, rootId, mutateComments } = useComments();
-  const { open, isOpen } = useModal({ signInModal: SignInModal, newUserModal: NewUserModal });
-
-  useEffect(() => {
-    if (user && profile && (!profile.full_name || !profile.username)) {
-      open('newUserModal');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, profile]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setIsLoading(false);
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     if (autofocus) {

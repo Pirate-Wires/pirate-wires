@@ -992,7 +992,19 @@ footer {
     margin-right: 0;
     margin-bottom: 0;
     padding-left: 19px;
-    border-left: 1px solid rgba(0,0,0,.4);
+    border-left: 1px solid #999;
+  }
+  blockquote + blockquote {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      left: -1px;
+      @include get-vw-small-increase(top, -21px, -21px);
+      @include get-vw-small-increase(height, 21px, 21px);
+      background: #999;
+      width: 1px;
+    }
   }
   strong, b {
     font-family: $martinaBold;

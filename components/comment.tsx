@@ -8,19 +8,24 @@ import styles from "@/components/_styles/comments.module.scss";
 
 
 export default function Comment(): JSX.Element {
-  return (
-    <CommentsContextProvider postId={1}>
-      {/* <ModalProvider> */}
-        <section className={`${styles.commentsSection} c-20`}>
-          <div className={`${styles.commentsTop}`}>
-            <HeartButton />
-          </div>
+    return (
+        <CommentsContextProvider postId={1}>
+            {/* <ModalProvider> */}
+            <section className={`${styles.commentsSection} c-20`}>
+                <div className={`${styles.commentsTop}`}>
+                    <div className={styles.topBox}>
+                        127 <span>Comments</span>
+                    </div>
+                    <div className={styles.topBox} id="share-trigger">
+                        Share
+                    </div>
+                </div>
 
-          <CommentSection />
+                <CommentSection />
 
-          <SidebarComments />
-        </section>
-      {/* </ModalProvider> */}
-    </CommentsContextProvider>
-  );
+                <SidebarComments />
+            </section>
+            {/* </ModalProvider> */}
+        </CommentsContextProvider>
+    );
 }
