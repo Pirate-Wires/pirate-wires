@@ -9,61 +9,54 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  >div {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    text-align: center;
-
-    form {
-      label {
-        display: block;
-        margin-bottom: 10px;
-      }
-
-      input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-
-      button {
-        width: 100%;
-        padding: 10px;
-        background-color: #000;
-        color: #fff;
-        border: 1px solid #000;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-      }
-
-      button:hover {
-        background-color: #111;
-      }
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  text-align: center;
+  form {
+    label {
+      display: block;
+      margin-bottom: 10px;
     }
 
-    .error {
-      color: red;
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
 
-    .success {
-      color: green;
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #000;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
     }
+
+    button:hover {
+      background-color: #111;
+    }
+  }
+  .error {
+    color: red;
+  }
+  .success {
+    color: green;
   }
 }
 .otp-input-container {
   display: flex;
-
+  gap: 10px;
   input {
     width: 40px;
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #000 !important;
-    background-color: aqua;
+    border: 1px solid #000;
   }
 }
 .disclaimer {

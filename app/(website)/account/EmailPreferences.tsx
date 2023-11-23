@@ -1,6 +1,6 @@
 // /app/(website)/account/EmailPreferences.tsx
 'use client';
-
+import styles from "@/styles/pages/account.module.scss"
 import { useState, useEffect, useReducer } from 'react';
 
 type EmailPreferencesProps = {
@@ -137,41 +137,39 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
       // 5	Dolores Park
       // 4	Important Pirate Wires Updates */}
       <p>Subscribe or unsubscribe to our newsletters</p>
-      <input
-        type="checkbox"
-        id="topicWires"
-        name="Wires"
-        checked={selectedNewsLetters.indexOf('Wires') > -1}
-        onChange={handleSelect}
-      />
-      <label>Wires</label>
       <br />
-      <input
-        type="checkbox"
-        id="topicWhitePill"
-        name="The White Pill"
-        checked={selectedNewsLetters.indexOf('The White Pill') > -1}
-        onChange={handleSelect}
-      />
-      <label>The White Pill</label>
+      <div className={styles.checkboxRow}>
+        <input
+          type="checkbox"
+          id="topicWhitePill"
+          name="The White Pill"
+          checked={selectedNewsLetters.indexOf('The White Pill') > -1}
+          onChange={handleSelect}
+        />
+        <label>The White Pill</label>
+      </div>
       <br />
-      <input
-        type="checkbox"
-        id="topicIndustry"
-        name="The Industry"
-        checked={selectedNewsLetters.indexOf('The Industry') > -1}
-        onChange={handleSelect}
-      />
-      <label>The Industry</label>
+      <div className={styles.checkboxRow}>
+        <input
+          type="checkbox"
+          id="topicIndustry"
+          name="The Industry"
+          checked={selectedNewsLetters.indexOf('The Industry') > -1}
+          onChange={handleSelect}
+        />
+        <label>The Industry</label>
+      </div>
       <br />
-      <input
-        type="checkbox"
-        id="topicDoloresPark" // Update the id accordingly
-        name="Dolores Park"
-        checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
-        onChange={handleSelect}
-      />
-      <label>Dolores Park</label>
+      <div className={styles.checkboxRow}>
+        <input
+          type="checkbox"
+          id="topicDoloresPark" // Update the id accordingly
+          name="Dolores Park"
+          checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
+          onChange={handleSelect}
+        />
+        <label>Dolores Park</label>
+      </div>
       <br />
       <input
         type="checkbox"

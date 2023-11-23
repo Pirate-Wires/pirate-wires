@@ -51,6 +51,9 @@ export default function AccountUI(
 
       setLastUpdatedName(newName);
       setDetailUpdateMsg(`User name updated successfully`);
+      setTimeout(() => {
+        setDetailUpdateMsg('');
+      }, 3000)
     } catch (error) {
       console.error(`Error updating name: ${error.message}`);
       setDetailUpdateMsg(error.message);
@@ -105,14 +108,14 @@ export default function AccountUI(
 
         <div className={`${styles.right}`}>
           <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
-            {!!detailUpdateMsg && <h2>{detailUpdateMsg}</h2>}
+            {!!detailUpdateMsg && <h2 className={styles.tag}>{detailUpdateMsg}</h2>}
             <div className={styles.infoGroup}>
               <form id="nameForm" onSubmit={handleSubmitName}>
                 <label>Full name</label>
                 <input
                   type="text"
                   name="name"
-                  className="w-full px-3 py-2 border rounded-xs outline-none focus:border-gray-300 focus:shadow-sm dark:bg-gray-900 dark:border-gray-600 dark:focus:border-white"
+                  className={styles.textInput}
                   defaultValue={userDetails?.full_name ?? ''}
                   placeholder="Your name"
                   maxLength={64}
@@ -135,6 +138,7 @@ export default function AccountUI(
                   type="text"
                   name="email"
                   defaultValue={user ? user.email : ''}
+                  className={styles.textInput}
                   placeholder="Your email"
                   maxLength={64}
                 />
@@ -149,7 +153,7 @@ export default function AccountUI(
             </div>
             <div className={`${styles.infoGroup} ${styles.textGroup}`}>
               <p className={styles.pseudoLabel}>Need help?</p>
-              <p>Send an email to support@piratewires.com and we’ll help you out</p>
+              <p>Send an email to <a href="mailto:support@piratewires.com" title="Send us an email">support@piratewires.com</a> and we’ll help you out</p>
             </div>
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
@@ -158,7 +162,7 @@ export default function AccountUI(
 
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-notifictation-preferences`}>
-            <label>
+            <label className={styles.checkboxRow}>
               <input
                 type="checkbox"
                 checked={userDetails?.comments_notifications || false}

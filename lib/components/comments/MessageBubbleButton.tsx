@@ -8,7 +8,7 @@ import styles from "@/components/_styles/comments.module.scss";
 const MessageBubbleButton = (): JSX.Element => {
   const { count } = useComments();
   return (
-    <button className={`${styles.topButton}`} aria-label="View comments">
+    <button className={`${styles.topButton} btn square`} aria-label="View comments">
       {/* <a
         href="#comments"
         className=""
