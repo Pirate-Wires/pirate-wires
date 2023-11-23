@@ -4,6 +4,7 @@ import CommentSection from '@/lib/components/comments/CommentSection';
 import SidebarComments from '@/lib/components/comments/SidebarComments';
 import MessageBubbleButton from '@/lib/components/comments/MessageBubbleButton';
 import HeartButton from '@/lib/components/comments/HeartButton';
+import ShareButton from '@/lib/components/comments/ShareButton';
 import { CommentsContextProvider } from '@/lib/hooks/use-comments';
 import { ModalProvider } from '@/lib/hooks/use-modal';
 
@@ -19,8 +20,8 @@ export default function Comment({ postId }): JSX.Element {
                         <HeartButton />
                         <MessageBubbleButton />
                     </div>
-                    <div className={styles.topBox} id="share-trigger">
-                        Share
+                    <div className={`${styles.buttonGroup}`}>
+                        <ShareButton />
                     </div>
                 </div>
 
