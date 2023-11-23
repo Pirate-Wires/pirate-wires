@@ -91,7 +91,7 @@ const NewCommentForm = ({
       slug,
     };
 
-    mutateGlobalCount((count: number) => count + 1, false);
+    mutateGlobalCount((count: number) => count + 1);
 
     mutateComments(async (pages: CommentType[]) => {
       const optimisticResponse: CommentType = ({

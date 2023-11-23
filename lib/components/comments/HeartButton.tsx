@@ -7,6 +7,8 @@ import { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
 
+import styles from "@/components/_styles/comments.module.scss";
+
 const HeartButton = (): JSX.Element => {
   const { user } = useSupabase();
   const { rootComment, mutateRootComment } = useComments();
@@ -33,17 +35,12 @@ const HeartButton = (): JSX.Element => {
 
   return (
     <button
-      className=""
+      className={`${styles.topButton}`}
       onClick={handleVote}
       aria-label={`Like comment by ${rootComment?.author.full_name}`}
     >
-      <Heart
-        className={cn('w-6 h-6 stroke-1.5', {
-          'text-red-600 fill-current': rootComment?.userVoteValue === 1,
-        })}
-      />
-      <span className="ml-1 tabular-nums min-w-[12px]">
-        {rootComment ? rootComment.votes : `-`}
+      <span className="ml-1">
+        {rootComment ? rootComment.votes : `-`} <strong>Likes</strong>
       </span>
     </button>
   );

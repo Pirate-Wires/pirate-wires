@@ -72,9 +72,9 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
   const { postId } = props;
   const { user } = useSupabase();
   const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathVotesRecent');
+  const [count, setCount] = useState<number | null>(null);
 
-
-  const { data: count, mutate: mutateGlobalCount, error: commentsError } = useSWR<
+  const { data: globalCount, mutate: mutateGlobalCount, error: commentsError } = useSWR<
     number | null,
     any
   >(`globalCount_${postId}`, {
@@ -140,10 +140,10 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
           .then(({ data, error, count: tableCount }) => {
             if (error) throw error;
             if (!data) return null;
-            mutateGlobalCount((count) => {
+            setCount((count) => {
               if (count) return count;
               return tableCount;
-            }, false);
+            });
 
             return data;
           })
@@ -203,7 +203,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     isReachingEnd,
     loadMore,
     mutateComments,
-    mutateGlobalCount,
+    mutateGlobalCount: setCount,
     mutateRootComment,
     sortingBehavior,
     setSortingBehavior,
