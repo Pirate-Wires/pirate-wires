@@ -115,7 +115,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
   }
 
   return (
-    <div className="flex flex-col">
+    <>
       {!hidden && parent && (
         <div className="grid pb-1 gap-x-2 comment-grid">
           <div className="w-6 relative">
@@ -150,7 +150,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             <div className="">
               <button
                 className={cn(
-                  'flex-grow flex justify-center border-none group focus-ring mb-1',
+                  `${styles.collapseBtn}`,
                   hidden
                 )}
                 onClick={() => setHidden(true)}
@@ -177,7 +177,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
           </button>
         )}
         <div className="row-start-1 col-start-2 self-center">
-          <div className="flex flex-grow items-end">
+          <div className={styles.nameRow}>
             <span
               className={cn('text-gray-700 dark:text-gray-100 leading-none', {
                 'text-sm font-medium': !hidden,
@@ -211,7 +211,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
 
         <div className={cn('row-start-2 col-start-2', { hidden })}>
           <section
-            className={cn('text-gray-800 dark:text-gray-300 leading-6 text-sm', {
+            className={cn({
               'line-clamp-10': !isOverflowExpanded,
               hidden,
             })}
@@ -322,7 +322,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
