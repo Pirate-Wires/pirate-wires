@@ -8,6 +8,7 @@ import type { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
 import { useModal } from '@/lib/hooks/use-modal';
+import styles from "@/components/_styles/comments.module.scss";
 
 type StatusType = 'upvoted' | 'unvoted' | 'downvoted';
 
@@ -128,19 +129,20 @@ const VoteButtons = ({
       ) : (
         <>
           <button
-            className="text-xs flex items-center focus-ring p-1.5"
+            className={`${styles.likeButton}`}
             onClick={handleUpvote}
             aria-label="Like this comment"
           >
-            {status === 'upvoted' && <ThumbsUpFilled className="w-4 h-4 text-red-500" />}
+            <strong>Like {!!comment.votes && `(${comment.votes})`}</strong>
+            {/* {status === 'upvoted' && <ThumbsUpFilled className="w-4 h-4 text-red-500" />}
             {status !== 'upvoted' && (
               <ThumbsUpOutlined className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            )}
+            )} */}
           </button>
-          <span className="text-gray-600 dark:text-gray-400 text-xs tabular-nums min-w-[12px] text-center mx-1">
+          {/* <span className="text-gray-600 dark:text-gray-400 text-xs tabular-nums min-w-[12px] text-center mx-1">
             {comment.votes}
-          </span>
-          {config.canDownvote && (
+          </span> */}
+          {/* {config.canDownvote && (
             <button
               className="text-sm flex items-center focus-ring p-1.5"
               onClick={handleDownvote}
@@ -153,7 +155,7 @@ const VoteButtons = ({
                 <ThumbsUpOutlined className="w-4 h-4 text-gray-500 dark:text-gray-400 transform rotate-180" />
               )}
             </button>
-          )}
+          )} */}
         </>
       )}
     </div>

@@ -228,7 +228,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             </button>
           )}
           {!comment.isDeleted && (
-            <div className="grid grid-flow-col auto-cols-min gap-x-3 transform -translate-x-1.5">
+            <div className={`${styles.likeReplyButton}`}>
               <VoteButtons comment={comment} />
               <button
                 className="text-xs flex items-center text-gray-600 dark:text-gray-400 focus-ring border-none"
@@ -239,7 +239,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
                     : `Reply to comment by ${comment.author?.full_name}`
                 }
               >
-                {showReplyForm ? <span>Cancel</span> : <span>Reply</span>}
+                {showReplyForm ? <strong>Cancel</strong> : <strong>Reply {!!comment.responses.length && `(${comment.responses.length})`}</strong>}
               </button>
               {isAdmin && (
                 <>
@@ -289,7 +289,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
           )}
 
           {comment.responses.length > 0 && (
-            <div className={cn('pt-2 space-y-5')} style={{marginLeft: '32px'}}>
+            <div className={`${styles.childComment}`} style={{paddingLeft: '32px'}}>
               {comment.responses.map((comment: CommentType) => (
                 <Comment
                   key={comment.slug}

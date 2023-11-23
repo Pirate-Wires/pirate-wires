@@ -31,3 +31,36 @@
   padding: 10px 20px 10px 20px;
   margin-right: 20px;
 }
+
+.newCommentForm {
+  display: flex;
+}
+
+.childComment {
+  border-left: 2px solid black;
+}
+
+.sendButton {
+  background: black;
+  color: white;
+  padding: 10px 20px 10px 20px;
+}
+
+.moreButtonWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.moreButton {
+  background: transparent;
+  border: solid 2px black;
+  padding: 10px 20px 10px 20px;
+}
+
+.likeReplyButton {
+  display: flex;
+}
+
+.likeButton {
+  margin-right: 10px;
+}

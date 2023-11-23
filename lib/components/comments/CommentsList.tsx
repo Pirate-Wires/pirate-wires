@@ -10,6 +10,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import React, { useRef, useState } from 'react';
 import SortCommentsSelect from './SortCommentsSelect';
+import styles from "@/components/_styles/comments.module.scss";
 
 dayjs.extend(relativeTime, {
   rounding: Math.floor,
@@ -90,7 +91,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
       onScroll={handleScroll}
     >
       <div ref={contentRef}>
-        <SortCommentsSelect />
+        {/* <SortCommentsSelect /> */}
         {isLoadingInitialData &&
           Array.from(new Array(3)).map((_, index) => (
             <CommentSkeleton key={`comments_skeleton_${index}`} />
@@ -110,14 +111,16 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
             {isLoadingMore && <CommentSkeleton />}
 
             {!isReachingEnd && (
-              <button
-                onClick={() => loadMore()}
-                className="text-sm border-none hover:underline focus:underline focus-ring font-semibold text-gray-600 dark:text-gray-400"
-                disabled={isLoadingMore}
-                aria-label={`Load ${remainingCount} more replies`}
-              >
-                {remainingCount} more replies
-              </button>
+              <div className={`${styles.moreButtonWrapper}`}>
+                <button
+                  onClick={() => loadMore()}
+                  className={`${styles.moreButton}`}
+                  disabled={isLoadingMore}
+                  aria-label={`Load ${remainingCount} more replies`}
+                >
+                  {remainingCount} more replies
+                </button>
+              </div>
             )}
 
             {!error && isReachingEnd && count !== 0 && (

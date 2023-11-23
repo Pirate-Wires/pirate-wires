@@ -9,12 +9,12 @@ const MessageBubbleButton = (): JSX.Element => {
   const { count } = useComments();
   return (
     <button className={`${styles.topButton}`} aria-label="View comments">
-      <a
+      {/* <a
         href="#comments"
         className=""
-      >
+      > */}
         <span className="ml-1">{count ? count : `-`} <strong>Comments</strong></span>
-      </a>
+      {/* </a> */}
     </button>
   );
 };

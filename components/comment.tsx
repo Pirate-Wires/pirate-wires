@@ -27,7 +27,7 @@ export default function Comment({ postId }): JSX.Element {
 
                 <CommentSection />
 
-                <SidebarComments />
+                {/* <SidebarComments /> */}
             </section>
             {/* </ModalProvider> */}
         </CommentsContextProvider>

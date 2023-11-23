@@ -14,6 +14,8 @@ import { useComments } from '@/lib/hooks/use-comments';
 import Avatar from './Avatar';
 import { useModal } from '@/lib/hooks/use-modal';
 
+import styles from "@/components/_styles/comments.module.scss";
+
 // Placeholder function for modal handling
 const open = (modalName: string): void => {
   // Implement modal handling logic here or do something else
@@ -149,8 +151,8 @@ const NewCommentForm = ({
   return (
     <>
       <div className="">
-        <div className="">
-          {!user && (
+        <div className={`${styles.newCommentForm}`}>
+          {/* {!user && (
             <button
               className=""
               onClick={() => open('signInModal')}
@@ -163,10 +165,9 @@ const NewCommentForm = ({
             <button className="" aria-label="View profile information">
               <Avatar profile={profile} />
             </button>
-          )}
+          )} */}
 
           <label className="">
-            <span className="sr-only">Enter a comment</span>
             <textarea
               className=""
               placeholder="Write a comment..."
@@ -180,16 +181,12 @@ const NewCommentForm = ({
 
           <div className="">
             <button
-              className={cn(
-                {
-                  'disabled': content.length < 1 || isLoading,
-                }
-              )}
+              className={`${styles.sendButton}`}
               disabled={content.length < 1}
               onClick={handleSubmit}
               aria-label="Submit new post"
             >
-              Post
+              Send
             </button>
           </div>
         </div>
