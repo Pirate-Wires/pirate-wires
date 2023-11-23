@@ -1,5 +1,4 @@
 // import { useSignInModal } from '@/lib/components/comments/SignInModal';
-import SignInModal from '@/lib/components/comments/SignInModal';
 import User from '@/lib/icons/User';
 import updateFieldHeight from '@/lib/utils/autosize';
 // import supabase from '@/lib/utils/initSupabase';
@@ -9,10 +8,8 @@ import { useSupabase } from '@/app/(website)/supabase-provider';
 import cn from 'classnames';
 import cuid from 'cuid';
 import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
-import NewUserModal from '@/lib/components/comments/NewUserModal';
 import { useComments } from '@/lib/hooks/use-comments';
 import Avatar from './Avatar';
-import { useModal } from '@/lib/hooks/use-modal';
 
 import styles from "@/components/_styles/comments.module.scss";
 
@@ -39,7 +36,7 @@ const NewCommentForm = ({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { supabase, user, profile } = useSupabase();
-  const { mutateGlobalCount, rootId, mutateComments } = useComments();
+  const { mutateGlobalCount, rootId, mutateComments, redirectToSignIn } = useComments();
 
   useEffect(() => {
     if (autofocus && textareaRef && textareaRef.current) {
@@ -67,11 +64,11 @@ const NewCommentForm = ({
     hideEarlyCallback?.();
 
     if (!user) {
-      return open('signInModal');
+      return redirectToSignIn();
     }
 
     if (!profile) {
-      return open('newUserModal');
+      return redirectToSignIn();
     }
 
     const postString = content
