@@ -93,56 +93,14 @@ const NewCommentForm = ({
       slug,
     };
 
-    mutateGlobalCount((count: number) => count + 1);
 
-    mutateComments(async (pages: CommentType[]) => {
-      const optimisticResponse: CommentType = ({
-        ...post,
-        author: profile,
-        highlight: true,
-        live: false,
-        createdAt: new Date().toISOString(),
-        id: null,
-        title: null,
-        isPublished: false,
-        votes: 0,
-        upvotes: 0,
-        downvotes: 0,
-        userVoteValue: 0,
-      } as unknown) as CommentType;
-
-      const newData = [optimisticResponse, ...pages];
-
-      return newData;
-    });
-
-    const { data, error } = await supabase.from('posts').insert([post]);
+    const { error } = await supabase.from('posts').insert([post]);
 
     if (error) {
       console.log(error);
     } else {
-      mutateComments(async (staleResponses: CommentType[]) => {
-        const newResponse = ({
-          ...(data?.[0] ?? {}),
-          author: profile,
-          responses: [],
-          responsesCount: 0,
-          highlight: true,
-          votes: 0,
-          upvotes: 0,
-          downvotes: 0,
-          userVoteValue: 0,
-        } as unknown) as CommentType;
-
-        const filteredResponses = staleResponses.filter(
-          (response) => response.slug !== newResponse.slug
-        );
-
-        const newData = [[newResponse], ...filteredResponses];
-
-        return newData;
-      });
-
+      await mutateComments()
+      mutateGlobalCount((count: number) => count + 1);
       handleReset();
       handleResetCallback?.();
     }
