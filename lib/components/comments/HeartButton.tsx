@@ -31,7 +31,7 @@ const HeartButton = (): JSX.Element => {
 
   return (
     <button
-      className={`${styles.topButton}`}
+      className={`${styles.topButton} btn square`}
       onClick={handleVote}
       aria-label={`Like comment by ${rootComment?.author.full_name}`}
     >

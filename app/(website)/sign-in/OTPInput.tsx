@@ -1,4 +1,5 @@
 // /app/(website)/sign-in/OTPInput.tsx
+import styles from "@/styles/pages/signIn.module.scss"
 import React, { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 
 interface OTPInputProps {
@@ -63,7 +64,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ onOTPChange }) => {
   };
 
   return (
-    <div className="otp-input-container">
+    <div className={styles['otp-input-container']}>
       {otp.map((value, index) => (
         <input
           key={index}

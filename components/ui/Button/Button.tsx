@@ -7,6 +7,7 @@ import { mergeRefs } from 'react-merge-refs';
 import LoadingDots from '@/components/ui/LoadingDots';
 
 import styles from './Button.module.css';
+import accountstyles from '@/styles/pages/account.module.scss';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'slim' | 'flat';
@@ -31,9 +32,7 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
   } = props;
   const ref = useRef(null);
   const rootClassName = cn(
-    styles.root,
     {
-      [styles.slim]: variant === 'slim',
       [styles.loading]: loading,
       [styles.disabled]: disabled
     },
@@ -44,7 +43,7 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
       aria-pressed={active}
       data-variant={variant}
       ref={mergeRefs([ref, buttonRef])}
-      className={rootClassName}
+      className={`${rootClassName}, ${accountstyles.accountBtn}`}
       disabled={disabled}
       style={{
         width,
