@@ -1,6 +1,5 @@
 import { invokeVote } from '@/lib/components/comments/VoteButtons';
 import { useComments } from '@/lib/hooks/use-comments';
-import { useModal } from '@/lib/hooks/use-modal';
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import Heart from '@/lib/icons/Heart';
 import { CommentType } from '@/lib/utils/types';
@@ -11,11 +10,10 @@ import styles from "@/components/_styles/comments.module.scss";
 
 const HeartButton = (): JSX.Element => {
   const { supabase, user } = useSupabase();
-  const { rootComment, mutateRootComment } = useComments();
-  const { open } = useModal();
+  const { rootComment, mutateRootComment, redirectToSignIn } = useComments();
 
   async function handleVote(): Promise<void> {
-    if (!user) return open('signInModal');
+    if (!user)  return redirectToSignIn();
     if (!rootComment || !rootComment.id) return;
 
     if (rootComment.userVoteValue === 0) {
