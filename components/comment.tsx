@@ -15,8 +15,9 @@ export default function Comment({ postId }): JSX.Element {
             {/* <ModalProvider> */}
             <section className={`${styles.commentsSection} c-20`}>
                 <div className={`${styles.commentsTop}`}>
-                    <div className={styles.topBox}>
-                        127 <span>Comments</span>
+                    <div className={`${styles.buttonGroup}`}>
+                        <HeartButton />
+                        <MessageBubbleButton />
                     </div>
                     <div className={styles.topBox} id="share-trigger">
                         Share

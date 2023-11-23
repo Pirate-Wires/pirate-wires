@@ -11,5 +11,20 @@
 
 .commentsTop {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topBox {
+  display: flex;
+}
+
+.buttonGroup {
+  display: flex;
+}
+
+.topButton {
+  background: transparent;
+  border: solid 2px black;
+  padding: 10px 20px 10px 20px;
+  margin-right: 20px;
 }
