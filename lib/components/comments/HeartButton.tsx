@@ -10,7 +10,7 @@ import React from 'react';
 import styles from "@/components/_styles/comments.module.scss";
 
 const HeartButton = (): JSX.Element => {
-  const { user } = useSupabase();
+  const { supabase, user } = useSupabase();
   const { rootComment, mutateRootComment } = useComments();
   const { open } = useModal();
 
@@ -20,16 +20,14 @@ const HeartButton = (): JSX.Element => {
 
     if (rootComment.userVoteValue === 0) {
       mutateRootComment(
-        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) + 1, userVoteValue: 1 }),
-        false
+        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) + 1, userVoteValue: 1 })
       );
-      await invokeVote(rootComment.id, user.id, 1);
+      await invokeVote(supabase, rootComment.id, user.id, 1);
     } else {
       mutateRootComment(
-        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) - 1, userVoteValue: 0 }),
-        false
+        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) - 1, userVoteValue: 0 })
       );
-      await invokeVote(rootComment.id, user.id, 0);
+      await invokeVote(supabase, rootComment.id, user.id, 0);
     }
   }
 

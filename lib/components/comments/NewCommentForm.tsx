@@ -2,7 +2,7 @@
 import SignInModal from '@/lib/components/comments/SignInModal';
 import User from '@/lib/icons/User';
 import updateFieldHeight from '@/lib/utils/autosize';
-import supabase from '@/lib/utils/initSupabase';
+// import supabase from '@/lib/utils/initSupabase';
 import punctuationRegex from '@/lib/utils/regex/punctuationRegex';
 import { CommentType } from '@/lib/utils/types';
 import { useSupabase } from '@/app/(website)/supabase-provider';
@@ -114,7 +114,7 @@ const NewCommentForm = ({
       const newData = [optimisticResponse, ...pages];
 
       return newData;
-    }, false);
+    });
 
     const { data, error } = await supabase.from('posts').insert([post]);
 
@@ -141,7 +141,7 @@ const NewCommentForm = ({
         const newData = [[newResponse], ...filteredResponses];
 
         return newData;
-      }, false);
+      });
 
       handleReset();
       handleResetCallback?.();

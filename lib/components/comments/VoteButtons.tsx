@@ -3,7 +3,7 @@ import { useSupabase } from '@/app/(website)/supabase-provider';
 import Heart from '@/lib/icons/Heart';
 import ThumbsUpFilled from '@/lib/icons/ThumbUpFilled';
 import ThumbsUpOutlined from '@/lib/icons/ThumbUpOutlined';
-import supabase from '@/lib/utils/initSupabase';
+// import supabase from '@/lib/utils/initSupabase';
 import type { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
@@ -12,12 +12,10 @@ import styles from "@/components/_styles/comments.module.scss";
 
 type StatusType = 'upvoted' | 'unvoted' | 'downvoted';
 
-export async function invokeVote(postId: number, userId: string, value: number): Promise<any> {
+export async function invokeVote(supabase: any, postId: number, userId: string, value: number): Promise<any> {
   return supabase
     .from('votes')
-    .upsert([{ postId, userId, value }], {
-      onConflict: 'postId, userId',
-    })
+    .upsert([{ postId, userId, value }])
     .then(({ data, error }) => {
       if (error) {
         console.log(error);
@@ -71,7 +69,7 @@ const VoteButtons = ({
   comment,
   config = { type: 'thumbs', canDownvote: true },
 }: Props): JSX.Element | null => {
-  const { user } = useSupabase();
+  const { supabase, user } = useSupabase();
   const { mutateComments } = useComments();
   const status = resolveStatus(comment.userVoteValue);
   const { open } = useModal();
@@ -80,13 +78,13 @@ const VoteButtons = ({
     if (!user || !user.id) return open('signInModal');
 
     if (status === 'unvoted') {
-      invokeVote(comment.id, user.id, 1);
+      invokeVote(supabase, comment.id, user.id, 1);
       mutateVotes(mutateComments, comment.id, 1, 1);
     } else if (status === 'upvoted') {
-      invokeVote(comment.id, user.id, 0);
+      invokeVote(supabase, comment.id, user.id, 0);
       mutateVotes(mutateComments, comment.id, -1, 0);
     } else if (status === 'downvoted') {
-      invokeVote(comment.id, user.id, 1);
+      invokeVote(supabase, comment.id, user.id, 1);
       mutateVotes(mutateComments, comment.id, 2, 1);
     }
   }
@@ -95,13 +93,13 @@ const VoteButtons = ({
     if (!user || !user.id) return open('signInModal');
 
     if (status === 'unvoted') {
-      invokeVote(comment.id, user.id, -1);
+      invokeVote(supabase, comment.id, user.id, -1);
       mutateVotes(mutateComments, comment.id, -1, -1);
     } else if (status === 'upvoted') {
-      invokeVote(comment.id, user.id, -1);
+      invokeVote(supabase, comment.id, user.id, -1);
       mutateVotes(mutateComments, comment.id, -2, -1);
     } else if (status === 'downvoted') {
-      invokeVote(comment.id, user.id, 0);
+      invokeVote(supabase, comment.id, user.id, 0);
       mutateVotes(mutateComments, comment.id, 1, 0);
     }
   }

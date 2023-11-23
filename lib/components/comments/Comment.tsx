@@ -1,9 +1,9 @@
 import NewCommentForm from '@/lib/components/comments/NewCommentForm';
 // import { useComments } from '@/lib/hooks/use-comments';
 import Plus from '@/lib/icons/Plus';
-import supabase from '@/lib/utils/initSupabase';
+import { useSupabase } from '@/app/(website)/supabase-provider';
+// import supabase from '@/lib/utils/initSupabase';
 import type { CommentType } from '@/lib/utils/types';
-// import { useUser } from '@/lib/hooks/use-user';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
@@ -51,6 +51,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
   const [showReplyForm, setShowReplyForm] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isAdmin = false;
+  const { supabase } = useSupabase();
   // const { mutateComments } = useComments();
   // const { data: isAdmin } = useSWR(
   //   user?.id ? ['user_owns_siteId', user.id] : null,
