@@ -19,9 +19,7 @@
 
 .comment {
   display: flex;
-  padding: 30px 0;
-  border-bottom: 2px solid black;
-  margin-bottom: 50px;
+  @include get-vw-small-increase(margin-bottom, 6px, 6px);
 }
 
 .topBox {
@@ -34,16 +32,42 @@
   @include get-vw-small-increase(gap, 10px, 10px);
 }
 .collapseBtn {
-
+  position: absolute;
+  width: 5px;
+  left: 0;
+  top: 100%;
 }
 .topButton {
   padding: 8px 10px 7px;
 }
 .nameRow {
   font-family: $neueMed;
-  font-size: 14px;
+  @include get-vw-small-increase(font-size, 14px, 14px);
+  display: flex;
+  @include get-vw-small-increase(margin-bottom, 10px, 10px);
+  align-items: center;
 }
-
+.name {
+  font-family: $neueMed;
+  @include get-vw-small-increase(font-size, 14px, 14px);
+  @include get-vw-small-increase(margin-right, 7px, 7px);
+  color: #1C1C1C;
+}
+.postedDate {
+  font-family: $neueReg;
+  color: #848484;
+  position: relative;
+  bottom: -1px;
+  @include get-vw-small-increase(font-size, 12px, 12px);
+}
+.commentWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.comment {
+  font-family: $neueReg;
+  @include get-vw-small-increase(font-size, 15px, 15px);
+}
 .newCommentForm {
   display: flex;
   width: 100%;
@@ -76,11 +100,23 @@
     z-index: 2;
   }
 }
-
-.childComment {
-  border-left: 2px solid black;
+.commentList {
+  margin-top: 40px;
 }
-
+.childComment {
+  border-left: 1px solid #BEBEBE;
+  @include get-vw-small-increase(padding-left, 20px, 20px);
+  @include get-vw-small-increase(margin-top, 30px, 30px);
+  @include get-vw-small-increase(margin-bottom, 30px, 30px);
+}
+.threadWrapper {
+  @include get-vw-small-increase(gap, 15px, 15px);
+  display: flex;
+  flex-direction: column;
+  &:last-child {
+    gap: 0;
+  }
+}
 .sendButton {
   background: black;
   color: white;
@@ -102,8 +138,8 @@
 
 .likeReplyButton {
   display: flex;
-}
-
-.likeButton {
-  margin-right: 10px;
+  font-family: $neueMed;
+  color: #848484;
+  @include get-vw-small-increase(font-size, 12px, 12px);
+  @include get-vw-small-increase(gap, 10px, 10px);
 }

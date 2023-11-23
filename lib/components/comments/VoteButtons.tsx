@@ -92,7 +92,7 @@ const VoteButtons = ({
   if (!comment) return null;
 
   return (
-    <div className="flex items-center text-gray-500 dark:text-gray-400">
+    <>
       {config.type === 'heart' ? (
         <button
           className="text-xs flex items-center focus-ring p-1"
@@ -116,7 +116,7 @@ const VoteButtons = ({
             onClick={handleUpvote}
             aria-label="Like this comment"
           >
-            <strong>Like {!!comment.votes && `(${comment.votes})`}</strong>
+            Like {!!comment.votes && `(${comment.votes})`}
             {/* {status === 'upvoted' && <ThumbsUpFilled className="w-4 h-4 text-red-500" />}
             {status !== 'upvoted' && (
 <<<<<<< HEAD
@@ -148,7 +148,7 @@ const VoteButtons = ({
           )} */}
         </>
       )}
-    </div>
+    </>
   );
 };
 
