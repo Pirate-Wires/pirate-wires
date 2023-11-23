@@ -9,7 +9,7 @@ const SortCommentsSelect = (): JSX.Element => {
   }
   return (
     <select
-      className="text-gray-800 text-xs my-2 rounded-md border-gray-300 focus-ring max-w-[5rem] dark:bg-gray-800 dark:text-gray-200"
+      className=""
       onChange={handleSelect}
       value={sortingBehavior}
       aria-label="Sort votes by"

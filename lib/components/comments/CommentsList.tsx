@@ -10,7 +10,7 @@ import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import React, { useRef, useState } from 'react';
 import SortCommentsSelect from './SortCommentsSelect';
-
+import styles from "@/components/_styles/comments.module.scss";
 dayjs.extend(relativeTime, {
   rounding: Math.floor,
 });
@@ -82,7 +82,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
     <div
       ref={wrapperRef}
       className={cn(
-        'flex-grow overflow-y-auto overflow-x-hidden overscroll-contain transition-shadow px-3 sm:px-6 pb-6',
+        '',
         {
           'shadow-inner': isScrolled,
         }
@@ -98,7 +98,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
         {!isLoadingInitialData && (
           <>
             {comments.map((comment: CommentType) => (
-              <div className="py-3" key={`${comment.slug}${useInfiniteScroll ? '-s' : ''}`}>
+              <div className={styles.comment} key={`${comment.slug}${useInfiniteScroll ? '-s' : ''}`}>
                 <Comment comment={comment} highlight={comment.highlight} />
               </div>
             ))}
