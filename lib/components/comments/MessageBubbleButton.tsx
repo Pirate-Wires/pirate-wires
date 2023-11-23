@@ -13,7 +13,7 @@ const MessageBubbleButton = (): JSX.Element => {
         href="#comments"
         className=""
       > */}
-        <span className="ml-1">{count ? count : `-`} <strong>Comments</strong></span>
+        <span className="ml-1">{count !== null ? count : `-`} <strong>Comments</strong></span>
       {/* </a> */}
     </button>
   );
