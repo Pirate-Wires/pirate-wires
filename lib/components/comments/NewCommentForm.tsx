@@ -2,7 +2,7 @@
 import SignInModal from '@/lib/components/comments/SignInModal';
 import User from '@/lib/icons/User';
 import updateFieldHeight from '@/lib/utils/autosize';
-import supabase from '@/lib/utils/initSupabase';
+// import supabase from '@/lib/utils/initSupabase';
 import punctuationRegex from '@/lib/utils/regex/punctuationRegex';
 import { CommentType } from '@/lib/utils/types';
 import { useSupabase } from '@/app/(website)/supabase-provider';
@@ -13,6 +13,8 @@ import NewUserModal from '@/lib/components/comments/NewUserModal';
 import { useComments } from '@/lib/hooks/use-comments';
 import Avatar from './Avatar';
 import { useModal } from '@/lib/hooks/use-modal';
+
+import styles from "@/components/_styles/comments.module.scss";
 
 // Placeholder function for modal handling
 const open = (modalName: string): void => {
@@ -91,7 +93,7 @@ const NewCommentForm = ({
       slug,
     };
 
-    mutateGlobalCount((count: number) => count + 1, false);
+    mutateGlobalCount((count: number) => count + 1);
 
     mutateComments(async (pages: CommentType[]) => {
       const optimisticResponse: CommentType = ({
@@ -112,7 +114,7 @@ const NewCommentForm = ({
       const newData = [optimisticResponse, ...pages];
 
       return newData;
-    }, false);
+    });
 
     const { data, error } = await supabase.from('posts').insert([post]);
 
@@ -139,7 +141,7 @@ const NewCommentForm = ({
         const newData = [[newResponse], ...filteredResponses];
 
         return newData;
-      }, false);
+      });
 
       handleReset();
       handleResetCallback?.();
@@ -149,8 +151,8 @@ const NewCommentForm = ({
   return (
     <>
       <div className="">
-        <div className="">
-          {!user && (
+        <div className={`${styles.newCommentForm}`}>
+          {/* {!user && (
             <button
               className=""
               onClick={() => open('signInModal')}
@@ -163,10 +165,9 @@ const NewCommentForm = ({
             <button className="" aria-label="View profile information">
               <Avatar profile={profile} />
             </button>
-          )}
+          )} */}
 
           <label className="">
-            <span className="sr-only">Enter a comment</span>
             <textarea
               className=""
               placeholder="Write a comment..."
@@ -180,16 +181,12 @@ const NewCommentForm = ({
 
           <div className="">
             <button
-              className={cn(
-                {
-                  'disabled': content.length < 1 || isLoading,
-                }
-              )}
+              className={`${styles.sendButton}`}
               disabled={content.length < 1}
               onClick={handleSubmit}
               aria-label="Submit new post"
             >
-              Post
+              Send
             </button>
           </div>
         </div>

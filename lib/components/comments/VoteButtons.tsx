@@ -3,20 +3,19 @@ import { useSupabase } from '@/app/(website)/supabase-provider';
 import Heart from '@/lib/icons/Heart';
 import ThumbsUpFilled from '@/lib/icons/ThumbUpFilled';
 import ThumbsUpOutlined from '@/lib/icons/ThumbUpOutlined';
-import supabase from '@/lib/utils/initSupabase';
+// import supabase from '@/lib/utils/initSupabase';
 import type { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
 import { useModal } from '@/lib/hooks/use-modal';
+import styles from "@/components/_styles/comments.module.scss";
 
 type StatusType = 'upvoted' | 'unvoted' | 'downvoted';
 
-export async function invokeVote(postId: number, userId: string, value: number): Promise<any> {
+export async function invokeVote(supabase: any, postId: number, userId: string, value: number): Promise<any> {
   return supabase
     .from('votes')
-    .upsert([{ postId, userId, value }], {
-      onConflict: 'postId, userId',
-    })
+    .upsert([{ postId, userId, value }])
     .then(({ data, error }) => {
       if (error) {
         console.log(error);
@@ -70,7 +69,7 @@ const VoteButtons = ({
   comment,
   config = { type: 'thumbs', canDownvote: true },
 }: Props): JSX.Element | null => {
-  const { user } = useSupabase();
+  const { supabase, user } = useSupabase();
   const { mutateComments } = useComments();
   const status = resolveStatus(comment.userVoteValue);
   const { open } = useModal();
@@ -79,13 +78,13 @@ const VoteButtons = ({
     if (!user || !user.id) return open('signInModal');
 
     if (status === 'unvoted') {
-      invokeVote(comment.id, user.id, 1);
+      invokeVote(supabase, comment.id, user.id, 1);
       mutateVotes(mutateComments, comment.id, 1, 1);
     } else if (status === 'upvoted') {
-      invokeVote(comment.id, user.id, 0);
+      invokeVote(supabase, comment.id, user.id, 0);
       mutateVotes(mutateComments, comment.id, -1, 0);
     } else if (status === 'downvoted') {
-      invokeVote(comment.id, user.id, 1);
+      invokeVote(supabase, comment.id, user.id, 1);
       mutateVotes(mutateComments, comment.id, 2, 1);
     }
   }
@@ -94,13 +93,13 @@ const VoteButtons = ({
     if (!user || !user.id) return open('signInModal');
 
     if (status === 'unvoted') {
-      invokeVote(comment.id, user.id, -1);
+      invokeVote(supabase, comment.id, user.id, -1);
       mutateVotes(mutateComments, comment.id, -1, -1);
     } else if (status === 'upvoted') {
-      invokeVote(comment.id, user.id, -1);
+      invokeVote(supabase, comment.id, user.id, -1);
       mutateVotes(mutateComments, comment.id, -2, -1);
     } else if (status === 'downvoted') {
-      invokeVote(comment.id, user.id, 0);
+      invokeVote(supabase, comment.id, user.id, 0);
       mutateVotes(mutateComments, comment.id, 1, 0);
     }
   }
@@ -128,19 +127,20 @@ const VoteButtons = ({
       ) : (
         <>
           <button
-            className="text-xs flex items-center focus-ring p-1.5"
+            className={`${styles.likeButton}`}
             onClick={handleUpvote}
             aria-label="Like this comment"
           >
-            {status === 'upvoted' && <ThumbsUpFilled className="w-4 h-4 text-red-500" />}
+            <strong>Like {!!comment.votes && `(${comment.votes})`}</strong>
+            {/* {status === 'upvoted' && <ThumbsUpFilled className="w-4 h-4 text-red-500" />}
             {status !== 'upvoted' && (
               <ThumbsUpOutlined className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            )}
+            )} */}
           </button>
-          <span className="text-gray-600 dark:text-gray-400 text-xs tabular-nums min-w-[12px] text-center mx-1">
+          {/* <span className="text-gray-600 dark:text-gray-400 text-xs tabular-nums min-w-[12px] text-center mx-1">
             {comment.votes}
-          </span>
-          {config.canDownvote && (
+          </span> */}
+          {/* {config.canDownvote && (
             <button
               className="text-sm flex items-center focus-ring p-1.5"
               onClick={handleDownvote}
@@ -153,7 +153,7 @@ const VoteButtons = ({
                 <ThumbsUpOutlined className="w-4 h-4 text-gray-500 dark:text-gray-400 transform rotate-180" />
               )}
             </button>
-          )}
+          )} */}
         </>
       )}
     </div>

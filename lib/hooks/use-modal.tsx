@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import Portal from '@reach/portal';
+// import Portal from '@reach/portal';
 type key = string;
 
 interface ModalContext {
@@ -48,19 +48,19 @@ const ModalProvider = (props: ModalProviderProps): JSX.Element => {
   return (
     <ModalContext.Provider value={value} {...props}>
       {props.children}
-      {openKeys.map((key, index) => {
+      {/* {openKeys.map((key, index) => {
         const ReactElement = ModalElementsMap.get(key);
 
         if (!ReactElement) return null;
 
         return (
-          <Portal key={`${key}_${index}`}>
+          // <Portal key={`${key}_${index}`}>
             <div style={{ zIndex: BASE_Z_INDEX + index }}>
               <ReactElement />
             </div>
-          </Portal>
+          // </Portal>
         );
-      })}
+      })} */}
     </ModalContext.Provider>
   );
 };

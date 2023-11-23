@@ -124,7 +124,7 @@ export default function Post(props) {
       {/* For convenience showing comment component regardless of a user's subscription status
       so that it can be styled  */}
 
-      {post && <Comment postId={postId}/>}
+      {postId && <Comment postId={postId}/>}
 
       {/* Conditionally showing comment component based on a user's subscription status */}
 

@@ -67,11 +67,11 @@ const PostList: React.FC<PostListProps> = ({
           </span>
         </p>
 
-        <Link
+      </Link>
+      <Link
           href={`/author/${post?.author?.slug?.current}`} className="postAuthor">
           {post?.author?.name}
         </Link>
-      </Link>
     </article>
   );
 }
