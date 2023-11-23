@@ -1,9 +1,9 @@
 import NewCommentForm from '@/lib/components/comments/NewCommentForm';
 // import { useComments } from '@/lib/hooks/use-comments';
 import Plus from '@/lib/icons/Plus';
-import supabase from '@/lib/utils/initSupabase';
+import { useSupabase } from '@/app/(website)/supabase-provider';
+// import supabase from '@/lib/utils/initSupabase';
 import type { CommentType } from '@/lib/utils/types';
-// import { useUser } from '@/lib/hooks/use-user';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
@@ -51,6 +51,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
   const [showReplyForm, setShowReplyForm] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isAdmin = false;
+  const { supabase } = useSupabase();
   // const { mutateComments } = useComments();
   // const { data: isAdmin } = useSWR(
   //   user?.id ? ['user_owns_siteId', user.id] : null,
@@ -228,7 +229,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             </button>
           )}
           {!comment.isDeleted && (
-            <div className="grid grid-flow-col auto-cols-min gap-x-3 transform -translate-x-1.5">
+            <div className={`${styles.likeReplyButton}`}>
               <VoteButtons comment={comment} />
               <button
                 className="text-xs flex items-center text-gray-600 dark:text-gray-400 focus-ring border-none"
@@ -239,7 +240,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
                     : `Reply to comment by ${comment.author?.full_name}`
                 }
               >
-                {showReplyForm ? <span>Cancel</span> : <span>Reply</span>}
+                {showReplyForm ? <strong>Cancel</strong> : <strong>Reply {!!comment.responses.length && `(${comment.responses.length})`}</strong>}
               </button>
               {isAdmin && (
                 <>
@@ -289,7 +290,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
           )}
 
           {comment.responses.length > 0 && (
-            <div className={cn('pt-2 space-y-5')}>
+            <div className={`${styles.childComment}`} style={{paddingLeft: '32px'}}>
               {comment.responses.map((comment: CommentType) => (
                 <Comment
                   key={comment.slug}

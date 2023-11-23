@@ -16,7 +16,8 @@ import {
   getActiveProductsWithPrices,
   getSession,
   getSubscription,
-  getUserDetails
+  getUserDetails,
+  getPostIdBySlug
 } from "@/app/(website)/supabase-server";
 import {urlForImage} from "@/lib/sanity/image";
 
@@ -46,6 +47,7 @@ export async function generateMetadata({ params }) {
 
 export default async function PostDefault({ params }) {
   const post = await getPostBySlug(params.slug);
+  const postId = await getPostIdBySlug(params.slug);
   if (!post.section) {
     // quick fix. if section is not available, make 'the-wire' as ddfault
     post.section = 'the-wire';
@@ -67,7 +69,7 @@ export default async function PostDefault({ params }) {
         "--accentLight": "rgba(43, 43, 43, 0.45)",
       } as React.CSSProperties}>
         <Navigation publication={publication} />
-        <PostPage post={post} userDetails={userDetails} thisSectionArticles={allRelatedArticles} />
+        <PostPage post={post} postId={postId} userDetails={userDetails} thisSectionArticles={allRelatedArticles} />
         <Footer globalFields={globalFields} />
       </div>
     </>)

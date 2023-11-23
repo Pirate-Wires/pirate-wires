@@ -19,8 +19,6 @@ interface Props {
 }
 
 const CommentSection = ({ initialData = null }: Props): JSX.Element => {
-    const { count } = useComments();
-    console.log(count)
     return (
         <>
             <NewCommentForm />

@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from '@/lib/constants/pagination';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import { definitions } from '@/lib/types/supabase';
-import supabase from '@/lib/utils/initSupabase';
+// import supabase from '@/lib/utils/initSupabase';
 import type { CommentType, User } from '@/lib/utils/types';
 import { arrayToTree } from 'performant-array-to-tree';
 import { createContext, useContext, useState } from 'react';
@@ -70,11 +70,12 @@ const postgresArray = (arr: any[]): string => `{${arr.join(',')}}`;
 
 export const CommentsContextProvider = (props: CommentsContextProviderProps): JSX.Element => {
   const { postId } = props;
-  const { user } = useUser();
+  const { supabase, user } = useSupabase();
   const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathVotesRecent');
+  const [count, setCount] = useState<number | null>(null);
+  const [rootComment, setRootComment] = useState<CommentType | null>(null);
 
-
-  const { data: count, mutate: mutateGlobalCount, error: commentsError } = useSWR<
+  const { error: commentsError } = useSWR<
     number | null,
     any
   >(`globalCount_${postId}`, {
@@ -84,7 +85,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     revalidateOnMount: false,
   });
 
-  const { data: rootComment, mutate: mutateRootComment } = useSWR(
+  useSWR(
     ['posts', postId, user],
     async (_, postId, _user) =>
       supabase
@@ -99,6 +100,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
 
           if (!data?.[0]) return null;
 
+          setRootComment((data[0] as unknown) as CommentType);
           return (data[0] as unknown) as CommentType;
         })
   );
@@ -124,8 +126,6 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     ];
   };
 
-  console.log('postId', postId);
-
   const { data, error, size, setSize, mutate: mutateComments } = useSWRInfinite(
     (pageIndex, previousPageData) =>
       getKey(pageIndex, previousPageData, postId, sortingBehavior, user), // Include user to revalidate when auth changes
@@ -142,10 +142,10 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
           .then(({ data, error, count: tableCount }) => {
             if (error) throw error;
             if (!data) return null;
-            mutateGlobalCount((count) => {
+            setCount((count) => {
               if (count) return count;
               return tableCount;
-            }, false);
+            });
 
             return data;
           })
@@ -205,8 +205,8 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     isReachingEnd,
     loadMore,
     mutateComments,
-    mutateGlobalCount,
-    mutateRootComment,
+    mutateGlobalCount: setCount,
+    mutateRootComment: setRootComment,
     sortingBehavior,
     setSortingBehavior,
     setSize,

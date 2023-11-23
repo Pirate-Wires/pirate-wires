@@ -37,6 +37,38 @@ export async function getUserDetails() {
   }
 }
 
+export async function getProfile(profileId: string) {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', profileId)
+      .single();
+    return profile;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+export async function getPostIdBySlug(slug: string) {
+  if(!slug) return null;
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: post, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    if(error) throw error;
+    return post.id;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
 export async function getSubscription() {
   const supabase = createServerSupabaseClient();
   try {

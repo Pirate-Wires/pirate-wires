@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import validateEmail from '@/lib/utils/regex/validateEmailRegex';
-import supabase from '@/lib/utils/initSupabase';
-import { useUser } from '@/lib/hooks/use-user';
+// import supabase from '@/lib/utils/initSupabase';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import Github from '@/lib/icons/Github';
 import { useModal } from '@/lib/hooks/use-modal';
 
@@ -21,6 +21,7 @@ interface Error {
 function MagicLinkView({ email, setEmail, setAuthView }: MagicLinkViewProps): JSX.Element {
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const { supabase } = useSupabase();
 
   async function handleSubmit(e: React.ChangeEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();

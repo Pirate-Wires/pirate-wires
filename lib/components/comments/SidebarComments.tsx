@@ -3,7 +3,7 @@ import NewCommentForm from '@/lib/components/comments/NewCommentForm';
 import { NoAnimationSidebar } from '@/lib/components/comments/Sidebar';
 import { useComments } from '@/lib/hooks/use-comments';
 import { X } from '@/lib/icons/X';
-import Portal from '@reach/portal';
+// import Portal from '@reach/portal';
 import { useEffect, useState } from 'react';
 import SortCommentsSelect from './SortCommentsSelect';
 
@@ -62,7 +62,7 @@ const SidebarComments = (): JSX.Element => {
   }, []);
 
   return (
-    <Portal>
+    // <Portal>
       <NoAnimationSidebar isOpen={showComments} handleClose={handleCloseRemarq}>
         <div className="flex-grow flex flex-col bg-white dark:bg-gray-800 min-h-screen max-h-screen">
           <div className="flex-none flex flex-row items-center justify-between py-3 sm:py-4 px-3 sm:px-6 order-first">
@@ -89,7 +89,7 @@ const SidebarComments = (): JSX.Element => {
           <div className="min-h-14 block sm:hidden"></div>
         </div>
       </NoAnimationSidebar>
-    </Portal>
+    // </Portal>
   );
 };
 

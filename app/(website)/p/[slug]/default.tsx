@@ -13,7 +13,7 @@ import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
 import Comment from '@/components/comment';
 
 export default function Post(props) {
-  const { loading, post, thisSectionArticles, userDetails } = props;
+  const { loading, post, postId, thisSectionArticles, userDetails } = props;
 
   const slug = post?.slug;
 
@@ -124,7 +124,7 @@ export default function Post(props) {
       {/* For convenience showing comment component regardless of a user's subscription status
       so that it can be styled  */}
 
-      <Comment />
+      {postId && <Comment postId={postId}/>}
 
       {/* Conditionally showing comment component based on a user's subscription status */}
 

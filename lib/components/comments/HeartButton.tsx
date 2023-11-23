@@ -1,14 +1,16 @@
 import { invokeVote } from '@/lib/components/comments/VoteButtons';
 import { useComments } from '@/lib/hooks/use-comments';
 import { useModal } from '@/lib/hooks/use-modal';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import Heart from '@/lib/icons/Heart';
 import { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
 
+import styles from "@/components/_styles/comments.module.scss";
+
 const HeartButton = (): JSX.Element => {
-  const { user } = useUser();
+  const { supabase, user } = useSupabase();
   const { rootComment, mutateRootComment } = useComments();
   const { open } = useModal();
 
@@ -18,32 +20,25 @@ const HeartButton = (): JSX.Element => {
 
     if (rootComment.userVoteValue === 0) {
       mutateRootComment(
-        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) + 1, userVoteValue: 1 }),
-        false
+        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) + 1, userVoteValue: 1 })
       );
-      await invokeVote(rootComment.id, user.id, 1);
+      await invokeVote(supabase, rootComment.id, user.id, 1);
     } else {
       mutateRootComment(
-        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) - 1, userVoteValue: 0 }),
-        false
+        (data: CommentType) => ({ ...data, votes: (rootComment.votes || 0) - 1, userVoteValue: 0 })
       );
-      await invokeVote(rootComment.id, user.id, 0);
+      await invokeVote(supabase, rootComment.id, user.id, 0);
     }
   }
 
   return (
     <button
-      className=""
+      className={`${styles.topButton}`}
       onClick={handleVote}
       aria-label={`Like comment by ${rootComment?.author.full_name}`}
     >
-      <Heart
-        className={cn('w-6 h-6 stroke-1.5', {
-          'text-red-600 fill-current': rootComment?.userVoteValue === 1,
-        })}
-      />
-      <span className="ml-1 tabular-nums min-w-[12px]">
-        {rootComment ? rootComment.votes : `-`}
+      <span className="ml-1">
+        {rootComment ? rootComment.votes : `-`} <strong>Likes</strong>
       </span>
     </button>
   );
