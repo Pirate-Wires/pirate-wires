@@ -7,7 +7,6 @@ import ThumbsUpOutlined from '@/lib/icons/ThumbUpOutlined';
 import type { CommentType } from '@/lib/utils/types';
 import cn from 'classnames';
 import React from 'react';
-import { useModal } from '@/lib/hooks/use-modal';
 import styles from "@/components/_styles/comments.module.scss";
 
 type StatusType = 'upvoted' | 'unvoted' | 'downvoted';
@@ -55,12 +54,11 @@ const VoteButtons = ({
   config = { type: 'thumbs', canDownvote: true },
 }: Props): JSX.Element | null => {
   const { supabase, user } = useSupabase();
-  const { mutateComments } = useComments();
+  const { mutateComments, redirectToSignIn } = useComments();
   const status = resolveStatus(comment.userVoteValue);
-  const { open } = useModal();
 
   async function handleUpvote(): Promise<any> {
-    if (!user || !user.id) return open('signInModal');
+    if (!user || !user.id) return redirectToSignIn();;
 
     if (status === 'unvoted') {
       await invokeVote(supabase, comment.id, user.id, 1);
@@ -75,7 +73,7 @@ const VoteButtons = ({
   }
 
   function handleDownvote(): void {
-    if (!user || !user.id) return open('signInModal');
+    if (!user || !user.id) return redirectToSignIn();;
 
     if (status === 'unvoted') {
       invokeVote(supabase, comment.id, user.id, -1);

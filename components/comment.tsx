@@ -6,7 +6,7 @@ import MessageBubbleButton from '@/lib/components/comments/MessageBubbleButton';
 import HeartButton from '@/lib/components/comments/HeartButton';
 import ShareButton from '@/lib/components/comments/ShareButton';
 import { CommentsContextProvider } from '@/lib/hooks/use-comments';
-import { ModalProvider } from '@/lib/hooks/use-modal';
+// import { ModalProvider } from '@/lib/hooks/use-modal';
 
 import styles from "@/components/_styles/comments.module.scss";
 

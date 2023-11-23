@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { PAGE_SIZE } from '@/lib/constants/pagination';
 import { useSupabase } from '@/app/(website)/supabase-provider';
 import { definitions } from '@/lib/types/supabase';
@@ -12,6 +13,7 @@ export type SortingBehavior = 'pathVotesRecent' | 'pathLeastRecent' | 'pathMostR
 interface CommentsContextInterface {
   postId: number | null;
   user: User | null;
+  redirectToSignIn: () => void;
   rootComment: CommentType | null | undefined;
   comments: CommentType[];
   rootId: number | null;
@@ -35,6 +37,9 @@ interface CommentsContextInterface {
 const CommentsContext = createContext<CommentsContextInterface>({
   postId: null,
   user: null,
+  redirectToSignIn: () => {
+    return;
+  },
   rootComment: null,
   comments: [],
   rootId: null,
@@ -69,6 +74,7 @@ interface CommentsContextProviderProps {
 const postgresArray = (arr: any[]): string => `{${arr.join(',')}}`;
 
 export const CommentsContextProvider = (props: CommentsContextProviderProps): JSX.Element => {
+  const router = useRouter();
   const { postId } = props;
   const { supabase, user } = useSupabase();
   const [sortingBehavior, setSortingBehavior] = useState<SortingBehavior>('pathVotesRecent');
@@ -189,9 +195,14 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     setSize(size + 1);
   }
 
+  const redirectToSignIn = () => {
+    router.push('/sign-in');
+  }
+
   const value = {
     postId,
     user,
+    redirectToSignIn,
     comments,
     rootComment,
     commentsError,
