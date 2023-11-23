@@ -9,7 +9,7 @@ export const CurrentSubscription = ({ subscription }) => {
     return moment(trialEnd).format('MMM DD');
   };
 
-  console.log(subscription);
+  const hasTrial = subscription.trial_end && moment(subscription.trial_end).isValid();
 
   return (
     <div>
@@ -23,10 +23,16 @@ export const CurrentSubscription = ({ subscription }) => {
         subscription.current_period_end
       ).format('MMM DD')}`}</p>
 
-      <label>Trialing until:</label>
-      <p>{formatTrialEnd(subscription.trial_end)}</p>
+
+      {/* if we want to show information about the trial period, we can use the following code. days remaining for example */}
+      {hasTrial && (
+        <>
+          <label>Trialing until:</label>
+          <p>{formatTrialEnd(subscription.trial_end)}</p>
+        </>
+      )}
       <hr />
-      <Link href="https://billing.stripe.com/p/login/dR6bJqdpI4GH0ZqfYY">Customer Portal Link --&gt;</Link>
+      <Link href="https://billing.stripe.com/p/login/dR6bJqdpI4GH0ZqfYY">Customer portal Link --&gt;</Link>
     </div>
   );
 };
