@@ -180,7 +180,7 @@ export const CommentsContextProvider = (props: CommentsContextProviderProps): JS
     isLoadingInitialData || !!(size > 0 && data && typeof data[size - 1] === 'undefined');
   const isEmpty = !data || data?.[0]?.length === 0;
   const remainingCount = !count || isEmpty ? 0 : count - flattenedComments.length;
-  const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length <= PAGE_SIZE);
+  const isReachingEnd = isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
   function loadMore(): void {
     if (isLoadingMore || isReachingEnd) return;

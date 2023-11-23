@@ -110,7 +110,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
             )}
             {isLoadingMore && <CommentSkeleton />}
 
-            {!isReachingEnd && (
+            {!isReachingEnd && remainingCount && (
               <div className={`${styles.moreButtonWrapper}`}>
                 <button
                   onClick={() => loadMore()}
@@ -123,11 +123,11 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
               </div>
             )}
 
-            {!error && isReachingEnd && count !== 0 && (
+            {/* {!error && isReachingEnd && count !== 0 && (
               <div className="my-6 text-gray-700 dark:text-gray-200">
                 You&apos;ve reached the end.
               </div>
-            )}
+            )} */}
 
             {isEmpty && (
               <div className="my-6 text-gray-700 dark:text-gray-200">
