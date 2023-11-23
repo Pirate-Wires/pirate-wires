@@ -13,6 +13,7 @@ import styles from "@/components/_styles/comments.module.scss";
 type StatusType = 'upvoted' | 'unvoted' | 'downvoted';
 
 export async function invokeVote(supabase: any, postId: number, userId: string, value: number): Promise<any> {
+  console.log(postId, userId, value);
   return supabase
     .from('votes')
     .upsert([{ postId, userId, value }])
@@ -26,30 +27,14 @@ export async function invokeVote(supabase: any, postId: number, userId: string, 
     });
 }
 
-export const mutateVotes = (
+export const mutateVotes = async (
   mutate: any,
   postId: number,
   incrementBy: number,
   userVoteValue: number
-): Promise<any> =>
-  mutate(
-    (pages: CommentType[][]) =>
-      pages.map((comments) =>
-        comments.map((comment) => {
-          if (comment.id === postId) {
-            const newComment = {
-              ...comment,
-              votes: comment.votes + incrementBy,
-              userVoteValue,
-            };
+) => {
 
-            return newComment;
-          }
-          return comment;
-        })
-      ),
-    false
-  );
+}
 
 function resolveStatus(userVoteValue: number | undefined | null): StatusType {
   if (userVoteValue === 1) return 'upvoted';
@@ -74,18 +59,18 @@ const VoteButtons = ({
   const status = resolveStatus(comment.userVoteValue);
   const { open } = useModal();
 
-  function handleUpvote(): void {
+  async function handleUpvote(): Promise<any> {
     if (!user || !user.id) return open('signInModal');
 
     if (status === 'unvoted') {
-      invokeVote(supabase, comment.id, user.id, 1);
-      mutateVotes(mutateComments, comment.id, 1, 1);
+      await invokeVote(supabase, comment.id, user.id, 1);
+      await mutateComments();
     } else if (status === 'upvoted') {
-      invokeVote(supabase, comment.id, user.id, 0);
-      mutateVotes(mutateComments, comment.id, -1, 0);
+      await invokeVote(supabase, comment.id, user.id, 0);
+      await mutateComments();
     } else if (status === 'downvoted') {
-      invokeVote(supabase, comment.id, user.id, 1);
-      mutateVotes(mutateComments, comment.id, 2, 1);
+      await invokeVote(supabase, comment.id, user.id, 1);
+      await mutateComments();
     }
   }
 
