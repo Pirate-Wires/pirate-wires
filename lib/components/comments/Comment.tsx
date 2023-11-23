@@ -289,7 +289,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
           )}
 
           {comment.responses.length > 0 && (
-            <div className={cn('pt-2 space-y-5')}>
+            <div className={cn('pt-2 space-y-5')} style={{marginLeft: '32px'}}>
               {comment.responses.map((comment: CommentType) => (
                 <Comment
                   key={comment.slug}

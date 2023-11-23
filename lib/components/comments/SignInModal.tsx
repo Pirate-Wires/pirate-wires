@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import validateEmail from '@/lib/utils/regex/validateEmailRegex';
 import supabase from '@/lib/utils/initSupabase';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import Github from '@/lib/icons/Github';
 import { useModal } from '@/lib/hooks/use-modal';
 

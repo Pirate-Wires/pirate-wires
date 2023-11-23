@@ -12,6 +12,7 @@ type SupabaseContext = {
   supabase: SupabaseClient<Database>;
   session: MaybeSession;
   user: any;
+  profile: any;
   globalFields: any;
 };
 
@@ -22,11 +23,13 @@ export default function SupabaseProvider({
   globalFields,
   session,
   user,
+  profile,
 }: {
   children: React.ReactNode;
   globalFields: any;
   session: MaybeSession;
   user: any;
+  profile: any;
 }) {
   const [supabase] = useState(() => createPagesBrowserClient());
   const router = useRouter();
@@ -44,7 +47,7 @@ export default function SupabaseProvider({
   }, [router, supabase]);
 
   return (
-    <Context.Provider value={{ supabase, session, user, globalFields }}>
+    <Context.Provider value={{ supabase, session, user, profile, globalFields }}>
       <>{children}</>
     </Context.Provider>
   );

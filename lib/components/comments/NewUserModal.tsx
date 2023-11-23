@@ -1,12 +1,12 @@
 import { Transition } from '@headlessui/react';
 import React, { useEffect, useState } from 'react';
 import supabase from '@/lib/utils/initSupabase';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import { useModal } from '@/lib/hooks/use-modal';
 import Avatar from './Avatar';
 
 const NewUserModal = (): JSX.Element => {
-  const { user, profile, refresh } = useUser();
+  const { user, profile } = useSupabase();
   const { isOpen: show, close } = useModal('newUserModal');
 
   const [fullName, setFullName] = useState('');
@@ -57,7 +57,7 @@ const NewUserModal = (): JSX.Element => {
 
     setFullNameError(null);
     if (data) {
-      await refresh();
+      // await refresh();
       close('newUserModal');
     }
   }

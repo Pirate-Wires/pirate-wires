@@ -5,14 +5,20 @@ import updateFieldHeight from '@/lib/utils/autosize';
 import supabase from '@/lib/utils/initSupabase';
 import punctuationRegex from '@/lib/utils/regex/punctuationRegex';
 import { CommentType } from '@/lib/utils/types';
-import { useUser } from '@/lib/hooks/use-user';
+import { useSupabase } from '@/app/(website)/supabase-provider';
 import cn from 'classnames';
 import cuid from 'cuid';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, ChangeEvent } from 'react';
 import NewUserModal from '@/lib/components/comments/NewUserModal';
 import { useComments } from '@/lib/hooks/use-comments';
 import Avatar from './Avatar';
 import { useModal } from '@/lib/hooks/use-modal';
+
+// Placeholder function for modal handling
+const open = (modalName: string): void => {
+  // Implement modal handling logic here or do something else
+  console.log(`Opening ${modalName} modal`);
+};
 
 interface Props {
   parentId?: number | null;
@@ -30,20 +36,18 @@ const NewCommentForm = ({
   const [content, setContent] = useState<string>('');
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { user, profile } = useUser();
+  const { supabase, user, profile } = useSupabase();
   const { mutateGlobalCount, rootId, mutateComments } = useComments();
 
   useEffect(() => {
-    if (autofocus) {
-      if (textareaRef && textareaRef.current) {
-        textareaRef.current.focus();
-      }
+    if (autofocus && textareaRef && textareaRef.current) {
+      textareaRef.current.focus();
     }
   }, [autofocus]);
 
-  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>): void {
+  function handleChange(e: ChangeEvent<HTMLTextAreaElement>): void {
     setContent(e.target.value);
-    if (textareaRef?.current) {
+    if (textareaRef && textareaRef.current) {
       updateFieldHeight(textareaRef.current);
     }
   }
