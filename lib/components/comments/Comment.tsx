@@ -18,11 +18,12 @@ interface ReplyFormProps {
   comment: CommentType;
   handleResetCallback: () => void;
 }
+
 const ReplyForm = ({ comment, handleResetCallback }: ReplyFormProps): JSX.Element => {
   const [hidden, setHidden] = useState<boolean>(false);
   return (
     <NewCommentForm
-      className={cn({ hidden })}
+      // className={cn({ hidden })}
       parentId={comment.id}
       autofocus={true}
       handleResetCallback={handleResetCallback}
@@ -293,10 +294,9 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
               >
                 <div className="h-px w-8 bg-gray-400 dark:bg-gray-600 mr-2" />
                 <span className="text-gray-600 dark:text-gray-400">
-                {`View ${comment.responsesCount === 1 ? 'reply' : 'replies'} (${
-                  comment.responsesCount
-                })`}
-              </span>
+                  {`View ${comment.responsesCount === 1 ? 'reply' : 'replies'} (${comment.responsesCount
+                    })`}
+                </span>
               </button>
             </div>
           )}
