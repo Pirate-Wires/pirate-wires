@@ -40,12 +40,21 @@ export const getCustomerSubscription = async (email: string) => {
       response.data.customer.attributes._cio_subscription_preferences_computed
     );
 
+    // keys mapping to the topics in the CIO dashboard
+    const updatedTopics = {
+      topic_1: 'Pirate Wires',
+      topic_2: 'The Industry',
+      topic_3: 'The White Pill',
+      topic_5: 'Dolores Park',
+      topic_4: 'Important Pirate Wires Updates'
+    };
+
     const subscription: string[] = [];
-    if (topics.topic_1) subscription.push('Wires');
-    if (topics.topic_2) subscription.push('The Industry');
-    if (topics.topic_3) subscription.push('The White Pill');
-    if (topics.topic_5) subscription.push('Dolores Park');
-    if (topics.topic_4) subscription.push('Important Pirate Wires Updates');
+    Object.keys(updatedTopics).forEach((key) => {
+      if (topics[key]) {
+        subscription.push(updatedTopics[key]);
+      }
+    });
 
     return { data: subscription, error: null };
   } catch (err) {
