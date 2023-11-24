@@ -1,9 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 
-import { useSupabase } from '@/app/(website)/supabase-provider';
 import styles from '@/styles/pages/subscribe.module.scss';
 
 const StepOne = ({ user }) => {
@@ -11,20 +10,21 @@ const StepOne = ({ user }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
-  const { supabase } = useSupabase();
 
   useEffect(() => {
     setCurrentEmail(user?.email ?? null);
   }, [user?.email]);
 
   const sendOTP = async (email: string) => {
-    const { error } = await supabase.auth.signInWithOtp({
-      email
+    const response = await fetch('/api/otp/send', {
+      method: 'POST',
+      body: JSON.stringify({
+        email
+      })
     });
 
-    if (error) {
-      setError(error.message);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`Error sending OTP`);
     }
   };
 

@@ -86,8 +86,6 @@ export const verifyOTP = async (email: string, inputOtp: string) => {
     .update(inputOtp)
     .digest('hex');
 
-  console.log('-------inputOtpHash', inputOtpHash);
-
   if (
     currentTime.getTime() - createdAt.getTime() < OTP_VALIDITY_DURATION &&
     otp === inputOtpHash
