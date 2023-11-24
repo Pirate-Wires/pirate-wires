@@ -21,19 +21,13 @@ interface ReplyFormProps {
 const ReplyForm = ({ comment, handleResetCallback }: ReplyFormProps): JSX.Element => {
   const [hidden, setHidden] = useState<boolean>(false);
   return (
-    <div
-      className={cn(
-        'my-2 border-b border-t border-gray-200 dark:border-gray-600 transform -translate-x-2 -mr-2',
-        { hidden }
-      )}
-    >
-      <NewCommentForm
-        parentId={comment.id}
-        autofocus={true}
-        handleResetCallback={handleResetCallback}
-        hideEarlyCallback={() => setHidden(true)}
-      />
-    </div>
+    <NewCommentForm
+      className={cn({ hidden })}
+      parentId={comment.id}
+      autofocus={true}
+      handleResetCallback={handleResetCallback}
+      hideEarlyCallback={() => setHidden(true)}
+    />
   );
 };
 
@@ -135,7 +129,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
         </div>
       )}
       <div
-        className={cn('grid gap-x-3 comment-grid transition-opacity', {
+        className={cn(`${styles.threadWrapper}`, {
           'opacity-60': !comment.live,
           'gap-y-1': !hidden,
         })}
@@ -147,50 +141,40 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
         )}
         {!hidden ? (
           <>
-            <div className="">
-              <button
-                className={cn(
-                  `${styles.collapseBtn}`,
-                  hidden
-                )}
-                onClick={() => setHidden(true)}
-                aria-label={`Collapse comment by ${comment.author}`}
-              >
-                <div
-                  className={cn('w-px h-full', {
-                    'bg-gray-200 group-hover:bg-gray-500 group-active:bg-gray-500 dark:bg-gray-600 dark:group-hover:bg-gray-400 dark:group-active:bg-gray-400': !highlight,
-                    'bg-gray-300 group-hover:bg-gray-600 group-active:bg-gray-600 dark:bg-gray-600 dark:group-hover:bg-gray-400 dark:group-active:bg-gray-400': highlight,
-                  })}
-                />
-              </button>
-            </div>
+            <button
+              className={cn(
+                `${styles.collapseBtn}`,
+                hidden
+              )}
+              onClick={() => setHidden(true)}
+              aria-label={`Collapse comment by ${comment.author}`}
+            >
+            </button>
           </>
         ) : (
           <button
             onClick={() => setHidden(false)}
-            className={
-              'row-start-1 col-start-1 grid place-items-center border-none border-box focus-ring w-7 h-7'
-            }
+            className={styles.expandBtn}
             aria-label={`Expand comment by ${comment.author}`}
           >
             <Plus className="w-4 h-4 text-gray-500" />
           </button>
         )}
-        <div className="row-start-1 col-start-2 self-center">
+        <div className={cn(
+          `${styles.commentWrapper}`,
+          hidden
+        )}>
           <div className={styles.nameRow}>
             <span
-              className={cn('text-gray-700 dark:text-gray-100 leading-none', {
+              className={cn(`${styles.name}`, {
                 'text-sm font-medium': !hidden,
                 'text-xs': hidden,
               })}
             >
               {!comment.isDeleted ? comment.author?.full_name : <>[Deleted]</>}{' '}
             </span>
-            <span className="text-gray-300 dark:text-gray-500 font-semibold text-xs mx-1 leading-none select-none">
-              ·
-            </span>
             <span
-              className="text-gray-400 text-xs font-light leading-none"
+              className={styles.postedDate}
               suppressHydrationWarning
             >
               {dayjs().diff(comment.createdAt, 'seconds', true) < 30
@@ -207,29 +191,27 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
               </button>
             )}
           </div>
-        </div>
 
-        <div className={cn('row-start-2 col-start-2', { hidden })}>
-          <section
-            className={cn({
-              'line-clamp-10': !isOverflowExpanded,
-              hidden,
-            })}
-            ref={contentRef}
-          >
-            {comment.content}
-          </section>
-          {isOverflow && (
-            <button
-              className="text-sm text-indigo-700 dark:text-indigo-400 hover:underline focus:underline focus-ring border border-transparent leading-none"
-              onClick={() => setIsOverflowExpanded(!isOverflowExpanded)}
-              aria-label={`Pin comment by ${comment.author?.full_name}`}
+          <div className={cn({ hidden })}>
+            <div
+              className={cn(`${styles.comment}`, {
+                'line-clamp-10': !isOverflowExpanded,
+              })}
+              ref={contentRef}
             >
-              {isOverflowExpanded ? <span>Show less</span> : <span>Read more</span>}
-            </button>
-          )}
+              {comment.content}
+            </div>
+            {isOverflow && (
+              <button
+                onClick={() => setIsOverflowExpanded(!isOverflowExpanded)}
+                aria-label={`Pin comment by ${comment.author?.full_name}`}
+              >
+                {isOverflowExpanded ? <span>Show less</span> : <span>Read more</span>}
+              </button>
+            )}
+          </div>
           {!comment.isDeleted && (
-            <div className={`${styles.likeReplyButton}`}>
+            <div className={cn(`${styles.likeReplyButton}`, { hidden })}>
               <VoteButtons comment={comment} />
               <button
                 className="text-xs flex items-center text-gray-600 dark:text-gray-400 focus-ring border-none"
@@ -240,7 +222,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
                     : `Reply to comment by ${comment.author?.full_name}`
                 }
               >
-                {showReplyForm ? <strong>Cancel</strong> : <strong>Reply {!!comment.responses.length && `(${comment.responses.length})`}</strong>}
+                {showReplyForm ? <>Cancel</> : <>Reply {!!comment.responses.length && `(${comment.responses.length})`}</>}
               </button>
               {isAdmin && (
                 <>
@@ -280,47 +262,46 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
               )}
             </div>
           )}
-        </div>
 
-        <div className={cn('row-start-3 row-span-2  transform -translate-x-2 -mr-2', { hidden })}>
-          {showReplyForm && (
-            <div className="px-2">
+          <div className={cn({ hidden })}>
+            {showReplyForm && (
               <ReplyForm comment={comment} handleResetCallback={() => setShowReplyForm(false)} />
-            </div>
-          )}
+            )}
 
-          {comment.responses.length > 0 && (
-            <div className={`${styles.childComment}`} style={{paddingLeft: '32px'}}>
-              {comment.responses.map((comment: CommentType) => (
-                <Comment
-                  key={comment.slug}
-                  comment={comment}
-                  pageIndex={pageIndex}
-                  highlight={comment.highlight}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+            {comment.responses.length > 0 && (
+              <div className={`${styles.childComment}`}>
+                {comment.responses.map((comment: CommentType) => (
+                  <Comment
+                    key={comment.slug}
+                    comment={comment}
+                    pageIndex={pageIndex}
+                    highlight={comment.highlight}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
 
-        {comment.continueThread && comment.responses?.length === 0 && (
-          <div className="flex items-center">
-            <button
-              className={cn(
-                'mt-5 text-xs inline-flex items-center text-gray-600 focus-ring border border-transparent',
-                { hidden }
-              )}
-              aria-label={`Continue thread`}
-            >
-              <div className="h-px w-8 bg-gray-400 dark:bg-gray-600 mr-2" />
-              <span className="text-gray-600 dark:text-gray-400">
+          {comment.continueThread && comment.responses?.length === 0 && (
+            <div className="flex items-center">
+              <button
+                className={cn(
+                  'mt-5 text-xs inline-flex items-center text-gray-600 focus-ring border border-transparent',
+                  { hidden }
+                )}
+                aria-label={`Continue thread`}
+              >
+                <div className="h-px w-8 bg-gray-400 dark:bg-gray-600 mr-2" />
+                <span className="text-gray-600 dark:text-gray-400">
                 {`View ${comment.responsesCount === 1 ? 'reply' : 'replies'} (${
                   comment.responsesCount
                 })`}
               </span>
-            </button>
-          </div>
-        )}
+              </button>
+            </div>
+          )}
+        </div>
+
       </div>
     </>
   );

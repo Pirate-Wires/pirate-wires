@@ -1,6 +1,11 @@
 /* /styles/pages/signIn.module.scss */
 @import "../abstracts";
-
+.verifyStep {
+  @include get-vw-small-increase(margin-top, 15px, 15px);
+}
+.enterEmailStep {
+  @include get-vw-small-increase(margin-top, 40px, 35px);
+}
 .signInWrapper {
   font-family: $neueMed;
   @include get-vw(font-size, 14px, 14px);
@@ -109,9 +114,13 @@
     gap: 10px;
 
     input {
-      width: 40px;
-      padding: 10px;
-      margin-right: 10px;
+      width: 50px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      text-align: center;
       border: 1px solid #000;
     }
   }
@@ -159,9 +168,6 @@
     font-family: $neueMed;
     font-size: 14px;
     line-height: normal;
-    margin-bottom: 10px;
-  }
-  h2 + p {
     margin-bottom: 30px;
   }
   button + a {

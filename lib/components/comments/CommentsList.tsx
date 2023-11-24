@@ -99,7 +99,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
         {!isLoadingInitialData && (
           <>
             {comments.map((comment: CommentType) => (
-              <div className={styles.comment} key={`${comment.slug}${useInfiniteScroll ? '-s' : ''}`}>
+              <div className={styles.commentList} key={`${comment.slug}${useInfiniteScroll ? '-s' : ''}`}>
                 <Comment comment={comment} highlight={comment.highlight} />
               </div>
             ))}
