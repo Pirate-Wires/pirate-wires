@@ -121,7 +121,7 @@ export default function AuthUI() {
           <div className={styles.substackNotice}>
               <h3>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 17" fill="none">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.34436H14V2.29012H0V0.34436ZM0 7.4417H14V16.1905L6.99856 12.2973L0 16.1905V7.4417ZM0 3.89302H14V5.83878H0V3.89302Z" fill="#FF681A"/>
+                      <path fillRule="evenodd" clipRule="evenodd" d="M0 0.34436H14V2.29012H0V0.34436ZM0 7.4417H14V16.1905L6.99856 12.2973L0 16.1905V7.4417ZM0 3.89302H14V5.83878H0V3.89302Z" fill="#FF681A"/>
                   </svg>
                   Are you here from Substack?
               </h3>
