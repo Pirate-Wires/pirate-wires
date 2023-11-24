@@ -1,91 +1,120 @@
 // /app/(website)/account/EmailPreferences.tsx
-'use client';
-import styles from "@/styles/pages/account.module.scss"
-import { useState, useEffect, useReducer } from 'react';
+import styles from "@/styles/pages/account.module.scss";
+import { useState, useEffect } from 'react';
+
 
 type EmailPreferencesProps = {
-  user: { email: string }; // Replace this with the actual user type
+  user: { email: string };
 };
 
 export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<string[]>([]);
   const [isProgress, setIsProgress] = useState(false);
-  const [isLoading, setIsLoading] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null); // Track errors
 
-  // Fetch and update user preferences on component mount
+
+  const fetchUserPreferences = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/customer-io/preferences?email=${user.email}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch user preferences');
+      }
+      const data = await response.json();
+      setSelectedNewsLetters(data.preferences); // Update UI after fetching preferences
+      setError(null); // Clear any previous errors
+    } catch (error) {
+      console.error('Error fetching user preferences:', error);
+      setError('Failed to fetch preferences');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    setIsLoading(prev => prev + 1);
-    // Make a GET request to fetch the user's preferences from the new API endpoint
-    fetch(`/api/customer-io/preferences?email=${user.email}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const userPreferences = data.preferences;
-        setSelectedNewsLetters(userPreferences);
-        setIsLoading(prev => prev - 1);
-      })
-      .catch((error) => {
-        console.error('Error fetching user preferences:', error);
-        setIsLoading(prev => prev - 1);
-      });
+    fetchUserPreferences();
   }, [user.email]);
 
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (isLoading || isProgress) return;
 
     const name = event.target.name;
     let newSubscription: string[] = [];
 
     if (selectedNewsLetters.includes(name)) {
-      // Unchecking a checkbox
       newSubscription = selectedNewsLetters.filter((item) => item !== name);
     } else {
-      // Checking a checkbox
       newSubscription = [...selectedNewsLetters, name];
     }
 
-    setPreferences(newSubscription);
+    await setPreferences(newSubscription);
     setSelectedNewsLetters(newSubscription);
   };
 
+
+  const [responseMessage, setResponseMessage] = useState<string | null>(null);
+  const [requestPayload, setRequestPayload] = useState<string | null>(null);
+
+  const updateUserPreferences = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/customer-io/preferences?email=${user.email}`);
+      if (!response.ok) {
+        throw new Error('Failed to update user preferences');
+      }
+      const data = await response.json();
+      setSelectedNewsLetters(data.preferences); // Update selectedNewsLetters after successful fetch
+      setResponseMessage('Preferences updated successfully!'); // Set success message
+
+    } catch (error) {
+      console.error('Error updating user preferences:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+
+
   const setPreferences = async (subscription: string[]) => {
-    if (isLoading || isProgress) return;
-
     setIsProgress(true);
-
     try {
       const topics = {
-        Wires: 'topicWires',
-        'The White Pill': 'topicTheWhitePill',
-        'The Industry': 'topicTheIndustry',
-        'Dolores Park': 'topicDoloresPark',
-        'Important Pirate Wires Updates': 'topicImportantPirateWiresUpdates'
+        'Pirate Wires': 'topic_1',
+        'The Industry': 'topic_2',
+        'The White Pill': 'topic_3',
+        'Dolores Park': 'topic_5',
+        'Important Pirate Wires Updates': 'topic_4'
       };
+
 
       const updatedSubscription = Object.keys(topics).filter(key =>
         subscription.includes(key)
       );
 
+      const payload = {
+        email: user?.email,
+        subscription: updatedSubscription
+      };
+
       const response = await fetch('/api/customer-io/preferences', {
         method: 'PUT',
-        body: JSON.stringify({
-          email: user?.email,
-          subscription: updatedSubscription
-        })
+        body: JSON.stringify(payload)
       });
-
-      console.log('PUT request sent.');
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      // API call successful
-      // Set isProgress to false to hide the "Processing..." message
+      // Update preferences first
+      setSelectedNewsLetters(updatedSubscription);
+
       setIsProgress(false);
+      await updateUserPreferences(); // Fetch preferences after successfully setting them
+      setRequestPayload(JSON.stringify({ email: user?.email, subscription }, null, 2)); // Set the request payload
+
     } catch (error) {
-      console.error('There was an error!', error);
-      // Handle the error if needed
-      // Set isProgress to false even if there's an error
+      console.error('Error setting preferences:', error);
       setIsProgress(false);
     }
   };
@@ -93,50 +122,24 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
 
   return (
     <>
-      {!!isLoading && (
-        <div
-          style={{
-            position: 'absolute', // Changed to absolute
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: '100',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          Loading...
-        </div>
-      )}
-      {isProgress && (
-        <div
-          style={{
-            position: 'absolute', // Changed to absolute
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: '100',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        >
-          Processing...
-        </div>
-      )}
+
+      {/* Display Loading or Progress Indicators */}
+      {isLoading && <LoadingOverlay message="Loading Newsletter Preferences..." />}
+      {isProgress && <LoadingOverlay message="Updating Newsletter Preferences..." />}
+
       <h3>Email Preferences</h3>
-      {/* // Topics in customer.io are given an id number in the order in which they were created. Re-ordering them in the UI will not change their id number.
-      // 1	Wires
-      // 2	The Industry
-      // 3	The White Pill
-      // 5	Dolores Park
-      // 4	Important Pirate Wires Updates */}
       <p>Subscribe or unsubscribe to our newsletters</p>
+      <br />
+      <div className={styles.checkboxRow}>
+        <input
+          type="checkbox"
+          id="topicWires"
+          name="Pirate Wires"
+          checked={selectedNewsLetters.indexOf('Pirate Wires') > -1}
+          onChange={handleSelect}
+        />
+        <label>Pirate Wires</label>
+      </div>
       <br />
       <div className={styles.checkboxRow}>
         <input
@@ -163,7 +166,7 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
       <div className={styles.checkboxRow}>
         <input
           type="checkbox"
-          id="topicDoloresPark" // Update the id accordingly
+          id="topicDoloresPark"
           name="Dolores Park"
           checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
           onChange={handleSelect}
@@ -171,58 +174,40 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         <label>Dolores Park</label>
       </div>
       <br />
-      <input
-        type="checkbox"
-        id="topicImportantPirateWiresUpdates" // Update the id accordingly
-        name="Important Pirate Wires Updates"
-        checked={selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1}
-        onChange={handleSelect}
-      />
+      <div className={styles.checkboxRow}>
+        <input
+          type="checkbox"
+          id="topicImportantPirateWiresUpdates"
+          name="Important Pirate Wires Updates"
+          checked={selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1}
+          onChange={handleSelect}
+        />
+        <label>Important Pirate Wires Updates</label>
+      </div>
+      <br />
+
     </>
   );
-  //     <input
-  //       type="checkbox"
-  //       id="topic1"
-  //       name="Wires"
-  //       checked={selectedNewsLetters.indexOf('Wires') > -1}
-  //       onChange={handleSelect}
-  //     />
-  //     <label>Wires</label>
-  //     <br />
-  //     <input
-  //       type="checkbox"
-  //       id="topic2"
-  //       name="The White Pill"
-  //       checked={selectedNewsLetters.indexOf('The White Pill') > -1}
-  //       onChange={handleSelect}
-  //     />
-  //     <label>The White Pill</label>
-  //     <br />
-  //     <input
-  //       type="checkbox"
-  //       id="topic3"
-  //       name="The Industry"
-  //       checked={selectedNewsLetters.indexOf('The Industry') > -1}
-  //       onChange={handleSelect}
-  //     />
-  //     <label>The Industry</label>
-  //     <br />
-  //     <input
-  //       type="checkbox"
-  //       id="topic5" // Update the id accordingly
-  //       name="Dolores Park"
-  //       checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
-  //       onChange={handleSelect}
-  //     />
-  //     <label>Dolores Park</label>
-  //     <br />
-  //     <input
-  //       type="checkbox"
-  //       id="topic4" // Update the id accordingly
-  //       name="Important Pirate Wires Updates"
-  //       checked={selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1}
-  //       onChange={handleSelect}
-  //     />
-  //   </>
-  // );
 };
+
+const LoadingOverlay = ({ message }: { message: string }) => (
+  <div
+    style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: '100',
+      backgroundColor: '#FFF',
+      color: '#000',
+      border: '1px solid #000',
+      padding: '10px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      maxWidth: '300px'
+    }}
+  >
+    {message}
+  </div>
+);
