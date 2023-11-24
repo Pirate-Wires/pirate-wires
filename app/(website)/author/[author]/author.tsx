@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic' as const;
 
 
 export default function Author({ posts, authorData }) {
-  const slug = authorData.slug.current;
+  const slug = authorData.slug?.current ?? null;
   const [loaded, setLoaded] = useState(false)
   const onLoad = () => {
     setTimeout(() => {
