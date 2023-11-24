@@ -2,11 +2,11 @@
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 import PostList from "@/components/postlist";
 import { notFound } from "next/navigation";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "@/styles/pages/authors.module.scss"
 import Link from "next/link";
-import {useHoverArrow} from "@/hooks/useHoverArrow";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import { useHoverArrow } from "@/hooks/useHoverArrow";
+import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
 
 export default function Author({ posts, authorData }) {
   const slug = authorData.slug.current;
@@ -28,12 +28,12 @@ export default function Author({ posts, authorData }) {
           {authorData.image && (
             <>
               {!loaded &&
-                <img src={authorData.image.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image"/>
+                <img src={authorData.image.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
               }
               <picture>
                 <source srcSet={`${authorData.image.asset.url}?auto=format&w=600&q=90, ${authorData.image.asset.url}?auto=format&w=800&q=90 2x`} media="(min-width: 768px)" />
                 <source srcSet={`${authorData.image.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
-                <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>
+                <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad} />
               </picture>
             </>
           )}
@@ -51,7 +51,7 @@ export default function Author({ posts, authorData }) {
                 Twitter
                 <span>
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" strokeWidth="0.699553" />
                   </svg>
                 </span>
               </Link>
@@ -61,7 +61,7 @@ export default function Author({ posts, authorData }) {
                 {authorData.social_text_two}
                 <span>
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" strokeWidth="0.699553" />
                   </svg>
                 </span>
               </Link>
@@ -71,7 +71,7 @@ export default function Author({ posts, authorData }) {
                 {authorData.social_text_three}
                 <span>
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" stroke-width="0.699553"/>
+                    <path d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215" stroke="#E3E3E3" strokeWidth="0.699553" />
                   </svg>
                 </span>
               </Link>
