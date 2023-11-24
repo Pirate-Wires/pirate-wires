@@ -21,19 +21,13 @@ interface ReplyFormProps {
 const ReplyForm = ({ comment, handleResetCallback }: ReplyFormProps): JSX.Element => {
   const [hidden, setHidden] = useState<boolean>(false);
   return (
-    <div
-      className={cn(
-        'my-2 border-b border-t border-gray-200 dark:border-gray-600 transform -translate-x-2 -mr-2',
-        { hidden }
-      )}
-    >
-      <NewCommentForm
-        parentId={comment.id}
-        autofocus={true}
-        handleResetCallback={handleResetCallback}
-        hideEarlyCallback={() => setHidden(true)}
-      />
-    </div>
+    <NewCommentForm
+      className={cn({ hidden })}
+      parentId={comment.id}
+      autofocus={true}
+      handleResetCallback={handleResetCallback}
+      hideEarlyCallback={() => setHidden(true)}
+    />
   );
 };
 
@@ -155,23 +149,21 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
               onClick={() => setHidden(true)}
               aria-label={`Collapse comment by ${comment.author}`}
             >
-              <div
-                className={`${styles.collapseLine}`}
-              />
             </button>
           </>
         ) : (
           <button
             onClick={() => setHidden(false)}
-            className={
-              'row-start-1 col-start-1 grid place-items-center border-none border-box focus-ring w-7 h-7'
-            }
+            className={styles.expandBtn}
             aria-label={`Expand comment by ${comment.author}`}
           >
             <Plus className="w-4 h-4 text-gray-500" />
           </button>
         )}
-        <div className={`${styles.commentWrapper}`}>
+        <div className={cn(
+          `${styles.commentWrapper}`,
+          hidden
+        )}>
           <div className={styles.nameRow}>
             <span
               className={cn(`${styles.name}`, {
@@ -200,11 +192,10 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             )}
           </div>
 
-          <div className={cn(``, { hidden })}>
+          <div className={cn({ hidden })}>
             <div
               className={cn(`${styles.comment}`, {
                 'line-clamp-10': !isOverflowExpanded,
-                hidden,
               })}
               ref={contentRef}
             >
@@ -212,7 +203,6 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             </div>
             {isOverflow && (
               <button
-                className="text-sm text-indigo-700 dark:text-indigo-400 hover:underline focus:underline focus-ring border border-transparent leading-none"
                 onClick={() => setIsOverflowExpanded(!isOverflowExpanded)}
                 aria-label={`Pin comment by ${comment.author?.full_name}`}
               >
@@ -221,7 +211,7 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             )}
           </div>
           {!comment.isDeleted && (
-            <div className={`${styles.likeReplyButton}`}>
+            <div className={cn(`${styles.likeReplyButton}`, { hidden })}>
               <VoteButtons comment={comment} />
               <button
                 className="text-xs flex items-center text-gray-600 dark:text-gray-400 focus-ring border-none"
@@ -273,11 +263,9 @@ const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props
             </div>
           )}
 
-          <div className={cn('row-start-3 row-span-2  transform -translate-x-2 -mr-2', { hidden })}>
+          <div className={cn({ hidden })}>
             {showReplyForm && (
-              <div className="px-2">
-                <ReplyForm comment={comment} handleResetCallback={() => setShowReplyForm(false)} />
-              </div>
+              <ReplyForm comment={comment} handleResetCallback={() => setShowReplyForm(false)} />
             )}
 
             {comment.responses.length > 0 && (

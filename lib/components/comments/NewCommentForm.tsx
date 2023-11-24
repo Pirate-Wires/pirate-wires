@@ -104,10 +104,8 @@ const NewCommentForm = ({
   }
 
   return (
-    <>
-      <div className="">
-        <div className={`${styles.newCommentForm}`}>
-          {/* {!user && (
+    <div className={`${styles.newCommentForm}`}>
+      {/* {!user && (
             <button
               className=""
               onClick={() => open('signInModal')}
@@ -122,7 +120,7 @@ const NewCommentForm = ({
             </button>
           )} */}
 
-          <label className="">
+      <label className="">
             <textarea
               className=""
               placeholder="Write a comment..."
@@ -132,21 +130,19 @@ const NewCommentForm = ({
               ref={textareaRef}
               disabled={isLoading}
             ></textarea>
-          </label>
+      </label>
 
-          <div className="">
-            <button
-              className={`${styles.sendButton}`}
-              disabled={content.length < 1}
-              onClick={handleSubmit}
-              aria-label="Submit new post"
-            >
-              Send
-            </button>
-          </div>
-        </div>
+      <div className="">
+        <button
+          className={`${styles.sendButton}`}
+          disabled={content.length < 1}
+          onClick={handleSubmit}
+          aria-label="Submit new post"
+        >
+          Send
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 
