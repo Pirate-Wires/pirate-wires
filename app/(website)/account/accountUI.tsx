@@ -42,7 +42,7 @@ export default function AccountUI(
     try {
       const formData = new FormData(event.target);
       const newName = formData.get('name') as string;
-      if(newName === lastUpdatedName) {
+      if (newName === lastUpdatedName) {
         setDetailUpdateMsg(`Different name required`);
         return;
       }
@@ -67,14 +67,14 @@ export default function AccountUI(
     try {
       const formData = new FormData(event.target);
       const newEmail = formData.get('email') as string;
-      if(newEmail === lastUpdatedEmail) {
+      if (newEmail === lastUpdatedEmail) {
         setDetailUpdateMsg(`Different email required`);
         return;
       }
 
       await updateEmail(formData);
 
-      setLastUpdatedName(newEmail);
+      setLastUpdatedEmail(newEmail);
       setDetailUpdateMsg(`User email updated successfully`);
     } catch (error) {
       console.error(`Error updating email: ${error.message}`);
