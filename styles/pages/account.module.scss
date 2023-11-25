@@ -62,7 +62,8 @@
   }
 
   input:not([type="checkbox"]) {
-    -webkit-appearance: checkbox;
+    -webkit-appearance: none; /* For WebKit browsers */
+    appearance: none; /* Standard property */
     background: #E3E3E3;
     font-family: $neueReg;
     @include get-vw-small-increase(font-size, 15px, 15px);
