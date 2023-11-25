@@ -8,10 +8,6 @@ import Link from "next/link";
 import { useHoverArrow } from "@/hooks/useHoverArrow";
 import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
 
-
-export const dynamic = 'force-dynamic' as const;
-
-
 export default function Author({ posts, authorData }) {
   const slug = authorData.slug?.current ?? null;
   const [loaded, setLoaded] = useState(false)
