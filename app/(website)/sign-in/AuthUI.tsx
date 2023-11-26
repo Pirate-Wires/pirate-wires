@@ -32,9 +32,9 @@ export default function AuthUI() {
             const response = await fetch('/api/otp/send', {
                 method: 'POST',
                 body: JSON.stringify({
-                  email
+                    email
                 })
-              });
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -59,9 +59,9 @@ export default function AuthUI() {
             const response = await fetch('/api/otp/verify', {
                 method: 'POST',
                 body: JSON.stringify({
-                  email, otp
+                    email, otp
                 })
-              });
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -96,9 +96,9 @@ export default function AuthUI() {
             const response = await fetch('/api/otp/send', {
                 method: 'POST',
                 body: JSON.stringify({
-                  email
+                    email
                 })
-              });
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -122,18 +122,18 @@ export default function AuthUI() {
             <h1>Sign In to Pirate Wires</h1>
             <>
                 {otpVisible ? ( // Show OTPInput component when otpVisible is true
-                  <div className={styles.verifyStep}>
-                      <h2>We just sent a 6 digit code to your email</h2>
-                      <form onSubmit={handleOTPSubmit}>
-                          <OTPInput onOTPChange={handleOTPChange} />
-                          <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Confirm'}</button>
-                          <a href="#" onClick={handleResendOTP}>Resend Code</a>
-                      </form>
-                  </div>
+                    <div className={styles.verifyStep}>
+                        <h2>We just sent a 6 digit code to your email</h2>
+                        <form onSubmit={handleOTPSubmit}>
+                            <OTPInput onOTPChange={handleOTPChange} />
+                            <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Confirm'}</button>
+                            <a href="#" onClick={handleResendOTP}>Resend Code</a>
+                        </form>
+                    </div>
                 ) : (
-                  <div className={styles.enterEmailStep}>
-                      <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
-                  </div>
+                    <div className={styles.enterEmailStep}>
+                        <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
+                    </div>
 
                 )}
                 {error && <p className={styles.error}>{error}</p>}
@@ -142,7 +142,7 @@ export default function AuthUI() {
             <div className={styles.substackNotice}>
                 <h3>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 17" fill="none">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M0 0.34436H14V2.29012H0V0.34436ZM0 7.4417H14V16.1905L6.99856 12.2973L0 16.1905V7.4417ZM0 3.89302H14V5.83878H0V3.89302Z" fill="#FF681A"/>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M0 0.34436H14V2.29012H0V0.34436ZM0 7.4417H14V16.1905L6.99856 12.2973L0 16.1905V7.4417ZM0 3.89302H14V5.83878H0V3.89302Z" fill="#FF681A" />
                     </svg>
                     Are you here from Substack?
                 </h3>
@@ -152,6 +152,9 @@ export default function AuthUI() {
                 By continuing, you agree to the <Link target={'_blank'} href={'https://app.termly.io/document/terms-of-service/7109fc1e-402d-466e-9f79-fe8cbe4a2b71'}>Terms & Conditions</Link> and{' '}
                 <Link target={'_blank'} href={'https://app.termly.io/document/privacy-policy/42d3d1fe-f9d0-4cc4-9685-91ce1329b836'}>Privacy Policy</Link>
             </p>
+
+
+
         </section>
     );
 }

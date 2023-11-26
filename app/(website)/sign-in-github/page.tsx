@@ -1,11 +1,9 @@
 import { getSession } from '@/app/(website)/supabase-server';
 import AuthUI from './AuthUI';
-import {getGlobalFields} from "@/lib/sanity/client";
+import { getGlobalFields } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import Footer from "@/components/footer";
 import { redirect } from 'next/navigation';
-import Logo from '@/components/icons/Logo';
 import '@/styles/supabaseAuth.scss';
 export default async function SignIn() {
   const session = await getSession();
