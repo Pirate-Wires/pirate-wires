@@ -129,7 +129,6 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
 
       <h3>Email Preferences</h3>
       <p>Subscribe or unsubscribe to our newsletters</p>
-      <br />
       <div className={styles.checkboxRow}>
         <input
           type="checkbox"
@@ -140,7 +139,6 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         />
         <label>Pirate Wires</label>
       </div>
-      <br />
       <div className={styles.checkboxRow}>
         <input
           type="checkbox"
@@ -151,7 +149,6 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         />
         <label>The White Pill</label>
       </div>
-      <br />
       <div className={styles.checkboxRow}>
         <input
           type="checkbox"
@@ -162,7 +159,6 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         />
         <label>The Industry</label>
       </div>
-      <br />
       <div className={styles.checkboxRow}>
         <input
           type="checkbox"
@@ -173,7 +169,6 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         />
         <label>Dolores Park</label>
       </div>
-      <br />
       <div className={styles.checkboxRow}>
         <input
           type="checkbox"
@@ -184,8 +179,6 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         />
         <label>Important Pirate Wires Updates</label>
       </div>
-      <br />
-
     </>
   );
 };
