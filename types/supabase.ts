@@ -182,6 +182,7 @@ export interface Database {
         Row: {
           id: string;
           full_name?: string | null;
+          comments_display_name?: string | null;
           email?: string | null;
           avatar_url?: string | null;
           billing_address?: Json | null;

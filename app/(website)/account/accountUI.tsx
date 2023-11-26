@@ -16,13 +16,14 @@ export default function AccountUI(
     session,
     updateName,
     updateEmail,
-    updateCommentsNotifications
-
+    updateCommentsNotifications,
+    updateCommentsDisplayName
   }) {
   const user = session?.user;
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const [detailUpdateMsg, setDetailUpdateMsg] = useState('');
   const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? '');
+  const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(userDetails?.comments_display_name ?? '');
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(user ? user.email : '');
   const updateActiveTab = (idx: number) => {
     const newArr: boolean[] = [];
@@ -61,6 +62,33 @@ export default function AccountUI(
     }
   };
 
+  const handleSubmitCommentsDisplayName = async (event) => {
+    event.preventDefault();
+    setDetailUpdateMsg('');
+
+    try {
+      const formData = new FormData(event.target);
+      const newDisplayName = formData.get('commentsDisplayName') as string; // Updated key
+
+      if (newDisplayName === lastUpdatedDisplayName) {
+        setDetailUpdateMsg(`Different display name required`);
+        return;
+      }
+
+      await updateCommentsDisplayName(formData);
+
+      setLastUpdatedDisplayName(newDisplayName);
+      setDetailUpdateMsg(`Comments display name updated successfully`);
+      setTimeout(() => {
+        setDetailUpdateMsg('');
+      }, 3000);
+    } catch (error) {
+      console.error(`Error updating comments display name: ${error.message}`);
+      setDetailUpdateMsg(error.message);
+    }
+  };
+
+
   const handleSubmitEmail = async (event) => {
     event.preventDefault();
     setDetailUpdateMsg('');
@@ -89,9 +117,6 @@ export default function AccountUI(
     formData.append('comments_notifications', String(!userDetails?.comments_notifications));
     await updateCommentsNotifications(formData);
   };
-
-
-
 
   return (
     <section className="accountContainer c-20">
@@ -163,24 +188,50 @@ export default function AccountUI(
 
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-notifictation-preferences`}>
-            <label className={styles.checkboxRow}>
+            <div className={styles.infoGroup}>
+
+              <form id="commentsDisplayNameForm" onSubmit={handleSubmitCommentsDisplayName}>
+                <label>Comments username</label>
+                <input
+                  type="text"
+                  name="commentsDisplayName"
+                  className={styles.textInput}
+                  defaultValue={userDetails?.comments_display_name ?? ''}
+                  placeholder="Your name"
+                  maxLength={64}
+                />
+              </form>
+              <p>Change this to add comment with another username</p>
+              <Button
+                variant="slim"
+                type="submit"
+                form="commentsDisplayNameForm"
+              >
+                Save
+              </Button>
+            </div>
+
+            <p>Notify me via email when someone replies to my comments</p>
+
+            <div className={styles.toggleSwitch}>
               <input
                 type="checkbox"
+                id="toggle"
                 checked={userDetails?.comments_notifications || false}
                 onChange={() => {
                   // Toggle the comments_notifications value and update
                   updateCommentsNotifications(!userDetails?.comments_notifications);
                 }}
               />
-              Receive email notifications for comments
-            </label>
+              <label htmlFor="toggle" className={styles.slider}></label>
+            </div>
+
           </div>
 
           <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
 
             <div className={styles.infoGroup}>
               Subscription & Billing
-              {/* stripe account link */}
             </div>
 
             {userDetails?.subscription_id ? (
@@ -198,7 +249,6 @@ export default function AccountUI(
             )
             }
           </div>
-
 
         </div>
       </div>

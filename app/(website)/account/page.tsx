@@ -11,7 +11,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 import Navigation from '@/components/navigation';
-import { getAuthorsData, getGlobalFields, getSettings } from "@/lib/sanity/client";
+import { getGlobalFields, getSettings } from "@/lib/sanity/client";
 import AccountUI from "@/app/(website)/account/accountUI";
 import { urlForImage } from "@/lib/sanity/image";
 
@@ -69,6 +69,29 @@ export default async function Account() {
     revalidatePath('/account');
   };
 
+  const updateCommentsDisplayName = async (formData: FormData) => {
+    'use server';
+
+    const newDisplayName = formData.get('commentsDisplayName') as string;
+    const supabase = createServerActionClient<Database>({ cookies });
+    const session = await getSession();
+    const user = session?.user;
+
+    if (user) {
+      const userDataToUpdate = { comments_display_name: newDisplayName };
+      const { error } = await supabase
+        .from('users')
+        .update({ comments_display_name: newDisplayName })
+        .eq('id', user.id);
+
+      if (error) {
+        throw error;
+      }
+    }
+
+    revalidatePath('/account');
+  };
+
   const updateEmail = async (formData: FormData) => {
     'use server';
 
@@ -115,6 +138,7 @@ export default async function Account() {
       updateName={updateName}
       updateEmail={updateEmail}
       updateCommentsNotifications={updateCommentsNotifications}
+      updateCommentsDisplayName={updateCommentsDisplayName}
     />
   </div>
 }
