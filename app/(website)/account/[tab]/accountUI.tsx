@@ -22,7 +22,7 @@ export default function AccountUI({
 }) {
   const router = useRouter();
   const user = session?.user;
-  const tabItems = ['detail', 'preferences', 'comment', 'subscription'];
+  const tabItems = ['my-details', 'email-preferences', 'commenting', 'subscription-billing'];
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const [detailUpdateMsg, setDetailUpdateMsg] = useState('');
   const [lastUpdatedName, setLastUpdatedName] = useState(
@@ -178,9 +178,8 @@ export default function AccountUI({
 
         <div className={`${styles.right}`}>
           <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[0] ? styles.activeCard : ''
-            } user-details`}
+            className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ''
+              } user-details`}
           >
             {!!detailUpdateMsg && (
               <h2 className={styles.tag}>{detailUpdateMsg}</h2>
@@ -233,16 +232,14 @@ export default function AccountUI({
             </div>
           </div>
           <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[1] ? styles.activeCard : ''
-            } email-preferences`}
+            className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ''
+              } email-preferences`}
           >
             <EmailPreferences user={user} />
           </div>
           <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[2] ? styles.activeCard : ''
-            } email-notifictation-preferences`}
+            className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ''
+              } email-notifictation-preferences`}
           >
             <div className={styles.infoGroup}>
               <form
@@ -288,9 +285,8 @@ export default function AccountUI({
           </div>
 
           <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[3] ? styles.activeCard : ''
-            } subscription`}
+            className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ''
+              } subscription`}
           >
             <div className={styles.infoGroup}>Subscription & Billing</div>
 
