@@ -31,15 +31,14 @@ export default function ManageSubscriptionButton({ session }: Props) {
   return (
     <div className={styles.subscriptionManagement}>
       <p className={styles.subscriptionText}>Manage your subscription on Stripe</p>
-
       <button
         className={styles.subscriptionButton}
         disabled={!session}
         onClick={redirectToCustomerPortal}
       >
-        <FaStripe className="icon" />
+        Customer Portal
       </button>
-
+      <FaStripe className="icon" />
     </div>
   );
 }

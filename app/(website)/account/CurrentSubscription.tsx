@@ -8,6 +8,8 @@ export const CurrentSubscription = ({ subscription }) => {
     return moment(trialEnd).format('MMM DD');
   };
 
+  console.log('subscription', subscription);
+
   const hasTrial = subscription.trial_end && moment(subscription.trial_end).isValid();
 
   return (
@@ -22,8 +24,20 @@ export const CurrentSubscription = ({ subscription }) => {
         subscription.current_period_end
       ).format('MMM DD')}`}</p>
 
+      {subscription.status === 'active' && (
+        <>
+          <label>Status:</label>
+          <p>Active</p>
+        </>
+      )}
 
-      {/* if we want to show information about the trial period, we can use the following code. days remaining for example */}
+      {subscription.cancel_at_period_end && (
+        <>
+          <label>Cancel at Period End:</label>
+          <p>True</p>
+        </>
+      )}
+
       {hasTrial && (
         <>
           <label>Trialing until:</label>
