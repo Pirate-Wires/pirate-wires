@@ -78,7 +78,6 @@ export default async function Account() {
     const user = session?.user;
 
     if (user) {
-      const userDataToUpdate = { comments_display_name: newDisplayName };
       const { error } = await supabase
         .from('users')
         .update({ comments_display_name: newDisplayName })
