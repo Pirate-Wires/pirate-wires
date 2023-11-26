@@ -1,16 +1,22 @@
 "use client"
 import { useState } from 'react';
-import { usePathname } from "next/navigation";
+import { usePathname, redirect } from "next/navigation";
+import { useSupabase } from '@/app/(website)/supabase-provider';
 
 import styles from "./_styles/newsletterCallout.module.scss"
 
 export default function NewsletterCallout({ newsletterData }) {
     const currentRoute = usePathname();
+    const { user } = useSupabase();
     const interiorPage = currentRoute === "/newsletters";
     const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    if (user) {
+        redirect('/account/preferences');
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -93,8 +99,10 @@ export default function NewsletterCallout({ newsletterData }) {
         }
     }
 
-    return (
-        <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
+    return user ? (
+        <h1>Redirecting to your account page...</h1>
+    ) : (
+       <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
 
             <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="" onSubmit={handleSubmit}>
 
