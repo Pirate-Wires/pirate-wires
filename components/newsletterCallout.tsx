@@ -120,7 +120,6 @@ export default function NewsletterCallout({ newsletterData }) {
                         <p className={`${styles.subtitle} martina-reg`}>Technology, Politics, Culture.</p>
                         <p className={styles.description}>Sign up for the original Pirate Wires newsletter. You get: a bi-weekly deep dive from Editor-in-Chief Mike Solana, an occasional piece from our team of writers, and a weekly feature from the internet’s top creative talent. Sign up, or die.</p>
                         <div className={styles.tileBottom}>
-                            <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected1">Selected</label>
                                 <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected1" name="Wires" onChange={handleSelect} checked={selectedNewsLetters.indexOf('Wires') > -1} />
@@ -133,7 +132,6 @@ export default function NewsletterCallout({ newsletterData }) {
                         <p className={`${styles.subtitle} martina-reg`}>Science, Progress, Optimism, Innovation.</p>
                         <p className={styles.description}>Sign up for the White Pill, a weekly newsletter — and occasional stories — covering the most inspiring, fascinating, and evocative developments in technology, from engineering to medicine, and science, from physics and astronomy to space and beyond.</p>
                         <div className={styles.tileBottom}>
-                            <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected2">Selected</label>
                                 <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected2" name="The White Pill" onChange={handleSelect} checked={selectedNewsLetters.indexOf('The White Pill') > -1} />
@@ -146,7 +144,6 @@ export default function NewsletterCallout({ newsletterData }) {
                         <p className={`${styles.subtitle} martina-reg`}>Technology, Business.</p>
                         <p className={styles.description}>Sign up for the Industry, a concentrated technology / business newsletter from Pirate Wires, including: a weekly blast of all the major industry stories worth following, interviews with industry leaders, and analysis from professionals who actually know what they’re talking about. We’re glad you’ve found us. Now let’s all be rich and powerful.</p>
                         <div className={styles.tileBottom}>
-                            <p>Read latest newsletter</p>
                             <div className={styles.checkboxWrapper}>
                                 <label htmlFor="selected3">Selected</label>
                                 <input type="checkbox" className="checkbox" data-listid="X5FG2" id="selected3" name="The Industry" onChange={handleSelect} checked={selectedNewsLetters.indexOf('The Industry') > -1} />

@@ -858,15 +858,17 @@ footer {
     opacity: 0;
     transition: .2s opacity $ease-out-sine;
   }
-  &:hover {
-    .date {
-      opacity: 1;
-    }
-    .leftHalf {
-      transform: translateY(-2px);
-    }
-    .rightHalf {
-      transform: translateY(2px);
+  body:not(.touch) & {
+    &:hover {
+      .date {
+        opacity: 1;
+      }
+      .leftHalf {
+        transform: translateY(-2px);
+      }
+      .rightHalf {
+        transform: translateY(2px);
+      }
     }
   }
 }

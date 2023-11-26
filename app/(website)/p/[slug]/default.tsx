@@ -116,9 +116,9 @@ export default function Post(props) {
       </section>
 
       <section className={styles.postBody}>
-        {/*<div className={`richText martina-light`}>*/}
-        {/*  {post.body && <PortableText value={post.body} />}*/}
-        {/*</div>*/}
+        <div className={`richText martina-light`}>
+          {post.body && <PortableText value={post.body} />}
+        </div>
       </section>
 
       {/* For convenience showing comment component regardless of a user's subscription status
