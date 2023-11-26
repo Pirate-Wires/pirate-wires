@@ -1,21 +1,23 @@
 // /app/(website)/sign-in/page.tsx
 import { getSession } from '@/app/(website)/supabase-server';
 import AuthUI from './AuthUI';
-import {getGlobalFields, getPublicationData, getSettings} from "@/lib/sanity/client";
+import { getGlobalFields, getPublicationData, getSettings } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { redirect } from 'next/navigation';
 import Logo from '@/components/icons/Logo';
 import '@/styles/supabaseAuth.scss';
-import {urlForImage} from "@/lib/sanity/image";
+import { urlForImage } from "@/lib/sanity/image";
 export async function generateMetadata({ params }) {
   const settings = await getSettings();
   const title = "Sign In | Pirate Wires"
   const description = settings.meta_description
-  const image = urlForImage(settings?.openGraphImage)?.src
+  const image = urlForImage(settings?.openGraphImage)?.src ?? ''
+  // const image = urlForImage(settings?.openGraphImage)?.src
 
-  return { title: title, description: description, openGraph: {
+  return {
+    title: title, description: description, openGraph: {
       title: title,
       description: description,
       images: [
@@ -25,7 +27,8 @@ export async function generateMetadata({ params }) {
           height: 600,
         },
       ]
-    }};
+    }
+  };
 }
 export default async function SignIn() {
   const session = await getSession();
