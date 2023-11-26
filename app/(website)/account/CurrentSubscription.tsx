@@ -1,5 +1,4 @@
 import moment from 'moment';
-import Link from 'next/link';
 
 export const CurrentSubscription = ({ subscription }) => {
   const formatTrialEnd = (trialEnd) => {
@@ -31,8 +30,6 @@ export const CurrentSubscription = ({ subscription }) => {
           <p>{formatTrialEnd(subscription.trial_end)}</p>
         </>
       )}
-      <hr />
-      <Link href="https://billing.stripe.com/p/login/dR6bJqdpI4GH0ZqfYY">Customer portal Link --&gt;</Link>
     </div>
   );
 };

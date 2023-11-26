@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import React, { useState } from "react";
 import { EmailPreferences } from "./EmailPreferences";
 import CurrentSubscription from "./CurrentSubscription";
+import ManageSubscriptionButton from "./ManageSubscriptionButton";
 
 export default function AccountUI(
   {
@@ -183,7 +184,12 @@ export default function AccountUI(
             </div>
 
             {userDetails?.subscription_id ? (
-              <CurrentSubscription subscription={subscription} />
+              <>
+                <CurrentSubscription subscription={subscription} />
+                <hr />
+                <ManageSubscriptionButton session={session} />
+              </>
+
             ) : (
               <>
                 <h2>Not subscribed yet</h2>

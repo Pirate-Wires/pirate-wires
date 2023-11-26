@@ -1,7 +1,8 @@
 'use client';
 
-import Button from '@/components/ui/Button';
 import { postData } from '@/utils/helpers';
+import styles from "@/styles/pages/account.module.scss";
+import { FaStripe } from "react-icons/fa";
 
 import { Session } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
@@ -11,28 +12,34 @@ interface Props {
 }
 
 export default function ManageSubscriptionButton({ session }: Props) {
+
   const router = useRouter();
   const redirectToCustomerPortal = async () => {
+    console.log('Button clicked'); // New console log
     try {
       const { url } = await postData({
         url: '/api/create-portal-link'
       });
+      console.log('Received URL:', url); // New console log
       router.push(url);
     } catch (error) {
+      console.error(error);
       if (error) return alert((error as Error).message);
     }
   };
 
   return (
-    <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-      <p className="pb-4 sm:pb-0 text-sm">Manage your subscription on Stripe. </p>
-      <Button
-        variant="slim"
+    <div className={styles.subscriptionManagement}>
+      <p className={styles.subscriptionText}>Manage your subscription on Stripe</p>
+
+      <button
+        className={styles.subscriptionButton}
         disabled={!session}
         onClick={redirectToCustomerPortal}
       >
-        Open customer portal
-      </Button>
+        <FaStripe className="icon" />
+      </button>
+
     </div>
   );
 }
