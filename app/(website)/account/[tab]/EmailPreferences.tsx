@@ -32,6 +32,7 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchUserPreferences();
   }, [user.email]);
