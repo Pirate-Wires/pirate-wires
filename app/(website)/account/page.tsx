@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   const settings = await getSettings();
   const title = "Account | Pirate Wires"
   const description = settings.meta_description
-  const image = urlForImage(settings?.openGraphImage)?.src
+  const image = urlForImage(settings?.openGraphImage)?.src ?? ''
 
   return {
     title: title, description: description, openGraph: {
@@ -101,9 +101,6 @@ export default async function Account() {
 
     revalidatePath('/account');
   };
-
-
-
 
   return <div className="colorWrapper reducedHeaderPage" style={{
     "--color": "#060606",
