@@ -10,19 +10,22 @@ export const CurrentSubscription = ({ subscription }) => {
 
   console.log('subscription', subscription);
 
-  const hasTrial = subscription.trial_end && moment(subscription.trial_end).isValid();
+  const hasTrial =
+    subscription.trial_end && moment(subscription.trial_end).isValid();
 
   return (
     <div>
-      <h1>{`$${subscription.prices.unit_amount / 100} / ${subscription.prices.interval}`}</h1>
+      <h1>{`$${subscription.prices.unit_amount / 100} / ${
+        subscription.prices.interval
+      }`}</h1>
 
       <label>Created:</label>
       <p>{`${moment(subscription.created).format('MM/DD/YYYY hh:mm A')}`}</p>
 
       <label>Current Period:</label>
-      <p>{`${moment(subscription.current_period_start).format('MMM DD')} to ${moment(
-        subscription.current_period_end
-      ).format('MMM DD')}`}</p>
+      <p>{`${moment(subscription.current_period_start).format(
+        'MMM DD'
+      )} to ${moment(subscription.current_period_end).format('MMM DD')}`}</p>
 
       {subscription.status === 'active' && (
         <>

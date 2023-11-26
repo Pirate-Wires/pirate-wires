@@ -1,40 +1,50 @@
 // /app/(website)/account/accountUI.tsx
 'use client';
-import Link from "next/link";
-import styles from "@/styles/pages/account.module.scss"
-import SignOutButton from "@/components/ui/Navbar/SignOutButton";
-import Button from "@/components/ui/Button";
-import React, { useState } from "react";
-import { EmailPreferences } from "./EmailPreferences";
-import CurrentSubscription from "./CurrentSubscription";
-import ManageSubscriptionButton from "./ManageSubscriptionButton";
+import Link from 'next/link';
+import { notFound, useRouter } from 'next/navigation';
+import styles from '@/styles/pages/account.module.scss';
+import SignOutButton from '@/components/ui/Navbar/SignOutButton';
+import Button from '@/components/ui/Button';
+import React, { useState, useEffect } from 'react';
+import { EmailPreferences } from './EmailPreferences';
+import CurrentSubscription from './CurrentSubscription';
+import ManageSubscriptionButton from './ManageSubscriptionButton';
 
-export default function AccountUI(
-  {
-    userDetails,
-    subscription,
-    session,
-    updateName,
-    updateEmail,
-    updateCommentsNotifications,
-    updateCommentsDisplayName
-  }) {
+export default function AccountUI({
+  tab,
+  userDetails,
+  subscription,
+  session,
+  updateName,
+  updateEmail,
+  updateCommentsNotifications,
+  updateCommentsDisplayName
+}) {
+  const router = useRouter();
   const user = session?.user;
+  const tabItems = ['detail', 'preferences', 'comment', 'subscription'];
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const [detailUpdateMsg, setDetailUpdateMsg] = useState('');
-  const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? '');
-  const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(userDetails?.comments_display_name ?? '');
-  const [lastUpdatedEmail, setLastUpdatedEmail] = useState(user ? user.email : '');
+  const [lastUpdatedName, setLastUpdatedName] = useState(
+    userDetails?.full_name ?? ''
+  );
+  const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(
+    userDetails?.comments_display_name ?? ''
+  );
+  const [lastUpdatedEmail, setLastUpdatedEmail] = useState(
+    user ? user.email : ''
+  );
+
+  useEffect(() => {
+    const tabStatus: boolean[] = new Array(tabItems.length).fill(false);
+    const tabIndex = tabItems.indexOf(tab);
+    if (tabIndex === -1) return notFound();
+    tabStatus[tabIndex] = true;
+    setActiveTab(tabStatus);
+  }, [tab]);
+
   const updateActiveTab = (idx: number) => {
-    const newArr: boolean[] = [];
-    for (let i = 0; i < tabVisibility.length; i++) {
-      if (idx === i) {
-        newArr.push(true);
-      } else {
-        newArr.push(false);
-      }
-    }
-    setActiveTab(newArr);
+    router.push(`/account/${tabItems[idx]}`);
   };
 
   const handleSubmitName = async (event) => {
@@ -55,7 +65,7 @@ export default function AccountUI(
       setDetailUpdateMsg(`User name updated successfully`);
       setTimeout(() => {
         setDetailUpdateMsg('');
-      }, 3000)
+      }, 3000);
     } catch (error) {
       console.error(`Error updating name: ${error.message}`);
       setDetailUpdateMsg(error.message);
@@ -88,7 +98,6 @@ export default function AccountUI(
     }
   };
 
-
   const handleSubmitEmail = async (event) => {
     event.preventDefault();
     setDetailUpdateMsg('');
@@ -114,27 +123,68 @@ export default function AccountUI(
   const handleToggleCommentsNotifications = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('comments_notifications', String(!userDetails?.comments_notifications));
+    formData.append(
+      'comments_notifications',
+      String(!userDetails?.comments_notifications)
+    );
     await updateCommentsNotifications(formData);
   };
 
   return (
     <section className="accountContainer c-20">
       <div className={styles.top} data-name={userDetails?.full_name}>
-        <h1>{(userDetails?.full_name && userDetails?.full_name !== "") ? userDetails?.full_name : 'Account'}</h1>
+        <h1>
+          {userDetails?.full_name && userDetails?.full_name !== ''
+            ? userDetails?.full_name
+            : 'Account'}
+        </h1>
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
-          <button className={`${styles.cardTrigger}`} onClick={() => { updateActiveTab(0) }}>My details</button>
-          <button className={`${styles.cardTrigger}`} onClick={() => { updateActiveTab(1) }}>Email preferences</button>
-          <button className={`${styles.cardTrigger}`} onClick={() => { updateActiveTab(2) }}>Commenting</button>
-          <button className={`${styles.cardTrigger}`} onClick={() => { updateActiveTab(3) }}>Subscription & billing</button>
+          <button
+            className={`${styles.cardTrigger}`}
+            onClick={() => {
+              updateActiveTab(0);
+            }}
+          >
+            My details
+          </button>
+          <button
+            className={`${styles.cardTrigger}`}
+            onClick={() => {
+              updateActiveTab(1);
+            }}
+          >
+            Email preferences
+          </button>
+          <button
+            className={`${styles.cardTrigger}`}
+            onClick={() => {
+              updateActiveTab(2);
+            }}
+          >
+            Commenting
+          </button>
+          <button
+            className={`${styles.cardTrigger}`}
+            onClick={() => {
+              updateActiveTab(3);
+            }}
+          >
+            Subscription & billing
+          </button>
           <SignOutButton />
         </div>
 
         <div className={`${styles.right}`}>
-          <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
-            {!!detailUpdateMsg && <h2 className={styles.tag}>{detailUpdateMsg}</h2>}
+          <div
+            className={`${styles.cardWrapper} ${
+              tabVisibility[0] ? styles.activeCard : ''
+            } user-details`}
+          >
+            {!!detailUpdateMsg && (
+              <h2 className={styles.tag}>{detailUpdateMsg}</h2>
+            )}
             <div className={styles.infoGroup}>
               <form id="nameForm" onSubmit={handleSubmitName}>
                 <label>Full name</label>
@@ -147,15 +197,10 @@ export default function AccountUI(
                   maxLength={64}
                 />
               </form>
-              <Button
-                variant="slim"
-                type="submit"
-                form="nameForm"
-              >
+              <Button variant="slim" type="submit" form="nameForm">
                 Update Name
               </Button>
             </div>
-
 
             <div className={`${styles.infoGroup}`}>
               <form id="emailForm" onSubmit={handleSubmitEmail}>
@@ -169,28 +214,41 @@ export default function AccountUI(
                   maxLength={64}
                 />
               </form>
-              <Button
-                variant="slim"
-                type="submit"
-                form="emailForm"
-              >
+              <Button variant="slim" type="submit" form="emailForm">
                 Update Email
               </Button>
             </div>
             <div className={`${styles.infoGroup} ${styles.textGroup}`}>
               <p className={styles.pseudoLabel}>Need help?</p>
-              <p>Send an email to <a href="mailto:support@piratewires.com" title="Send us an email">support@piratewires.com</a> and we’ll help you out</p>
+              <p>
+                Send an email to{' '}
+                <a
+                  href="mailto:support@piratewires.com"
+                  title="Send us an email"
+                >
+                  support@piratewires.com
+                </a>{' '}
+                and we’ll help you out
+              </p>
             </div>
           </div>
-          <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
-
+          <div
+            className={`${styles.cardWrapper} ${
+              tabVisibility[1] ? styles.activeCard : ''
+            } email-preferences`}
+          >
             <EmailPreferences user={user} />
-
           </div>
-          <div className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""} email-notifictation-preferences`}>
+          <div
+            className={`${styles.cardWrapper} ${
+              tabVisibility[2] ? styles.activeCard : ''
+            } email-notifictation-preferences`}
+          >
             <div className={styles.infoGroup}>
-
-              <form id="commentsDisplayNameForm" onSubmit={handleSubmitCommentsDisplayName}>
+              <form
+                id="commentsDisplayNameForm"
+                onSubmit={handleSubmitCommentsDisplayName}
+              >
                 <label>Comments username</label>
                 <input
                   type="text"
@@ -220,19 +278,21 @@ export default function AccountUI(
                 checked={userDetails?.comments_notifications || false}
                 onChange={() => {
                   // Toggle the comments_notifications value and update
-                  updateCommentsNotifications(!userDetails?.comments_notifications);
+                  updateCommentsNotifications(
+                    !userDetails?.comments_notifications
+                  );
                 }}
               />
               <label htmlFor="toggle" className={styles.slider}></label>
             </div>
-
           </div>
 
-          <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
-
-            <div className={styles.infoGroup}>
-              Subscription & Billing
-            </div>
+          <div
+            className={`${styles.cardWrapper} ${
+              tabVisibility[3] ? styles.activeCard : ''
+            } subscription`}
+          >
+            <div className={styles.infoGroup}>Subscription & Billing</div>
 
             {userDetails?.subscription_id ? (
               <>
@@ -240,16 +300,13 @@ export default function AccountUI(
                 <hr />
                 <ManageSubscriptionButton session={session} />
               </>
-
             ) : (
               <>
                 <h2>Not subscribed yet</h2>
                 <Link href="/subscribe">Subscribe</Link>
               </>
-            )
-            }
+            )}
           </div>
-
         </div>
       </div>
     </section>

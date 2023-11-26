@@ -1,7 +1,6 @@
 // /app/(website)/account/EmailPreferences.tsx
-import styles from "@/styles/pages/account.module.scss";
+import styles from '@/styles/pages/account.module.scss';
 import { useState, useEffect } from 'react';
-
 
 type EmailPreferencesProps = {
   user: { email: string };
@@ -13,11 +12,12 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null); // Track errors
 
-
   const fetchUserPreferences = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/customer-io/preferences?email=${user.email}`);
+      const response = await fetch(
+        `/api/customer-io/preferences?email=${user.email}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch user preferences');
       }
@@ -52,29 +52,27 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
     setSelectedNewsLetters(newSubscription);
   };
 
-
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
   const [requestPayload, setRequestPayload] = useState<string | null>(null);
 
   const updateUserPreferences = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/customer-io/preferences?email=${user.email}`);
+      const response = await fetch(
+        `/api/customer-io/preferences?email=${user.email}`
+      );
       if (!response.ok) {
         throw new Error('Failed to update user preferences');
       }
       const data = await response.json();
       setSelectedNewsLetters(data.preferences); // Update selectedNewsLetters after successful fetch
       setResponseMessage('Preferences updated successfully!'); // Set success message
-
     } catch (error) {
       console.error('Error updating user preferences:', error);
     } finally {
       setIsLoading(false);
     }
   };
-
-
 
   const setPreferences = async (subscription: string[]) => {
     setIsProgress(true);
@@ -87,8 +85,7 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
         'Important Pirate Wires Updates': 'topic_4'
       };
 
-
-      const updatedSubscription = Object.keys(topics).filter(key =>
+      const updatedSubscription = Object.keys(topics).filter((key) =>
         subscription.includes(key)
       );
 
@@ -111,21 +108,24 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
 
       setIsProgress(false);
       await updateUserPreferences(); // Fetch preferences after successfully setting them
-      setRequestPayload(JSON.stringify({ email: user?.email, subscription }, null, 2)); // Set the request payload
-
+      setRequestPayload(
+        JSON.stringify({ email: user?.email, subscription }, null, 2)
+      ); // Set the request payload
     } catch (error) {
       console.error('Error setting preferences:', error);
       setIsProgress(false);
     }
   };
 
-
   return (
     <>
-
       {/* Display Loading or Progress Indicators */}
-      {isLoading && <LoadingOverlay message="Loading Newsletter Preferences..." />}
-      {isProgress && <LoadingOverlay message="Updating Newsletter Preferences..." />}
+      {isLoading && (
+        <LoadingOverlay message="Loading Newsletter Preferences..." />
+      )}
+      {isProgress && (
+        <LoadingOverlay message="Updating Newsletter Preferences..." />
+      )}
 
       <h3>Email Preferences</h3>
       <p>Subscribe or unsubscribe to our newsletters</p>
@@ -174,7 +174,9 @@ export const EmailPreferences = ({ user }: EmailPreferencesProps) => {
           type="checkbox"
           id="topicImportantPirateWiresUpdates"
           name="Important Pirate Wires Updates"
-          checked={selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1}
+          checked={
+            selectedNewsLetters.indexOf('Important Pirate Wires Updates') > -1
+          }
           onChange={handleSelect}
         />
         <label>Important Pirate Wires Updates</label>
