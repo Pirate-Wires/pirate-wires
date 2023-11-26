@@ -53,7 +53,7 @@ export async function getProfile(profileId: string) {
 }
 
 export async function getPostIdBySlug(slug: string) {
-  if(!slug) return null;
+  if (!slug) return null;
   const supabase = createServerSupabaseClient();
   try {
     const { data: post, error } = await supabase
@@ -61,8 +61,26 @@ export async function getPostIdBySlug(slug: string) {
       .select('*')
       .eq('slug', slug)
       .single();
-    if(error) throw error;
+    if (error) throw error;
     return post.id;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
+
+export async function getUserCustomerId(userDetails) {
+  if (!userDetails) return null;
+  const { id } = userDetails;
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: customer, error } = await supabase
+      .from('customers')
+      .select('*')
+      .eq('id', id)
+      .single();
+    if (error) throw error;
+    return customer.stripe_customer_id;
   } catch (error) {
     console.error('Error:', error);
     return null;

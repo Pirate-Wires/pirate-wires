@@ -5,15 +5,15 @@ import React, { useState, useEffect, FormEvent } from 'react';
 
 import styles from '@/styles/pages/subscribe.module.scss';
 
-const StepOne = ({ user }) => {
+const StepOne = ({ email }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    setCurrentEmail(user?.email ?? null);
-  }, [user?.email]);
+    setCurrentEmail(email ?? null);
+  }, [email]);
 
   const sendOTP = async (email: string) => {
     const response = await fetch('/api/otp/send', {
@@ -92,12 +92,8 @@ const StepOne = ({ user }) => {
 
         setError(null);
 
-        if (currentEmail) {
-          router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
-        } else {
-          await sendOTP(email);
-          router.push(`/subscribe/step-2?email=${email}&customerId=${customerId}`);
-        }
+        await sendOTP(email);
+        router.push(`/subscribe/step-2?email=${email}&customerId=${customerId}`);
       } catch (error) {
         console.error('There was an error!', error);
         setIsLoading(false);

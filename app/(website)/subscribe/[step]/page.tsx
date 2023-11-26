@@ -18,7 +18,7 @@ export default async function SubscribePage({ params, searchParams }) {
   const StepSwitcher = ({ step }: { step: string }) => {
     switch (step) {
       case 'step-1':
-        return <StepOne user={user}/>;
+        return <StepOne email={user?.email}/>;
       case 'step-2':
         return <StepTwo email={email} customerId={customerId} />;
       case 'step-3':
