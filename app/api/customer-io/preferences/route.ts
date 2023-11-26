@@ -152,9 +152,6 @@ export async function GET(req: Request) {
       throw error;
     }
 
-    // Log fetched subscription data
-    console.log('Fetched subscription data:', subscription);
-
     return new Response(JSON.stringify({ preferences: subscription }), {
       status: 200
     });
