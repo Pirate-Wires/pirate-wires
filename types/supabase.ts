@@ -194,6 +194,7 @@ export interface Database {
           avatar_url?: string | null;
           billing_address?: Json | null;
           full_name?: string | null;
+          comments_display_name?: string | null;
           id: string;
           payment_method?: Json | null;
           comments_notifications?: Json | null;
@@ -203,6 +204,7 @@ export interface Database {
           avatar_url?: string | null;
           billing_address?: Json | null;
           full_name?: string | null;
+          comments_display_name?: string | null;
           id?: string;
           payment_method?: Json | null;
           comments_notifications?: Json | null;
