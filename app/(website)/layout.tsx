@@ -65,10 +65,9 @@ export default async function Layout({ children, params }) {
     <>
       <SupabaseProvider globalFields={globalFields} session={session} user={user} profile={profile}>
         <main style={{
-          "--whitePillColor": globalFields.white_pill_color,
-          "--whitePillBgColor": globalFields.white_pill_bgcolor,
-          "--industryColor": globalFields.industry_color,
-          "--industryBgColor": globalFields.industry_bgcolor,
+          "--whitePillColor": globalFields.white_pill_bgcolor,
+          "--industryColor": globalFields.industry_bgcolor,
+          "--doloresParkColor": globalFields.dolores_park_bgcolor,
           "--accentLight": "rgba(227, 227, 227, 0.45)"
         } as React.CSSProperties}>
           <div>{children}</div>

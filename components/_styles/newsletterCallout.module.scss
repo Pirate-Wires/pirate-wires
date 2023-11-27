@@ -82,22 +82,29 @@
   flex-direction: column;
   gap: 20px;
   @include get-vw(padding, 20px, 20px);
-  &.whitePill {
-    background-color: var(--whitePillBgColor);
-    color: var(--whitePillColor);
+  &:before {
+    content: none;
+    height: 0.5px;
+    opacity: 0.6;
+    width: 100%;
+    background-color: var(--color);
+    position: absolute;
+    left: 0;
+    @include get-vw(top, -20.5px, -20.5px);
   }
-  &.industry {
-    background-color: var(--industryBgColor);
-    color: var(--industryColor);
+  &:nth-child(n+4) {
+    &:before {
+      content: "";
+    }
   }
   &:after {
     content: "";
     width: 0.5px;
+    opacity: 0.6;
     height: 100%;
     background-color: var(--color);
     position: absolute;
     right: -20px;
-    opacity: 0.6;
     top: 0;
   }
   &:last-child {
@@ -105,15 +112,44 @@
       content: none;
     }
   }
+  &:nth-child(3n + 3) {
+    &:after {
+      content: none;
+    }
+  }
+  &.whitePill {
+    background-color: var(--whitePillColor);
+    color: #060606;
+  }
+  &.industry {
+    background-color: var(--industryColor);
+    color: #060606;
+  }
+  &.doloresPark {
+    background-color: var(--doloresParkColor);
+    color: #060606;
+  }
 
   @include bp-1024 {
     width: calc(50% - 20px);
     aspect-ratio: 1/.82;
     margin-bottom: 40px;
-    &:last-child {
+    &:nth-child(n+3) {
+      &:before {
+        content: "";
+      }
+    }
+    &:nth-child(3n + 3) {
       &:after {
         content: "";
       }
+    }
+    &:nth-child(2n + 2) {
+      &:after {
+        content: none;
+      }
+    }
+    &:last-child {
       &:before {
         content: "";
         height: 0.5px;

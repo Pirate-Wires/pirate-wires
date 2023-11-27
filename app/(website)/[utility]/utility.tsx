@@ -23,7 +23,7 @@ export default function Utility({ pageData }) {
           {pageData.subscribeCta &&
             <div className={`${styles.subscribeCta}`}>
               <h3>Support Us by<br /> Subscribing Today.</h3>
-              <p>Get access to all our articles and newsletters from Pirate Wires, The White Pill & The Industry</p>
+              <p>Get access to all our articles and newsletters from Pirate Wires, The White Pill, The Industry & Dolores Park</p>
               <Link href={'/subscribe'} className={`${styles.subscribeBtn} btn`}>Subscribe Now – 14 Days Free Trial </Link>
               <p>Already have an account? <Link href={'/sign-in'}>Sign In</Link></p>
             </div>

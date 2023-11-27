@@ -31,6 +31,12 @@ export default defineType({
       rows: 1
     }),
     defineField({
+      name: 'doloresPark_frequency',
+      type: 'text',
+      title: 'Dolores Park frequency',
+      rows: 1
+    }),
+    defineField({
       title: 'Meta Title',
       name: 'meta_title',
       type: 'text',
