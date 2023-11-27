@@ -29,20 +29,21 @@
   top: 0;
   left: 0;
   cursor: pointer;
-  background: rgba(6, 6, 6, 0.50);
+  background: rgba(6, 6, 6, 0.5);
   opacity: 0;
   pointer-events: none;
   @include bp-767 {
     display: none;
   }
 }
-.top, .middle, .bottom {
+.top,
+.middle,
+.bottom {
   display: flex;
   flex-direction: column;
   @include get-vw-large-increase(font-size, 22px, 22px);
   @include get-vw-large-increase(margin-bottom, 26px, 26px);
   position: relative;
-  
 }
 .closeNav {
   z-index: 3;

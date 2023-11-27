@@ -10,6 +10,9 @@
     "sanity-import": "sanity dataset import lib/sanity/data/production.tar.gz production",
     "sanity-export": "sanity dataset export production lib/sanity/data/production.tar.gz",
     "lint": "next lint",
+    "format": "prettier --write .",
+    "prettier-write": "prettier --write .",
+    "prettier-check": "prettier --check .",
     "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhooks --project-name=saas-starter",
     "generate-types": "npx supabase gen types typescript --project-id YOUR_PROJECT_ID --schema public > @/types/supabase.ts",
     "sync:stripe-supabase": "node scripts/syncSupabaseWithStripe",
@@ -18,7 +21,12 @@
     "sync:supabase-cio": "node scripts/syncCioWithSupabase",
     "sync": "node scripts/syncDB",
     "syncsanity": "node scripts/syncSanity",
-    "remove:stripe-duplicates": "node scripts/removeDuplicatedStripeCustomer"
+    "remove:stripe-duplicates": "node scripts/removeDuplicatedStripeCustomer",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": "eslint",
+    "**/*": "prettier --write ."
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
@@ -63,6 +71,7 @@
     "fs": "0.0.1-security",
     "get-video-id": "^3.6.5",
     "gsap": "^3.12.2",
+    "husky": "^8.0.3",
     "ismobilejs": "^1.1.1",
     "joi": "^17.11.0",
     "kickbox": "^2.0.4",
@@ -106,9 +115,11 @@
     "eslint-config-next": "^13.5.6",
     "eslint-config-prettier": "^8.10.0",
     "eslint-config-sanity": "^6.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
+    "lint-staged": "^15.1.0",
     "postcss": "^8.4.31",
-    "prettier": "^2.8.8",
+    "prettier": "^3.1.0",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "sharp": "^0.32.6",
@@ -116,11 +127,5 @@
     "typescript": "^5.0.4",
     "vercel": "^32.5.0",
     "webpack": "^5.89.0"
-  },
-  "prettier": {
-    "arrowParens": "always",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "none"
   }
 }

@@ -2,56 +2,56 @@
 @import "./resets";
 
 @font-face {
-  font-family: 'Gt America Compressed Bold';
+  font-family: "Gt America Compressed Bold";
   src: url("../public/fonts/GT-America-Compressed-Bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Reg';
+  font-family: "Neue Reg";
   src: url("../public/fonts/HelveticaNeueReg.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Med';
+  font-family: "Neue Med";
   src: url("../public/fonts/HelveticaNeueMed.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Neue Bold';
+  font-family: "Neue Bold";
   src: url("../public/fonts/HelveticaNeueBold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Martina Light';
+  font-family: "Martina Light";
   src: url("../public/fonts/martina-plantijn-light.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Martina Reg';
+  font-family: "Martina Reg";
   src: url("../public/fonts/martina-plantijn-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Martina Italic';
+  font-family: "Martina Italic";
   src: url("../public/fonts/martina-plantijn-italic.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Martina Bold';
+  font-family: "Martina Bold";
   src: url("../public/fonts/martina-plantijn-bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -72,15 +72,6 @@
   color: var(--color);
   padding-top: 80px;
   height: 100%;
-  &.the-wire {
-
-  }
-  &.the-white-pill {
-
-  }
-  &.the-industry {
-
-  }
   &.reducedHeaderPage {
     padding-top: 50px;
   }
@@ -107,10 +98,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  .prev, .next {
-    transition: opacity .22s $ease-in-out-sine;
+  .prev,
+  .next {
+    transition: opacity 0.22s $ease-in-out-sine;
     &.disabled {
-      opacity: .6;
+      opacity: 0.6;
       pointer-events: none;
     }
   }
@@ -125,14 +117,19 @@
 }
 .theme-color {
   &.white-pill {
-    background-color: var(--whitePillBgColor);
-    color: var(--whitePillColor);
-    --color: var(--whitePillColor);
+    background-color: var(--whitePillColor);
+    color: #060606;
+    --color: #060606;
   }
   &.industry {
-    background-color: var(--industryBgColor);
-    color: var(--industryColor);
-    --color: var(--industryColor);
+    background-color: var(--industryColor);
+    color: #060606;
+    --color: #060606;
+  }
+  &.dolores-park {
+    background-color: var(--doloresParkColor);
+    color: #060606;
+    --color: #060606;
   }
 }
 .pageTitle {
@@ -158,7 +155,9 @@ footer {
       display: none;
     }
   }
-  .left, .middle, .right {
+  .left,
+  .middle,
+  .right {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -233,6 +232,8 @@ footer {
   flex-direction: column;
   width: calc(25% - 30px);
   position: relative;
+  @include get-vw(margin-bottom, 20px, 20px);
+  @include get-vw(padding-bottom, 20px, 20px);
   &:after {
     width: 0.5px;
     background-color: var(--color);
@@ -295,7 +296,10 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  article, .pubLink, .dummyTile, .authorTile {
+  article,
+  .pubLink,
+  .dummyTile,
+  .authorTile {
     width: calc((100% / 3) - 27px);
     position: relative;
     a {
@@ -308,7 +312,7 @@ footer {
       background-color: var(--color);
       position: absolute;
       left: 0;
-      top: -20px;
+      @include get-vw(top, -20.5px, -20.5px);
     }
     &:after {
       content: "";
@@ -316,29 +320,31 @@ footer {
       height: 100%;
       background-color: var(--color);
       position: absolute;
-      right: -20px;
+      right: -20.5px;
       top: 0;
     }
-    &:nth-child(3n+3) {
+    &:nth-child(3n + 3) {
       &:after {
         content: none;
       }
     }
-    &:nth-child(-n+3) {
+    &:nth-child(-n + 3) {
       &:before {
         content: none;
       }
     }
   }
   &.pirate-wires {
-    article, .pubLink {
-      &:before, &:after {
+    article,
+    .pubLink {
+      &:before,
+      &:after {
         background-color: var(--accentLight);
       }
     }
     .excerpt {
       span {
-        opacity: .7;
+        opacity: 0.7;
       }
     }
   }
@@ -363,39 +369,63 @@ footer {
     position: absolute;
   }
   .white-pill & {
-    article, .pubLink {
+    article,
+    .pubLink {
       &:before {
-        background-color: var(--whitePillColor);
+        background-color: #060606;
         opacity: 0.6;
       }
       &:after {
-        background-color: var(--whitePillColor);
+        background-color: #060606;
         opacity: 0.6;
       }
     }
-    .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--whitePillColor);
+    .goIcon .leftHalf,
+    .goIcon .rightHalf {
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--whitePillBgColor);
+      fill: var(--whitePillColor);
     }
   }
   .industry & {
-    article, .pubLink {
+    article,
+    .pubLink {
       &:before {
-        background-color: var(--industryColor);
+        background-color: #060606;
         opacity: 0.6;
       }
       &:after {
-        background-color: var(--industryColor);
+        background-color: #060606;
         opacity: 0.6;
       }
     }
-    .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--industryColor);
+    .goIcon .leftHalf,
+    .goIcon .rightHalf {
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--industryBgColor);
+      fill: var(--industryColor);
+    }
+  }
+  .dolores-park & {
+    article,
+    .pubLink {
+      &:before {
+        background-color: #060606;
+        opacity: 0.6;
+      }
+      &:after {
+        background-color: #060606;
+        opacity: 0.6;
+      }
+    }
+    .goIcon .leftHalf,
+    .goIcon .rightHalf {
+      background-color: #060606;
+    }
+    .goIcon path {
+      fill: var(--doloresParkColor);
     }
   }
 
@@ -429,15 +459,19 @@ footer {
     &.related {
       flex-direction: column;
       flex-wrap: nowrap;
-      article, .pubLink, .dummyTile, .authorTile {
+      article,
+      .pubLink,
+      .dummyTile,
+      .authorTile {
         width: 100%;
-        &:nth-last-child(-n+2) {
+        &:nth-last-child(-n + 2) {
           margin-bottom: 20px;
           &:before {
-            content: '';
+            content: "";
           }
         }
-        &:after, &:nth-child(3n+3):after {
+        &:after,
+        &:nth-child(3n + 3):after {
           content: unset;
         }
       }
@@ -454,7 +488,10 @@ footer {
       top: -2.5px;
       transform: none;
     }
-    article, .pubLink, .dummyTile, .authorTile {
+    article,
+    .pubLink,
+    .dummyTile,
+    .authorTile {
       width: calc(50% - 10px);
       &:after {
         content: "";
@@ -465,17 +502,17 @@ footer {
         right: -10px;
         top: 0;
       }
-      &:nth-child(3n+3) {
+      &:nth-child(3n + 3) {
         &:after {
           content: "";
         }
       }
-      &:nth-child(-n+3) {
+      &:nth-child(-n + 3) {
         &:before {
           content: "";
         }
       }
-      &:nth-child(-n+2) {
+      &:nth-child(-n + 2) {
         &:before {
           content: none;
         }
@@ -485,7 +522,7 @@ footer {
           content: none;
         }
       }
-      &:nth-last-child(-n+2) {
+      &:nth-last-child(-n + 2) {
         margin-bottom: 0;
       }
     }
@@ -529,7 +566,7 @@ footer {
       height: auto;
     }
     .right:after {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
     }
   }
   .industry & {
@@ -538,7 +575,17 @@ footer {
       height: auto;
     }
     .right:after {
-      background-color: var(--industryColor);
+      background-color: #060606;
+    }
+  }
+
+  .dolores-park & {
+    svg {
+      @include get-vw(width, 165px, 120px);
+      height: auto;
+    }
+    .right:after {
+      background-color: #060606;
     }
   }
 
@@ -566,23 +613,15 @@ footer {
   }
 }
 .postInfo {
-  .white-pill & {
+  .white-pill &,
+  .industry &,
+  .dolores-park & {
     &:before {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
       opacity: 0.6;
     }
     &:after {
-      background-color: var(--whitePillColor);
-      opacity: 0.6;
-    }
-  }
-  .industry & {
-    &:before {
-      background-color: var(--whitePillColor);
-      opacity: 0.6;
-    }
-    &:after {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
       opacity: 0.6;
     }
   }
@@ -597,19 +636,30 @@ footer {
     gap: 20px;
   }
   .white-pill & {
-    .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--whitePillColor);
+    .goIcon .leftHalf,
+    .goIcon .rightHalf {
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--whitePillBgColor);
+      fill: var(--whitePillColor);
     }
   }
   .industry & {
-    .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--industryColor);
+    .goIcon .leftHalf,
+    .goIcon .rightHalf {
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--industryBgColor);
+      fill: var(--industryColor);
+    }
+  }
+  .dolores-park & {
+    .goIcon .leftHalf,
+    .goIcon .rightHalf {
+      background-color: #060606;
+    }
+    .goIcon path {
+      fill: var(--doloresParkColor);
     }
   }
 
@@ -638,7 +688,7 @@ footer {
     padding-top: 20px;
     padding-bottom: 20px;
     --color: #060606;
-    --bgColor: #E3E3E3;
+    --bgColor: #e3e3e3;
     color: var(--color);
     background-color: var(--bgColor);
   }
@@ -681,7 +731,8 @@ footer {
     }
   }
   &.pirate-wires {
-    .prev, .next {
+    .prev,
+    .next {
       rect {
         fill: var(--color);
       }
@@ -694,21 +745,23 @@ footer {
     }
     .postInfo {
       &:before {
-        opacity: .45;
+        opacity: 0.45;
       }
     }
   }
 }
 .pubLink {
   height: auto;
-  aspect-ratio: .85/1;
+  aspect-ratio: 0.85/1;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.10);
+  background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: flex-start;
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     font-family: $gtBold;
     @include get-vw(font-size, 80px, 60px);
     @include get-vw(letter-spacing, -2.4px, -1.8px);
@@ -719,12 +772,14 @@ footer {
   }
 
   @include bp-1024 {
-    h2, h3, h4 {
+    h2,
+    h3,
+    h4 {
       font-size: 40px;
     }
   }
   @include bp-767 {
-   padding: 10px;
+    padding: 10px;
     .goIconWrapper {
       bottom: -4px;
       position: relative;
@@ -827,16 +882,15 @@ footer {
   position: relative;
 }
 .imageCaption {
-  color: #E3E3E3;
+  color: #e3e3e3;
   font-family: $neueReg;
   @include get-vw(font-size, 8px, 8px);
   @include get-vw(left, 23px, 23px);
   @include get-vw(bottom, 17px, 17px);
-  text-shadow: 1px 1px 3px rgba(0,0,0,.4);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
   position: absolute;
   white-space: nowrap;
   z-index: 2;
-
 }
 .hasHoverArrow {
   display: flex;
@@ -856,17 +910,19 @@ footer {
 .hasGoIcon {
   .date {
     opacity: 0;
-    transition: .2s opacity $ease-out-sine;
+    transition: 0.2s opacity $ease-out-sine;
   }
-  &:hover {
-    .date {
-      opacity: 1;
-    }
-    .leftHalf {
-      transform: translateY(-2px);
-    }
-    .rightHalf {
-      transform: translateY(2px);
+  body:not(.touch) & {
+    &:hover {
+      .date {
+        opacity: 1;
+      }
+      .leftHalf {
+        transform: translateY(-2px);
+      }
+      .rightHalf {
+        transform: translateY(2px);
+      }
     }
   }
 }
@@ -888,13 +944,14 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  .leftHalf, .rightHalf {
+  .leftHalf,
+  .rightHalf {
     width: 50%;
     height: 100%;
     position: absolute;
     left: 0;
     background-color: var(--color);
-    transition: transform .2s $ease-out-sine;
+    transition: transform 0.2s $ease-out-sine;
   }
   path {
     fill: var(--bgColor);
@@ -939,29 +996,47 @@ footer {
     opacity: 0.4;
     text-indent: -999999px;
   }
-  h2, h3, h4 {
+  h2,
+  h3,
+  h4 {
     font-family: $gtBold;
     @include get-vw-small-increase(font-size, 40px, 40px);
-    line-height: .95;
-    @include get-vw-small-increase(letter-spacing, -.8px, -.8px);
+    line-height: 0.95;
+    @include get-vw-small-increase(letter-spacing, -0.8px, -0.8px);
     @include get-vw-small-increase(margin-top, 40px, 40px);
   }
 
-  h3, h4 {
+  h3,
+  h4 {
     line-height: 1.46;
     @include get-vw-small-increase(font-size, 26px, 26px);
     @include get-vw-small-increase(margin-top, 32px, 32px);
   }
-  h2 + p, h2 + blockquote, h2 + ul, h2 + ol, h2 + img {
+  h2 + p,
+  h2 + blockquote,
+  h2 + ul,
+  h2 + ol,
+  h2 + img {
     @include get-vw-small-increase(margin-top, 24px, 24px);
   }
 
-  h3 + p, h3 + blockquote, h3 + ul, h3 + ol, h3 + img,
-  h4 + p, h4 + blockquote, h4 + ul, h4 + ol, h4 + img {
+  h3 + p,
+  h3 + blockquote,
+  h3 + ul,
+  h3 + ol,
+  h3 + img,
+  h4 + p,
+  h4 + blockquote,
+  h4 + ul,
+  h4 + ol,
+  h4 + img {
     @include get-vw-small-increase(margin-top, 10px, 10px);
   }
 
-  p, blockquote, ul, ol {
+  p,
+  blockquote,
+  ul,
+  ol {
     @include get-vw-small-increase(font-size, 22px, 20px);
     line-height: 1.49;
     @include get-vw-small-increase(margin-top, 20px, 20px);
@@ -970,10 +1045,12 @@ footer {
   iframe {
     @include get-vw-small-increase(margin-top, 22px, 22px);
     height: auto;
-    aspect-ratio: 1/.5625;
+    aspect-ratio: 1/0.5625;
   }
 
-  p, blockquote, li {
+  p,
+  blockquote,
+  li {
     &:empty {
       display: none;
     }
@@ -1006,10 +1083,13 @@ footer {
       width: 1px;
     }
   }
-  strong, b {
+  strong,
+  b {
     font-family: $martinaBold;
   }
-  h2 strong, h3 strong, h4 strong {
+  h2 strong,
+  h3 strong,
+  h4 strong {
     font-family: inherit;
   }
   img {
@@ -1025,13 +1105,21 @@ footer {
     margin-bottom: 0;
   }
 
-  p, h2, h3, h4, blockquote, img, ul, ol, iframe {
+  p,
+  h2,
+  h3,
+  h4,
+  blockquote,
+  img,
+  ul,
+  ol,
+  iframe {
     &:first-child {
       margin-top: 0;
     }
   }
   a {
-    text-decoration: underline rgba(0,0,0,0.5);
+    text-decoration: underline rgba(0, 0, 0, 0.5);
     text-underline-position: under;
     text-decoration-thickness: 0.05em;
     text-underline-offset: 2px;
@@ -1044,7 +1132,9 @@ footer {
   }
 
   @include bp-767 {
-    p, blockquote, li {
+    p,
+    blockquote,
+    li {
       font-size: 18px;
     }
     [class*="sectionContent"] {
@@ -1104,10 +1194,11 @@ footer {
   @include get-vw(padding-right, 20px, 20px);
   @include get-vw(max-width, 720px, 720px);
   margin: 0 auto;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 90px);
   h1 {
     @include get-vw-small-increase(font-size, 60px, 60px);
     @include get-vw-small-increase(letter-spacing, -1.8px, -1.8px);
@@ -1168,4 +1259,8 @@ footer {
   @include bp-767 {
     padding-bottom: 20px;
   }
+}
+
+.mb-40 {
+  @include get-vw(margin-bottom, 40px, 40px);
 }

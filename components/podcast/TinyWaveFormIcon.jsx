@@ -1,4 +1,4 @@
-export function TinyWaveFormIcon({ colors = [], ...props }) {
+export function TinyWaveFormIcon({colors = [], ...props}) {
   return (
     <svg aria-hidden="true" viewBox="0 0 10 10" {...props}>
       <path
@@ -10,5 +10,5 @@ export function TinyWaveFormIcon({ colors = [], ...props }) {
         className={colors[1]}
       />
     </svg>
-  )
+  );
 }

@@ -45,14 +45,15 @@
       cursor: pointer;
       transition: background-color 0.2s;
     }
-
-    button:hover {
-      background-color: #111;
+    body:not(.touch) & {
+      button:hover {
+        background-color: #111;
+      }
     }
   }
 
   .error {
-    color: #E30202;
+    color: #e30202;
     font-family: $neueMed;
     font-size: 12px;
     margin-top: 5px;
@@ -91,14 +92,15 @@
         cursor: pointer;
         transition: background-color 0.2s;
       }
-
-      button:hover {
-        background-color: #111;
+      body:not(.touch) & {
+        button:hover {
+          background-color: #111;
+        }
       }
     }
 
     .error {
-      color: #E30202;
+      color: #e30202;
       font-family: $neueMed;
       font-size: 12px;
       margin-top: 5px;
@@ -147,7 +149,7 @@
       font-family: $neueMed;
       display: flex;
       align-items: center;
-      color: #1C1C1C;
+      color: #1c1c1c;
       @include get-vw-small-increase(font-size, 14px, 14px);
       @include get-vw-small-increase(gap, 12px, 12px);
     }
@@ -159,7 +161,7 @@
     p {
       font-family: $neueReg;
       line-height: 1.37;
-      color: #1C1C1C;
+      color: #1c1c1c;
       @include get-vw-small-increase(font-size, 11px, 11px);
     }
   }

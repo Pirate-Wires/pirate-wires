@@ -1,4 +1,4 @@
-import { groq } from 'next-sanity';
+import {groq} from "next-sanity";
 
 // Get all posts
 export const postquery = groq`
@@ -69,6 +69,10 @@ export const homeQuery = groq`
     "blurDataURL":asset->metadata.lqip
   }, publishedAt, excerpt},
   featured_posts_industry[]->{title, slug, author->{name, slug}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt},
+  featured_posts_dolores_park[]->{title, slug, author->{name, slug}, mainImage {
     asset->{url},
     "blurDataURL":asset->metadata.lqip
   }, publishedAt, excerpt}
@@ -183,7 +187,6 @@ export const postsbyauthorquery = groq`
   }
 }
 `;
-
 
 // Get posts by section (The White Pill, The Industry, etc).
 // Excludes any post that has the newsletter toggle set to true

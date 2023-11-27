@@ -1,29 +1,35 @@
-import { notFound } from 'next/navigation';
+import {notFound} from "next/navigation";
 
-import { getUserDetails } from '@/app/(website)/supabase-server';
-import { getGlobalFields } from '@/lib/sanity/client';
-import Navigation from '@/components/navigation';
-import Footer from '@/components/footer';
+import {getUserDetails} from "@/app/(website)/supabase-server";
+import {getGlobalFields} from "@/lib/sanity/client";
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 
-import StepOne from './StepOne';
-import StepTwo from './StepTwo';
-import StepThree from './StepThree';
-import StepFour from './StepFour';
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
+import StepFour from "./StepFour";
 
-export default async function SubscribePage({ params, searchParams }) {
+export default async function SubscribePage({params, searchParams}) {
   const user = await getUserDetails();
   const globalFields = await getGlobalFields();
-  const { email, customerId } = searchParams;
+  const {email, customerId} = searchParams;
 
-  const StepSwitcher = ({ step }: { step: string }) => {
+  const StepSwitcher = ({step}: {step: string}) => {
     switch (step) {
-      case 'step-1':
-        return <StepOne user={user}/>;
-      case 'step-2':
+      case "step-1":
+        return <StepOne email={user?.email} />;
+      case "step-2":
         return <StepTwo email={email} customerId={customerId} />;
-      case 'step-3':
-        return <StepThree email={email} customerId={customerId} subscription={user?.subscription_id!} />;
-      case 'step-4':
+      case "step-3":
+        return (
+          <StepThree
+            email={email}
+            customerId={customerId}
+            subscription={user?.subscription_id!}
+          />
+        );
+      case "step-4":
         return <StepFour email={email} />;
       default:
         return notFound();
@@ -35,12 +41,11 @@ export default async function SubscribePage({ params, searchParams }) {
       className="colorWrapper reducedHeaderPage"
       style={
         {
-          '--color': '#060606',
-          '--bgColor': '#E3E3E3',
-          '--accentLight': 'rgba(43, 43, 43, 0.45)'
+          "--color": "#060606",
+          "--bgColor": "#E3E3E3",
+          "--accentLight": "rgba(43, 43, 43, 0.45)",
         } as React.CSSProperties
-      }
-    >
+      }>
       <Navigation globalFields={globalFields} />
       <StepSwitcher step={params.step} />
       <Footer globalFields={globalFields} />

@@ -3,6 +3,6 @@ export const cx = (...classNames: any[]) =>
 
 // because we use sanity-next-image
 // vercel throws error when using normal imports
-export const myLoader = ({ src }) => {
+export const myLoader = ({src}) => {
   return src;
 };

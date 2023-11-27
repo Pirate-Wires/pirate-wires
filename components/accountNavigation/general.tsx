@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
 const General: React.FC = () => {
   return (
     <div>
       {/* General content */}
       <div className="mx-auto max-w-7xl lg:flex lg:gap-x-16 lg:px-8">
-
         <main className="px-4 sm:px-6 lg:flex-auto lg:px-0">
           <div className="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
             <div>
               <h2 className="text-base ">Profile</h2>
               <p className="mt-1 text-sm leading-6 text-gray-500">
-                This information will be displayed publicly (if commenting) so be careful what you share. Email is never public.
+                This information will be displayed publicly (if commenting) so
+                be careful what you share. Email is never public.
               </p>
 
               <div className="col-span-full flex items-center gap-x-8">
@@ -23,47 +23,64 @@ const General: React.FC = () => {
                 <div>
                   <button
                     type="button"
-                    className="rounded-xs bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20"
-                  >
+                    className="rounded-xs bg-white/10 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-white/20">
                     Change avatar
                   </button>
-                  <p className="mt-2 text-xs leading-5 text-gray-400">JPG, GIF or PNG. 1MB max.</p>
+                  <p className="mt-2 text-xs leading-5 text-gray-400">
+                    JPG, GIF or PNG. 1MB max.
+                  </p>
                 </div>
               </div>
 
               <dl className="mt-6 space-y-6 text-sm leading-6">
                 <div className="pt-6 sm:flex">
-                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">Full name</dt>
+                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">
+                    Full name
+                  </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                     <div className="">Abosulute Unit</div>
-                    <button type="button" className="font-semibold text-blue-500 hover:text-blue-500">
+                    <button
+                      type="button"
+                      className="font-semibold text-blue-500 hover:text-blue-500">
                       Update
                     </button>
                   </dd>
                 </div>
                 <div className="pt-6 sm:flex">
-                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">Email address</dt>
+                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">
+                    Email address
+                  </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                     <div className="">absolute.unit@example.com</div>
-                    <button type="button" className="font-semibold text-blue-500 hover:text-blue-500">
+                    <button
+                      type="button"
+                      className="font-semibold text-blue-500 hover:text-blue-500">
                       Update
                     </button>
                   </dd>
                 </div>
                 <div className="pt-6 sm:flex">
-                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">Title</dt>
+                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">
+                    Title
+                  </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                     <div className="">Boss</div>
-                    <button type="button" className="font-semibold text-blue-500 hover:text-blue-500">
+                    <button
+                      type="button"
+                      className="font-semibold text-blue-500 hover:text-blue-500">
                       Update
                     </button>
                   </dd>
                 </div>
                 <div className="pt-6 sm:flex">
-                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">Role</dt>
+                  <dt className="font-medium  sm:w-64 sm:flex-none sm:pr-6">
+                    Role
+                  </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                     <div className="">Running Everything</div>
-                    <button type="button" className="font-semibold text-blue-500 hover:text-blue-500">
+                    <button
+                      type="button"
+                      className="font-semibold text-blue-500 hover:text-blue-500">
                       Update
                     </button>
                   </dd>

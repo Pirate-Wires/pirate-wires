@@ -1,6 +1,6 @@
-import { Transition } from '@headlessui/react';
-import cn from 'classnames';
-import React from 'react';
+import {Transition} from "@headlessui/react";
+import cn from "classnames";
+import React from "react";
 
 interface Props {
   isOpen: boolean;
@@ -10,32 +10,34 @@ interface Props {
 
 // const SidebarDepthContext = createContext(0);
 
-export function NoAnimationSidebar({ isOpen, handleClose, children }: Props): JSX.Element {
+export function NoAnimationSidebar({
+  isOpen,
+  handleClose,
+  children,
+}: Props): JSX.Element {
   return (
-    <div className={cn('flex', { 'fixed inset-0 z-50': isOpen })}>
+    <div className={cn("flex", {"fixed inset-0 z-50": isOpen})}>
       <button
-        className={cn('opacity-5 bg-gray-900 flex-grow', {
+        className={cn("opacity-5 bg-gray-900 flex-grow", {
           hidden: !isOpen,
         })}
         onClick={handleClose}
-        aria-label="Close comments"
-      ></button>
+        aria-label="Close comments"></button>
       <div
         className={cn(
-          'flex-shrink-0 w-screen sm:max-w-sm sm:min-w-sidebar fixed top-0 right-0 shadow-2xl',
+          "flex-shrink-0 w-screen sm:max-w-sm sm:min-w-sidebar fixed top-0 right-0 shadow-2xl",
           {
             hidden: !isOpen,
-          }
+          },
         )}
-        aria-hidden={isOpen}
-      >
+        aria-hidden={isOpen}>
         {children}
       </div>
     </div>
   );
 }
 
-function Sidebar({ isOpen, handleClose, children }: Props): JSX.Element {
+function Sidebar({isOpen, handleClose, children}: Props): JSX.Element {
   return (
     <Transition show={isOpen} unmount={false}>
       {/* Background overlay */}
@@ -46,13 +48,11 @@ function Sidebar({ isOpen, handleClose, children }: Props): JSX.Element {
         leave="transition-opacity ease-in duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        unmount={false}
-      >
+        unmount={false}>
         <button
           className="fixed top-0 left-0 opacity-20 w-screen h-screen z-10 bg-gray-300"
           onClick={handleClose}
-          aria-label="Close modal"
-        ></button>
+          aria-label="Close modal"></button>
       </Transition.Child>
 
       {/* Sliding sidebar */}
@@ -64,8 +64,7 @@ function Sidebar({ isOpen, handleClose, children }: Props): JSX.Element {
         leaveFrom="opacity-100 translate-x-0"
         leaveTo="opacity-0 translate-x-10"
         as={React.Fragment}
-        unmount={false}
-      >
+        unmount={false}>
         <div className="w-full h-full sm:max-w-sm sm:min-w-sidebar fixed top-0 right-0 z-20 shadow-2xl">
           {children}
         </div>

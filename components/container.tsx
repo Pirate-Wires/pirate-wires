@@ -1,4 +1,4 @@
-import { cx } from "@/utils/all";
+import {cx} from "@/utils/all";
 
 export default function Container(props) {
   return (
@@ -7,7 +7,7 @@ export default function Container(props) {
         "container px-8 mx-auto xl:px-5",
         props.large ? " max-w-screen-xl" : " max-w-screen-xl",
         !props.alt && "py-5 lg:py-8",
-        props.className
+        props.className,
       )}>
       {props.children}
     </div>

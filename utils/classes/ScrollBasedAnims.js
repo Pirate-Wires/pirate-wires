@@ -1,15 +1,15 @@
 /* eslint-disable */
-import { gsap } from 'gsap';
-import isMobile from 'ismobilejs';
+import {gsap} from "gsap";
+import isMobile from "ismobilejs";
 
 export class ScrollBasedAnims {
   constructor() {
     const mobile = isMobile(window.navigator).any;
-    if(mobile && !document.body.classList.contains("touch")) {
-      document.body.classList.add('touch');
+    if (mobile && !document.body.classList.contains("touch")) {
+      document.body.classList.add("touch");
     }
 
-    window.scrollInstantiated = true
+    window.scrollInstantiated = true;
     this.bindMethods();
 
     this.body = document.body;
@@ -28,9 +28,7 @@ export class ScrollBasedAnims {
   }
 
   bindMethods() {
-    ['run', 'event', 'resize'].forEach(
-      (fn) => (this[fn] = this[fn].bind(this))
-    );
+    ["run", "event", "resize"].forEach(fn => (this[fn] = this[fn].bind(this)));
   }
 
   init() {
@@ -40,17 +38,17 @@ export class ScrollBasedAnims {
   getCache() {
     this.thisPagesTLs = [];
     this.offsetVal = 0;
-    this.direction = 'untouched';
-    this.headerScrolled = false
-    this.headerFullyHidden = false
+    this.direction = "untouched";
+    this.headerScrolled = false;
+    this.headerFullyHidden = false;
     this.transitioning = false;
-    this.articlePage = window.location.href.includes("/p/")
-    this.header = document.getElementById('header');
+    this.articlePage = window.location.href.includes("/p/");
+    this.header = document.getElementById("header");
 
-    const dataFromElems = document.querySelectorAll('[data-from]');
-    const dataHeroFromElems = document.querySelectorAll('[data-h-from]');
-    const heroMeasureEl = document.querySelector('.hero-measure-el');
-    const scrollBasedElems = document.querySelectorAll('[data-entrance]');
+    const dataFromElems = document.querySelectorAll("[data-from]");
+    const dataHeroFromElems = document.querySelectorAll("[data-h-from]");
+    const heroMeasureEl = document.querySelector(".hero-measure-el");
+    const scrollBasedElems = document.querySelectorAll("[data-entrance]");
     const threshold = 0.01;
 
     this.dom = {
@@ -77,25 +75,62 @@ export class ScrollBasedAnims {
     for (let i = 0; i < this.dom.scrollBasedElems.length; i++) {
       const entranceEl = this.dom.scrollBasedElems[i];
       const entranceType = entranceEl.dataset.entrance;
-      const entranceTL = new gsap.timeline({ paused: true });
+      const entranceTL = new gsap.timeline({paused: true});
       let staggerEls;
 
       switch (entranceType) {
-        case 'stagger-fade':
-          staggerEls = entranceEl.querySelectorAll('.s-el');
+        case "stagger-fade":
+          staggerEls = entranceEl.querySelectorAll(".s-el");
 
           entranceTL
-            .fromTo(staggerEls, { y: 25 }, {duration: 0.6, stagger: 0.06, y: 0, ease: 'sine.inOut', force3D: true,}, 0)
-            .fromTo(staggerEls, { opacity: 0 }, { duration: 0.58, stagger: 0.06, clearProps: 'transform', opacity: 1, ease: 'sine.inOut', force3D: true,}, 0.02
+            .fromTo(
+              staggerEls,
+              {y: 25},
+              {
+                duration: 0.6,
+                stagger: 0.06,
+                y: 0,
+                ease: "sine.inOut",
+                force3D: true,
+              },
+              0,
+            )
+            .fromTo(
+              staggerEls,
+              {opacity: 0},
+              {
+                duration: 0.58,
+                stagger: 0.06,
+                clearProps: "transform",
+                opacity: 1,
+                ease: "sine.inOut",
+                force3D: true,
+              },
+              0.02,
             );
 
           this.thisPagesTLs.push(entranceTL);
           break;
 
-        case 'basic-fade':
+        case "basic-fade":
           entranceTL
-            .fromTo(entranceEl, { y: 25 }, { duration: 0.6, y: 0, ease: 'sine.inOut', force3D: true })
-            .fromTo(entranceEl, { opacity: 0 }, {duration: 0.58, opacity: 1, clearProps: 'transform', ease: 'sine.inOut', force3D: true,}, 0.02);
+            .fromTo(
+              entranceEl,
+              {y: 25},
+              {duration: 0.6, y: 0, ease: "sine.inOut", force3D: true},
+            )
+            .fromTo(
+              entranceEl,
+              {opacity: 0},
+              {
+                duration: 0.58,
+                opacity: 1,
+                clearProps: "transform",
+                ease: "sine.inOut",
+                force3D: true,
+              },
+              0.02,
+            );
 
           this.thisPagesTLs.push(entranceTL);
           break;
@@ -110,14 +145,16 @@ export class ScrollBasedAnims {
   }
 
   on() {
-    document.addEventListener('scroll', this.event, true);
+    document.addEventListener("scroll", this.event, true);
     this.getCache();
     this.getBounding();
     this.requestAnimationFrame();
   }
 
   event() {
-    if (this.data.transitioning) { return }
+    if (this.data.transitioning) {
+      return;
+    }
     this.data.scrolling = true;
     clearTimeout(this.scrollTimeout);
     this.scrollTimeout = setTimeout(() => {
@@ -131,7 +168,9 @@ export class ScrollBasedAnims {
     if (this.isMobile) {
       this.data.current = this.data.scrollY;
     } else {
-      this.data.current += Math.round((this.data.scrollY - this.data.current) * this.data.ease);
+      this.data.current += Math.round(
+        (this.data.scrollY - this.data.current) * this.data.ease,
+      );
     }
 
     this.getDirection();
@@ -146,23 +185,27 @@ export class ScrollBasedAnims {
 
   getDirection() {
     if (this.data.last - this.data.scrollY < 0) {
-      if (this.direction === 'down' || this.data.scrollY <= 0) {
+      if (this.direction === "down" || this.data.scrollY <= 0) {
         return;
       }
-      this.direction = 'down';
+      this.direction = "down";
     } else if (this.data.last - this.data.scrollY > 0) {
-      if (this.direction === 'up') {
+      if (this.direction === "up") {
         return;
       }
-      this.direction = 'up';
+      this.direction = "up";
     }
   }
 
   playPauseVideos(force = false) {
-    if ((this.direction === 'untouched' && !force) || this.videosDataLength === 0) return;
+    if (
+      (this.direction === "untouched" && !force) ||
+      this.videosDataLength === 0
+    )
+      return;
     for (let i = 0; i < this.videosDataLength; i++) {
       let data = this.videosData[i];
-      let { isVisible } = this.isVisible(data, 50);
+      let {isVisible} = this.isVisible(data, 50);
       if (isVisible) {
         if (!data.playing) {
           data.el.play();
@@ -177,11 +220,11 @@ export class ScrollBasedAnims {
   }
 
   getVideos() {
-    let playPauseVideos = document.querySelectorAll('video.auto');
+    let playPauseVideos = document.querySelectorAll("video.auto");
     this.videosData = [];
     for (let i = 0; i < playPauseVideos.length; i++) {
       const video = playPauseVideos[i];
-      let stickyVideo = video.classList.contains('sticky-video');
+      let stickyVideo = video.classList.contains("sticky-video");
       if (stickyVideo) {
         video.defaultPlaybackRate = 0.5;
         video.playbackRate = 0.5;
@@ -203,7 +246,9 @@ export class ScrollBasedAnims {
     this.scrollBasedElems = [];
     let length = this.dom.scrollBasedElems.length;
     for (let i = 0; i < length; i++) {
-      if (i < this.offsetVal) {continue;}
+      if (i < this.offsetVal) {
+        continue;
+      }
       let el = this.dom.scrollBasedElems[i];
       const bounds = el.getBoundingClientRect();
       this.scrollBasedElems.push({
@@ -212,7 +257,10 @@ export class ScrollBasedAnims {
         top: bounds.top + this.data.scrollY,
         bottom: bounds.bottom + this.data.scrollY,
         height: bounds.bottom - bounds.top,
-        offset: this.windowWidth < 768 ? el.dataset.offsetMobile * this.windowHeight : el.dataset.offset * this.windowHeight,
+        offset:
+          this.windowWidth < 768
+            ? el.dataset.offsetMobile * this.windowHeight
+            : el.dataset.offset * this.windowHeight,
       });
     }
   }
@@ -230,11 +278,15 @@ export class ScrollBasedAnims {
 
       let from, to, dur;
       const bounds = el.getBoundingClientRect();
-      const tl = new gsap.timeline({ paused: true });
+      const tl = new gsap.timeline({paused: true});
 
       if (useMobile) {
-        from = el.dataset.mobileFrom ? JSON.parse(el.dataset.mobileFrom) : JSON.parse(el.dataset.from);
-        to = el.dataset.mobileTo ? JSON.parse(el.dataset.mobileTo) : JSON.parse(el.dataset.to);
+        from = el.dataset.mobileFrom
+          ? JSON.parse(el.dataset.mobileFrom)
+          : JSON.parse(el.dataset.from);
+        to = el.dataset.mobileTo
+          ? JSON.parse(el.dataset.mobileTo)
+          : JSON.parse(el.dataset.to);
         if (el.dataset.mobileDur) {
           dur = el.dataset.mobileDur;
         } else {
@@ -253,8 +305,18 @@ export class ScrollBasedAnims {
       this.dataFromElems.push({
         el: el,
         tl: tl,
-        top: bounds.top + this.data.scrollY + (el.dataset.delay ? this.windowHeight * parseFloat(el.dataset.delay) : 0),
-        bottom: bounds.bottom + this.data.scrollY + (el.dataset.delay ? this.windowHeight * parseFloat(el.dataset.delay) : 0),
+        top:
+          bounds.top +
+          this.data.scrollY +
+          (el.dataset.delay
+            ? this.windowHeight * parseFloat(el.dataset.delay)
+            : 0),
+        bottom:
+          bounds.bottom +
+          this.data.scrollY +
+          (el.dataset.delay
+            ? this.windowHeight * parseFloat(el.dataset.delay)
+            : 0),
         height: bounds.bottom - bounds.top,
         from: from,
         duration: dur,
@@ -271,13 +333,13 @@ export class ScrollBasedAnims {
     const bounds = el.getBoundingClientRect();
     let timeline = false;
 
-    let heroMedia = document.getElementById('hero-media');
-    const heroContent = document.querySelectorAll('.hero-content');
+    let heroMedia = document.getElementById("hero-media");
+    const heroContent = document.querySelectorAll(".hero-content");
 
-    timeline = new gsap.timeline({ paused: true });
+    timeline = new gsap.timeline({paused: true});
     timeline
-      .fromTo(heroMedia, { scale: 1 }, { scale: 1.2, ease: 'none' })
-      .fromTo(heroContent, { scale: 1 }, { scale: 1.2, ease: 'none' }, 0);
+      .fromTo(heroMedia, {scale: 1}, {scale: 1.2, ease: "none"})
+      .fromTo(heroContent, {scale: 1}, {scale: 1.2, ease: "none"}, 0);
 
     this.heroMeasureData = {
       tl: timeline,
@@ -291,11 +353,11 @@ export class ScrollBasedAnims {
   }
 
   animateDataHeroFromElems() {
-    if (this.direction === 'untouched' || !this.heroMeasureData) return;
-    const { isVisible } = this.isVisible(this.heroMeasureData, 100);
+    if (this.direction === "untouched" || !this.heroMeasureData) return;
+    const {isVisible} = this.isVisible(this.heroMeasureData, 100);
     if (!isVisible) return;
     let percentageThrough = parseFloat(
-      (this.data.current / this.heroMeasureData.height).toFixed(3)
+      (this.data.current / this.heroMeasureData.height).toFixed(3),
     );
 
     if (percentageThrough <= 0.007) {
@@ -308,13 +370,13 @@ export class ScrollBasedAnims {
   }
 
   animateDataFromElems() {
-    if (this.direction === 'untouched' || !this.dataFromElems) return;
+    if (this.direction === "untouched" || !this.dataFromElems) return;
 
     let length = this.dataFromElems.length;
     for (let i = 0; i < length; i++) {
       let data = this.dataFromElems[i];
 
-      const { isVisible, start, end } = this.isVisible(data, 100);
+      const {isVisible, start, end} = this.isVisible(data, 100);
 
       if (isVisible) {
         this.intersectRatio(data, start, end);
@@ -325,7 +387,7 @@ export class ScrollBasedAnims {
   }
 
   checkScrollBasedLoadins() {
-    if (this.direction === 'untouched' || !this.scrollBasedElems) {
+    if (this.direction === "untouched" || !this.scrollBasedElems) {
       return;
     }
     if (this.thisPagesTLs.length !== this.offsetVal) {
@@ -363,7 +425,8 @@ export class ScrollBasedAnims {
     const end = bounds.bottom - this.data.current;
     const strictStart = bounds.top - this.data.scrollY;
     const strictEnd = bounds.bottom - this.data.scrollY;
-    const isVisible = strictStart < threshold + this.data.height && strictEnd > -threshold;
+    const isVisible =
+      strictStart < threshold + this.data.height && strictEnd > -threshold;
     return {
       isVisible,
       start,
@@ -380,34 +443,61 @@ export class ScrollBasedAnims {
   }
 
   hideShowHeader() {
-    if (this.direction === 'untouched') {
+    if (this.direction === "untouched") {
       return;
     }
-    if (this.direction === 'down' && !this.headerScrolled) {
+    if (this.direction === "down" && !this.headerScrolled) {
       this.headerScrolled = true;
-      if (this.articlePage && !(this.data.scrollY > this.windowHeight * .8)) {
-        gsap.to(this.header, { y: -30, ease: 'sine.inOut', duration: 0.2, force3D: true });
+      if (this.articlePage && !(this.data.scrollY > this.windowHeight * 0.8)) {
+        gsap.to(this.header, {
+          y: -30,
+          ease: "sine.inOut",
+          duration: 0.2,
+          force3D: true,
+        });
       } else if (!this.articlePage) {
-        gsap.to(this.header, { y: -30, ease: 'sine.inOut', duration: 0.2, force3D: true });
+        gsap.to(this.header, {
+          y: -30,
+          ease: "sine.inOut",
+          duration: 0.2,
+          force3D: true,
+        });
       }
-    } else if (this.direction === 'up' && this.headerScrolled) {
-      gsap.to(this.header, {y: 0, ease: 'sine.inOut', duration: this.headerFullyHidden ? 0.3 : 0.2, force3D: true});
+    } else if (this.direction === "up" && this.headerScrolled) {
+      gsap.to(this.header, {
+        y: 0,
+        ease: "sine.inOut",
+        duration: this.headerFullyHidden ? 0.3 : 0.2,
+        force3D: true,
+      });
       this.headerScrolled = false;
       this.headerFullyHidden = false;
     }
 
     if (this.articlePage) {
-      if (this.direction === 'down' && !this.headerFullyHidden && this.data.scrollY > this.windowHeight * .8) {
+      if (
+        this.direction === "down" &&
+        !this.headerFullyHidden &&
+        this.data.scrollY > this.windowHeight * 0.8
+      ) {
         this.headerFullyHidden = true;
-        gsap.to(this.header, { y: -80, ease: 'sine.inOut', duration: 0.35, force3D: true });
+        gsap.to(this.header, {
+          y: -80,
+          ease: "sine.inOut",
+          duration: 0.35,
+          force3D: true,
+        });
       }
     }
-
   }
 
   getBounding() {
     this.data.height = this.windowHeight;
-    this.data.max = Math.floor(this.dom.el.getBoundingClientRect().height - this.data.height + this.data.scrollY);
+    this.data.max = Math.floor(
+      this.dom.el.getBoundingClientRect().height -
+        this.data.height +
+        this.data.scrollY,
+    );
   }
 
   resize(omnibar = false) {
@@ -422,7 +512,7 @@ export class ScrollBasedAnims {
     this.state.resizing = false;
   }
 
-  scrollTo(val, dur = 1, ease = 'expo.inOut', fn = false) {
+  scrollTo(val, dur = 1, ease = "expo.inOut", fn = false) {
     this.state.scrollingTo = true;
     gsap.to(this.dom.el, {
       scrollTop: val,

@@ -9,8 +9,7 @@ function SvgComponent(props) {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      {...props}
-    >
+      {...props}>
       <path d="M15 18l-6-6 6-6" />
     </svg>
   );

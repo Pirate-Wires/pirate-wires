@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useState} from "react";
 
 const playbackRates = [
   {
@@ -13,8 +13,7 @@ const playbackRates = [
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          {...props}
-        >
+          {...props}>
           <path
             d="M13 1H3C1.89543 1 1 1.89543 1 3V13C1 14.1046 1.89543 15 3 15H13C14.1046 15 15 14.1046 15 13V3C15 1.89543 14.1046 1 13 1Z"
             fill="currentColor"
@@ -25,7 +24,7 @@ const playbackRates = [
           <path d="M8.75 7.75L11.25 10.25" />
           <path d="M11.25 7.75L8.75 10.25" />
         </svg>
-      )
+      );
     },
   },
   {
@@ -40,8 +39,7 @@ const playbackRates = [
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          {...props}
-        >
+          {...props}>
           <path
             d="M13 1H3C1.89543 1 1 1.89543 1 3V13C1 14.1046 1.89543 15 3 15H13C14.1046 15 15 14.1046 15 13V3C15 1.89543 14.1046 1 13 1Z"
             fill="currentColor"
@@ -55,7 +53,7 @@ const playbackRates = [
           />
           <path d="M12.25 5.75H9.75V8.25H10.75C11.5784 8.25 12.25 8.92157 12.25 9.75V9.75C12.25 10.5784 11.5784 11.25 10.75 11.25H9.75" />
         </svg>
-      )
+      );
     },
   },
   {
@@ -70,8 +68,7 @@ const playbackRates = [
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          {...props}
-        >
+          {...props}>
           <path
             d="M13 1H3C1.89543 1 1 1.89543 1 3V13C1 14.1046 1.89543 15 3 15H13C14.1046 15 15 14.1046 15 13V3C15 1.89543 14.1046 1 13 1Z"
             fill="currentColor"
@@ -82,33 +79,32 @@ const playbackRates = [
           <path d="M12.25 8.75L9.75 11.25" />
           <path d="M3.75 7.25C3.75 7.25 3.90144 5.75 5.63462 5.75C6.1633 5.75 6.5448 5.95936 6.81973 6.25035C7.67157 7.15197 6.97033 8.47328 6.0238 9.28942L3.75 11.25H7.25" />
         </svg>
-      )
+      );
     },
   },
-]
+];
 
-export function PlaybackRateButton({ player }) {
-  let [playbackRate, setPlaybackRate] = useState(playbackRates[0])
+export function PlaybackRateButton({player}) {
+  let [playbackRate, setPlaybackRate] = useState(playbackRates[0]);
 
   return (
     <button
       type="button"
       className="relative flex h-6 w-6 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
       onClick={() => {
-        setPlaybackRate((rate) => {
-          let existingIdx = playbackRates.indexOf(rate)
-          let idx = (existingIdx + 1) % playbackRates.length
-          let next = playbackRates[idx]
+        setPlaybackRate(rate => {
+          let existingIdx = playbackRates.indexOf(rate);
+          let idx = (existingIdx + 1) % playbackRates.length;
+          let next = playbackRates[idx];
 
-          player.playbackRate(next.value)
+          player.playbackRate(next.value);
 
-          return next
-        })
+          return next;
+        });
       }}
-      aria-label="Playback rate"
-    >
+      aria-label="Playback rate">
       <div className="absolute -inset-4 md:hidden" />
       <playbackRate.icon className="h-4 w-4" />
     </button>
-  )
+  );
 }

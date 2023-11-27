@@ -1,8 +1,8 @@
 import PostList from "@/components/postlist";
 import Link from "next/link";
-import styles from "./_styles/relatedArticles.module.scss"
+import styles from "./_styles/relatedArticles.module.scss";
 
-export default function RelatedArticles({ relatedArticles }) {
+export default function RelatedArticles({relatedArticles}) {
   return (
     <section className={`${styles.relatedPosts} c-20 ptb-40`}>
       <h5 className={`mb-40`}>Related articles</h5>
@@ -18,6 +18,5 @@ export default function RelatedArticles({ relatedArticles }) {
         ))}
       </div>
     </section>
-
   );
 }

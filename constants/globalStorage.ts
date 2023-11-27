@@ -9,7 +9,7 @@
 // }
 
 const globalObject = {
-  navScrollX: 0
-}
+  navScrollX: 0,
+};
 
-export { globalObject }
+export {globalObject};

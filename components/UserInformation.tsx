@@ -1,7 +1,7 @@
 // /components/UserInformation.tsx
-import React, { useEffect, useState } from 'react';
-import { getSession } from '@/app/(website)/supabase-server';
-import { User } from '@/types'
+import React, {useEffect, useState} from "react";
+import {getSession} from "@/app/(website)/supabase-server";
+import {User} from "@/types";
 
 export default function UserInformation() {
   const [user, setUser] = useState<User | null>(null);
@@ -15,5 +15,5 @@ export default function UserInformation() {
     loadSession();
   }, []);
 
-  return <p>{user ? 'AAAA' : 'Loading...'}</p>;
+  return <p>{user ? "AAAA" : "Loading..."}</p>;
 }

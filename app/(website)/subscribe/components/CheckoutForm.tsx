@@ -1,13 +1,9 @@
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import {useRouter} from "next/navigation";
+import React, {useState} from "react";
 
-import {
-  useStripe,
-  useElements,
-  PaymentElement
-} from '@stripe/react-stripe-js';
+import {useStripe, useElements, PaymentElement} from "@stripe/react-stripe-js";
 
-import styles from '@/styles/pages/subscribe.module.scss';
+import styles from "@/styles/pages/subscribe.module.scss";
 
 interface CheckoutFormProps {
   email: string;
@@ -16,14 +12,14 @@ interface CheckoutFormProps {
 
 const PRICE_ID = `price_1OC2psBkYPy9DRcAeTacJpsM`;
 
-const CheckoutForm: React.FC<CheckoutFormProps> = ({ email, customerId }) => {
+const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -36,22 +32,22 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ email, customerId }) => {
     try {
       const result = await stripe.confirmSetup({
         elements,
-        redirect: 'if_required'
+        redirect: "if_required",
       });
 
       if (result.error) {
         throw result.error;
       }
-      if (result.setupIntent && result.setupIntent.status === 'succeeded') {
+      if (result.setupIntent && result.setupIntent.status === "succeeded") {
         const paymentMethodId = result.setupIntent.payment_method;
 
-        const response = await fetch('/api/stripe-subscription', {
-          method: 'POST',
+        const response = await fetch("/api/stripe-subscription", {
+          method: "POST",
           body: JSON.stringify({
             paymentMethodId,
             customerId,
-            priceId: PRICE_ID
-          })
+            priceId: PRICE_ID,
+          }),
         });
 
         if (!response.ok) {
@@ -73,7 +69,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ email, customerId }) => {
       <form onSubmit={handleSubmit}>
         <PaymentElement />
         <button disabled={!stripe || isLoading}>
-          {isLoading ? 'Loading...' : 'Subscribe'}
+          {isLoading ? "Loading..." : "Subscribe"}
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}

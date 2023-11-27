@@ -1,8 +1,8 @@
-export default function OgImage({ post }) {
+export default function OgImage({post}) {
   return (
     <div
       tw="w-full h-full flex flex-col items-start justify-center bg-white px-10"
-      style={{ fontFamily: "Inter" }}>
+      style={{fontFamily: "Inter"}}>
       <span tw=" text-xs font-medium tracking-wider uppercase mt-5 text-blue-500">
         {post.categories[0].title}
       </span>

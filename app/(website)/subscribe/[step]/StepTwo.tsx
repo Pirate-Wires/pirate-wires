@@ -1,38 +1,38 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from '@/styles/pages/subscribe.module.scss';
-import { useSupabase } from '@/app/(website)/supabase-provider';
-import OTPInput from '@/app/(website)/sign-in/OTPInput';
+"use client";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
+import styles from "@/styles/pages/subscribe.module.scss";
+import OTPInput from "@/app/(website)/sign-in/OTPInput";
 
 interface StepTwoProps {
   email: string;
   customerId: string;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
+const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const { supabase } = useSupabase();
 
-  const handleOTPSubmit = async (event) => {
+  const handleOTPSubmit = async event => {
     event.preventDefault();
     setError(null);
     setIsLoading(true);
     setSuccessMsg(null);
 
     try {
-      const { error } = await supabase.auth.verifyOtp({
-        email,
-        token: otp,
-        type: 'email'
+      const response = await fetch("/api/otp/verify", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          otp,
+        }),
       });
 
-      if (error) {
-        throw error;
+      if (!response.ok) {
+        throw new Error(`Error verifying otp`);
       }
 
       router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
@@ -42,23 +42,26 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
     }
   };
 
-  const handleResendOTP = async (e) => {
+  const handleResendOTP = async e => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
     setSuccessMsg(null);
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email
+      const response = await fetch("/api/otp/send", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+        }),
       });
 
-      if (error) {
-        throw error;
+      if (!response.ok) {
+        throw new Error(`Error sending OTP`);
       }
 
       setIsLoading(false);
-      setSuccessMsg('Resent OTP successfully');
+      setSuccessMsg("Resent OTP successfully");
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
@@ -78,7 +81,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
         <form onSubmit={handleOTPSubmit}>
           <OTPInput onOTPChange={handleOTPChange} />
           <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Loading...' : 'Proceed payment'}
+            {isLoading ? "Loading..." : "Proceed payment"}
           </button>
           <br />
           <a href="#" onClick={handleResendOTP}>

@@ -9,7 +9,6 @@
   --accents-dark-2: #777;
 }
 
-
 @layer components {
   .focus-ring-input {
     @apply focus:outline-none focus:ring-indigo-500 focus:border-indigo-500;

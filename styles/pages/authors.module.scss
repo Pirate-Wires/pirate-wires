@@ -84,7 +84,6 @@
   border-radius: 50%;
   @include get-vw(margin-right, 49px, 20px);
   position: relative;
-
 }
 .name {
   font-family: $gtBold;
@@ -143,5 +142,3 @@
     font-size: 14px;
   }
 }
-
-
