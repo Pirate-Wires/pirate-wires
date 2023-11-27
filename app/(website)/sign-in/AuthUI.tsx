@@ -164,9 +164,9 @@ export default function AuthUI() {
           Substack, then you already have an account! Just go to the Sign In
           page and enter your email to get started.
         </p>
-        <Link href="/sign-in-github" style={{textDecoration: "underline"}}>
+        {/* <Link href="/sign-in-github" style={{textDecoration: "underline"}}>
           Dev: GitHub Sign-in (OTP under construction)
-        </Link>
+        </Link> */}
       </div>
 
       <p className={styles.disclaimer}>
