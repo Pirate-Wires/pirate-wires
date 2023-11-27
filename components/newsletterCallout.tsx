@@ -5,7 +5,7 @@ import {useSupabase} from "@/app/(website)/supabase-provider";
 
 import styles from "./_styles/newsletterCallout.module.scss";
 
-export default function NewsletterCallout({newsletterData}) {
+export default function NewsletterCallout({newsletterData, globalFields}) {
   const currentRoute = usePathname();
   const {user} = useSupabase();
   const interiorPage = currentRoute === "/newsletters";
@@ -149,18 +149,13 @@ export default function NewsletterCallout({newsletterData}) {
             className={`${styles.tile} ${styles.pirateWires} newsletter-tile mb-40`}
             onClick={clickInnerInput}>
             <p className={styles.eyebrow}>
-              {newsletterData.pirate_wires_frequency}
+              {globalFields.pirateWiresFrequency}
             </p>
             <p className={styles.title}>Pirate Wires</p>
             <p className={`${styles.subtitle} martina-reg`}>
-              Technology, Politics, Culture.
+              {globalFields.pirateWiresTagline}
             </p>
-            <p className={styles.description}>
-              Sign up for the original Pirate Wires newsletter. You get: a
-              bi-weekly deep dive from Editor-in-Chief Mike Solana, an
-              occasional piece from our team of writers, and a weekly feature
-              from the internet’s top creative talent. Sign up, or die.
-            </p>
+            <p className={styles.description}>{globalFields.pirateWiresDescription}</p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected1">Selected</label>
@@ -179,18 +174,13 @@ export default function NewsletterCallout({newsletterData}) {
             className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`}
             onClick={clickInnerInput}>
             <p className={styles.eyebrow}>
-              {newsletterData.white_pill_frequency}
+              {globalFields.whitePillFrequency}
             </p>
             <p className={styles.title}>The White Pill</p>
             <p className={`${styles.subtitle} martina-reg`}>
-              Science, Progress, Optimism, Innovation.
+              {globalFields.whitePillTagline}
             </p>
-            <p className={styles.description}>
-              Sign up for the White Pill, a weekly newsletter — and occasional
-              stories — covering the most inspiring, fascinating, and evocative
-              developments in technology, from engineering to medicine, and
-              science, from physics and astronomy to space and beyond.
-            </p>
+            <p className={styles.description}>{globalFields.whitePillDescription}</p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected2">Selected</label>
@@ -209,20 +199,13 @@ export default function NewsletterCallout({newsletterData}) {
             className={`${styles.tile} ${styles.industry} newsletter-tile mb-40`}
             onClick={clickInnerInput}>
             <p className={styles.eyebrow}>
-              {newsletterData.industry_frequency}
+              {globalFields.industryFrequency}
             </p>
             <p className={styles.title}>The Industry</p>
             <p className={`${styles.subtitle} martina-reg`}>
-              Technology, Business.
+              {globalFields.industryTagline}
             </p>
-            <p className={styles.description}>
-              Sign up for The Industry, a concentrated technology / business
-              newsletter from Pirate Wires, including: a weekly blast of all the
-              major industry stories worth following, interviews with industry
-              leaders, and analysis from professionals who actually know what
-              they’re talking about. We’re glad you’ve found us. Now let’s all
-              be rich and powerful.
-            </p>
+            <p className={styles.description}>{globalFields.industryDescription}</p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected3">Selected</label>
@@ -241,15 +224,11 @@ export default function NewsletterCallout({newsletterData}) {
             className={`${styles.tile} ${styles.doloresPark} newsletter-tile mb-40`}
             onClick={clickInnerInput}>
             <p className={styles.eyebrow}>
-              {newsletterData.doloresPark_frequency}
+              {globalFields.doloresParkFrequency}
             </p>
             <p className={styles.title}>Dolores Park</p>
-            <p className={`${styles.subtitle} martina-reg`}>San Francisco</p>
-            <p className={styles.description}>
-              Sign up for Dolores Park, a San Francisco focused newsletter from
-              Pirate Wires. We’re glad you’ve found us. Now let’s all devalue
-              prime real estate and later purchase it at a discount.
-            </p>
+            <p className={`${styles.subtitle} martina-reg`}>{globalFields.doloresParkTagline}</p>
+            <p className={styles.description}>{globalFields.doloresParkDescription}</p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected4">Selected</label>

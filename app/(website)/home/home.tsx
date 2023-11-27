@@ -113,7 +113,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
 
       <PodcastCallout videoLink={pageData.podcastCalloutVid} />
 
-      <NewsletterCallout newsletterData={newsletterData} />
+      <NewsletterCallout newsletterData={newsletterData} globalFields={globalFields} />
 
       {whitePillPosts && (
         <div className="theme-color pt-40 pb-20 white-pill">
@@ -167,8 +167,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
             </Link>
 
             <div className="right">
-              Excellent developments in technology, engineering, physics, space,
-              and more
+              {globalFields.whitePillTagline}
               <span className="martina-reg">
                 Sign up for{" "}
                 <Link href={`/newsletters`}>The White Pill Newsletter</Link>
@@ -268,7 +267,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
             </Link>
 
             <div className="right">
-              News from the Tech World
+              {globalFields.industryTagline}
               <span className="martina-reg">
                 Sign up for{" "}
                 <Link href={`/newsletters`}>The Industry Newsletter</Link>
@@ -381,10 +380,10 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
             </Link>
 
             <div className="right">
-              News from the Tech World
+              {globalFields.doloresParkTagline}
               <span className="martina-reg">
                 Sign up for{" "}
-                <Link href={`/newsletters`}>The Industry Newsletter</Link>
+                <Link href={`/newsletters`}>Dolores Park Newsletter</Link>
               </span>
             </div>
           </div>
@@ -400,7 +399,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
               />
             ))}
 
-            <Link href={`/the-industry`} className="pubLink hasGoIcon mtb-20">
+            <Link href={`/dolores-park`} className="pubLink hasGoIcon mtb-20">
               <h2>About The Industry, by The Industry</h2>
               <div className="goIconWrapper martina-light">
                 Dive into it

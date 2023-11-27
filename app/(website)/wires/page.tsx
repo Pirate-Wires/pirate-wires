@@ -41,7 +41,6 @@ export async function generateMetadata({params}) {
   };
 }
 export default async function WiresPage() {
-  const pageData = await getPublicationData("wires");
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts("the-wire");
   const publicationNewsletters = await getPublicationNewsletters("the-wire");
@@ -54,14 +53,15 @@ export default async function WiresPage() {
         {
           "--color": "#060606",
           "--bgColor": "#e3e3e3",
+          "--pubColor": globalFields.pirate_wires_bgcolor,
           "--accentLight": "rgba(0, 0, 0, 0.45)",
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
       <Wires
-        pageData={pageData[0]}
         publicationPosts={publicationPosts}
         publicationNewsletters={publicationNewsletters}
+        globalFields={globalFields}
         user={user}
       />
       <Footer globalFields={globalFields} />

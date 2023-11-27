@@ -8,10 +8,10 @@ import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function DoloresPark({
-  pageData,
   publicationPosts,
   publicationNewsletters,
   user,
+  globalFields
 }) {
   useScrollBasedAnims();
   return (
@@ -73,7 +73,7 @@ export default function DoloresPark({
           />
         </svg>
         <div className={`taglineRow`}>
-          {pageData.tagline}
+          {globalFields.doloresParkTagline}
           <span className="martina-reg">
             Sign up for{" "}
             <Link href={`/newsletters`}>The Dolores Park Newsletter</Link>
@@ -85,7 +85,8 @@ export default function DoloresPark({
 
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
-        section={"The Industry"}
+        section={"Dolores Park"}
+        description={globalFields.doloresParkDescription}
         user={user}
       />
 
