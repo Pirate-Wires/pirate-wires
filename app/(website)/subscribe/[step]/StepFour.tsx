@@ -92,6 +92,14 @@ const StepFour: React.FC<StepFourProps> = ({ email }) => {
         />
         <label>The Industry</label>
 
+        <input
+          type="checkbox"
+          name="Dolores Park"
+          onChange={handleSelect}
+          checked={selectedNewsLetters.indexOf('Dolores Park') > -1}
+        />
+        <label>Dolores Park</label>
+
         <br />
 
         <button type="submit" disabled={isLoading}>

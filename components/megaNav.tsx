@@ -30,6 +30,7 @@ export default function MegaNav() {
           <Link className="nav-link" href="/wires">Pirate Wires</Link>
           <Link className="nav-link" href="/white-pill">The White Pill</Link>
           <Link className="nav-link" href="/the-industry">The Industry</Link>
+          <Link className="nav-link" href="/dolores-park">Dolores Park</Link>
         </div>
         <div className={`${styles.bottom} fade-el`}>
           <Link className="nav-link" href="/search">Search</Link>

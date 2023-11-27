@@ -72,15 +72,6 @@
   color: var(--color);
   padding-top: 80px;
   height: 100%;
-  &.the-wire {
-
-  }
-  &.the-white-pill {
-
-  }
-  &.the-industry {
-
-  }
   &.reducedHeaderPage {
     padding-top: 50px;
   }
@@ -125,14 +116,19 @@
 }
 .theme-color {
   &.white-pill {
-    background-color: var(--whitePillBgColor);
-    color: var(--whitePillColor);
-    --color: var(--whitePillColor);
+    background-color: var(--whitePillColor);
+    color: #060606;
+    --color: #060606;
   }
   &.industry {
-    background-color: var(--industryBgColor);
-    color: var(--industryColor);
-    --color: var(--industryColor);
+    background-color: var(--industryColor);
+    color: #060606;
+    --color: #060606;
+  }
+  &.dolores-park {
+    background-color: var(--doloresParkColor);
+    color: #060606;
+    --color: #060606;
   }
 }
 .pageTitle {
@@ -233,6 +229,8 @@ footer {
   flex-direction: column;
   width: calc(25% - 30px);
   position: relative;
+  @include get-vw(margin-bottom, 20px, 20px);
+  @include get-vw(padding-bottom, 20px, 20px);
   &:after {
     width: 0.5px;
     background-color: var(--color);
@@ -308,7 +306,7 @@ footer {
       background-color: var(--color);
       position: absolute;
       left: 0;
-      top: -20px;
+      @include get-vw(top, -20.5px, -20.5px);
     }
     &:after {
       content: "";
@@ -316,7 +314,7 @@ footer {
       height: 100%;
       background-color: var(--color);
       position: absolute;
-      right: -20px;
+      right: -20.5px;
       top: 0;
     }
     &:nth-child(3n+3) {
@@ -365,37 +363,55 @@ footer {
   .white-pill & {
     article, .pubLink {
       &:before {
-        background-color: var(--whitePillColor);
+        background-color: #060606;
         opacity: 0.6;
       }
       &:after {
-        background-color: var(--whitePillColor);
+        background-color: #060606;
         opacity: 0.6;
       }
     }
     .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--whitePillBgColor);
+      fill: var(--whitePillColor);
     }
   }
   .industry & {
     article, .pubLink {
       &:before {
-        background-color: var(--industryColor);
+        background-color: #060606;
         opacity: 0.6;
       }
       &:after {
-        background-color: var(--industryColor);
+        background-color: #060606;
         opacity: 0.6;
       }
     }
     .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--industryColor);
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--industryBgColor);
+      fill: var(--industryColor);
+    }
+  }
+  .dolores-park & {
+    article, .pubLink {
+      &:before {
+        background-color: #060606;
+        opacity: 0.6;
+      }
+      &:after {
+        background-color: #060606;
+        opacity: 0.6;
+      }
+    }
+    .goIcon .leftHalf, .goIcon .rightHalf {
+      background-color: #060606;
+    }
+    .goIcon path {
+      fill: var(--doloresParkColor);
     }
   }
 
@@ -529,7 +545,7 @@ footer {
       height: auto;
     }
     .right:after {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
     }
   }
   .industry & {
@@ -538,7 +554,17 @@ footer {
       height: auto;
     }
     .right:after {
-      background-color: var(--industryColor);
+      background-color: #060606;
+    }
+  }
+
+  .dolores-park & {
+    svg {
+      @include get-vw(width, 165px, 120px);
+      height: auto;
+    }
+    .right:after {
+      background-color: #060606;
     }
   }
 
@@ -566,23 +592,13 @@ footer {
   }
 }
 .postInfo {
-  .white-pill & {
+  .white-pill &, .industry &, .dolores-park & {
     &:before {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
       opacity: 0.6;
     }
     &:after {
-      background-color: var(--whitePillColor);
-      opacity: 0.6;
-    }
-  }
-  .industry & {
-    &:before {
-      background-color: var(--whitePillColor);
-      opacity: 0.6;
-    }
-    &:after {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
       opacity: 0.6;
     }
   }
@@ -598,18 +614,26 @@ footer {
   }
   .white-pill & {
     .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--whitePillColor);
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--whitePillBgColor);
+      fill: var(--whitePillColor);
     }
   }
   .industry & {
     .goIcon .leftHalf, .goIcon .rightHalf {
-      background-color: var(--industryColor);
+      background-color: #060606;
     }
     .goIcon path {
-      fill: var(--industryBgColor);
+      fill: var(--industryColor);
+    }
+  }
+  .dolores-park & {
+    .goIcon .leftHalf, .goIcon .rightHalf {
+      background-color: #060606;
+    }
+    .goIcon path {
+      fill: var(--doloresParkColor);
     }
   }
 
@@ -1170,4 +1194,8 @@ footer {
   @include bp-767 {
     padding-bottom: 20px;
   }
+}
+
+.mb-40 {
+  @include get-vw(margin-bottom, 40px, 40px);
 }

@@ -15,6 +15,7 @@ import { deskTool } from 'sanity/desk';
 import globalFields from "@/lib/sanity/schemas/globalFields";
 import homeData from "@/lib/sanity/schemas/home";
 import industryData from "@/lib/sanity/schemas/industry";
+import doloresParkData from "@/lib/sanity/schemas/doloresPark";
 import wiresData from "@/lib/sanity/schemas/pirateWires";
 import whitePillData from "@/lib/sanity/schemas/whitePill";
 import singlePodcastData from "@/lib/sanity/schemas/podcasts";
@@ -40,6 +41,7 @@ export default defineConfig({
         wiresData,
         whitePillData,
         industryData,
+        doloresParkData,
         singlePodcastData,
         singleCareersData,
         singleAuthorsData,
@@ -53,6 +55,7 @@ export default defineConfig({
       'pirateWires',
       'theWhitePill',
       'theIndustry',
+      'doloresPark',
       'singlePodcast',
       'singleCareers',
       'singleAuthors',

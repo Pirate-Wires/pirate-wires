@@ -83,7 +83,8 @@ const schema = {
         list: [
           { title: 'The Wire', value: 'the-wire' },
           { title: 'The Industry', value: 'the-industry' },
-          { title: 'The White Pill', value: 'the-white-pill' }
+          { title: 'The White Pill', value: 'the-white-pill' },
+          { title: 'Dolores Park', value: 'dolores-park' }
           // Add more predefined sections as needed
         ]
       }

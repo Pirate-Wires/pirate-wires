@@ -20,6 +20,7 @@ const tabs: Tab[] = [
   { name: 'Wires', href: '/wires' },
   { name: 'The Industry', href: '/the-industry' },
   { name: 'The White Pill', href: '/white-pill' },
+  { name: 'Dolores Park', href: '/dolores-park' },
 ];
 
 interface NavigationProps {

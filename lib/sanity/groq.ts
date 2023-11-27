@@ -71,6 +71,10 @@ export const homeQuery = groq`
   featured_posts_industry[]->{title, slug, author->{name, slug}, mainImage {
     asset->{url},
     "blurDataURL":asset->metadata.lqip
+  }, publishedAt, excerpt},
+  featured_posts_dolores_park[]->{title, slug, author->{name, slug}, mainImage {
+    asset->{url},
+    "blurDataURL":asset->metadata.lqip
   }, publishedAt, excerpt}
 }
 `;
