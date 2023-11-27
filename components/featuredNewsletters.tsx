@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import {useEffect, useState, FormEvent} from "react";
 import Link from "next/link";
 
-export default function FeaturedNewsletters({newsletters, section, user}) {
+export default function FeaturedNewsletters({newsletters, section, description, user}) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -109,7 +109,7 @@ export default function FeaturedNewsletters({newsletters, section, user}) {
     }
   };
   return (
-    <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
+    <section className={`${styles.featuredNewsletters} ${section === "Wires" ? styles.wiresVertical : ""} c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
@@ -206,12 +206,7 @@ export default function FeaturedNewsletters({newsletters, section, user}) {
         ) : (
           <>
             <h3>Join, or die</h3>
-            <p>
-              Sign up for the White Pill, a weekly newsletter — and occasional
-              stories — covering the most inspiring, fascinating, and evocative
-              developments in technology, from engineering to medicine, and
-              science, from physics and astronomy to space and beyond.
-            </p>
+            <p>{description}</p>
             <form className={`${styles.form}`} onSubmit={handleSubmit}>
               {!user ? (
                 <>

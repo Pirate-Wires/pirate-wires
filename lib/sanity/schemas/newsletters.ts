@@ -12,30 +12,7 @@ export default defineType({
       name: "slug",
       type: "slug",
     }),
-    defineField({
-      name: "pirate_wires_frequency",
-      type: "text",
-      title: "PW frequency",
-      rows: 1,
-    }),
-    defineField({
-      name: "industry_frequency",
-      type: "text",
-      title: "Industry frequency",
-      rows: 1,
-    }),
-    defineField({
-      name: "white_pill_frequency",
-      type: "text",
-      title: "White Pill frequency",
-      rows: 1,
-    }),
-    defineField({
-      name: "doloresPark_frequency",
-      type: "text",
-      title: "Dolores Park frequency",
-      rows: 1,
-    }),
+
     defineField({
       title: "Meta Title",
       name: "meta_title",

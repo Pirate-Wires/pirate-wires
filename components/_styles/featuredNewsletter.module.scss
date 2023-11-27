@@ -78,7 +78,7 @@
       color: var(--color);
       flex: 1;
       @include get-vw(padding-left, 20px, 20px);
-      @include get-vw(font-size, 16px, 16px);
+      @include get-vw-small-increase(font-size, 16px, 16px);
       &::placeholder {
         color: var(--color);
         opacity: 0.5;
@@ -86,8 +86,11 @@
     }
     button {
       border: 1px solid var(--color);
-      background: transparent;
+      border-left: none;
+      background: var(--pubColor);
       color: var(--color);
+      @include get-vw-small-increase(font-size, 15px, 15px);
+      font-family: $neueMed;
       @include get-vw(width, 165px, 100px);
     }
     .sign-up-btn {
@@ -100,7 +103,15 @@
     padding-right: 0;
   }
 }
-
+.wiresVertical {
+  .right {
+    form {
+      button {
+        color: #e3e3e3;
+      }
+    }
+  }
+}
 .prev {
   transform-origin: center;
 }

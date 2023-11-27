@@ -6,9 +6,10 @@ import styles from "../../../styles/pages/home.module.scss";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {globalScope} from "sanity";
 
 export default function Wires({
-  pageData,
+  globalFields,
   publicationPosts,
   publicationNewsletters,
   user,
@@ -52,7 +53,7 @@ export default function Wires({
             fill="#060606"></path>
         </svg>
         <div className={`taglineRow`}>
-          {pageData.tagline}
+          {globalFields.pirateWiresTagline}
           <span className="martina-reg">
             Sign up for{" "}
             <Link href={`/newsletters`}>The Pirate Wires Newsletter</Link>
@@ -64,6 +65,7 @@ export default function Wires({
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
         section={"Wires"}
+        description={globalFields.pirateWiresDescription}
         user={user}
       />
 

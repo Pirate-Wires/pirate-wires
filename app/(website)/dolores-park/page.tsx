@@ -41,14 +41,12 @@ export async function generateMetadata({params}) {
   };
 }
 export default async function IndustryPage() {
-  const pageData = await getPublicationData("dolores-park");
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts("dolores-park");
   const publicationNewsletters =
     await getPublicationNewsletters("dolores-park");
   const session = await getSession();
   const user = session?.user;
-  console.log(pageData);
   return (
     <div
       className="colorWrapper interiorPub"
@@ -56,14 +54,15 @@ export default async function IndustryPage() {
         {
           "--color": "#060606",
           "--bgColor": "#e3e3e3",
+          "--pubColor": globalFields.dolores_park_bgcolor,
           "--accentLight": "rgba(43, 43, 43, 0.45)",
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
       <DoloresPark
-        pageData={pageData[0]}
         publicationPosts={publicationPosts}
         publicationNewsletters={publicationNewsletters}
+        globalFields={globalFields}
         user={user}
       />
       <Footer globalFields={globalFields} />

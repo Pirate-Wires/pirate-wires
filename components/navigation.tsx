@@ -17,10 +17,10 @@ interface Tab {
 
 const tabs: Tab[] = [
   {name: "Home", href: "/"},
-  {name: "Wires", href: "/wires"},
-  {name: "The Industry", href: "/the-industry"},
-  {name: "The White Pill", href: "/white-pill"},
-  {name: "Dolores Park", href: "/dolores-park"},
+  {name: "Pirate Wires", href: "/wires"},
+  {name: "Tech", href: "/the-industry"},
+  {name: "Science", href: "/white-pill"},
+  {name: "San Francisco", href: "/dolores-park"},
 ];
 
 interface NavigationProps {

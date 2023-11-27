@@ -7,10 +7,10 @@ import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function WhitePill({
-  pageData,
   publicationPosts,
   publicationNewsletters,
   user,
+  globalFields
 }) {
   useScrollBasedAnims();
   return (
@@ -62,7 +62,7 @@ export default function WhitePill({
           />
         </svg>
         <div className={`taglineRow`}>
-          {pageData.tagline}
+          {globalFields.whitePillTagline}
           <span className="martina-reg">
             Sign up for{" "}
             <Link href={`/newsletters`}>The White Pill Newsletter</Link>
@@ -74,6 +74,7 @@ export default function WhitePill({
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
         section={"The White Pill"}
+        description={globalFields.whitePillDescription}
         user={user}
       />
 
