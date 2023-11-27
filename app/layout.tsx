@@ -8,8 +8,8 @@ import {cx} from "@/utils/all";
 import type {AppProps} from "next/app";
 import React from "react";
 import "../styles/global.scss";
+import TrackingScripts from "@/components/trackingScripts";
 export default function RootLayout({children}: {children: React.ReactNode}) {
-  // TODO: properly load typekit fonts
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
@@ -18,6 +18,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <ThemeProvider attribute="class">{children}</ThemeProvider>
           {/* </UserContextProvider> */}
         </Providers>
+        <TrackingScripts />
       </body>
     </html>
   );
