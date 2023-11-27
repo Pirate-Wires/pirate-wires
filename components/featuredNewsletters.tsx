@@ -184,7 +184,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
           <>
             <h3>{section} Newsletter</h3>
             <p>
-              You&apos;ve already subscribed to the {section} newsletter. Check out our other newsletters and <Link href="/account/email-preferences" style={{ textDecoration: 'underline' }}>manage your subscription preferences
+              You&apos;ve already subscribed to the {section} newsletter. Check out our other newsletters or <Link href="/account/email-preferences" style={{ textDecoration: 'underline' }}>manage your subscription preferences
               </Link>
             </p>
             {isSuccess && (
@@ -220,7 +220,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
               )}
             </form>
             {isSuccess && (
-              <p className={styles.tagline}>Thanks for subscribing!</p>
+              <p className={styles.tagline}>Thanks for subscribing!  </p>
             )}
           </>
         )}
