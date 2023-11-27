@@ -16,6 +16,7 @@ import home from './home';
 import pirateWires from './pirateWires';
 import theWhitePill from './whitePill';
 import theIndustry from './industry';
+import doloresPark from "@/lib/sanity/schemas/doloresPark";
 
 export const schemaTypes = [
   post,
@@ -32,6 +33,7 @@ export const schemaTypes = [
   pirateWires,
   theWhitePill,
   theIndustry,
+  doloresPark,
   utilityPages,
   blockContent
 ];

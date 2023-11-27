@@ -73,6 +73,22 @@ export default defineType({
       }]
     }),
     defineField({
+      title: 'Dolores Park Featured Posts',
+      description: 'Six posts from Dolores Park, the first position here gets the featured spot',
+      name: 'featured_posts_dolores_park',
+      type: 'array',
+      of: [{
+        title: 'Post',
+        name: 'featured_posts_dolores_park',
+        type: 'reference',
+        to: [{type: 'post'}],
+        options: {
+          filter: 'section == $section',
+          filterParams: {section: 'dolores-park'}
+        }
+      }]
+    }),
+    defineField({
       name: 'podcastCalloutVid',
       type: 'file',
       title: 'Podcast callout video',

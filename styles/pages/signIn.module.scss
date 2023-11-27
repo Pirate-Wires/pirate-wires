@@ -45,9 +45,10 @@
       cursor: pointer;
       transition: background-color 0.2s;
     }
-
-    button:hover {
-      background-color: #111;
+    body:not(.touch) & {
+      button:hover {
+        background-color: #111;
+      }
     }
   }
 
@@ -91,9 +92,10 @@
         cursor: pointer;
         transition: background-color 0.2s;
       }
-
-      button:hover {
-        background-color: #111;
+      body:not(.touch) & {
+        button:hover {
+          background-color: #111;
+        }
       }
     }
 

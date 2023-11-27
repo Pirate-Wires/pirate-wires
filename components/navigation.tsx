@@ -8,6 +8,7 @@ import React, {useEffect, useState} from "react";
 import {globalObject} from "@/constants/globalStorage";
 import {gsap} from "gsap";
 import MegaNav from "@/components/megaNav";
+import isMobile from "ismobilejs";
 
 interface Tab {
   name: string;
@@ -19,6 +20,7 @@ const tabs: Tab[] = [
   { name: 'Wires', href: '/wires' },
   { name: 'The Industry', href: '/the-industry' },
   { name: 'The White Pill', href: '/white-pill' },
+  { name: 'Dolores Park', href: '/dolores-park' },
 ];
 
 interface NavigationProps {
@@ -43,7 +45,10 @@ const Navigation: React.FC<NavigationProps> = ({ publication, globalFields }) =>
       return;
     }
     setOnce(true);
-
+    const mobile = isMobile(window.navigator).any;
+    if(mobile && !document.body.classList.contains("touch")) {
+      document.body.classList.add('touch');
+    }
     if (!flowNav) {
       if (!simpleNav) {
         if (window.innerWidth < 768) {
