@@ -14,9 +14,11 @@ export default function NewsletterCallout({ newsletterData }) {
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    if (user) {
-        redirect('/account/preferences');
-    }
+
+    // we can't redirect from here, so we need to do it from the parent component
+    // if (user) {
+    //     redirect('/account/');
+    // }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -102,7 +104,7 @@ export default function NewsletterCallout({ newsletterData }) {
     return user ? (
         <h1>Redirecting to your account page...</h1>
     ) : (
-       <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
+        <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
 
             <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="" onSubmit={handleSubmit}>
 
