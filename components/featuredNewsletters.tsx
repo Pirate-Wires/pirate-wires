@@ -111,7 +111,7 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
             {newsletters.slice(0, 10).map(newsletter => (
-              <Link href={"/p/"+newsletter.slug.current} key={newsletter.title} className={`${styles.slide} embla__slide`}>
+              <Link href={"/p/" + newsletter.slug.current} key={newsletter.title} className={`${styles.slide} embla__slide`}>
                 <div className={styles.slideTop}>
                   <div className={styles.imageWrapper}>
                     {newsletter.mainImage && newsletter.mainImage.asset && (
@@ -181,7 +181,16 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
         {isChecking ? (
           <p>Checking your status...</p>
         ) : isAlreadySubscribed ? (
-          <p>{`You've subscribed already.`}</p>
+          <>
+            <h3>{section} Newsletter</h3>
+            <p>
+              You've already subscribed to the {section} newsletter. Check out our other newsletters and <Link href="/account/email-preferences" style={{ textDecoration: 'underline' }}>manage your subscription preferences
+              </Link>
+            </p>
+            {isSuccess && (
+              <p className={styles.tagline}>Thanks for subscribing!</p>
+            )}
+          </>
         ) : (
           <>
             <h3>Join, or die</h3>
