@@ -2,7 +2,6 @@
 
 import { postData } from '@/utils/helpers';
 import styles from '@/styles/pages/account.module.scss';
-import { FaStripe } from 'react-icons/fa';
 
 import { Session } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
@@ -30,16 +29,17 @@ export default function ManageSubscriptionButton({ session }: Props) {
   return (
     <div className={styles.subscriptionManagement}>
       <p className={styles.subscriptionText}>
-        Manage your subscription on Stripe
+        Manage your subscription on Stripe:
       </p>
+      <br />
       <button
-        className={styles.subscriptionButton}
+        className={styles.subscriptionBtn}
         disabled={!session}
         onClick={redirectToCustomerPortal}
       >
-        Customer Portal
+        Customer Portal Link
       </button>
-      <FaStripe className="icon" />
+
     </div>
   );
 }

@@ -27,6 +27,15 @@
   background: #060606;
   color: #E3E3E3;
 }
+ .subscriptionBtn {
+   width: 100%;
+   border: 1px solid #060606;
+   @include get-vw-small-increase(height, 40px, 40px);
+   @include get-vw-small-increase(font-size, 16px, 16px);
+   font-family: $neueMed;
+   background: #060606;
+   color: #E3E3E3;
+ }
 
 .tag {
   @include get-vw-small-increase(height, 23px, 23px);

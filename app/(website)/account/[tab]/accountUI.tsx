@@ -299,7 +299,12 @@ export default function AccountUI({
             ) : (
               <>
                 <h2>Not subscribed yet</h2>
-                <Link href="/subscribe">Subscribe</Link>
+                <Link
+                  href="/subscribe"
+                  className={styles.subscriptionBtn}
+                >
+                  Subscribe
+                </Link>
               </>
             )}
           </div>
