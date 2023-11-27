@@ -1,6 +1,6 @@
 // /app/(website)/account/EmailPreferences.tsx
 import styles from "@/styles/pages/account.module.scss";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 
 type EmailPreferencesProps = {
   user: {email: string};
@@ -12,7 +12,7 @@ export const EmailPreferences = ({user}: EmailPreferencesProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null); // Track errors
 
-  const fetchUserPreferences = async () => {
+  const fetchUserPreferences = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
@@ -30,12 +30,12 @@ export const EmailPreferences = ({user}: EmailPreferencesProps) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user.email]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     fetchUserPreferences();
-  }, [user.email]);
+  }, [user.email, fetchUserPreferences]);
 
   const handleSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (isLoading || isProgress) return;

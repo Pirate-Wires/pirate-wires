@@ -5,7 +5,7 @@ import {notFound, useRouter} from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import Button from "@/components/ui/Button";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import {EmailPreferences} from "./EmailPreferences";
 import CurrentSubscription from "./CurrentSubscription";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
@@ -22,12 +22,15 @@ export default function AccountUI({
 }) {
   const router = useRouter();
   const user = session?.user;
-  const tabItems = [
-    "my-details",
-    "email-preferences",
-    "commenting",
-    "subscription-billing",
-  ];
+  const tabItems = useMemo(
+    () => [
+      "my-details",
+      "email-preferences",
+      "commenting",
+      "subscription-billing",
+    ],
+    [],
+  );
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
   const [lastUpdatedName, setLastUpdatedName] = useState(
@@ -46,7 +49,7 @@ export default function AccountUI({
     if (tabIndex === -1) return notFound();
     tabStatus[tabIndex] = true;
     setActiveTab(tabStatus);
-  }, [tab]);
+  }, [tab, tabItems]);
 
   const updateActiveTab = (idx: number) => {
     router.push(`/account/${tabItems[idx]}`);
