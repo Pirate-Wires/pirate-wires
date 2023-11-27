@@ -10,7 +10,6 @@ export default function AuthUI() {
     const { supabase } = useSupabase();
     return (
         <section className={`${styles.signInWrapper} flowContainer c-20 pb-20`}>
-            <p>Sign In to Pirate Wires</p>
             <Auth
                 supabaseClient={supabase}
                 providers={['github']}
