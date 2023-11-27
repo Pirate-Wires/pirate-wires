@@ -31,7 +31,6 @@ export const sendOTP = async (email: string) => {
   const {data, error} = await supabase.from("otps").select().eq("email", email);
 
   if (error) {
-    console.error("Error fetching OTP:", error);
     return {error};
   }
 
@@ -42,7 +41,6 @@ export const sendOTP = async (email: string) => {
       .eq("email", email);
 
     if (error) {
-      console.error("Error updating OTP:", error);
       return {error};
     }
   } else {
@@ -51,7 +49,6 @@ export const sendOTP = async (email: string) => {
       .insert({email, otp: otpHash, created_at: currentTime});
 
     if (error) {
-      console.error("Error inserting OTP:", error);
       return {error};
     }
   }
@@ -68,7 +65,6 @@ export const verifyOTP = async (email: string, inputOtp: string) => {
     .single();
 
   if (error || !data) {
-    console.error("Error fetching OTP:", error);
     return {error};
   }
 
@@ -101,7 +97,6 @@ const sendEmailWithOTP = async (
     .single();
 
   if (error || !user) {
-    console.error("Error fetching user:", error);
     return false;
   }
 
