@@ -1,4 +1,4 @@
-import { definitions } from '@/lib/types/supabase';
+import {definitions} from "@/lib/types/supabase";
 
 export interface CommentType {
   id: number;
@@ -10,7 +10,7 @@ export interface CommentType {
   createdAt: string;
   isPublished: boolean;
   updatedAt: string;
-  author: definitions['profiles'];
+  author: definitions["profiles"];
   isPinned: boolean;
   responsesCount: number;
   responses: CommentType[];

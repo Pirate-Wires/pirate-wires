@@ -19,7 +19,7 @@
   @include get-vw-small-increase(max-width, 600px, 600px);
   display: flex;
   background-color: #060606;
-  color: #E3E3E3;
+  color: #e3e3e3;
   width: 100%;
   @include get-vw(height, 84px, 84px);
   position: relative;
@@ -34,9 +34,9 @@
     top: 11px;
   }
   .noMoreBtn {
-    border: 1.14px solid #E3E3E3;
-    background: #D9D9D9;
-    color: #1C1C1C;
+    border: 1.14px solid #e3e3e3;
+    background: #d9d9d9;
+    color: #1c1c1c;
     text-align: center;
     font-family: $gtBold;
     @include get-vw(font-size, 16px, 16px);
@@ -58,14 +58,14 @@
   }
 }
 .remainingTitle {
-  color: #E3E3E3;
+  color: #e3e3e3;
   font-family: $neueBold;
   @include get-vw(font-size, 22px, 20px);
   @include get-vw(letter-spacing, -0.684px, -0.6px);
   @include get-vw(margin-bottom, 2px, 2px);
 }
 .remainingInfo {
-  color: #E3E3E3;
+  color: #e3e3e3;
   font-family: $neueMed;
   @include get-vw(font-size, 12px, 12px);
   line-height: normal;
@@ -75,11 +75,10 @@
   }
 }
 
-
 // larger element
 .noMoreArticles {
   background-color: #060606;
-  color: #E3E3E3;
+  color: #e3e3e3;
   pointer-events: all;
   display: flex;
   align-items: center;
@@ -88,8 +87,8 @@
   @include get-vw(padding-top, 55px, 20px);
   @include get-vw(padding-bottom, 68px, 20px);
   .noMoreBtn {
-    border: 1px solid #E3E3E3;
-    color: #E3E3E3;
+    border: 1px solid #e3e3e3;
+    color: #e3e3e3;
     text-align: center;
     font-family: $neueBold;
     @include get-vw(font-size, 14px, 14px);
@@ -104,17 +103,17 @@
 }
 
 .noMoreTitle {
-  color: #E3E3E3;
+  color: #e3e3e3;
   text-align: center;
   font-family: $gtBold;
   @include get-vw(font-size, 80px, 60px);
-  line-height: .9;
+  line-height: 0.9;
   @include get-vw(letter-spacing, -2.4px, -1.8px);
   @include get-vw(margin-bottom, 20px, 20px);
 }
 
 .noMoreInfo {
-  color: #E3E3E3;
+  color: #e3e3e3;
   text-align: center;
   font-family: $neueReg;
   @include get-vw(font-size, 14px, 14px);
@@ -123,7 +122,7 @@
 }
 
 .accountLink {
-  color: #E3E3E3;
+  color: #e3e3e3;
   font-family: $neueReg;
   font-size: 12px;
   a {

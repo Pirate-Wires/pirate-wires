@@ -1,7 +1,7 @@
-const { syncSupabaseWithCio } = require('./syncSupabaseWithCio');
-const { syncSupabaseWithStripe } = require('./syncSupabaseWithStripe');
-const { syncCioWithSupabase } = require('./syncCioWithSupabase');
-const { syncStripeWithSupabase } = require('./syncStripeWithSupabase');
+const {syncSupabaseWithCio} = require("./syncSupabaseWithCio");
+const {syncSupabaseWithStripe} = require("./syncSupabaseWithStripe");
+const {syncCioWithSupabase} = require("./syncCioWithSupabase");
+const {syncStripeWithSupabase} = require("./syncStripeWithSupabase");
 
 const syncDB = async () => {
   try {
@@ -20,5 +20,5 @@ const syncDB = async () => {
 syncDB();
 
 module.exports = {
-  syncDB
+  syncDB,
 };

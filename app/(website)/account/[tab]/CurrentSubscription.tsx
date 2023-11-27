@@ -1,14 +1,14 @@
-import moment from 'moment';
+import moment from "moment";
 
-export const CurrentSubscription = ({ subscription }) => {
-  const formatTrialEnd = (trialEnd) => {
+export const CurrentSubscription = ({subscription}) => {
+  const formatTrialEnd = trialEnd => {
     if (!trialEnd || !moment(trialEnd).isValid()) {
-      return 'Not specified';
+      return "Not specified";
     }
-    return moment(trialEnd).format('MMM DD');
+    return moment(trialEnd).format("MMM DD");
   };
 
-  console.log('subscription', subscription);
+  console.log("subscription", subscription);
 
   const hasTrial =
     subscription.trial_end && moment(subscription.trial_end).isValid();
@@ -20,14 +20,14 @@ export const CurrentSubscription = ({ subscription }) => {
       }`}</h1>
 
       <label>Created:</label>
-      <p>{`${moment(subscription.created).format('MM/DD/YYYY hh:mm A')}`}</p>
+      <p>{`${moment(subscription.created).format("MM/DD/YYYY hh:mm A")}`}</p>
 
       <label>Current Period:</label>
       <p>{`${moment(subscription.current_period_start).format(
-        'MMM DD'
-      )} to ${moment(subscription.current_period_end).format('MMM DD')}`}</p>
+        "MMM DD",
+      )} to ${moment(subscription.current_period_end).format("MMM DD")}`}</p>
 
-      {subscription.status === 'active' && (
+      {subscription.status === "active" && (
         <>
           <label>Status:</label>
           <p>Active</p>

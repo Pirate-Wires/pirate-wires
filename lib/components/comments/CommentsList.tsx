@@ -1,15 +1,15 @@
-import Comment from '@/lib/components/comments/Comment';
-import CommentSkeleton from '@/lib/components/comments/CommentSkeleton';
-import { SCROLL_OFFSET_PX } from '@/lib/constants/pagination';
-import { useComments } from '@/lib/hooks/use-comments';
-import { CommentType } from '@/lib/utils/types';
-import cn from 'classnames';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
-import React, { useRef, useState } from 'react';
-import SortCommentsSelect from './SortCommentsSelect';
+import Comment from "@/lib/components/comments/Comment";
+import CommentSkeleton from "@/lib/components/comments/CommentSkeleton";
+import {SCROLL_OFFSET_PX} from "@/lib/constants/pagination";
+import {useComments} from "@/lib/hooks/use-comments";
+import {CommentType} from "@/lib/utils/types";
+import cn from "classnames";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+import React, {useRef, useState} from "react";
+import SortCommentsSelect from "./SortCommentsSelect";
 import styles from "@/components/_styles/comments.module.scss";
 
 dayjs.extend(relativeTime, {
@@ -24,7 +24,10 @@ interface Props {
   useInfiniteScroll: boolean;
 }
 
-const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props): JSX.Element => {
+const CommentsList = ({
+  initialData = null,
+  useInfiniteScroll = false,
+}: Props): JSX.Element => {
   const {
     rootComment,
     comments,
@@ -55,7 +58,9 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
     if (
       wrapperRef.current &&
       contentRef.current &&
-      wrapperRef.current.scrollTop + wrapperRef.current.offsetHeight + SCROLL_OFFSET_PX >
+      wrapperRef.current.scrollTop +
+        wrapperRef.current.offsetHeight +
+        SCROLL_OFFSET_PX >
         contentRef.current.offsetHeight
     ) {
       loadMore();
@@ -82,14 +87,10 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
   return (
     <div
       ref={wrapperRef}
-      className={cn(
-        '',
-        {
-          'shadow-inner': isScrolled,
-        }
-      )}
-      onScroll={handleScroll}
-    >
+      className={cn("", {
+        "shadow-inner": isScrolled,
+      })}
+      onScroll={handleScroll}>
       <div ref={contentRef}>
         {/* <SortCommentsSelect /> */}
         {isLoadingInitialData &&
@@ -99,7 +100,9 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
         {!isLoadingInitialData && (
           <>
             {comments.map((comment: CommentType) => (
-              <div className={styles.commentList} key={`${comment.slug}${useInfiniteScroll ? '-s' : ''}`}>
+              <div
+                className={styles.commentList}
+                key={`${comment.slug}${useInfiniteScroll ? "-s" : ""}`}>
                 <Comment comment={comment} highlight={comment.highlight} />
               </div>
             ))}
@@ -116,8 +119,7 @@ const CommentsList = ({ initialData = null, useInfiniteScroll = false }: Props):
                   onClick={() => loadMore()}
                   className={`${styles.moreButton}`}
                   disabled={isLoadingMore}
-                  aria-label={`Load ${remainingCount} more replies`}
-                >
+                  aria-label={`Load ${remainingCount} more replies`}>
                   {remainingCount} more replies
                 </button>
               </div>

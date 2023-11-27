@@ -1,13 +1,13 @@
 // /app/(website)/sign-in/EmailInput.tsx
-import React, { useState } from 'react';
+import React, {useState} from "react";
 
 interface EmailInputProps {
   onSubmit: (e: React.FormEvent, email: string) => void;
   isLoading: boolean;
 }
 
-const EmailInput: React.FC<EmailInputProps> = ({ onSubmit, isLoading }) => {
-  const [email, setEmail] = useState('');
+const EmailInput: React.FC<EmailInputProps> = ({onSubmit, isLoading}) => {
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,9 +23,11 @@ const EmailInput: React.FC<EmailInputProps> = ({ onSubmit, isLoading }) => {
         id="email"
         required
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value)}
       />
-      <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Send OTP'}</button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? "Loading..." : "Send OTP"}
+      </button>
     </form>
   );
 };

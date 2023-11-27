@@ -6,19 +6,19 @@ export interface Post {
   mainImage: {
     asset: {
       url: string;
-    }
+    };
     alt: string;
     blurDataURL: string;
-  }
+  };
   publishedAt: string;
   _createdAt: string;
-  excerpt:string;
+  excerpt: string;
   author: {
     name: string;
     slug: {
       current: string;
-    }
-  }
+    };
+  };
 }
 
 export interface User {

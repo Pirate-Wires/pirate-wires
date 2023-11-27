@@ -1,37 +1,38 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from '@/styles/pages/subscribe.module.scss';
-import OTPInput from '@/app/(website)/sign-in/OTPInput';
+"use client";
+import {useState} from "react";
+import {useRouter} from "next/navigation";
+import styles from "@/styles/pages/subscribe.module.scss";
+import OTPInput from "@/app/(website)/sign-in/OTPInput";
 
 interface StepTwoProps {
   email: string;
   customerId: string;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
+const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  const handleOTPSubmit = async (event) => {
+  const handleOTPSubmit = async event => {
     event.preventDefault();
     setError(null);
     setIsLoading(true);
     setSuccessMsg(null);
 
     try {
-      const response = await fetch('/api/otp/verify', {
-        method: 'POST',
+      const response = await fetch("/api/otp/verify", {
+        method: "POST",
         body: JSON.stringify({
-          email, otp
-        })
+          email,
+          otp,
+        }),
       });
 
       if (!response.ok) {
-          throw new Error(`Error verifying otp`);
+        throw new Error(`Error verifying otp`);
       }
 
       router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
@@ -41,18 +42,18 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
     }
   };
 
-  const handleResendOTP = async (e) => {
+  const handleResendOTP = async e => {
     e.preventDefault();
     setError(null);
     setIsLoading(true);
     setSuccessMsg(null);
 
     try {
-      const response = await fetch('/api/otp/send', {
-        method: 'POST',
+      const response = await fetch("/api/otp/send", {
+        method: "POST",
         body: JSON.stringify({
-          email
-        })
+          email,
+        }),
       });
 
       if (!response.ok) {
@@ -60,7 +61,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
       }
 
       setIsLoading(false);
-      setSuccessMsg('Resent OTP successfully');
+      setSuccessMsg("Resent OTP successfully");
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
@@ -80,7 +81,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
         <form onSubmit={handleOTPSubmit}>
           <OTPInput onOTPChange={handleOTPChange} />
           <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Loading...' : 'Proceed payment'}
+            {isLoading ? "Loading..." : "Proceed payment"}
           </button>
           <br />
           <a href="#" onClick={handleResendOTP}>

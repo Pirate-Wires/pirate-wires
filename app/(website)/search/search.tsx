@@ -1,23 +1,20 @@
 "use client";
 
 import PostList from "@/components/postlist";
-import { searchquery } from "@/lib/sanity/groq";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import {searchquery} from "@/lib/sanity/groq";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useState} from "react";
 import useSWR from "swr";
-import styles from "@/styles/pages/search.module.scss"
-import { fetcher } from "@/lib/sanity/client";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import styles from "@/styles/pages/search.module.scss";
+import {fetcher} from "@/lib/sanity/client";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 
 export default function Search({posts}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams?.get("q") || "";
-  const [timer, setTimer] = useState( setTimeout(() => {}, 0.01));
-  const { data, error } = useSWR(
-    [searchquery, { query: query }],
-    fetcher
-  );
+  const [timer, setTimer] = useState(setTimeout(() => {}, 0.01));
+  const {data, error} = useSWR([searchquery, {query: query}], fetcher);
 
   const handleChange = e => {
     clearTimeout(timer);
@@ -65,8 +62,7 @@ export default function Search({posts}) {
           {data &&
             data.map((post, index) => (
               <PostList key={index} post={post} aspect="landscape" />
-            ))
-          }
+            ))}
         </div>
       )}
     </section>

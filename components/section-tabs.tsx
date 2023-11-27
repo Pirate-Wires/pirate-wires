@@ -1,9 +1,9 @@
 // components/SectionNavigation.js
 "use client";
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import classNames from 'classnames';
+import React from "react";
+import Link from "next/link";
+import {usePathname} from "next/navigation";
+import classNames from "classnames";
 
 interface Tab {
   name: string;
@@ -11,10 +11,10 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { name: 'Podcast', href: '/podcast' },
-  { name: 'Wires', href: '/wires' },
-  { name: 'The Industry', href: '/the-industry' },
-  { name: 'The White Pill', href: '/white-pill' },
+  {name: "Podcast", href: "/podcast"},
+  {name: "Wires", href: "/wires"},
+  {name: "The Industry", href: "/the-industry"},
+  {name: "The White Pill", href: "/white-pill"},
 ];
 
 const SectionNavigation = () => {
@@ -24,7 +24,9 @@ const SectionNavigation = () => {
     <div className="py-4">
       {/* Mobile tabs */}
       <div className="sm:hidden">
-        <label htmlFor="tabs" className="sr-only">Select a tab</label>
+        <label htmlFor="tabs" className="sr-only">
+          Select a tab
+        </label>
 
         {/* ... (same as before) */}
       </div>
@@ -36,14 +38,13 @@ const SectionNavigation = () => {
             <Link key={tab.href} href={tab.href}>
               <div
                 className={classNames(
-                  'transition-colors duration-300', // Add transition class for smooth color change
+                  "transition-colors duration-300", // Add transition class for smooth color change
                   currentRoute === tab.href
-                    ? 'bg-gray-100 text-gray-700'
-                    : 'hover:text-gray-700',
-                  'rounded-md px-3 py-2 text-sm font-medium'
+                    ? "bg-gray-100 text-gray-700"
+                    : "hover:text-gray-700",
+                  "rounded-md px-3 py-2 text-sm font-medium",
                 )}
-                aria-current={currentRoute === tab.href ? 'page' : undefined}
-              >
+                aria-current={currentRoute === tab.href ? "page" : undefined}>
                 {tab.name}
               </div>
             </Link>

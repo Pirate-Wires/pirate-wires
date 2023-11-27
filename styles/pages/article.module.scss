@@ -14,7 +14,8 @@
     border-top: 0.5px solid var(--color);
     @include get-vw(padding-top, 20px, 20px);
     @include get-vw(padding-bottom, 17px, 17px);
-    a, p {
+    a,
+    p {
       color: var(--color);
       font-family: $neueMed;
       @include get-vw(font-size, 16px, 14px);
@@ -31,7 +32,6 @@
       position: relative;
     }
   }
-
 
   @include bp-1024 {
     flex-direction: column;
@@ -51,7 +51,8 @@
     }
   }
 }
-.right, .top {
+.right,
+.top {
   position: relative;
   text-align: center;
   display: flex;
@@ -100,7 +101,6 @@
       font-size: 60px;
     }
   }
-
 }
 .top {
   padding-left: 0;
@@ -131,15 +131,16 @@
   text-align: center;
   letter-spacing: 0.1px;
   width: 70%;
-  opacity: .7;
+  opacity: 0.7;
   margin: 8px auto 0;
   @include get-vw-small-increase(font-size, 13px, 13px);
-  p, a {
+  p,
+  a {
     font-family: inherit;
     font-size: inherit;
   }
   a {
-    text-decoration: underline rgba(0,0,0,1);
+    text-decoration: underline rgba(0, 0, 0, 1);
     text-underline-position: under;
     text-decoration-thickness: 0.05em;
     text-underline-offset: 1px;
@@ -177,7 +178,7 @@
   }
   .imageWrapper {
     width: calc(100% - 6px);
-    aspect-ratio: 1/.67;
+    aspect-ratio: 1/0.67;
   }
   .bottom {
     width: 100%;
@@ -196,7 +197,6 @@
     .excerpt {
       text-align: left;
     }
-
   }
 }
 
@@ -220,7 +220,7 @@
   textarea {
     width: 100%;
     border: 1px solid #060606;
-    background: #F8F8F8;
+    background: #f8f8f8;
     @include get-vw-small-increase(height, 107px, 107px);
     @include get-vw-small-increase(padding, 10px, 10px);
   }

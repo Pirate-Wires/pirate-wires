@@ -1,4 +1,4 @@
-const TheWhitePillSVG = ({ className = '', ...props }) => (
+const TheWhitePillSVG = ({className = "", ...props}) => (
   <svg
     width="32"
     height="32"
@@ -6,8 +6,7 @@ const TheWhitePillSVG = ({ className = '', ...props }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    {...props}
-  >
+    {...props}>
     <rect width="100%" height="100%" rx="16" />
     <path
       fillRule="evenodd"
@@ -19,6 +18,3 @@ const TheWhitePillSVG = ({ className = '', ...props }) => (
 );
 
 export default TheWhitePillSVG;
-
-
-

@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import { createServerSupabaseClient } from '@/app/(website)/supabase-server';
-import SignOutButton from './SignOutButton';
-import React from 'react';
+import Link from "next/link";
+import {createServerSupabaseClient} from "@/app/(website)/supabase-server";
+import SignOutButton from "./SignOutButton";
+import React from "react";
 
 export default async function Navbar() {
   const supabase = createServerSupabaseClient();
   const {
-    data: { user }
+    data: {user},
   } = await supabase.auth.getUser();
 
   // function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -26,17 +26,9 @@ export default async function Navbar() {
   // }
 
   return (
-
     <div>
-
       <div>
-        {user ? (
-          <SignOutButton />
-        ) : (
-          <Link href="/sign-in">
-            Sign in
-          </Link>
-        )}
+        {user ? <SignOutButton /> : <Link href="/sign-in">Sign in</Link>}
       </div>
 
       <hr />
@@ -54,7 +46,7 @@ export default async function Navbar() {
         <li>
           <img
             src={user?.user_metadata.avatar_url}
-            style={{ width: '75px' }}
+            style={{width: "75px"}}
             alt={user?.email}
           />
         </li>
@@ -83,8 +75,6 @@ export default async function Navbar() {
         <br />
         <button type="submit">Save</button>
       </form> */}
-
     </div>
-
   );
 }

@@ -2,7 +2,7 @@
 
 export default {
   api: {
-    projectId: 'cjtc1tnd',
-    dataset: 'production'
-  }
-}
+    projectId: "cjtc1tnd",
+    dataset: "production",
+  },
+};

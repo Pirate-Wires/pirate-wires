@@ -1,45 +1,49 @@
-"use client"
+"use client";
 import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
-import useEmblaCarousel from 'embla-carousel-react'
-import { useEffect, useState, FormEvent } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import {useEffect, useState, FormEvent} from "react";
 import Link from "next/link";
 
-export default function FeaturedNewsletters({ newsletters, section, user }) {
+export default function FeaturedNewsletters({newsletters, section, user}) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
   const onLoad = () => {
     setTimeout(() => {
-      setLoaded(true)
-    }, 250)
-  }
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start', containScroll: "trimSnaps" })
+      setLoaded(true);
+    }, 250);
+  };
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "start",
+    containScroll: "trimSnaps",
+  });
   useEffect(() => {
     if (emblaApi) {
       // emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
-      const prev = document.getElementById("prev")
-      const next = document.getElementById("next")
+      const prev = document.getElementById("prev");
+      const next = document.getElementById("next");
       prev?.addEventListener("click", () => {
-        emblaApi.scrollPrev()
+        emblaApi.scrollPrev();
         if (next?.classList.contains("disabled")) {
-          next.classList.remove("disabled")
+          next.classList.remove("disabled");
         }
         if (!emblaApi.canScrollPrev()) {
-          prev.classList.add("disabled")
+          prev.classList.add("disabled");
         }
-      })
+      });
       next?.addEventListener("click", () => {
-        emblaApi.scrollNext()
+        emblaApi.scrollNext();
         if (prev?.classList.contains("disabled")) {
-          prev.classList.remove("disabled")
+          prev.classList.remove("disabled");
         }
         if (!emblaApi.canScrollNext()) {
-          next.classList.add("disabled")
+          next.classList.add("disabled");
         }
-      })
+      });
     }
   }, [emblaApi]);
 
@@ -51,19 +55,19 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
 
       try {
         const response = await fetch(
-          `/api/customer-io/preferences?email=${user.email}`
+          `/api/customer-io/preferences?email=${user.email}`,
         );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const { preferences } = await response.json();
+        const {preferences} = await response.json();
 
         setIsAlreadySubscribed(preferences.includes(section));
         setIsChecking(false);
       } catch (error) {
-        console.error('There was an error!', error);
+        console.error("There was an error!", error);
         setIsChecking(false);
       }
     };
@@ -78,16 +82,16 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
     setIsSuccess(false);
 
     const form = event.target as HTMLFormElement;
-    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+    const emailInput = form.elements.namedItem("email") as HTMLInputElement;
     const email = user ? user.email : emailInput.value;
 
     try {
-      const response = await fetch('/api/customer-io/preferences', {
-        method: 'POST',
+      const response = await fetch("/api/customer-io/preferences", {
+        method: "POST",
         body: JSON.stringify({
           email,
           section,
-        })
+        }),
       });
 
       if (!response.ok) {
@@ -100,10 +104,10 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
 
       setIsLoading(false);
     } catch (error) {
-      console.error('There was an error!', error);
+      console.error("There was an error!", error);
       setIsLoading(false);
     }
-  }
+  };
   return (
     <section className={`${styles.featuredNewsletters} c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
@@ -111,7 +115,10 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
         <div className="embla" ref={emblaRef}>
           <div className="embla__container">
             {newsletters.slice(0, 10).map(newsletter => (
-              <Link href={"/p/" + newsletter.slug.current} key={newsletter.title} className={`${styles.slide} embla__slide`}>
+              <Link
+                href={"/p/" + newsletter.slug.current}
+                key={newsletter.title}
+                className={`${styles.slide} embla__slide`}>
                 <div className={styles.slideTop}>
                   <div className={styles.imageWrapper}>
                     {newsletter.mainImage && newsletter.mainImage.asset && (
@@ -184,7 +191,12 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
           <>
             <h3>{section} Newsletter</h3>
             <p>
-              You&apos;ve already subscribed to the {section} newsletter. Check out our other newsletters or <Link href="/account/email-preferences" style={{ textDecoration: 'underline' }}>manage your subscription preferences
+              You&apos;ve already subscribed to the {section} newsletter. Check
+              out our other newsletters or{" "}
+              <Link
+                href="/account/email-preferences"
+                style={{textDecoration: "underline"}}>
+                manage your subscription preferences
               </Link>
             </p>
             {isSuccess && (
@@ -209,18 +221,21 @@ export default function FeaturedNewsletters({ newsletters, section, user }) {
                     required
                     placeholder="Your email here..."
                   />
-                  <button type="submit" className="sign-up-btn" disabled={isLoading}>
-                    {isLoading ? 'Loading...' : 'Sign Up'}
+                  <button
+                    type="submit"
+                    className="sign-up-btn"
+                    disabled={isLoading}>
+                    {isLoading ? "Loading..." : "Sign Up"}
                   </button>
                 </>
               ) : (
                 <button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Loading...' : 'Join'}
+                  {isLoading ? "Loading..." : "Join"}
                 </button>
               )}
             </form>
             {isSuccess && (
-              <p className={styles.tagline}>Thanks for subscribing!  </p>
+              <p className={styles.tagline}>Thanks for subscribing! </p>
             )}
           </>
         )}

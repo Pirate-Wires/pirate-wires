@@ -1,5 +1,9 @@
-import { redirect } from 'next/navigation';
-import { getSession, getUserDetails, getUserCustomerId } from "@/app/(website)/supabase-server";
+import {redirect} from "next/navigation";
+import {
+  getSession,
+  getUserDetails,
+  getUserCustomerId,
+} from "@/app/(website)/supabase-server";
 
 export default async function PreviewPage() {
   const session = await getSession();
@@ -10,6 +14,6 @@ export default async function PreviewPage() {
   if (!user) {
     redirect(`/subscribe/step-1`);
   } else {
-    redirect(`/subscribe/step-3?email=${user?.email}&customerId=${customerId}`)
+    redirect(`/subscribe/step-3?email=${user?.email}&customerId=${customerId}`);
   }
 }

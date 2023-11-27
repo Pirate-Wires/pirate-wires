@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { ScrollBasedAnims } from '@/utils/classes/ScrollBasedAnims';
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import {ScrollBasedAnims} from "@/utils/classes/ScrollBasedAnims";
 
 declare global {
   interface Window {
@@ -22,12 +22,10 @@ export const useScrollBasedAnims = () => {
     if (!window.scrollBasedAnims) {
       window.scrollBasedAnims = new ScrollBasedAnims();
     } else {
-      window.scrollBasedAnims.getCache()
-      window.scrollBasedAnims.getBounding()
-      window.scrollBasedAnims.requestAnimationFrame()
+      window.scrollBasedAnims.getCache();
+      window.scrollBasedAnims.getBounding();
+      window.scrollBasedAnims.requestAnimationFrame();
     }
-
-
 
     // router.events.on('routeChangeStart', () => {
     //   $scroll.destroy();

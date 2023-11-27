@@ -11,7 +11,8 @@
   font-size: 14px;
   white-space: nowrap;
 }
-.left, .right {
+.left,
+.right {
   display: flex;
   align-items: center;
 }
@@ -55,7 +56,9 @@
       width: 25px;
       height: auto;
     }
-    h2, span, svg:last-child:not(:first-child) {
+    h2,
+    span,
+    svg:last-child:not(:first-child) {
       display: none;
     }
   }
@@ -92,8 +95,8 @@
   height: 30px;
   display: flex;
   border-bottom: 0.5px solid var(--accentLight);
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none;
   }
@@ -128,7 +131,7 @@
 
 .activeDot {
   transform: scale(0);
-  transition: .22s transform $ease-out-sine;
+  transition: 0.22s transform $ease-out-sine;
   transform-origin: center;
 }
 .active {

@@ -1,19 +1,19 @@
 // /app/(website)/p/[slug]/default.tsx
-"use client"
+"use client";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { PortableText } from "@/lib/sanity/plugins/portabletext";
-import { useDateFormatter } from "@/hooks/useDateFormatter";
-import styles from "@/styles/pages/article.module.scss"
-import articleCountStyles from "@/components/_styles/articleCountEls.module.scss"
-import React, { useState } from "react";
+import {notFound} from "next/navigation";
+import {PortableText} from "@/lib/sanity/plugins/portabletext";
+import {useDateFormatter} from "@/hooks/useDateFormatter";
+import styles from "@/styles/pages/article.module.scss";
+import articleCountStyles from "@/components/_styles/articleCountEls.module.scss";
+import React, {useState} from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
-import { useScrollBasedAnims } from "@/hooks/useScrollBasedAnims";
-import Comment from '@/components/comment';
+import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import Comment from "@/components/comment";
 
 export default function Post(props) {
-  const { loading, post, postId, thisSectionArticles, userDetails } = props;
+  const {loading, post, postId, thisSectionArticles, userDetails} = props;
 
   const slug = post?.slug;
 
@@ -21,55 +21,82 @@ export default function Post(props) {
     notFound();
   }
 
-  const formattedDate = useDateFormatter(post?.publishedAt || post._createdAt, true);
+  const formattedDate = useDateFormatter(
+    post?.publishedAt || post._createdAt,
+    true,
+  );
 
-  let relatedArticles = post.related_posts
+  let relatedArticles = post.related_posts;
   if (!relatedArticles) {
-    relatedArticles = []
+    relatedArticles = [];
     for (let i = 0; i < 4; i++) {
-      if (relatedArticles.length < 3 && thisSectionArticles[i].title !== post.title) {
-        relatedArticles.push(thisSectionArticles[i])
+      if (
+        relatedArticles.length < 3 &&
+        thisSectionArticles[i].title !== post.title
+      ) {
+        relatedArticles.push(thisSectionArticles[i]);
       }
     }
   }
 
-  useScrollBasedAnims()
-  const [loaded, setLoaded] = useState(false)
+  useScrollBasedAnims();
+  const [loaded, setLoaded] = useState(false);
   const onLoad = () => {
     setTimeout(() => {
-      setLoaded(true)
-    }, 250)
-  }
+      setLoaded(true);
+    }, 250);
+  };
   return (
     <>
-      <section className={`${styles.articleHero} ${post.wide_image_top ? styles.wideImageTop : ""} ${post.wide_image_top ? "c-20" : ""}`}>
-        {!post.wide_image_top ?
+      <section
+        className={`${styles.articleHero} ${
+          post.wide_image_top ? styles.wideImageTop : ""
+        } ${post.wide_image_top ? "c-20" : ""}`}>
+        {!post.wide_image_top ? (
           <>
             <div className={`${styles.imageWrapper} imageWrapper`}>
-              {!loaded &&
-                <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
-              }
-              <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
+              {!loaded && (
+                <img
+                  src={post?.mainImage.blurDataURL}
+                  alt=""
+                  decoding="async"
+                  loading="lazy"
+                  className="cover-image"
+                />
+              )}
+              <img
+                src={post?.mainImage.blurDataURL}
+                alt=""
+                decoding="async"
+                loading="lazy"
+                className="cover-image"
+              />
               <picture>
-                <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
-                <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
-                <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad} />
+                <source
+                  srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`}
+                  media="(min-width: 768px)"
+                />
+                <source
+                  srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`}
+                  media="(max-width: 767px)"
+                />
+                <img
+                  alt=""
+                  decoding="async"
+                  loading="lazy"
+                  className="cover-image"
+                  onLoad={onLoad}
+                />
               </picture>
               <figcaption className={`imageCaption`}>
                 {post?.mainImage.caption && (
-                  <span>
-                    {post?.mainImage.caption}
-                  </span>
+                  <span>{post?.mainImage.caption}</span>
                 )}
               </figcaption>
             </div>
             <div className={styles.right}>
-              <h1>
-                {post.title}
-              </h1>
-              <div className={styles.excerpt}>
-                {post.excerpt}
-              </div>
+              <h1>{post.title}</h1>
+              <div className={styles.excerpt}>{post.excerpt}</div>
               <div className={styles.bottom}>
                 <Link href={`/author/${post.author.slug.current}`}>
                   {post.author.name}
@@ -77,17 +104,12 @@ export default function Post(props) {
                 <p>{formattedDate}</p>
               </div>
             </div>
-
-          </> :
-
+          </>
+        ) : (
           <>
             <div className={`${styles.top}`}>
-              <h1>
-                {post.title}
-              </h1>
-              <div className={styles.excerpt}>
-                {post.excerpt}
-              </div>
+              <h1>{post.title}</h1>
+              <div className={styles.excerpt}>{post.excerpt}</div>
               <div className={styles.bottom}>
                 <Link href={`/author/${post.author.slug.current}`}>
                   {post.author.name}
@@ -96,23 +118,38 @@ export default function Post(props) {
               </div>
             </div>
             <div className={`${styles.imageWrapper} imageWrapper`}>
-              <img src={post?.mainImage.blurDataURL} alt="" decoding="async" loading="lazy" className="cover-image" />
+              <img
+                src={post?.mainImage.blurDataURL}
+                alt=""
+                decoding="async"
+                loading="lazy"
+                className="cover-image"
+              />
               <picture>
-                <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`} media="(min-width: 768px)" />
-                <source srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`} media="(max-width: 767px)" />
+                <source
+                  srcSet={`${post?.mainImage.asset.url}?auto=format&w=600&q=90, ${post?.mainImage.asset.url}?auto=format&w=1400&q=90 2x`}
+                  media="(min-width: 768px)"
+                />
+                <source
+                  srcSet={`${post?.mainImage.asset.url}?auto=format&w=550&q=100`}
+                  media="(max-width: 767px)"
+                />
                 {/*<img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad}/>*/}
-                <img alt="" decoding="async" loading="lazy" className="cover-image" />
+                <img
+                  alt=""
+                  decoding="async"
+                  loading="lazy"
+                  className="cover-image"
+                />
               </picture>
               <figcaption className={`imageCaption`}>
                 {post?.mainImage.caption && (
-                  <span>
-                    {post?.mainImage.caption}
-                  </span>
+                  <span>{post?.mainImage.caption}</span>
                 )}
               </figcaption>
             </div>
           </>
-        }
+        )}
       </section>
 
       <section className={styles.postBody}>
@@ -124,7 +161,7 @@ export default function Post(props) {
       {/* For convenience showing comment component regardless of a user's subscription status
       so that it can be styled  */}
 
-      {postId && <Comment postId={1}/>}
+      {postId && <Comment postId={1} />}
 
       {/* Conditionally showing comment component based on a user's subscription status */}
 

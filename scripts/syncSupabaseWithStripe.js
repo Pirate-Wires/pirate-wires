@@ -2,8 +2,8 @@ const {
   getAllSupabaseUsers,
   getAllStripeCustomers,
   updateSupabaseFromStripe,
-  getAllStripeSubscriptions
-} = require('./utils');
+  getAllStripeSubscriptions,
+} = require("./utils");
 
 const syncSupabaseWithStripe = async () => {
   try {
@@ -11,8 +11,8 @@ const syncSupabaseWithStripe = async () => {
     const customers = await getAllStripeCustomers();
     const subscriptions = await getAllStripeSubscriptions();
 
-    console.log('Start syncing Supabase users with Stripe customers...');
-    await updateSupabaseFromStripe({ users, customers, subscriptions });
+    console.log("Start syncing Supabase users with Stripe customers...");
+    await updateSupabaseFromStripe({users, customers, subscriptions});
 
     process.exit(0);
   } catch (err) {
@@ -24,5 +24,5 @@ const syncSupabaseWithStripe = async () => {
 syncSupabaseWithStripe();
 
 module.exports = {
-  syncSupabaseWithStripe
+  syncSupabaseWithStripe,
 };

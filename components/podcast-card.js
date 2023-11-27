@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { cx } from "@/utils/all";
-import { urlForImage } from "@/lib/sanity/image";
+import {cx} from "@/utils/all";
+import {urlForImage} from "@/lib/sanity/image";
 import Link from "next/link";
 import {useDateFormatter} from "@/hooks/useDateFormatter";
 
@@ -11,28 +11,19 @@ export default function PodcastCard({
   pathPrefix,
   preloadImage,
   fontSize,
-  fontWeight }) {
+  fontWeight,
+}) {
   // console.log(podcast);
-  const imageProps = podcast?.mainImage
-    ? urlForImage(podcast.mainImage)
-    : null;
+  const imageProps = podcast?.mainImage ? urlForImage(podcast.mainImage) : null;
   const AuthorimageProps = podcast?.author?.image
     ? urlForImage(podcast.author.image)
     : null;
   return (
-
-
-    <div
-      className={cx(
-        " group",
-        minimal && "grid gap-10 md:grid-cols-2"
-      )}>
-
+    <div className={cx(" group", minimal && "grid gap-10 md:grid-cols-2")}>
       <div
         className={cx(
-          " overflow-hidden transition-all bg-gray-100 rounded-xs dark:bg-gray-800   hover:scale-105"
+          " overflow-hidden transition-all bg-gray-100 rounded-xs dark:bg-gray-800   hover:scale-105",
         )}>
-
         {/* <Link
           className={cx(
             "relative block",
@@ -87,11 +78,12 @@ export default function PodcastCard({
               fontWeight === "normal"
                 ? "text-black font-medium  line-clamp-2 tracking-normal"
                 : "font-semibold leading-snug tracking-tight",
-              "mt-2    dark:text-white"
+              "mt-2    dark:text-white",
             )}>
             <Link
-              href={`/podcast/${pathPrefix ? `${pathPrefix}/` : ""}${podcast.slug.current
-                }`}>
+              href={`/podcast/${pathPrefix ? `${pathPrefix}/` : ""}${
+                podcast.slug.current
+              }`}>
               <span
                 className="bg-gradient-to-r from-gray-500 to-gray-300 dark:from-purple-800 dark:to-purple-900
       bg-[length:0px_1px]
@@ -109,8 +101,9 @@ export default function PodcastCard({
             {podcast.excerpt && (
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
                 <Link
-                  href={`/podcast/${pathPrefix ? `${pathPrefix}/` : ""
-                    }${podcast.slug.current}`}
+                  href={`/podcast/${pathPrefix ? `${pathPrefix}/` : ""}${
+                    podcast.slug.current
+                  }`}
                   legacyBehavior>
                   {podcast.excerpt}
                 </Link>
@@ -137,9 +130,7 @@ export default function PodcastCard({
                     />
                   )}
                 </div>
-                <span className="text-sm truncate">
-                  {podcast.author.name}
-                </span>
+                <span className="text-sm truncate">{podcast.author.name}</span>
               </div>
             </Link>
             <span className="text-xs text-gray-300 dark:text-gray-600">
@@ -154,7 +145,5 @@ export default function PodcastCard({
         </div>
       </div>
     </div>
-
-
   );
 }

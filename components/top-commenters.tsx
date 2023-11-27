@@ -1,4 +1,4 @@
-// 
+//
 export default function TopCommenters() {
   return (
     <>
@@ -29,5 +29,5 @@ export default function TopCommenters() {
         <p className="text-xs">Likes | Comments</p>
       </div>
     </>
-  )
+  );
 }

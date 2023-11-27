@@ -1,14 +1,14 @@
 // /app/(website)/account/accountUI.tsx
-'use client';
-import Link from 'next/link';
-import { notFound, useRouter } from 'next/navigation';
-import styles from '@/styles/pages/account.module.scss';
-import SignOutButton from '@/components/ui/Navbar/SignOutButton';
-import Button from '@/components/ui/Button';
-import React, { useState, useEffect } from 'react';
-import { EmailPreferences } from './EmailPreferences';
-import CurrentSubscription from './CurrentSubscription';
-import ManageSubscriptionButton from './ManageSubscriptionButton';
+"use client";
+import Link from "next/link";
+import {notFound, useRouter} from "next/navigation";
+import styles from "@/styles/pages/account.module.scss";
+import SignOutButton from "@/components/ui/Navbar/SignOutButton";
+import Button from "@/components/ui/Button";
+import React, {useState, useEffect} from "react";
+import {EmailPreferences} from "./EmailPreferences";
+import CurrentSubscription from "./CurrentSubscription";
+import ManageSubscriptionButton from "./ManageSubscriptionButton";
 
 export default function AccountUI({
   tab,
@@ -18,21 +18,26 @@ export default function AccountUI({
   updateName,
   updateEmail,
   updateCommentsNotifications,
-  updateCommentsDisplayName
+  updateCommentsDisplayName,
 }) {
   const router = useRouter();
   const user = session?.user;
-  const tabItems = ['my-details', 'email-preferences', 'commenting', 'subscription-billing'];
+  const tabItems = [
+    "my-details",
+    "email-preferences",
+    "commenting",
+    "subscription-billing",
+  ];
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
-  const [detailUpdateMsg, setDetailUpdateMsg] = useState('');
+  const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
   const [lastUpdatedName, setLastUpdatedName] = useState(
-    userDetails?.full_name ?? ''
+    userDetails?.full_name ?? "",
   );
   const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(
-    userDetails?.comments_display_name ?? ''
+    userDetails?.comments_display_name ?? "",
   );
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(
-    user ? user.email : ''
+    user ? user.email : "",
   );
 
   useEffect(() => {
@@ -47,13 +52,13 @@ export default function AccountUI({
     router.push(`/account/${tabItems[idx]}`);
   };
 
-  const handleSubmitName = async (event) => {
+  const handleSubmitName = async event => {
     event.preventDefault();
-    setDetailUpdateMsg('');
+    setDetailUpdateMsg("");
 
     try {
       const formData = new FormData(event.target);
-      const newName = formData.get('name') as string;
+      const newName = formData.get("name") as string;
       if (newName === lastUpdatedName) {
         setDetailUpdateMsg(`Different name required`);
         return;
@@ -64,7 +69,7 @@ export default function AccountUI({
       setLastUpdatedName(newName);
       setDetailUpdateMsg(`User name updated successfully`);
       setTimeout(() => {
-        setDetailUpdateMsg('');
+        setDetailUpdateMsg("");
       }, 3000);
     } catch (error) {
       console.error(`Error updating name: ${error.message}`);
@@ -72,13 +77,13 @@ export default function AccountUI({
     }
   };
 
-  const handleSubmitCommentsDisplayName = async (event) => {
+  const handleSubmitCommentsDisplayName = async event => {
     event.preventDefault();
-    setDetailUpdateMsg('');
+    setDetailUpdateMsg("");
 
     try {
       const formData = new FormData(event.target);
-      const newDisplayName = formData.get('commentsDisplayName') as string; // Updated key
+      const newDisplayName = formData.get("commentsDisplayName") as string; // Updated key
 
       if (newDisplayName === lastUpdatedDisplayName) {
         setDetailUpdateMsg(`Different display name required`);
@@ -90,7 +95,7 @@ export default function AccountUI({
       setLastUpdatedDisplayName(newDisplayName);
       setDetailUpdateMsg(`Comments display name updated successfully`);
       setTimeout(() => {
-        setDetailUpdateMsg('');
+        setDetailUpdateMsg("");
       }, 3000);
     } catch (error) {
       console.error(`Error updating comments display name: ${error.message}`);
@@ -98,13 +103,13 @@ export default function AccountUI({
     }
   };
 
-  const handleSubmitEmail = async (event) => {
+  const handleSubmitEmail = async event => {
     event.preventDefault();
-    setDetailUpdateMsg('');
+    setDetailUpdateMsg("");
 
     try {
       const formData = new FormData(event.target);
-      const newEmail = formData.get('email') as string;
+      const newEmail = formData.get("email") as string;
       if (newEmail === lastUpdatedEmail) {
         setDetailUpdateMsg(`Different email required`);
         return;
@@ -120,12 +125,12 @@ export default function AccountUI({
     }
   };
 
-  const handleToggleCommentsNotifications = async (event) => {
+  const handleToggleCommentsNotifications = async event => {
     event.preventDefault();
     const formData = new FormData();
     formData.append(
-      'comments_notifications',
-      String(!userDetails?.comments_notifications)
+      "comments_notifications",
+      String(!userDetails?.comments_notifications),
     );
     await updateCommentsNotifications(formData);
   };
@@ -134,9 +139,9 @@ export default function AccountUI({
     <section className="accountContainer c-20">
       <div className={styles.top} data-name={userDetails?.full_name}>
         <h1>
-          {userDetails?.full_name && userDetails?.full_name !== ''
+          {userDetails?.full_name && userDetails?.full_name !== ""
             ? userDetails?.full_name
-            : 'Account'}
+            : "Account"}
         </h1>
       </div>
       <div className={styles.bottom}>
@@ -145,32 +150,28 @@ export default function AccountUI({
             className={`${styles.cardTrigger}`}
             onClick={() => {
               updateActiveTab(0);
-            }}
-          >
+            }}>
             My details
           </button>
           <button
             className={`${styles.cardTrigger}`}
             onClick={() => {
               updateActiveTab(1);
-            }}
-          >
+            }}>
             Email preferences
           </button>
           <button
             className={`${styles.cardTrigger}`}
             onClick={() => {
               updateActiveTab(2);
-            }}
-          >
+            }}>
             Commenting
           </button>
           <button
             className={`${styles.cardTrigger}`}
             onClick={() => {
               updateActiveTab(3);
-            }}
-          >
+            }}>
             Subscription & billing
           </button>
           <SignOutButton />
@@ -178,9 +179,9 @@ export default function AccountUI({
 
         <div className={`${styles.right}`}>
           <div
-            className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ''
-              } user-details`}
-          >
+            className={`${styles.cardWrapper} ${
+              tabVisibility[0] ? styles.activeCard : ""
+            } user-details`}>
             {!!detailUpdateMsg && (
               <h2 className={styles.tag}>{detailUpdateMsg}</h2>
             )}
@@ -191,7 +192,7 @@ export default function AccountUI({
                   type="text"
                   name="name"
                   className={styles.textInput}
-                  defaultValue={userDetails?.full_name ?? ''}
+                  defaultValue={userDetails?.full_name ?? ""}
                   placeholder="Your name"
                   maxLength={64}
                 />
@@ -207,7 +208,7 @@ export default function AccountUI({
                 <input
                   type="text"
                   name="email"
-                  defaultValue={user ? user.email : ''}
+                  defaultValue={user ? user.email : ""}
                   className={styles.textInput}
                   placeholder="Your email"
                   maxLength={64}
@@ -220,38 +221,36 @@ export default function AccountUI({
             <div className={`${styles.infoGroup} ${styles.textGroup}`}>
               <p className={styles.pseudoLabel}>Need help?</p>
               <p>
-                Send an email to{' '}
+                Send an email to{" "}
                 <a
                   href="mailto:support@piratewires.com"
-                  title="Send us an email"
-                >
+                  title="Send us an email">
                   support@piratewires.com
-                </a>{' '}
+                </a>{" "}
                 and we’ll help you out
               </p>
             </div>
           </div>
           <div
-            className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ''
-              } email-preferences`}
-          >
+            className={`${styles.cardWrapper} ${
+              tabVisibility[1] ? styles.activeCard : ""
+            } email-preferences`}>
             <EmailPreferences user={user} />
           </div>
           <div
-            className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ''
-              } email-notifictation-preferences`}
-          >
+            className={`${styles.cardWrapper} ${
+              tabVisibility[2] ? styles.activeCard : ""
+            } email-notifictation-preferences`}>
             <div className={styles.infoGroup}>
               <form
                 id="commentsDisplayNameForm"
-                onSubmit={handleSubmitCommentsDisplayName}
-              >
+                onSubmit={handleSubmitCommentsDisplayName}>
                 <label>Comments username</label>
                 <input
                   type="text"
                   name="commentsDisplayName"
                   className={styles.textInput}
-                  defaultValue={userDetails?.comments_display_name ?? ''}
+                  defaultValue={userDetails?.comments_display_name ?? ""}
                   placeholder="Your name"
                   maxLength={64}
                 />
@@ -260,8 +259,7 @@ export default function AccountUI({
               <Button
                 variant="slim"
                 type="submit"
-                form="commentsDisplayNameForm"
-              >
+                form="commentsDisplayNameForm">
                 Save
               </Button>
             </div>
@@ -276,7 +274,7 @@ export default function AccountUI({
                 onChange={() => {
                   // Toggle the comments_notifications value and update
                   updateCommentsNotifications(
-                    !userDetails?.comments_notifications
+                    !userDetails?.comments_notifications,
                   );
                 }}
               />
@@ -285,9 +283,9 @@ export default function AccountUI({
           </div>
 
           <div
-            className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ''
-              } subscription`}
-          >
+            className={`${styles.cardWrapper} ${
+              tabVisibility[3] ? styles.activeCard : ""
+            } subscription`}>
             <div className={styles.infoGroup}>Subscription & Billing</div>
 
             {userDetails?.subscription_id ? (
@@ -299,10 +297,7 @@ export default function AccountUI({
             ) : (
               <>
                 <h2>Not subscribed yet</h2>
-                <Link
-                  href="/subscribe"
-                  className={styles.subscriptionBtn}
-                >
+                <Link href="/subscribe" className={styles.subscriptionBtn}>
                   Subscribe
                 </Link>
               </>

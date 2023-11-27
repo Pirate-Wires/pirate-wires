@@ -1,11 +1,11 @@
-'use client';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { useState, useEffect, FormEvent } from 'react';
+"use client";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
+import React, {useState, useEffect, FormEvent} from "react";
 
-import styles from '@/styles/pages/subscribe.module.scss';
+import styles from "@/styles/pages/subscribe.module.scss";
 
-const StepOne = ({ email }) => {
+const StepOne = ({email}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -16,11 +16,11 @@ const StepOne = ({ email }) => {
   }, [email]);
 
   const sendOTP = async (email: string) => {
-    const response = await fetch('/api/otp/send', {
-      method: 'POST',
+    const response = await fetch("/api/otp/send", {
+      method: "POST",
       body: JSON.stringify({
-        email
-      })
+        email,
+      }),
     });
 
     if (!response.ok) {
@@ -36,12 +36,12 @@ const StepOne = ({ email }) => {
       setIsLoading(true);
 
       try {
-        const response = await fetch('/api/user', {
-          method: 'POST',
+        const response = await fetch("/api/user", {
+          method: "POST",
           body: JSON.stringify({
             email: currentEmail,
-            fullName: null
-          })
+            fullName: null,
+          }),
         });
 
         if (!response.ok) {
@@ -53,19 +53,21 @@ const StepOne = ({ email }) => {
 
         setError(null);
 
-        router.push(`/subscribe/step-3?email=${currentEmail}&customerId=${customerId}`);
+        router.push(
+          `/subscribe/step-3?email=${currentEmail}&customerId=${customerId}`,
+        );
       } catch (error) {
-        console.error('There was an error!', error);
+        console.error("There was an error!", error);
         setIsLoading(false);
         setError(error.message);
       }
     } else {
       const form = event.target as HTMLFormElement;
-      const fnameInput = form.elements.namedItem('fname') as HTMLInputElement;
+      const fnameInput = form.elements.namedItem("fname") as HTMLInputElement;
       const fname = fnameInput.value;
-      const lnameInput = form.elements.namedItem('lname') as HTMLInputElement;
+      const lnameInput = form.elements.namedItem("lname") as HTMLInputElement;
       const lname = lnameInput.value;
-      const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+      const emailInput = form.elements.namedItem("email") as HTMLInputElement;
       const email = emailInput.value;
       const fullName = `${fname} ${lname}`;
 
@@ -75,12 +77,12 @@ const StepOne = ({ email }) => {
       setIsLoading(true);
 
       try {
-        const response = await fetch('/api/user', {
-          method: 'POST',
+        const response = await fetch("/api/user", {
+          method: "POST",
           body: JSON.stringify({
             email,
-            fullName
-          })
+            fullName,
+          }),
         });
 
         if (!response.ok) {
@@ -93,9 +95,11 @@ const StepOne = ({ email }) => {
         setError(null);
 
         await sendOTP(email);
-        router.push(`/subscribe/step-2?email=${email}&customerId=${customerId}`);
+        router.push(
+          `/subscribe/step-2?email=${email}&customerId=${customerId}`,
+        );
       } catch (error) {
-        console.error('There was an error!', error);
+        console.error("There was an error!", error);
         setIsLoading(false);
         setError(error.message);
       }
@@ -113,7 +117,7 @@ const StepOne = ({ email }) => {
       <form onSubmit={handleSubmit}>
         {!!currentEmail ? (
           <>
-            <label>Email: {currentEmail || ''}</label>
+            <label>Email: {currentEmail || ""}</label>
           </>
         ) : (
           <>
@@ -129,15 +133,13 @@ const StepOne = ({ email }) => {
         )}
         <br />
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Loading...' : 'Continue'}
+          {isLoading ? "Loading..." : "Continue"}
         </button>
       </form>
 
       {!!currentEmail ? (
         <>
-          <p>
-            {/* ... */}
-          </p>
+          <p>{/* ... */}</p>
         </>
       ) : (
         <>
@@ -149,8 +151,6 @@ const StepOne = ({ email }) => {
           </p>
         </>
       )}
-
-
 
       {error && <p className={styles.error}>{error}</p>}
     </section>

@@ -6,7 +6,8 @@
   justify-content: center;
   min-height: 100dvh;
   position: relative;
-  h1, a {
+  h1,
+  a {
     z-index: 2;
     position: relative;
   }
@@ -47,7 +48,7 @@
 .imageWrapper {
   position: relative;
   width: 48%;
-  aspect-ratio: 1/.58;
+  aspect-ratio: 1/0.58;
   transform-style: preserve-3d;
   img {
     height: auto;

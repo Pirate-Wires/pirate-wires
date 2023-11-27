@@ -1,13 +1,13 @@
-import clsx from 'clsx';
-import { useRef } from 'react';
+import clsx from "clsx";
+import {useRef} from "react";
 import {
   mergeProps,
   useFocusRing,
   useSlider,
   useSliderThumb,
-  VisuallyHidden
-} from 'react-aria';
-import { useSliderState } from 'react-stately';
+  VisuallyHidden,
+} from "react-aria";
+import {useSliderState} from "react-stately";
 
 function parseTime(seconds) {
   let hours = Math.floor(seconds / 3600);
@@ -18,29 +18,28 @@ function parseTime(seconds) {
 
 function formatTime(seconds, totalSeconds = seconds) {
   let totalWithoutLeadingZeroes = totalSeconds.slice(
-    totalSeconds.findIndex((x) => x !== 0)
+    totalSeconds.findIndex(x => x !== 0),
   );
   return seconds
     .slice(seconds.length - totalWithoutLeadingZeroes.length)
-    .map((x) => x.toString().padStart(2, '0'))
-    .join(':');
+    .map(x => x.toString().padStart(2, "0"))
+    .join(":");
 }
 
 function Thumb(props) {
-  let { state, trackRef, focusProps, isFocusVisible, index } = props;
+  let {state, trackRef, focusProps, isFocusVisible, index} = props;
   let inputRef = useRef(null);
-  let { thumbProps, inputProps } = useSliderThumb(
-    { index, trackRef, inputRef },
-    state
+  let {thumbProps, inputProps} = useSliderThumb(
+    {index, trackRef, inputRef},
+    state,
   );
 
   return (
     <div
       className="absolute top-1/2 -tranblue-x-1/2"
       style={{
-        left: `${state.getThumbPercent(index) * 100}%`
-      }}
-    >
+        left: `${state.getThumbPercent(index) * 100}%`,
+      }}>
       <div
         {...thumbProps}
         onMouseDown={(...args) => {
@@ -52,12 +51,11 @@ function Thumb(props) {
           props.onChangeStart?.();
         }}
         className={clsx(
-          'h-4 rounded-full',
+          "h-4 rounded-full",
           isFocusVisible || state.isThumbDragging(index)
-            ? 'w-1.5 bg-blue-500'
-            : 'w-1 bg-blue-300'
-        )}
-      >
+            ? "w-1.5 bg-blue-500"
+            : "w-1 bg-blue-300",
+        )}>
         <VisuallyHidden>
           <input ref={inputRef} {...mergeProps(inputProps, focusProps)} />
         </VisuallyHidden>
@@ -69,12 +67,12 @@ function Thumb(props) {
 export function Slider(props) {
   let trackRef = useRef(null);
   let state = useSliderState(props);
-  let { groupProps, trackProps, labelProps, outputProps } = useSlider(
+  let {groupProps, trackProps, labelProps, outputProps} = useSlider(
     props,
     state,
-    trackRef
+    trackRef,
   );
-  let { focusProps, isFocusVisible } = useFocusRing();
+  let {focusProps, isFocusVisible} = useFocusRing();
 
   let currentTime = parseTime(state.getThumbValue(0));
   let totalTime = parseTime(state.getThumbMaxValue(0));
@@ -82,8 +80,7 @@ export function Slider(props) {
   return (
     <div
       {...groupProps}
-      className="absolute inset-x-0 bottom-full flex flex-auto touch-none items-center gap-6 md:relative"
-    >
+      className="absolute inset-x-0 bottom-full flex flex-auto touch-none items-center gap-6 md:relative">
       {props.label && (
         <label className="sr-only" {...labelProps}>
           {props.label}
@@ -100,14 +97,13 @@ export function Slider(props) {
           props.onChangeStart?.();
         }}
         ref={trackRef}
-        className="relative w-full bg-blue-100 md:rounded-full"
-      >
+        className="relative w-full bg-blue-100 md:rounded-full">
         <div
           className={clsx(
-            'h-2 md:rounded-l-xl md:rounded-r-md',
+            "h-2 md:rounded-l-xl md:rounded-r-md",
             isFocusVisible || state.isThumbDragging(0)
-              ? 'bg-blue-500'
-              : 'bg-blue-300'
+              ? "bg-blue-500"
+              : "bg-blue-300",
           )}
           style={{
             width:
@@ -115,9 +111,9 @@ export function Slider(props) {
                 ? 0
                 : `calc(${state.getThumbPercent(0) * 100}% - ${
                     isFocusVisible || state.isThumbDragging(0)
-                      ? '0.3125rem'
-                      : '0.25rem'
-                  })`
+                      ? "0.3125rem"
+                      : "0.25rem"
+                  })`,
           }}
         />
         <Thumb
@@ -134,13 +130,12 @@ export function Slider(props) {
           {...outputProps}
           aria-live="off"
           className={clsx(
-            'hidden rounded-md px-1 py-0.5 font-mono text-sm leading-6 md:block',
-            state.getThumbMaxValue(0) === 0 && 'opacity-0',
+            "hidden rounded-md px-1 py-0.5 font-mono text-sm leading-6 md:block",
+            state.getThumbMaxValue(0) === 0 && "opacity-0",
             isFocusVisible || state.isThumbDragging(0)
-              ? 'bg-blue-100 text-blue-900'
-              : 'text-blue-500'
-          )}
-        >
+              ? "bg-blue-100 text-blue-900"
+              : "text-blue-500",
+          )}>
           {formatTime(currentTime, totalTime)}
         </output>
         <span className="text-sm leading-6 text-blue-500" aria-hidden="true">
@@ -148,10 +143,9 @@ export function Slider(props) {
         </span>
         <span
           className={clsx(
-            'hidden rounded-md px-1 py-0.5 font-mono text-sm leading-6 text-blue-500 md:block',
-            state.getThumbMaxValue(0) === 0 && 'opacity-0'
-          )}
-        >
+            "hidden rounded-md px-1 py-0.5 font-mono text-sm leading-6 text-blue-500 md:block",
+            state.getThumbMaxValue(0) === 0 && "opacity-0",
+          )}>
           {formatTime(totalTime)}
         </span>
       </div>

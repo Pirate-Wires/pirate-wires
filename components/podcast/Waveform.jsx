@@ -1,27 +1,27 @@
-import { useId } from 'react'
+import {useId} from "react";
 
 function randomBetween(min, max, seed = 1) {
   return () => {
-    let rand = Math.sin(seed++) * 10000
-    rand = rand - Math.floor(rand)
-    return Math.floor(rand * (max - min + 1) + min)
-  }
+    let rand = Math.sin(seed++) * 10000;
+    rand = rand - Math.floor(rand);
+    return Math.floor(rand * (max - min + 1) + min);
+  };
 }
 
 export function Waveform(props) {
-  let id = useId()
+  let id = useId();
   let bars = {
     total: 100,
     width: 2,
     gap: 2,
     minHeight: 40,
     maxHeight: 100,
-  }
+  };
 
   let barHeights = Array.from(
-    { length: bars.total },
-    randomBetween(bars.minHeight, bars.maxHeight)
-  )
+    {length: bars.total},
+    randomBetween(bars.minHeight, bars.maxHeight),
+  );
 
   return (
     <svg aria-hidden="true" {...props}>
@@ -42,9 +42,8 @@ export function Waveform(props) {
           id={`${id}-pattern`}
           width={bars.total * bars.width + bars.total * bars.gap}
           height="100%"
-          patternUnits="userSpaceOnUse"
-        >
-          {Array.from({ length: bars.total }, (_, index) => (
+          patternUnits="userSpaceOnUse">
+          {Array.from({length: bars.total}, (_, index) => (
             <rect
               key={index}
               width={bars.width}
@@ -63,5 +62,5 @@ export function Waveform(props) {
         opacity="0.25"
       />
     </svg>
-  )
+  );
 }

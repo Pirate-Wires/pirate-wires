@@ -717,7 +717,7 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          args: { [key: string]: any };
+          args: {[key: string]: any};
         };
         header: {
           /** Preference */
