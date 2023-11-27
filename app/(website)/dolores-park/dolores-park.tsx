@@ -11,7 +11,7 @@ export default function DoloresPark({
   publicationPosts,
   publicationNewsletters,
   user,
-  globalFields
+  globalFields,
 }) {
   useScrollBasedAnims();
   return (

@@ -113,7 +113,10 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
 
       <PodcastCallout videoLink={pageData.podcastCalloutVid} />
 
-      <NewsletterCallout newsletterData={newsletterData} globalFields={globalFields} />
+      <NewsletterCallout
+        newsletterData={newsletterData}
+        globalFields={globalFields}
+      />
 
       {whitePillPosts && (
         <div className="theme-color pt-40 pb-20 white-pill">
@@ -371,8 +374,8 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                   fill="black"
                 />
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M1113.01 59.9791L1083.32 36.1688L1090.74 102.838L1230.39 102.838L1241.66 102.838L1392.58 102.838L1400 36.1688L1370.31 59.9791L1364.13 20.6921L1334.44 55.2171L1315.88 12.3585L1286.19 43.3119L1275.06 5.21536L1241.66 48.074L1241.66 48.0909V48.074L1208.26 5.21536L1197.13 43.3119L1167.44 12.3585L1148.88 55.2171L1119.19 20.6921L1113.01 59.9791Z"
                   fill="black"
                 />

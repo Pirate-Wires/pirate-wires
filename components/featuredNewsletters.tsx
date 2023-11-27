@@ -5,7 +5,12 @@ import useEmblaCarousel from "embla-carousel-react";
 import {useEffect, useState, FormEvent} from "react";
 import Link from "next/link";
 
-export default function FeaturedNewsletters({newsletters, section, description, user}) {
+export default function FeaturedNewsletters({
+  newsletters,
+  section,
+  description,
+  user,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -109,7 +114,10 @@ export default function FeaturedNewsletters({newsletters, section, description, 
     }
   };
   return (
-    <section className={`${styles.featuredNewsletters} ${section === "Wires" ? styles.wiresVertical : ""} c-20 pb-40 pt-20`}>
+    <section
+      className={`${styles.featuredNewsletters} ${
+        section === "Wires" ? styles.wiresVertical : ""
+      } c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>

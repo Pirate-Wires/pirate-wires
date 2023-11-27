@@ -13,7 +13,7 @@ export default function Industry({
   globalFields,
   user,
 }) {
-  console.log(globalFields)
+  console.log(globalFields);
   useScrollBasedAnims();
   return (
     <>
