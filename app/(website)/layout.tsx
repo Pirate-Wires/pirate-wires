@@ -3,8 +3,6 @@ import {getGlobalFields, getSettings} from "@/lib/sanity/client";
 import {urlForImage} from "@/lib/sanity/image";
 import React from "react";
 import {getSession, getUserDetails, getProfile} from "./supabase-server";
-import Script from 'next/script';
-import { GoogleTagManager } from '@next/third-parties/google'
 export async function sharedMetaData(params) {
   const settings = await getSettings();
 
