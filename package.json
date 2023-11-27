@@ -63,6 +63,7 @@
     "fs": "0.0.1-security",
     "get-video-id": "^3.6.5",
     "gsap": "^3.12.2",
+    "husky": "^8.0.3",
     "ismobilejs": "^1.1.1",
     "joi": "^17.11.0",
     "kickbox": "^2.0.4",
@@ -108,7 +109,7 @@
     "eslint-config-sanity": "^6.0.0",
     "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.31",
-    "prettier": "^2.8.8",
+    "prettier": "^3.1.0",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "sharp": "^0.32.6",
@@ -117,10 +118,12 @@
     "vercel": "^32.5.0",
     "webpack": "^5.89.0"
   },
-  "prettier": {
-    "arrowParens": "always",
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "none"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "prettier --write"
   }
 }
