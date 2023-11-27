@@ -147,10 +147,10 @@ export default function AuthUI() {
                     Are you here from Substack?
                 </h3>
                 <p>If you’ve been a subscriber of Pirate Wires while we were published on Substack, then you already have an account! Just go to the Sign In page and enter your email to get started.</p>
-                {/* <Link
+                <Link
                     href="/sign-in-github"
                     style={{ textDecoration: 'underline' }}
-                >Dev: GitHub Sign-in (OTP under construction)</Link> */}
+                >Dev: GitHub Sign-in (OTP under construction)</Link>
 
             </div>
 
