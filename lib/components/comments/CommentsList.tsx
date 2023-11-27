@@ -70,7 +70,7 @@ const CommentsList = ({
   if (error || commentsError) {
     console.log(error);
     return (
-      <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
+      <div className={styles.errorMessage}>
         An error occurred.
       </div>
     );
@@ -78,8 +78,8 @@ const CommentsList = ({
 
   if (!isLoadingInitialData && !rootComment) {
     return (
-      <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
-        This post does not exist.
+      <div className={styles.errorMessage}>
+        Post not found.
       </div>
     );
   }

@@ -72,6 +72,12 @@
 .commentsTop + .newCommentForm {
   margin-top: 0;
 }
+.errorMessage {
+  font-family: $neueReg;
+  color: #cc0000;
+  @include get-vw-small-increase(font-size, 15px, 15px);
+  @include get-vw-small-increase(margin-top, 20px, 20px);
+}
 .newCommentForm {
   display: flex;
   width: 100%;
