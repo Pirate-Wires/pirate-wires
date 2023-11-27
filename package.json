@@ -19,8 +19,8 @@
     "sync:supabase-stripe": "node scripts/syncStripeWithSupabase",
     "sync:cio-supabase": "node scripts/syncSupabaseWithCio",
     "sync:supabase-cio": "node scripts/syncCioWithSupabase",
+    "sync:sanity-supabase": "node scripts/syncSanity",
     "sync": "node scripts/syncDB",
-    "syncsanity": "node scripts/syncSanity",
     "remove:stripe-duplicates": "node scripts/removeDuplicatedStripeCustomer",
     "prepare": "husky install"
   },

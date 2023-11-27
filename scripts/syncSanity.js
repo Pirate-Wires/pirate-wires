@@ -31,7 +31,7 @@ const createSupabasePost = async postData => {
     console.error(`Error inserting post: ${error.message}`);
     return;
   }
-  console.log(`Insert post successfully: ${data}`);
+  console.log(`Insert post successfully: ${postData.slug}`);
 };
 
 client
@@ -45,7 +45,7 @@ client
         content: "content",
         parentId: null,
         isPublished: true,
-        authorId: `4d83545c-72a9-4dbe-98ad-45785b5fbeb3`,
+        authorId: `bc4528f1-22f7-44a6-97c4-78bd54d33d11`,
       };
       //console.log(postData);
       await createSupabasePost(postData);
