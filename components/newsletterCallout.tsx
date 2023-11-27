@@ -155,7 +155,9 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
             <p className={`${styles.subtitle} martina-reg`}>
               {globalFields.pirateWiresTagline}
             </p>
-            <p className={styles.description}>{globalFields.pirateWiresDescription}</p>
+            <p className={styles.description}>
+              {globalFields.pirateWiresDescription}
+            </p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected1">Selected</label>
@@ -173,14 +175,14 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
           <div
             className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`}
             onClick={clickInnerInput}>
-            <p className={styles.eyebrow}>
-              {globalFields.whitePillFrequency}
-            </p>
+            <p className={styles.eyebrow}>{globalFields.whitePillFrequency}</p>
             <p className={styles.title}>The White Pill</p>
             <p className={`${styles.subtitle} martina-reg`}>
               {globalFields.whitePillTagline}
             </p>
-            <p className={styles.description}>{globalFields.whitePillDescription}</p>
+            <p className={styles.description}>
+              {globalFields.whitePillDescription}
+            </p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected2">Selected</label>
@@ -198,14 +200,14 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
           <div
             className={`${styles.tile} ${styles.industry} newsletter-tile mb-40`}
             onClick={clickInnerInput}>
-            <p className={styles.eyebrow}>
-              {globalFields.industryFrequency}
-            </p>
+            <p className={styles.eyebrow}>{globalFields.industryFrequency}</p>
             <p className={styles.title}>The Industry</p>
             <p className={`${styles.subtitle} martina-reg`}>
               {globalFields.industryTagline}
             </p>
-            <p className={styles.description}>{globalFields.industryDescription}</p>
+            <p className={styles.description}>
+              {globalFields.industryDescription}
+            </p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected3">Selected</label>
@@ -227,8 +229,12 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
               {globalFields.doloresParkFrequency}
             </p>
             <p className={styles.title}>Dolores Park</p>
-            <p className={`${styles.subtitle} martina-reg`}>{globalFields.doloresParkTagline}</p>
-            <p className={styles.description}>{globalFields.doloresParkDescription}</p>
+            <p className={`${styles.subtitle} martina-reg`}>
+              {globalFields.doloresParkTagline}
+            </p>
+            <p className={styles.description}>
+              {globalFields.doloresParkDescription}
+            </p>
             <div className={styles.tileBottom}>
               <div className={styles.checkboxWrapper}>
                 <label htmlFor="selected4">Selected</label>

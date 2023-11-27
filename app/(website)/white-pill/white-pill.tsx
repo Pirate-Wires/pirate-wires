@@ -10,7 +10,7 @@ export default function WhitePill({
   publicationPosts,
   publicationNewsletters,
   user,
-  globalFields
+  globalFields,
 }) {
   useScrollBasedAnims();
   return (
