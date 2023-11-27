@@ -24,15 +24,13 @@ export const useHoverArrow = () => {
 
       exitTime = timeline.duration();
 
-      timeline
-        .set(svg, {xPercent: -200, yPercent: 200, scale: 0.3})
-        .to(svg, {
-          xPercent: 0,
-          yPercent: 0,
-          scale: 1,
-          ease: "expo.out",
-          duration: 0.45,
-        });
+      timeline.set(svg, {xPercent: -200, yPercent: 200, scale: 0.3}).to(svg, {
+        xPercent: 0,
+        yPercent: 0,
+        scale: 1,
+        ease: "expo.out",
+        duration: 0.45,
+      });
 
       el.addEventListener("mouseenter", () => {
         if (timeline.time() < exitTime) {
