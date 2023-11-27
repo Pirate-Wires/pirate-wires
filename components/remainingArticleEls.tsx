@@ -3,7 +3,7 @@ import articleCountStyles from "./_styles/articleCountEls.module.scss";
 import Link from "next/link";
 import React from "react";
 
-export default function RemainingArticleEls({relatedArticles}) {
+export default function RemainingArticleEls() {
   const showRemainingArticles = false;
   const showNoMoreArticles = false;
   return (

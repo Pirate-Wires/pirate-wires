@@ -14,7 +14,7 @@ export default function Comment({postId}): JSX.Element {
   return (
     <CommentsContextProvider postId={postId}>
       {/* <ModalProvider> */}
-      <section className={`${styles.commentsSection} c-20`}>
+      <section className={`${styles.commentsSection}`}>
         <div className={`${styles.commentsTop} pb-20`}>
           <div className={`${styles.buttonGroup}`}>
             <HeartButton />

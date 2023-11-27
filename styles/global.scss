@@ -75,6 +75,11 @@
   &.reducedHeaderPage {
     padding-top: 50px;
   }
+  &.article {
+    .relatedArticles, footer {
+      background: #D9D9D9;
+    }
+  }
   &.search {
     min-height: 100vh;
     display: flex;
@@ -1263,4 +1268,8 @@ footer {
 
 .mb-40 {
   @include get-vw(margin-bottom, 40px, 40px);
+}
+
+.mt-40 {
+  @include get-vw(margin-top, 40px, 40px);
 }
