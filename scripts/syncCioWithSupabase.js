@@ -2,15 +2,15 @@ const {
   getAllSupabaseUsers,
   getAllCioCustomers,
   updateCioFromSupabase,
-} = require('./utils');
+} = require("./utils");
 
 const syncCioWithSupabase = async () => {
   try {
     const users = await getAllSupabaseUsers();
     const customers = await getAllCioCustomers();
 
-    console.log('Start syncing Customer.io customers with Supabase users...');
-    await updateCioFromSupabase({ users, customers });
+    console.log("Start syncing Customer.io customers with Supabase users...");
+    await updateCioFromSupabase({users, customers});
 
     process.exit(0);
   } catch (err) {
@@ -22,5 +22,5 @@ const syncCioWithSupabase = async () => {
 syncCioWithSupabase();
 
 module.exports = {
-  syncCioWithSupabase
+  syncCioWithSupabase,
 };

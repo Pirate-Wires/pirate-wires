@@ -52,7 +52,7 @@
   font-family: $neueMed;
   @include get-vw-small-increase(font-size, 14px, 14px);
   @include get-vw-small-increase(margin-right, 7px, 7px);
-  color: #1C1C1C;
+  color: #1c1c1c;
 }
 .postedDate {
   font-family: $neueReg;
@@ -72,12 +72,19 @@
 .commentsTop + .newCommentForm {
   margin-top: 0;
 }
+.errorMessage {
+  font-family: $neueReg;
+  color: #cc0000;
+  @include get-vw-small-increase(font-size, 15px, 15px);
+  @include get-vw-small-increase(margin-top, 20px, 20px);
+}
 .newCommentForm {
   display: flex;
   width: 100%;
   position: relative;
   margin-top: 15px;
-  label, textarea {
+  label,
+  textarea {
     width: 100%;
     height: 100%;
     display: flex;
@@ -89,7 +96,7 @@
     min-width: 100%;
     max-height: 800px;
     border: 1px solid #060606;
-    background: #F8F8F8;
+    background: #f8f8f8;
     font-size: 15px;
     line-height: 1.5;
     @include get-vw-small-increase(min-height, 107px, 107px);
@@ -108,17 +115,16 @@
 .commentList {
   margin-top: 40px;
   > .threadWrapper {
-    border-left: 1px solid #BEBEBE;
+    border-left: 1px solid #bebebe;
   }
 }
 .childComment {
-  border-left: 1px solid #BEBEBE;
+  border-left: 1px solid #bebebe;
   @include get-vw-small-increase(margin-left, 20px, 20px);
   @include get-vw-small-increase(margin-top, 30px, 30px);
   @include get-vw-small-increase(margin-bottom, 30px, 30px);
 }
 .nestedComments {
-
 }
 .threadWrapper {
   @include get-vw-small-increase(gap, 15px, 15px);
@@ -157,7 +163,6 @@
   color: white;
   padding: 10px 20px 10px 20px;
   position: absolute;
-
 }
 
 .moreButtonWrapper {

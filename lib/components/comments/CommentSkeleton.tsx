@@ -1,8 +1,8 @@
-import React from 'react';
-import cn from 'classnames';
+import React from "react";
+import cn from "classnames";
 
 const generateRandom = (max: number, min: number): number => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return Math.random() * (max - min) + min;
   }
 
@@ -15,17 +15,16 @@ interface Props {
   style?: any;
 }
 
-const Skeleton = ({ children = null, className, style }: Props): JSX.Element => (
+const Skeleton = ({children = null, className, style}: Props): JSX.Element => (
   <div
-    className={cn('skeleton dark:skeleton-dark', className)}
+    className={cn("skeleton dark:skeleton-dark", className)}
     style={style}
-    suppressHydrationWarning
-  >
+    suppressHydrationWarning>
     {children}
   </div>
 );
 
-const CommentSkeleton = ({ innerRef = null }) => (
+const CommentSkeleton = ({innerRef = null}) => (
   <div className="" ref={innerRef}>
     <div className="">
       <Skeleton className=""></Skeleton>

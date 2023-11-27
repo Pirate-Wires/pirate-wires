@@ -1,13 +1,13 @@
-require('dotenv').config({ path: './.env.local' });
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const { getAllStripeCustomers } = require('./utils');
+require("dotenv").config({path: "./.env.local"});
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const {getAllStripeCustomers} = require("./utils");
 
 const removeDuplicateCustomers = async () => {
   const allCustomers = await getAllStripeCustomers();
   const customersByEmail = new Map();
 
   // Grouping customers by email
-  allCustomers.forEach((customer) => {
+  allCustomers.forEach(customer => {
     if (customer.email) {
       if (!customersByEmail.has(customer.email)) {
         customersByEmail.set(customer.email, []);
@@ -31,17 +31,17 @@ const removeDuplicateCustomers = async () => {
       for (const customer of sortedCustomers.slice(1)) {
         await stripe.customers.del(customer.id);
         console.log(
-          `Deleted duplicate customer with email, ID: ${customer.email}, ${customer.id}`
+          `Deleted duplicate customer with email, ID: ${customer.email}, ${customer.id}`,
         );
       }
     }
   }
 
-  console.log('Duplicate removal process completed.');
+  console.log("Duplicate removal process completed.");
 };
 
 removeDuplicateCustomers();
 
 module.exports = {
-  removeDuplicateCustomers
+  removeDuplicateCustomers,
 };

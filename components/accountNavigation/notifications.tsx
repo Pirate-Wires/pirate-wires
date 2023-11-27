@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 
 type CheckboxState = {
   podcasts: boolean;
@@ -18,15 +18,17 @@ const initialCheckboxState: CheckboxState = {
 
 export default function Notifications() {
   const [allInChecked, setAllInChecked] = useState(false);
-  const [checkboxes, setCheckboxes] = useState<CheckboxState>(initialCheckboxState);
-  const [prevCheckboxState, setPrevCheckboxState] = useState<CheckboxState | null>(null);
+  const [checkboxes, setCheckboxes] =
+    useState<CheckboxState>(initialCheckboxState);
+  const [prevCheckboxState, setPrevCheckboxState] =
+    useState<CheckboxState | null>(null);
   const [saving, setSaving] = useState(false);
 
   const handleAllInToggle = () => {
     setAllInChecked(!allInChecked);
 
     if (!allInChecked) {
-      setPrevCheckboxState({ ...checkboxes });
+      setPrevCheckboxState({...checkboxes});
       setCheckboxes({
         podcasts: true,
         wires: true,
@@ -41,7 +43,7 @@ export default function Notifications() {
   };
 
   const handleCheckboxToggle = (checkboxName: keyof CheckboxState) => {
-    setCheckboxes((prevCheckboxes) => ({
+    setCheckboxes(prevCheckboxes => ({
       ...prevCheckboxes,
       [checkboxName]: !prevCheckboxes[checkboxName],
     }));
@@ -49,7 +51,9 @@ export default function Notifications() {
 
   useEffect(() => {
     if (allInChecked) {
-      const allChecked = Object.values(checkboxes).every((isChecked) => isChecked);
+      const allChecked = Object.values(checkboxes).every(
+        isChecked => isChecked,
+      );
       if (!allChecked) {
         setAllInChecked(false);
       }
@@ -61,7 +65,11 @@ export default function Notifications() {
       <h1>Notifications</h1>
       <div>
         <label>
-          <input type="checkbox" checked={allInChecked} onChange={handleAllInToggle} />
+          <input
+            type="checkbox"
+            checked={allInChecked}
+            onChange={handleAllInToggle}
+          />
           All In
         </label>
       </div>

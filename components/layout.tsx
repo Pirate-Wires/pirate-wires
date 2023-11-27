@@ -1,14 +1,14 @@
 import React from "react";
 import Head from "next/head";
-import { NextSeo } from "next-seo";
-import { urlForImage } from "@/lib/sanity/image";
+import {NextSeo} from "next-seo";
+import {urlForImage} from "@/lib/sanity/image";
 import Navbar from "@/components/navbar";
 // import defaultOG from "../public/img/og-default.jpg";
 
 import Footer from "@/components/footer";
 
 export default function Layout(props) {
-  const { children } = props;
+  const {children} = props;
   const ogimage = urlForImage(props?.openGraphImage) ?? "";
   return (
     <>
@@ -29,13 +29,12 @@ export default function Layout(props) {
               url: ogimage as string,
               width: 800,
               height: 600,
-              alt: props.title
-            }
+              alt: props.title,
+            },
           ],
-          site_name: props.title
+          site_name: props.title,
         }}
       />
-
 
       <div>{children}</div>
 

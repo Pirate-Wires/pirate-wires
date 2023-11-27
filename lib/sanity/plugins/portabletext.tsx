@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText as PortableTextComponent } from "@portabletext/react";
-import { urlForImage } from "@/lib/sanity/image";
+import {PortableText as PortableTextComponent} from "@portabletext/react";
+import {urlForImage} from "@/lib/sanity/image";
 import Iframe from "react-iframe";
 import articleStyles from "@/styles/pages/article.module.scss";
 import getVideoId from "get-video-id";
-import { cx } from "@/utils/all";
+import {cx} from "@/utils/all";
 
 import Refractor from "react-refractor";
 // @ts-ignore
@@ -27,7 +27,7 @@ Refractor.registerLanguage(css);
 Refractor.registerLanguage(bash);
 
 // Barebones lazy-loaded image component
-const ImageComponent = ({ value }) => {
+const ImageComponent = ({value}) => {
   // const {width, height} = getImageDimensions(value)
   return (
     <>
@@ -38,17 +38,18 @@ const ImageComponent = ({ value }) => {
         className="object-cover"
         sizes="800px"
       />
-      {value.caption ?
+      {value.caption ? (
         <span className={articleStyles.caption}>
           <PortableText value={value.caption} />
-        </span> :
+        </span>
+      ) : (
         ""
-      }
+      )}
     </>
   );
 };
 
-const PortableTextTable = ({ value }) => {
+const PortableTextTable = ({value}) => {
   const [head, ...rows] = value.table.rows;
 
   return (
@@ -75,7 +76,7 @@ const PortableTextTable = ({ value }) => {
   );
 };
 
-const Code = ({ value }) => {
+const Code = ({value}) => {
   return (
     <Refractor
       // In this example, `props` is the value of a `code` field
@@ -86,12 +87,12 @@ const Code = ({ value }) => {
   );
 };
 
-const IframePreview = ({ value }) => {
-  const { url, height } = value;
+const IframePreview = ({value}) => {
+  const {url, height} = value;
   if (!url) {
     return <p>Missing Embed URL</p>;
   }
-  const { id, service } = getVideoId(url);
+  const {id, service} = getVideoId(url);
 
   const isYoutubeVideo = id && service === "youtube";
 
@@ -120,31 +121,23 @@ const components = {
     image: ImageComponent,
     code: Code,
     embed: IframePreview,
-    tables: PortableTextTable
+    tables: PortableTextTable,
   },
   marks: {
-    center: props => (
-      <div className="text-center">{props.children}</div>
-    ),
+    center: props => <div className="text-center">{props.children}</div>,
     highlight: props => (
-      <span className="font-bold text-blue-500">
-        {props.children}
-      </span>
+      <span className="font-bold text-blue-500">{props.children}</span>
     ),
-    link: ({ children, value }) => {
-      const rel = !value.href.startsWith("/")
-        ? "noopener"
-        : undefined;
-      const target = !value.href.startsWith("/")
-        ? "_blank"
-        : undefined;
+    link: ({children, value}) => {
+      const rel = !value.href.startsWith("/") ? "noopener" : undefined;
+      const target = !value.href.startsWith("/") ? "_blank" : undefined;
       return (
         <a href={value.href} rel={rel} target={target}>
           {children}
         </a>
       );
     },
-    internalLink: ({ children, value }) => {
+    internalLink: ({children, value}) => {
       if (!value || !value.slug || !value.slug.current) {
         // Render the children without a link if the value or slug is not available
         return <>{children}</>;
@@ -152,8 +145,8 @@ const components = {
 
       // If the value and slug are available, render the link
       return <Link href={`/p/${value.slug.current}`}>{children}</Link>;
-    }
-  }
+    },
+  },
 };
 // Set up Portable Text serialization
 export const PortableText = props => (

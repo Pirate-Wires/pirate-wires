@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import React, {useEffect, useState} from "react";
+import moment from "moment";
 
 const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
 const EXPIRES_MONTH = process.env.NEXT_PUBLIC_SUBSCRIBE_EXPIRES_MONTH;
 const TRIAL_PERIOD_DAYS = process.env.NEXT_PUBLIC_SUBSCRIBE_TRIAL_PERIOD_DAYS;
 
 const SubscriptionPlan = () => {
-  const [expireDateStr, setExpireDateStr] = useState('');
+  const [expireDateStr, setExpireDateStr] = useState("");
 
   useEffect(() => {
     const updateFormattedDate = () => {
       const expireDate = moment()
-        .add(TRIAL_PERIOD_DAYS, 'days')
-        .add(EXPIRES_MONTH, 'months');
-      const formattedDate = expireDate.format('MM/DD/YYYY hh:mm A');
+        .add(TRIAL_PERIOD_DAYS, "days")
+        .add(EXPIRES_MONTH, "months");
+      const formattedDate = expireDate.format("MM/DD/YYYY hh:mm A");
       setExpireDateStr(formattedDate);
     };
 

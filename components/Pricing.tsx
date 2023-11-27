@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import Button from '@/components/ui/Button';
-import type { Database } from '@/types/supabase';
-import { postData } from '@/utils/helpers';
-import { getStripe } from '@/utils/stripe-client';
-import { Session, User } from '@supabase/supabase-js';
-import cn from 'classnames';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import Button from "@/components/ui/Button";
+import type {Database} from "@/types/supabase";
+import {postData} from "@/utils/helpers";
+import {getStripe} from "@/utils/stripe-client";
+import {Session, User} from "@supabase/supabase-js";
+import cn from "classnames";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
 
-type Subscription = Database['public']['Tables']['subscriptions']['Row'];
-type Product = Database['public']['Tables']['products']['Row'];
-type Price = Database['public']['Tables']['prices']['Row'];
+type Subscription = Database["public"]["Tables"]["subscriptions"]["Row"];
+type Product = Database["public"]["Tables"]["products"]["Row"];
+type Price = Database["public"]["Tables"]["prices"]["Row"];
 interface ProductWithPrices extends Product {
   prices: Price[];
 }
@@ -29,44 +29,44 @@ interface Props {
   subscription: SubscriptionWithProduct | null;
 }
 
-type BillingInterval = 'lifetime' | 'year' | 'month';
+type BillingInterval = "lifetime" | "year" | "month";
 
 export default function Pricing({
   session,
   user,
   products,
-  subscription
+  subscription,
 }: Props) {
   const intervals = Array.from(
     new Set(
-      products.flatMap((product) =>
-        product?.prices?.map((price) => price?.interval)
-      )
-    )
+      products.flatMap(
+        product => product?.prices?.map(price => price?.interval),
+      ),
+    ),
   );
 
   // console.log('products', products);
   const router = useRouter();
   const [billingInterval, setBillingInterval] =
-    useState<BillingInterval>('month');
+    useState<BillingInterval>("month");
   const [priceIdLoading, setPriceIdLoading] = useState<string>();
 
   const handleCheckout = async (price: Price) => {
     setPriceIdLoading(price.id);
     if (!user) {
-      return router.push('/sign-in');
+      return router.push("/sign-in");
     }
     if (subscription) {
-      return router.push('/account');
+      return router.push("/account");
     }
     try {
-      const { sessionId } = await postData({
-        url: '/api/create-checkout-session',
-        data: { price }
+      const {sessionId} = await postData({
+        url: "/api/create-checkout-session",
+        data: {price},
       });
 
       const stripe = await getStripe();
-      stripe?.redirectToCheckout({ sessionId });
+      stripe?.redirectToCheckout({sessionId});
     } catch (error) {
       return alert((error as Error)?.message);
     } finally {
@@ -80,20 +80,17 @@ export default function Pricing({
         <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center"></div>
           <p className="text-md  sm:text-center">
-            No subscription pricing plans found. Create them in the{' '}
+            No subscription pricing plans found. Create them in the{" "}
             <a
               className="text-blue-500 hover:text-blue-500"
               href="https://dashboard.stripe.com/products"
               rel="noopener noreferrer"
-              target="_blank"
-            >
+              target="_blank">
               Stripe Dashboard
             </a>
             .
           </p>
         </div>
-
-
       </section>
     );
 
@@ -117,28 +114,25 @@ export default function Pricing({
               </div>
             </div>
             <div className="mt-6 space-y-4 sm:mt-12 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
-              {products[0].prices?.map((price) => {
+              {products[0].prices?.map(price => {
                 const priceString =
                   price.unit_amount &&
-                  new Intl.NumberFormat('en-US', {
-                    style: 'currency',
+                  new Intl.NumberFormat("en-US", {
+                    style: "currency",
                     currency: price.currency!,
-                    minimumFractionDigits: 0
+                    minimumFractionDigits: 0,
                   }).format(price.unit_amount / 100);
 
                 return (
                   <div
                     key={price.interval}
-                    className="divide-y rounded-xs shadow-sm divide-zinc-600 "
-                  >
+                    className="divide-y rounded-xs shadow-sm divide-zinc-600 ">
                     <div className="p-6">
                       <p>
                         <span className="text-5xl font-extrabold">
                           {priceString}
                         </span>
-                        <span className="text-base">
-                          /{price.interval}
-                        </span>
+                        <span className="text-base">/{price.interval}</span>
                       </p>
                       <p className="mt-4">{price.description}</p>
                       <Button
@@ -147,12 +141,11 @@ export default function Pricing({
                         disabled={false}
                         loading={priceIdLoading === price.id}
                         onClick={() => handleCheckout(price)}
-                        className="block w-full py-2 mt-12 text-sm font-semibold text-center  rounded-xs hover:bg-zinc-900 "
-                      >
+                        className="block w-full py-2 mt-12 text-sm font-semibold text-center  rounded-xs hover:bg-zinc-900 ">
                         {products[0].name ===
-                          subscription?.prices?.products?.name
-                          ? 'Manage'
-                          : 'Newsletters'}
+                        subscription?.prices?.products?.name
+                          ? "Manage"
+                          : "Newsletters"}
                       </Button>
                     </div>
                   </div>
@@ -160,7 +153,6 @@ export default function Pricing({
               })}
             </div>
           </div>
-
         </div>
       </section>
     );
@@ -170,55 +162,54 @@ export default function Pricing({
       <div className="max-w-6xl px-4 py-8 mx-auto sm:py-24 sm:px-6 lg:px-8">
         <div className="sm:flex sm:flex-col sm:align-center">
           <div className="relative self-center mt-6 rounded-xs p-0.5 flex sm:mt-8">
-            {intervals.includes('month') && (
+            {intervals.includes("month") && (
               <button
-                onClick={() => setBillingInterval('month')}
+                onClick={() => setBillingInterval("month")}
                 type="button"
-                className={`${billingInterval === 'month'
-                  ? 'relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm '
-                  : 'ml-0.5 relative w-1/2 border border-transparent '
-                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
-              >
+                className={`${
+                  billingInterval === "month"
+                    ? "relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm "
+                    : "ml-0.5 relative w-1/2 border border-transparent "
+                } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}>
                 Monthly billing
               </button>
             )}
-            {intervals.includes('year') && (
+            {intervals.includes("year") && (
               <button
-                onClick={() => setBillingInterval('year')}
+                onClick={() => setBillingInterval("year")}
                 type="button"
-                className={`${billingInterval === 'year'
-                  ? 'relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm '
-                  : 'ml-0.5 relative w-1/2 border border-transparent '
-                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
-              >
+                className={`${
+                  billingInterval === "year"
+                    ? "relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm "
+                    : "ml-0.5 relative w-1/2 border border-transparent "
+                } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}>
                 Yearly billing
               </button>
             )}
           </div>
         </div>
         <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
-          {products.map((product) => {
+          {products.map(product => {
             const price = product?.prices?.find(
-              (price) => price.interval === billingInterval
+              price => price.interval === billingInterval,
             );
             if (!price) return null;
-            const priceString = new Intl.NumberFormat('en-US', {
-              style: 'currency',
+            const priceString = new Intl.NumberFormat("en-US", {
+              style: "currency",
               currency: price.currency!,
-              minimumFractionDigits: 0
+              minimumFractionDigits: 0,
             }).format((price?.unit_amount || 0) / 100);
             return (
               <div
                 key={product.id}
                 className={cn(
-                  'rounded-xs shadow-sm divide-y divide-zinc-600 ',
+                  "rounded-xs shadow-sm divide-y divide-zinc-600 ",
                   {
-                    'border border-pink-500': subscription
+                    "border border-pink-500": subscription
                       ? product.name === subscription?.prices?.products?.name
-                      : product.name === 'Freelancer'
-                  }
-                )}
-              >
+                      : product.name === "Freelancer",
+                  },
+                )}>
                 <div className="p-6">
                   <h2 className="text-2xl font-semibold leading-6 ">
                     {product.name}
@@ -238,19 +229,15 @@ export default function Pricing({
                     disabled={!session}
                     loading={priceIdLoading === price.id}
                     onClick={() => handleCheckout(price)}
-                    className="block w-full py-2 mt-8 text-sm font-semibold text-center  rounded-xs hover:bg-zinc-900"
-                  >
-                    {subscription ? 'Manage' : 'Newsletters'}
+                    className="block w-full py-2 mt-8 text-sm font-semibold text-center  rounded-xs hover:bg-zinc-900">
+                    {subscription ? "Manage" : "Newsletters"}
                   </Button>
                 </div>
               </div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
 }
-
-

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Github = (props) => {
+const Github = props => {
   return (
     <svg {...props} viewBox="0 0 20 20">
       <path

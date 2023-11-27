@@ -1,4 +1,4 @@
-const TablePreview = ({ table }) => {
+const TablePreview = ({table}) => {
   if (!table) {
     return <p>Table: Add Values</p>;
   }
@@ -9,7 +9,7 @@ const TablePreview = ({ table }) => {
         <thead>
           <tr>
             {head.cells.map(cell => (
-              <th style={{ textAlign: "left" }} key={cell}>
+              <th style={{textAlign: "left"}} key={cell}>
                 {cell}
               </th>
             ))}
