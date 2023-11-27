@@ -3,17 +3,13 @@ import Script from "next/script";
 export default function TrackingScripts() {
   return (
     <>
-      <Script
-        strategy="afterInteractive"
-        data-site="JNIJRDXC"
-        src={`https://cdn.usefathom.com/script.js`}
-      />
+      <script src={`https://cdn.usefathom.com/script.js`} data-site="JNIJRDXC" async></script>
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=G-CT98L9VTFJ`}
       />
       <Script
-        id="gtag-init"
+        id="ga4-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -27,6 +23,7 @@ export default function TrackingScripts() {
       />
 
       <Script
+        id="gtag-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
@@ -41,6 +38,3 @@ export default function TrackingScripts() {
     </>
   );
 }
-
-
-
