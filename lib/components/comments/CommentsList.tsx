@@ -69,19 +69,11 @@ const CommentsList = ({
 
   if (error || commentsError) {
     console.log(error);
-    return (
-      <div className={styles.errorMessage}>
-        An error occurred.
-      </div>
-    );
+    return <div className={styles.errorMessage}>An error occurred.</div>;
   }
 
   if (!isLoadingInitialData && !rootComment) {
-    return (
-      <div className={styles.errorMessage}>
-        Post not found.
-      </div>
-    );
+    return <div className={styles.errorMessage}>Post not found.</div>;
   }
 
   return (

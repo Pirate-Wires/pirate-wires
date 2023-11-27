@@ -125,7 +125,8 @@ const schema = {
       name: "openGraphImage",
       type: "image",
       title: "Optional Meta Image",
-      description: "If not filled in, it will use the main image from the article",
+      description:
+        "If not filled in, it will use the main image from the article",
     }),
     defineField({
       title: "Related posts override",

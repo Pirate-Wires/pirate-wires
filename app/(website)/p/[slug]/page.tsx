@@ -37,7 +37,7 @@ export async function generateMetadata({params}) {
     : pageData.excerpt;
   const image = pageData.openGraphImage
     ? urlForImage(pageData.openGraphImage)?.src
-    : pageData.mainImage.asset.url
+    : pageData.mainImage.asset.url;
 
   return {
     title: title,
