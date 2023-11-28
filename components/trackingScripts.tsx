@@ -3,7 +3,10 @@ import Script from "next/script";
 export default function TrackingScripts() {
   return (
     <>
-      <script src={`https://cdn.usefathom.com/script.js`} data-site="JNIJRDXC" async></script>
+      <script
+        src={`https://cdn.usefathom.com/script.js`}
+        data-site="JNIJRDXC"
+        async></script>
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=G-CT98L9VTFJ`}
