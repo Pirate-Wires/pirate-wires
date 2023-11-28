@@ -26,7 +26,7 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "eslint",
-    "**/*": "prettier --write ."
+    "**/*": "prettier --write"
   },
   "dependencies": {
     "@headlessui/react": "^0.3.2",
