@@ -1,10 +1,10 @@
 // /app/(website)/sign-in/AuthUI.tsx
 "use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, {useState} from "react";
+import {useRouter} from "next/navigation";
 import Link from "next/link";
 
-import { useSupabase } from "@/app/(website)/supabase-provider";
+import {useSupabase} from "@/app/(website)/supabase-provider";
 
 import OTPInput from "./OTPInput";
 import EmailInput from "./EmailInput";
@@ -19,7 +19,7 @@ export default function AuthUI() {
   const [otpVisible, setOtpVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const { supabase } = useSupabase();
+  const {supabase} = useSupabase();
 
   const handleEmailSubmit = async e => {
     e.preventDefault();
@@ -35,15 +35,14 @@ export default function AuthUI() {
         throw new Error(`HTTP error! Status: ${getResponse.status}`);
       }
 
-      const { user } = await getResponse.json();
+      const {user} = await getResponse.json();
       if (!user) {
         // Import Link from "next/link" at the top of the file
 
         // Inside the handleEmailSubmit function, modify the error message to include a link
         throw new Error(
-          `You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`
+          `You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`,
         );
-
       }
 
       const sendResponse = await fetch("/api/otp/send", {
@@ -87,14 +86,14 @@ export default function AuthUI() {
 
       const password =
         process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const {error: signInError} = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (signInError) {
         console.error("Error signing in:", signInError);
-        return { error: signInError };
+        return {error: signInError};
       }
 
       setIsLoading(false);
@@ -158,7 +157,12 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
-        {error && <p className={styles.errorNoAccount} dangerouslySetInnerHTML={{ __html: error }} />}
+        {error && (
+          <p
+            className={styles.errorNoAccount}
+            dangerouslySetInnerHTML={{__html: error}}
+          />
+        )}
         {successMsg && <p className={styles.success}>{successMsg}</p>}
       </>
       <div className={styles.substackNotice}>
