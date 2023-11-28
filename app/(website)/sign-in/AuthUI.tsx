@@ -29,15 +29,28 @@ export default function AuthUI() {
     const email = e.target.email.value;
 
     try {
-      const response = await fetch("/api/otp/send", {
+      const getResponse = await fetch(`/api/user?email=${email}`);
+
+      if (!getResponse.ok) {
+        throw new Error(`HTTP error! Status: ${getResponse.status}`);
+      }
+
+      const {user} = await getResponse.json();
+      if (!user) {
+        throw new Error(
+          `You don't have account, go to subscribe page to sign up.`,
+        );
+      }
+
+      const sendResponse = await fetch("/api/otp/send", {
         method: "POST",
         body: JSON.stringify({
           email,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      if (!sendResponse.ok) {
+        throw new Error(`HTTP error! Status: ${sendResponse.status}`);
       }
 
       setEmail(email);
