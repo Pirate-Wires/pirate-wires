@@ -21,6 +21,9 @@ const supabaseAdmin = createClient<Database>(
   process.env.SUPABASE_SERVICE_ROLE_KEY || "",
 );
 
+const OTP_VALIDITY_DURATION =
+  (parseInt(process.env.OTP_VALIDITY_DURATION || "0") || 15) * 60 * 1000;
+
 const customTheme = {
   default: {
     colors: {
@@ -314,6 +317,65 @@ const upsertUserRecord = async (
   return {error: null};
 };
 
+const upsertOTPRecord = async (email: string, otpHash: string) => {
+  const currentTime = new Date().toISOString();
+
+  const {data, error} = await supabaseAdmin
+    .from("otps")
+    .select()
+    .eq("email", email);
+
+  if (error) {
+    return {error};
+  }
+
+  if (data?.length) {
+    const {error} = await supabaseAdmin
+      .from("otps")
+      .update({otp: otpHash, created_at: currentTime})
+      .eq("email", email);
+
+    if (error) {
+      return {error};
+    }
+  } else {
+    const {error} = await supabaseAdmin
+      .from("otps")
+      .insert({email, otp: otpHash, created_at: currentTime});
+
+    if (error) {
+      return {error};
+    }
+  }
+
+  return {error: null};
+};
+
+const verifyOTP = async (email: string, inputOtpHash: string) => {
+  const {data, error} = await supabaseAdmin
+    .from("otps")
+    .select("otp, created_at")
+    .eq("email", email)
+    .single();
+
+  if (error || !data) {
+    return {error};
+  }
+
+  const otp = data.otp;
+  const createdAt = new Date(data.created_at);
+  const currentTime = new Date();
+
+  if (
+    currentTime.getTime() - createdAt.getTime() < OTP_VALIDITY_DURATION &&
+    otp === inputOtpHash
+  ) {
+    return {error: null};
+  }
+
+  return {error: new Error(`Token has expired or is invalid`)};
+};
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
@@ -323,4 +385,6 @@ export {
   syncSupbaseUserWithStripe,
   getUserByEmail,
   upsertUserRecord,
+  upsertOTPRecord,
+  verifyOTP,
 };
