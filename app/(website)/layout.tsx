@@ -1,14 +1,8 @@
 import SupabaseProvider from "./supabase-provider";
 import {getGlobalFields, getSettings} from "@/lib/sanity/client";
-import Footer from "@/components/footer";
 import {urlForImage} from "@/lib/sanity/image";
-import Navigation from "@/components/navigation";
-import SectionTabs from "@/components/section-tabs";
 import React from "react";
-import {headers} from "next/headers";
-import MegaNav from "@/components/megaNav";
 import {getSession, getUserDetails, getProfile} from "./supabase-server";
-
 export async function sharedMetaData(params) {
   const settings = await getSettings();
 

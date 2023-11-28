@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar";
 // import defaultOG from "../public/img/og-default.jpg";
 
 import Footer from "@/components/footer";
+import Script from "next/script";
 
 export default function Layout(props) {
   const {children} = props;
