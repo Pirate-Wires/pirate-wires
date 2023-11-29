@@ -13,7 +13,6 @@ export default function PodcastCard({
   fontSize,
   fontWeight,
 }) {
-  // console.log(podcast);
   const imageProps = podcast?.mainImage ? urlForImage(podcast.mainImage) : null;
   const AuthorimageProps = podcast?.author?.image
     ? urlForImage(podcast.author.image)

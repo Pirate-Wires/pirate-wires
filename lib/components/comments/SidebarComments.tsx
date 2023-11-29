@@ -42,7 +42,6 @@ const SidebarComments = (): JSX.Element => {
   }
 
   function handleHashChange(): void {
-    // console.log(location.hash, e);
     if (location.hash === "#comments") {
       setShowComments(true);
     }
