@@ -47,7 +47,7 @@ export async function sharedMetaData(params) {
   };
 }
 
-export async function generateMetadata({params}) {
+export async function metadata({params}) {
   return await sharedMetaData(params);
 }
 
