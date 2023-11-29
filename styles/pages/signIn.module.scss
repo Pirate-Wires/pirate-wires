@@ -17,22 +17,21 @@
   > div {
     width: 100%;
   }
-  form {
-    .errorNoAccount {
-      color: #000000;
-      font-family: $neueMed;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    .errorNoAccount a {
-      text-decoration: underline rgba(0, 0, 0, 0.5);
-      text-underline-position: under;
-      text-decoration-thickness: 0.05em;
-      text-underline-offset: 2px;
-    }
+  .errorNoAccount {
+    color: #000000;
+    font-family: $neueMed;
+    @include get-vw-small-increase(font-size, 14px, 14px);
+    margin-top: 10px;
+    max-width: 345px;
+    line-height: 1.4;
   }
 
+  .errorNoAccount a {
+    text-decoration: underline rgba(0, 0, 0, 0.5);
+    text-underline-position: under;
+    text-decoration-thickness: 0.05em;
+    text-underline-offset: 2px;
+  }
   .substackNotice {
     display: flex;
     flex-wrap: wrap;

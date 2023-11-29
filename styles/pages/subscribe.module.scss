@@ -10,6 +10,10 @@
   }
   form {
     width: 100%;
+    + p {
+      font-family: $neueMed;
+      @include get-vw-small-increase(font-size, 14px, 14px);
+    }
   }
   h1 {
     @include get-vw-small-increase(margin-bottom, 15px, 15px);
@@ -45,9 +49,11 @@
 .error {
   color: red;
   font-size: 15px;
+  margin-top: 15px;
 }
 
 .success {
   color: green;
+  margin-top: 15px;
   font-size: 15px;
 }
