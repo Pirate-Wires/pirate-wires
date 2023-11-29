@@ -4,7 +4,7 @@ import {useState, useEffect, useReducer} from "react";
 
 import styles from "@/styles/pages/account.module.scss";
 
-export const EmailPreferences = ({user}) => {
+const EmailPreferences = ({user}) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(0);
@@ -164,3 +164,5 @@ const LoadingOverlay = ({message}: {message: string}) => (
     {message}
   </div>
 );
+
+export default EmailPreferences;
