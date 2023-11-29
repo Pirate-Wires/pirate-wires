@@ -154,7 +154,7 @@ export default function Post(props) {
 
       <section className={styles.postBody}>
         <div className={`richText martina-light`}>
-          {/*{post.body && <PortableText value={post.body} />}*/}
+          {post.body && <PortableText value={post.body} />}
         </div>
       </section>
 

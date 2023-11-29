@@ -72,45 +72,50 @@ const StepFour: React.FC<StepFourProps> = ({email}) => {
   return (
     <>
       <h1>Thank You for Subscribing!</h1>
-      <p>{`Want more of us? Sign Up to our newsletters that come out once a week.
+      <p>
+        {`Want more of us? Sign Up to our newsletters that come out once a week.
         You'll like it.`}
       </p>
       <form onSubmit={handleSubmit}>
+        <label className={`checkboxRow`}>
+          <input
+            type="checkbox"
+            name="Wires"
+            onChange={handleSelect}
+            checked={selectedNewsLetters.indexOf("Wires") > -1}
+          />
+          Pirate Wires
+        </label>
 
         <label className={`checkboxRow`}>
           <input
-          type="checkbox"
-          name="Wires"
-          onChange={handleSelect}
-          checked={selectedNewsLetters.indexOf("Wires") > -1}
-        />Pirate Wires</label>
-
-
-        <label className={`checkboxRow`}>
-          <input
-          type="checkbox"
-          name="The White Pill"
-          onChange={handleSelect}
-          checked={selectedNewsLetters.indexOf("The White Pill") > -1}
-        />The White Pill</label>
-
+            type="checkbox"
+            name="The White Pill"
+            onChange={handleSelect}
+            checked={selectedNewsLetters.indexOf("The White Pill") > -1}
+          />
+          The White Pill
+        </label>
 
         <label className={`checkboxRow`}>
           <input
-          type="checkbox"
-          name="The Industry"
-          onChange={handleSelect}
-          checked={selectedNewsLetters.indexOf("The Industry") > -1}
-        />The Industry</label>
-
+            type="checkbox"
+            name="The Industry"
+            onChange={handleSelect}
+            checked={selectedNewsLetters.indexOf("The Industry") > -1}
+          />
+          The Industry
+        </label>
 
         <label className={`checkboxRow`}>
           <input
-          type="checkbox"
-          name="Dolores Park"
-          onChange={handleSelect}
-          checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
-        />Dolores Park</label>
+            type="checkbox"
+            name="Dolores Park"
+            onChange={handleSelect}
+            checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
+          />
+          Dolores Park
+        </label>
 
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Loading..." : "Sign up and start reading"}

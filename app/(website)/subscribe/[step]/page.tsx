@@ -50,7 +50,8 @@ export default async function SubscribePage({params, searchParams}) {
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
-      <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
+      <section
+        className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
         <StepSwitcher step={params.step} />
         <p className={`disclaimer`}>
           By continuing, you agree to the{" "}

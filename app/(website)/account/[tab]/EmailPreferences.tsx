@@ -81,12 +81,14 @@ export const EmailPreferences = ({user}) => {
       <div className={`checkboxRow`}>
         <label>
           <input
-          type="checkbox"
-          id="topicWires"
-          name="Pirate Wires"
-          checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
-          onChange={handleSelect}
-        />Pirate Wires</label>
+            type="checkbox"
+            id="topicWires"
+            name="Pirate Wires"
+            checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
+            onChange={handleSelect}
+          />
+          Pirate Wires
+        </label>
       </div>
       <div className={`checkboxRow`}>
         <label>
@@ -96,7 +98,9 @@ export const EmailPreferences = ({user}) => {
             name="The White Pill"
             checked={selectedNewsLetters.indexOf("The White Pill") > -1}
             onChange={handleSelect}
-          />The White Pill</label>
+          />
+          The White Pill
+        </label>
       </div>
       <div className={`checkboxRow`}>
         <label>
@@ -106,7 +110,9 @@ export const EmailPreferences = ({user}) => {
             name="The Industry"
             checked={selectedNewsLetters.indexOf("The Industry") > -1}
             onChange={handleSelect}
-          />The Industry</label>
+          />
+          The Industry
+        </label>
       </div>
       <div className={`checkboxRow`}>
         <label>
@@ -116,7 +122,9 @@ export const EmailPreferences = ({user}) => {
             name="Dolores Park"
             checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
             onChange={handleSelect}
-          />Dolores Park</label>
+          />
+          Dolores Park
+        </label>
       </div>
       <div className={`checkboxRow`}>
         <label>
@@ -128,7 +136,9 @@ export const EmailPreferences = ({user}) => {
               selectedNewsLetters.indexOf("Important Pirate Wires Updates") > -1
             }
             onChange={handleSelect}
-          />Important Pirate Wires Updates</label>
+          />
+          Important Pirate Wires Updates
+        </label>
       </div>
     </>
   );
