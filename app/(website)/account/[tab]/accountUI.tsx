@@ -16,6 +16,7 @@ export default function AccountUI({
   userDetails,
   subscription,
   session,
+  profile,
   updateName,
   updateEmail,
   updateCommentsNotifications,
@@ -129,16 +130,6 @@ export default function AccountUI({
     }
   };
 
-  const handleToggleCommentsNotifications = async event => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append(
-      "comments_notifications",
-      String(!userDetails?.comments_notifications),
-    );
-    await updateCommentsNotifications(formData);
-  };
-
   return (
     <section className="accountContainer c-20">
       <div className={styles.top} data-name={userDetails?.full_name}>
@@ -180,7 +171,7 @@ export default function AccountUI({
             <Commenting
               handleSubmitCommentsDisplayName={handleSubmitCommentsDisplayName}
               updateCommentsNotifications={updateCommentsNotifications}
-              userDetails={userDetails}
+              profile={profile}
             />
           </div>
 

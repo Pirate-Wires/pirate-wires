@@ -1,13 +1,33 @@
+import React, {useState} from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
+
+import LoadingOverlay from "./LoadingOverlay";
 
 export const Commenting = ({
   handleSubmitCommentsDisplayName,
   updateCommentsNotifications,
-  userDetails,
+  profile,
 }) => {
+  const [notification, setNotification] = useState<boolean>(
+    profile.comments_notifications,
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const handleToggleCommentsNotifications = async event => {
+    event.preventDefault();
+
+    const newNotification = event.target.checked;
+
+    setIsLoading(true);
+    await updateCommentsNotifications(newNotification);
+    setNotification(newNotification);
+    setIsLoading(false);
+  };
   return (
     <>
+      {!!isLoading && (
+        <LoadingOverlay message="Toggling comment reply notification..." />
+      )}
       <div className={styles.infoGroup}>
         <form
           id="commentsDisplayNameForm"
@@ -17,7 +37,7 @@ export const Commenting = ({
             type="text"
             name="commentsDisplayName"
             className={styles.textInput}
-            defaultValue={userDetails?.comments_display_name ?? ""}
+            defaultValue={profile?.comments_display_name ?? ""}
             placeholder="Your name"
             maxLength={64}
           />
@@ -31,11 +51,8 @@ export const Commenting = ({
           <input
             type="checkbox"
             id="toggle"
-            checked={userDetails?.comments_notifications || false}
-            onChange={() => {
-              // Toggle the comments_notifications value and update
-              updateCommentsNotifications(!userDetails?.comments_notifications);
-            }}
+            checked={notification}
+            onChange={handleToggleCommentsNotifications}
           />
           Email me when someone replies to my comments
         </label>
