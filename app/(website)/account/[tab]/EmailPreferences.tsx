@@ -77,59 +77,58 @@ export const EmailPreferences = ({user}) => {
         <LoadingOverlay message="Updating Newsletter Preferences..." />
       )}
 
-      <h3>Email Preferences</h3>
       <p>Subscribe or unsubscribe to our newsletters</p>
-      <div className={styles.checkboxRow}>
-        <input
+      <div className={`checkboxRow`}>
+        <label>
+          <input
           type="checkbox"
           id="topicWires"
           name="Pirate Wires"
           checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
           onChange={handleSelect}
-        />
-        <label>Pirate Wires</label>
+        />Pirate Wires</label>
       </div>
-      <div className={styles.checkboxRow}>
-        <input
-          type="checkbox"
-          id="topicWhitePill"
-          name="The White Pill"
-          checked={selectedNewsLetters.indexOf("The White Pill") > -1}
-          onChange={handleSelect}
-        />
-        <label>The White Pill</label>
+      <div className={`checkboxRow`}>
+        <label>
+          <input
+            type="checkbox"
+            id="topicWhitePill"
+            name="The White Pill"
+            checked={selectedNewsLetters.indexOf("The White Pill") > -1}
+            onChange={handleSelect}
+          />The White Pill</label>
       </div>
-      <div className={styles.checkboxRow}>
-        <input
-          type="checkbox"
-          id="topicIndustry"
-          name="The Industry"
-          checked={selectedNewsLetters.indexOf("The Industry") > -1}
-          onChange={handleSelect}
-        />
-        <label>The Industry</label>
+      <div className={`checkboxRow`}>
+        <label>
+          <input
+            type="checkbox"
+            id="topicIndustry"
+            name="The Industry"
+            checked={selectedNewsLetters.indexOf("The Industry") > -1}
+            onChange={handleSelect}
+          />The Industry</label>
       </div>
-      <div className={styles.checkboxRow}>
-        <input
-          type="checkbox"
-          id="topicDoloresPark"
-          name="Dolores Park"
-          checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
-          onChange={handleSelect}
-        />
-        <label>Dolores Park</label>
+      <div className={`checkboxRow`}>
+        <label>
+          <input
+            type="checkbox"
+            id="topicDoloresPark"
+            name="Dolores Park"
+            checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
+            onChange={handleSelect}
+          />Dolores Park</label>
       </div>
-      <div className={styles.checkboxRow}>
-        <input
-          type="checkbox"
-          id="topicImportantPirateWiresUpdates"
-          name="Important Pirate Wires Updates"
-          checked={
-            selectedNewsLetters.indexOf("Important Pirate Wires Updates") > -1
-          }
-          onChange={handleSelect}
-        />
-        <label>Important Pirate Wires Updates</label>
+      <div className={`checkboxRow`}>
+        <label>
+          <input
+            type="checkbox"
+            id="topicImportantPirateWiresUpdates"
+            name="Important Pirate Wires Updates"
+            checked={
+              selectedNewsLetters.indexOf("Important Pirate Wires Updates") > -1
+            }
+            onChange={handleSelect}
+          />Important Pirate Wires Updates</label>
       </div>
     </>
   );

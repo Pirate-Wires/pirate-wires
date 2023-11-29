@@ -39,7 +39,7 @@ export default function RemainingArticleEls() {
             Subscribe Now – 14 Days Free Trial
           </Link>
           <p className={articleCountStyles.accountLink}>
-            Already have an account? <Link href={"/subscribe"}>Sign In</Link>
+            Already have an account? <Link href={"/subscribe"}> Sign In</Link>
           </p>
         </div>
       )}

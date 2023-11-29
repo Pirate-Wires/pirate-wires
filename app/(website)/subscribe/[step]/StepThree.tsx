@@ -62,25 +62,21 @@ const StepThree: React.FC<StepThreeProps> = ({
   };
 
   return (
-    <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
+    <>
       <SubscriptionPlan />
       {isLoading && <div>Loading...</div>}
-      {subscription ? (
+      {subscription ?
         <>
           <h1>You have already subscribed</h1>
           <button onClick={handleClickSkip}>Next</button>
-        </>
-      ) : (
-        clientSecret && (
-          <>
-            <Elements stripe={stripePromise} options={{clientSecret}}>
-              <CheckoutForm email={email} customerId={customerId} />
-            </Elements>
-          </>
-        )
-      )}
+        </> :
+        clientSecret &&
+          <Elements stripe={stripePromise} options={{clientSecret}}>
+            <CheckoutForm email={email} customerId={customerId} />
+          </Elements>
+      }
       {error && <p className={styles.error}>{error}</p>}
-    </section>
+    </>
   );
 };
 
