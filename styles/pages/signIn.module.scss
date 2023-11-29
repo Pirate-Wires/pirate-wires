@@ -26,7 +26,10 @@
     }
 
     .errorNoAccount a {
-      text-decoration: underline;
+      text-decoration: underline rgba(0, 0, 0, 0.5);
+      text-underline-position: under;
+      text-decoration-thickness: 0.05em;
+      text-underline-offset: 2px;
     }
   }
 
