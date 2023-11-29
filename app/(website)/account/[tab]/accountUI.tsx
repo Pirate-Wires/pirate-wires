@@ -258,7 +258,6 @@ export default function AccountUI({
                   maxLength={64}
                 />
               </form>
-              <p>Change this to add comment with another username</p>
               <Button
                 variant="slim"
                 type="submit"
@@ -266,22 +265,21 @@ export default function AccountUI({
                 Save
               </Button>
             </div>
-
-            <p>Notify me via email when someone replies to my comments</p>
-
-            <div className={styles.toggleSwitch}>
-              <input
-                type="checkbox"
-                id="toggle"
-                checked={userDetails?.comments_notifications || false}
-                onChange={() => {
-                  // Toggle the comments_notifications value and update
-                  updateCommentsNotifications(
-                    !userDetails?.comments_notifications,
-                  );
-                }}
-              />
-              <label htmlFor="toggle" className={styles.slider}></label>
+            <div className={styles.checkboxRow}>
+              <label htmlFor="toggle">
+                <input
+                  type="checkbox"
+                  id="toggle"
+                  checked={userDetails?.comments_notifications || false}
+                  onChange={() => {
+                    // Toggle the comments_notifications value and update
+                    updateCommentsNotifications(
+                      !userDetails?.comments_notifications,
+                    );
+                  }}
+                />
+                Email me when someone replies to my comments
+              </label>
             </div>
           </div>
 
@@ -289,7 +287,6 @@ export default function AccountUI({
             className={`${styles.cardWrapper} ${
               tabVisibility[3] ? styles.activeCard : ""
             } subscription`}>
-            <div className={styles.infoGroup}>Subscription & Billing</div>
 
             {userDetails?.subscription_id ? (
               <>
@@ -299,8 +296,8 @@ export default function AccountUI({
               </>
             ) : (
               <>
-                <h2>Not subscribed yet</h2>
-                <Link href="/subscribe" className={styles.subscriptionBtn}>
+                <p>Not subscribed yet</p>
+                <Link href="/subscribe" className={`${styles.subscriptionBtn} btn`}>
                   Subscribe
                 </Link>
               </>

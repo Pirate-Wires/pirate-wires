@@ -190,7 +190,7 @@ export default function AuthUI() {
         </Link> */}
       </div>
 
-      <p className={styles.disclaimer}>
+      <p className={`disclaimer`}>
         By continuing, you agree to the{" "}
         <Link
           target={"_blank"}

@@ -4,7 +4,9 @@ import {useRouter} from "next/navigation";
 import React, {useState, useEffect, FormEvent} from "react";
 
 import styles from "@/styles/pages/subscribe.module.scss";
-
+const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
+const EXPIRES_MONTH = process.env.NEXT_PUBLIC_SUBSCRIBE_EXPIRES_MONTH;
+const TRIAL_PERIOD_DAYS = process.env.NEXT_PUBLIC_SUBSCRIBE_TRIAL_PERIOD_DAYS;
 const StepOne = ({email}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -107,10 +109,10 @@ const StepOne = ({email}) => {
   };
 
   return (
-    <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
-      <h1>Start Your 14-day Free Trial</h1>
-      <p>
-        After your free 14 day trial ends, we will charge $12 from your account
+    <>
+      <h1>Start Your {TRIAL_PERIOD_DAYS}-day Free Trial</h1>
+      <p className={styles.copy}>
+        After your free {TRIAL_PERIOD_DAYS} day trial ends, we will charge ${MONTHLY_PRICE} from your account
         every month. Subscription can be cancelled anytime within your trial
         period.
       </p>
@@ -121,17 +123,22 @@ const StepOne = ({email}) => {
           </>
         ) : (
           <>
-            <label>First Name:</label>
-            <input type="text" name="fname" placeholder="First name" required />
-            <br />
-            <label>Last Name:</label>
-            <input type="text" name="lname" placeholder="Last name" required />
-            <br />
+            <div className={`input-groups`}>
+              <div className={`input-group`}>
+                <label>First Name:</label>
+                <input type="text" name="fname" placeholder="First name" required />
+              </div>
+              <div className={`input-group`}>
+                <label>Last Name:</label>
+                <input type="text" name="lname" placeholder="Last name" required />
+              </div>
+            </div>
+
             <label>Email:</label>
             <input type="email" name="email" placeholder="Email" required />
           </>
         )}
-        <br />
+
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Loading..." : "Continue"}
         </button>
@@ -144,16 +151,13 @@ const StepOne = ({email}) => {
       ) : (
         <>
           <p>
-            Already have an account?
-            <Link className="nav-link" href="/sign-in">
-              Sign In
-            </Link>
+            Already have an account? <Link className={styles.altLink} href="/sign-in"> Sign In</Link>
           </p>
         </>
       )}
 
       {error && <p className={styles.error}>{error}</p>}
-    </section>
+    </>
   );
 };
 

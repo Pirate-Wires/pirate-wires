@@ -31,7 +31,6 @@ export default function ManageSubscriptionButton({session}: Props) {
       <p className={styles.subscriptionText}>
         Manage your subscription on Stripe:
       </p>
-      <br />
       <button
         className={styles.subscriptionBtn}
         disabled={!session}

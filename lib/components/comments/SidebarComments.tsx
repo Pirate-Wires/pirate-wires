@@ -83,7 +83,7 @@ const SidebarComments = (): JSX.Element => {
         </div>
 
         <div className="flex-grow flex flex-col overflow-hidden">
-          <CommentsList useInfiniteScroll={true} />
+          <CommentsList />
         </div>
 
         <div className="min-h-14 block sm:hidden"></div>

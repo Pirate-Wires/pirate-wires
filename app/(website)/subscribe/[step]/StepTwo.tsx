@@ -73,17 +73,15 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
   };
 
   return (
-    <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
+    <>
       <h1>Confirm Your Subscription </h1>
       <div>
-        <h2>Confirm Your Sign In</h2>
-        <p>We just sent a 6 digit code to your email</p>
+        <p className={styles.copy}>We just sent a 6 digit code to your email</p>
         <form onSubmit={handleOTPSubmit}>
           <OTPInput onOTPChange={handleOTPChange} />
           <button type="submit" disabled={isLoading}>
-            {isLoading ? "Loading..." : "Proceed payment"}
+            {isLoading ? "Loading..." : "Proceed to payment"}
           </button>
-          <br />
           <a href="#" onClick={handleResendOTP}>
             Resend Code
           </a>
@@ -91,7 +89,7 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
       </div>
       {error && <p className={styles.error}>{error}</p>}
       {successMsg && <p className={styles.success}>{successMsg}</p>}
-    </section>
+    </>
   );
 };
 

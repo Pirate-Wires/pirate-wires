@@ -139,7 +139,6 @@ const Comment = ({
       <div
         className={cn(`${styles.threadWrapper}`, {
           "opacity-60": !comment.live,
-          "gap-y-1": !hidden,
         })}>
         {highlight && (
           <>
@@ -158,7 +157,7 @@ const Comment = ({
             onClick={() => setHidden(false)}
             className={styles.expandBtn}
             aria-label={`Expand comment by ${comment.author}`}>
-            <Plus className="w-4 h-4 text-gray-500" />
+            <Plus />
           </button>
         )}
         <div className={cn(`${styles.commentWrapper}`, hidden)}>
@@ -195,8 +194,9 @@ const Comment = ({
             </div>
             {isOverflow && (
               <button
+                className={styles.readMoreLess}
                 onClick={() => setIsOverflowExpanded(!isOverflowExpanded)}
-                aria-label={`Pin comment by ${comment.author?.full_name}`}>
+                aria-label={isOverflowExpanded ? `Show less` : `Show more`}>
                 {isOverflowExpanded ? (
                   <span>Show less</span>
                 ) : (

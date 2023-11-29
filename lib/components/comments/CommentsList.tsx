@@ -21,12 +21,10 @@ dayjs.tz.setDefault(dayjs.tz.guess());
 
 interface Props {
   initialData?: CommentType | null;
-  useInfiniteScroll: boolean;
 }
 
 const CommentsList = ({
   initialData = null,
-  useInfiniteScroll = false,
 }: Props): JSX.Element => {
   const {
     rootComment,
@@ -52,8 +50,6 @@ const CommentsList = ({
     } else {
       setIsScrolled(true);
     }
-
-    if (!useInfiniteScroll) return;
 
     if (
       wrapperRef.current &&
@@ -81,8 +77,7 @@ const CommentsList = ({
       ref={wrapperRef}
       className={cn("", {
         "shadow-inner": isScrolled,
-      })}
-      onScroll={handleScroll}>
+      })}>
       <div ref={contentRef}>
         {/* <SortCommentsSelect /> */}
         {isLoadingInitialData &&
@@ -94,12 +89,12 @@ const CommentsList = ({
             {comments.map((comment: CommentType) => (
               <div
                 className={styles.commentList}
-                key={`${comment.slug}${useInfiniteScroll ? "-s" : ""}`}>
+                key={`${comment.slug}`}>
                 <Comment comment={comment} highlight={comment.highlight} />
               </div>
             ))}
             {error && (
-              <div className="text-center text-gray-600 dark:text-gray-400 px-3 sm:px-6">
+              <div className={styles.errorMessage}>
                 Couldn&apos;t load comments. Please refresh the page.
               </div>
             )}
@@ -124,7 +119,7 @@ const CommentsList = ({
             )} */}
 
             {isEmpty && (
-              <div className="my-6 text-gray-700 dark:text-gray-200">
+              <div className={styles.errorMessage}>
                 There are no comments. Be the first.
               </div>
             )}

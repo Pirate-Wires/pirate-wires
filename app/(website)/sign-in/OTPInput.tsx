@@ -70,7 +70,7 @@ const OTPInput: React.FC<OTPInputProps> = ({onOTPChange}) => {
   };
 
   return (
-    <div className={styles["otp-input-container"]}>
+    <div className={`otp-input-container`}>
       {otp.map((value, index) => (
         <input
           key={index}
