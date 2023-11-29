@@ -21,12 +21,10 @@ dayjs.tz.setDefault(dayjs.tz.guess());
 
 interface Props {
   initialData?: CommentType | null;
-  useInfiniteScroll: boolean;
 }
 
 const CommentsList = ({
   initialData = null,
-  useInfiniteScroll = false,
 }: Props): JSX.Element => {
   const {
     rootComment,
@@ -52,8 +50,6 @@ const CommentsList = ({
     } else {
       setIsScrolled(true);
     }
-
-    if (!useInfiniteScroll) return;
 
     if (
       wrapperRef.current &&
