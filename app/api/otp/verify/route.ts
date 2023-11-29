@@ -1,10 +1,13 @@
-import {verifyOTP} from "@/lib/supabase/functions/otp";
+import {verifyOTP} from "@/utils/supabase-admin";
+import crypto from "crypto";
 
 export async function POST(req: Request) {
   const body = await req.json();
   const {email, otp} = body;
+  const inputOtpHash = crypto.createHash("sha256").update(otp).digest("hex");
+
   try {
-    const {error} = await verifyOTP(email, otp);
+    const {error} = await verifyOTP(email, inputOtpHash);
 
     if (error) throw error;
 
