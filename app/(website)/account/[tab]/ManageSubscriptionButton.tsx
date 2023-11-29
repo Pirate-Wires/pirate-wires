@@ -13,12 +13,10 @@ interface Props {
 export default function ManageSubscriptionButton({session}: Props) {
   const router = useRouter();
   const redirectToCustomerPortal = async () => {
-    console.log("Button clicked"); // New console log
     try {
       const {url} = await postData({
         url: "/api/create-portal-link",
       });
-      console.log("Received URL:", url); // New console log
       router.push(url);
     } catch (error) {
       console.error(error);
