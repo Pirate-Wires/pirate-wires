@@ -27,8 +27,6 @@ async function sendEmailHandler(req: NextRequest, res: NextResponse) {
       emails: [selectedEmail],
     };
 
-    // console.log('customerIoData', customerIoData);
-
     try {
       const response = await fetch(
         `https://api.customer.io/v1/api/campaigns/${broadcastId}/triggers`,

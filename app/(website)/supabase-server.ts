@@ -114,7 +114,7 @@ export const getActiveProductsWithPrices = async () => {
     .order("unit_amount", {foreignTable: "prices"});
 
   if (error) {
-    console.log(error.message);
+    console.error(error.message);
   }
   return data ?? [];
 };

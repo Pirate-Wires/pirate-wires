@@ -55,16 +55,6 @@ const Comment = ({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isAdmin = false;
   const {supabase} = useSupabase();
-  // const { mutateComments } = useComments();
-  // const { data: isAdmin } = useSWR(
-  //   user?.id ? ['user_owns_siteId', user.id] : null,
-  //   async (_, userId) =>
-  //     supabase
-  //       .from('sites')
-  //       .select('*')
-  //       .then(({ data, error }) => data?.[0])
-  // );
-  // console.log(comment);
 
   useEffect(() => {
     if (contentRef && contentRef.current) {

@@ -290,7 +290,7 @@ const getUserByEmail = async (email: string) => {
     .single();
 
   if (error) {
-    console.log(`Error fetching post data: ${error.message}`);
+    console.error(`Error fetching post data: ${error.message}`);
     return null;
   }
 

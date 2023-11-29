@@ -58,7 +58,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
         router.push(`/subscribe/step-4?email=${email}`);
       }
     } catch (error) {
-      console.log(`Error creating subscription: ${error.message}`);
+      console.error(`Error creating subscription: ${error.message}`);
       setError(error.message);
       setIsLoading(false);
     }

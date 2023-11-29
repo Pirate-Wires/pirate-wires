@@ -9,22 +9,6 @@ export default async function Navbar() {
     data: {user},
   } = await supabase.auth.getUser();
 
-  // function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //   console.log('submit');
-  // }
-
-  // const [firstName, setFirstName] = React.useState('');
-  // const [lastName, setLastName] = React.useState('');
-
-  // function handleFirstNameChange(event: React.FormEvent<HTMLInputElement>): void {
-  //   throw new Error('Function not implemented.');
-  // }
-
-  // function handleLastNameChange(event: React.FormEvent<HTMLInputElement>): void {
-  //   throw new Error('Function not implemented.');
-  // }
-
   return (
     <div>
       <div>

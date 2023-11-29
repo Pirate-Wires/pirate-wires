@@ -62,7 +62,7 @@ const CommentsList = ({initialData = null}: Props): JSX.Element => {
   }
 
   if (error || commentsError) {
-    console.log(error);
+    console.error(error);
     return <div className={styles.errorMessage}>An error occurred.</div>;
   }
 
