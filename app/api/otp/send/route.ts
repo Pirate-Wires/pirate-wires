@@ -1,6 +1,6 @@
 import {upsertOTPRecord} from "@/utils/supabase-admin";
 
-const encryptKey = process.env.SUPABASE_OTP_ENC_DEC_KEY as string;
+const encryptKey = process.env.SUPABASE_OTP_ENC_DEC_KEY || "0f65436ac418";
 
 const generateOTP = (length: number = 6): string => {
   let otp = "";
