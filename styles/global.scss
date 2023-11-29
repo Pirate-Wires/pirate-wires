@@ -1217,6 +1217,7 @@ footer {
   .input-groups {
     display: flex;
     gap: 10px;
+    margin-bottom: 20px;
   }
   .input-group {
     display: flex;
@@ -1257,6 +1258,7 @@ footer {
     }
   }
   form {
+    text-align: left;
     .checkboxRow {
       margin-bottom: 20px;
       &:first-child {
@@ -1265,6 +1267,7 @@ footer {
     }
     label:not(.checkboxRow) {
       margin-bottom: 7px;
+      display: flex;
       @include get-vw-small-increase(font-size, 13px, 13px);
       @include get-vw-small-increase(letter-spacing, 0.3px, 0.3px);
       color: #060606;
@@ -1317,7 +1320,7 @@ footer {
 
     form {
       label {
-        display: block;
+        display: flex;
         margin-bottom: 10px;
       }
 
@@ -1374,6 +1377,17 @@ footer {
   @include bp-767 {
     padding-left: 10px;
     padding-right: 10px;
+    .input-groups {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .disclaimer {
+      position: relative;
+      bottom: auto;
+      margin-top: 100px;
+      max-width: 80%;
+      line-height: 1.5;
+    }
   }
 }
 .line-clamp-10 {
