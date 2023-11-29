@@ -3,10 +3,11 @@
 import Link from "next/link";
 import {notFound, useRouter} from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
-import SignOutButton from "@/components/ui/Navbar/SignOutButton";
-import Button from "@/components/ui/Button";
 import React, {useState, useEffect, useMemo} from "react";
-import {EmailPreferences} from "./EmailPreferences";
+import TabButton from "./TabButtons";
+import MyDetails from "./MyDetails";
+import EmailPreferences from "./EmailPreferences";
+import Commenting from "./Commenting";
 import CurrentSubscription from "./CurrentSubscription";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
 
@@ -149,35 +150,7 @@ export default function AccountUI({
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
-          <button
-            className={`${styles.cardTrigger}`}
-            onClick={() => {
-              updateActiveTab(0);
-            }}>
-            My details
-          </button>
-          <button
-            className={`${styles.cardTrigger}`}
-            onClick={() => {
-              updateActiveTab(1);
-            }}>
-            Email preferences
-          </button>
-          <button
-            className={`${styles.cardTrigger}`}
-            onClick={() => {
-              updateActiveTab(2);
-            }}>
-            Commenting
-          </button>
-          <button
-            className={`${styles.cardTrigger}`}
-            onClick={() => {
-              updateActiveTab(3);
-            }}>
-            Subscription & billing
-          </button>
-          <SignOutButton />
+          <TabButton updateActiveTab={updateActiveTab} />
         </div>
 
         <div className={`${styles.right}`}>
@@ -188,51 +161,11 @@ export default function AccountUI({
             {!!detailUpdateMsg && (
               <h2 className={styles.tag}>{detailUpdateMsg}</h2>
             )}
-            <div className={styles.infoGroup}>
-              <form id="nameForm" onSubmit={handleSubmitName}>
-                <label>Full name</label>
-                <input
-                  type="text"
-                  name="name"
-                  className={styles.textInput}
-                  defaultValue={userDetails?.full_name ?? ""}
-                  placeholder="Your name"
-                  maxLength={64}
-                />
-              </form>
-              <Button variant="slim" type="submit" form="nameForm">
-                Update Name
-              </Button>
-            </div>
-
-            <div className={`${styles.infoGroup}`}>
-              <form id="emailForm" onSubmit={handleSubmitEmail}>
-                <label>Email</label>
-                <input
-                  type="text"
-                  name="email"
-                  defaultValue={user ? user.email : ""}
-                  className={styles.textInput}
-                  placeholder="Your email"
-                  maxLength={64}
-                />
-              </form>
-              <Button variant="slim" type="submit" form="emailForm">
-                Update Email
-              </Button>
-            </div>
-            <div className={`${styles.infoGroup} ${styles.textGroup}`}>
-              <p className={styles.pseudoLabel}>Need help?</p>
-              <p>
-                Send an email to{" "}
-                <a
-                  href="mailto:support@piratewires.com"
-                  title="Send us an email">
-                  support@piratewires.com
-                </a>{" "}
-                and we’ll help you out
-              </p>
-            </div>
+            <MyDetails
+              handleSubmitName={handleSubmitName}
+              handleSubmitEmail={handleSubmitEmail}
+              userDetails={userDetails}
+            />
           </div>
           <div
             className={`${styles.cardWrapper} ${
@@ -244,43 +177,11 @@ export default function AccountUI({
             className={`${styles.cardWrapper} ${
               tabVisibility[2] ? styles.activeCard : ""
             } email-notifictation-preferences`}>
-            <div className={styles.infoGroup}>
-              <form
-                id="commentsDisplayNameForm"
-                onSubmit={handleSubmitCommentsDisplayName}>
-                <label>Comments username</label>
-                <input
-                  type="text"
-                  name="commentsDisplayName"
-                  className={styles.textInput}
-                  defaultValue={userDetails?.comments_display_name ?? ""}
-                  placeholder="Your name"
-                  maxLength={64}
-                />
-              </form>
-              <Button
-                variant="slim"
-                type="submit"
-                form="commentsDisplayNameForm">
-                Save
-              </Button>
-            </div>
-            <div className={styles.checkboxRow}>
-              <label htmlFor="toggle">
-                <input
-                  type="checkbox"
-                  id="toggle"
-                  checked={userDetails?.comments_notifications || false}
-                  onChange={() => {
-                    // Toggle the comments_notifications value and update
-                    updateCommentsNotifications(
-                      !userDetails?.comments_notifications,
-                    );
-                  }}
-                />
-                Email me when someone replies to my comments
-              </label>
-            </div>
+            <Commenting
+              handleSubmitCommentsDisplayName={handleSubmitCommentsDisplayName}
+              updateCommentsNotifications={updateCommentsNotifications}
+              userDetails={userDetails}
+            />
           </div>
 
           <div
