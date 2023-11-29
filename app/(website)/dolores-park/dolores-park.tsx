@@ -2,18 +2,23 @@
 import Link from "next/link";
 import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
-import styles from "../../../styles/pages/home.module.scss";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function DoloresPark({
+  globalFields,
   publicationPosts,
   publicationNewsletters,
   user,
-  globalFields,
 }) {
   useScrollBasedAnims();
+
+  // Sorting the publicationPosts by publishedAt
+  const sortedPosts = [...publicationPosts].sort(
+    (a: {publishedAt: any}, b: {publishedAt: any}) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
@@ -81,7 +86,7 @@ export default function DoloresPark({
         </div>
       </div>
 
-      <Featured post={publicationPosts[0]} pathPrefix="" />
+      <Featured post={sortedPosts[0]} pathPrefix="" />
 
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
@@ -91,7 +96,7 @@ export default function DoloresPark({
       />
 
       <section className="postGrid c-20">
-        {publicationPosts.slice(1).map((post, index) => (
+        {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
           <PostList
             key={index}

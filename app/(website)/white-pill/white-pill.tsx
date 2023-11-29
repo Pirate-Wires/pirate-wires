@@ -7,12 +7,18 @@ import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function WhitePill({
+  globalFields,
   publicationPosts,
   publicationNewsletters,
   user,
-  globalFields,
 }) {
   useScrollBasedAnims();
+
+  // Sorting the publicationPosts by publishedAt
+  const sortedPosts = [...publicationPosts].sort(
+    (a: {publishedAt: any}, b: {publishedAt: any}) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
   return (
     <>
       <div className="featuredPostsTop ptb-20 c-20">
@@ -69,7 +75,8 @@ export default function WhitePill({
           </span>
         </div>
       </div>
-      <Featured post={publicationPosts[0]} pathPrefix="" />
+
+      <Featured post={sortedPosts[0]} pathPrefix="" />
 
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
@@ -79,7 +86,7 @@ export default function WhitePill({
       />
 
       <section className="postGrid c-20">
-        {publicationPosts.slice(1).map((post, index) => (
+        {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
           <PostList
             key={index}
