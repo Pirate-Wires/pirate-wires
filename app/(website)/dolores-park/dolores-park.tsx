@@ -16,7 +16,8 @@ export default function DoloresPark({
 
   // Sorting the publicationPosts by publishedAt
   const sortedPosts = [...publicationPosts].sort(
-    (a: {publishedAt: any}, b: {publishedAt: any}) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    (a: {publishedAt: any}, b: {publishedAt: any}) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
 
   return (
