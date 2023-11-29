@@ -71,7 +71,8 @@
     display: flex;
   }
 
-  label, p {
+  label,
+  p {
     font-family: $neueMed;
     @include get-vw-small-increase(font-size, 14px, 14px);
     text-align: left;

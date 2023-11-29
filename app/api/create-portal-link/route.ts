@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         status: 200,
       });
     } catch (err: any) {
-      console.log(err);
+      console.error(err);
       return new Response(
         JSON.stringify({error: {statusCode: 500, message: err.message}}),
         {

@@ -27,7 +27,10 @@ const SubscriptionPlan = () => {
   return (
     <div className={`${styles.subscriptionDetails}`}>
       <h1>Start Your {TRIAL_PERIOD_DAYS}-day Free Trial</h1>
-      <p className={styles.copy}>After your free trial, your card will be billed ${MONTHLY_PRICE} monthly. Pause or cancel at any time.</p>
+      <p className={styles.copy}>
+        After your free trial, your card will be billed ${MONTHLY_PRICE}{" "}
+        monthly. Pause or cancel at any time.
+      </p>
     </div>
   );
 };

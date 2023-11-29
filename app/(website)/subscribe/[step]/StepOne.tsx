@@ -112,9 +112,9 @@ const StepOne = ({email}) => {
     <>
       <h1>Start Your {TRIAL_PERIOD_DAYS}-day Free Trial</h1>
       <p className={styles.copy}>
-        After your free {TRIAL_PERIOD_DAYS} day trial ends, we will charge ${MONTHLY_PRICE} from your account
-        every month. Subscription can be cancelled anytime within your trial
-        period.
+        After your free {TRIAL_PERIOD_DAYS} day trial ends, we will charge $
+        {MONTHLY_PRICE} from your account every month. Subscription can be
+        cancelled anytime within your trial period.
       </p>
       <form onSubmit={handleSubmit}>
         {!!currentEmail ? (
@@ -126,11 +126,21 @@ const StepOne = ({email}) => {
             <div className={`input-groups`}>
               <div className={`input-group`}>
                 <label>First Name:</label>
-                <input type="text" name="fname" placeholder="First name" required />
+                <input
+                  type="text"
+                  name="fname"
+                  placeholder="First name"
+                  required
+                />
               </div>
               <div className={`input-group`}>
                 <label>Last Name:</label>
-                <input type="text" name="lname" placeholder="Last name" required />
+                <input
+                  type="text"
+                  name="lname"
+                  placeholder="Last name"
+                  required
+                />
               </div>
             </div>
 
@@ -151,7 +161,11 @@ const StepOne = ({email}) => {
       ) : (
         <>
           <p>
-            Already have an account? <Link className={styles.altLink} href="/sign-in"> Sign In</Link>
+            Already have an account?{" "}
+            <Link className={styles.altLink} href="/sign-in">
+              {" "}
+              Sign In
+            </Link>
           </p>
         </>
       )}

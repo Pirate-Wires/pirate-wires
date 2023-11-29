@@ -23,9 +23,7 @@ interface Props {
   initialData?: CommentType | null;
 }
 
-const CommentsList = ({
-  initialData = null,
-}: Props): JSX.Element => {
+const CommentsList = ({initialData = null}: Props): JSX.Element => {
   const {
     rootComment,
     comments,
@@ -64,7 +62,7 @@ const CommentsList = ({
   }
 
   if (error || commentsError) {
-    console.log(error);
+    console.error(error);
     return <div className={styles.errorMessage}>An error occurred.</div>;
   }
 
@@ -87,9 +85,7 @@ const CommentsList = ({
         {!isLoadingInitialData && (
           <>
             {comments.map((comment: CommentType) => (
-              <div
-                className={styles.commentList}
-                key={`${comment.slug}`}>
+              <div className={styles.commentList} key={`${comment.slug}`}>
                 <Comment comment={comment} highlight={comment.highlight} />
               </div>
             ))}
