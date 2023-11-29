@@ -1,5 +1,4 @@
 import {upsertOTPRecord} from "@/utils/supabase-admin";
-import crypto from "crypto";
 
 const generateOTP = (length: number = 6): string => {
   let otp = "";
@@ -14,10 +13,9 @@ export async function POST(req: Request) {
   const {email} = body;
 
   const otp = generateOTP();
-  const otpHash = crypto.createHash("sha256").update(otp).digest("hex");
 
   try {
-    const {error} = await upsertOTPRecord(email, otpHash);
+    const {error} = await upsertOTPRecord(email, otp);
 
     if (error) throw error;
 

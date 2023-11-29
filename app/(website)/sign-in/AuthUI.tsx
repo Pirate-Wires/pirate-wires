@@ -15,6 +15,7 @@ export default function AuthUI() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [resending, setResending] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpVisible, setOtpVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -106,8 +107,9 @@ export default function AuthUI() {
 
   const handleResendOTP = async e => {
     e.preventDefault();
+    if (resending) return;
     setError(null);
-    setIsLoading(true);
+    setResending(true);
     setSuccessMsg(null);
 
     try {
@@ -123,11 +125,11 @@ export default function AuthUI() {
       }
 
       setOtpVisible(true);
-      setIsLoading(false);
+      setResending(false);
       setSuccessMsg("Resent OTP successfully");
     } catch (error) {
       setError(error.message);
-      setIsLoading(false);
+      setResending(false);
     }
   };
 
@@ -145,10 +147,10 @@ export default function AuthUI() {
             <form onSubmit={handleOTPSubmit}>
               <OTPInput onOTPChange={handleOTPChange} />
               <button type="submit" disabled={isLoading}>
-                {isLoading ? "Loading..." : "Confirm"}
+                {isLoading ? "Confirming..." : "Confirm"}
               </button>
               <a href="#" onClick={handleResendOTP}>
-                Resend Code
+                {resending ? "Resending..." : "Resend Code"}
               </a>
             </form>
           </div>
