@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from "embla-carousel-react";
 import {useEffect, useState, FormEvent} from "react";
@@ -115,9 +114,8 @@ export default function FeaturedNewsletters({
   };
   return (
     <section
-      className={`${styles.featuredNewsletters} ${
-        section === "Wires" ? styles.wiresVertical : ""
-      } c-20 pb-40 pt-20`}>
+      className={`${styles.featuredNewsletters} ${section === "Wires" ? styles.wiresVertical : ""
+        } c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>

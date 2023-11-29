@@ -1,19 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import {urlForImage} from "@/lib/sanity/image";
 import styles from "./_styles/latestWriters.module.scss";
-import PostList from "@/components/postlist";
 import AuthorTile from "@/components/authorTile";
 export default function LatestWriters({latestAuthors}) {
-  // const imageProps = post?.mainImage
-  //   ? urlForImage(post?.mainImage)
-  //   : null;
-  //
-  // // Extract the image color
-  // const imageColor = author?.mainImage?.ImageColor || "black";
-
-  // Create a CSS radial gradient string using the extracted color
-  // const radialGradient = `radial-gradient(ellipse at center, ${imageColor}, transparent)`;
 
   return (
     <div className={styles.latestWriters}>
