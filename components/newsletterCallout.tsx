@@ -110,9 +110,8 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
       {/* <h1>Redirecting to your account page...</h1> */}
 
       <div
-        className={`${styles.newsletterCallout} ${
-          interiorPage ? styles.interiorPage : ""
-        } ptb-40`}>
+        className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""
+          } ptb-40`}>
         <form
           className={`${styles.inner} c-20`}
           id="newsletter-form"
@@ -176,9 +175,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
             <div
               className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`}
               onClick={clickInnerInput}>
-              <p className={styles.eyebrow}>
-                {globalFields.whitePillFrequency}
-              </p>
+              <p className={styles.eyebrow}>{globalFields.whitePillFrequency}</p>
               <p className={styles.title}>The White Pill</p>
               <p className={`${styles.subtitle} martina-reg`}>
                 {globalFields.whitePillTagline}
