@@ -287,7 +287,6 @@ export default function AccountUI({
             className={`${styles.cardWrapper} ${
               tabVisibility[3] ? styles.activeCard : ""
             } subscription`}>
-
             {userDetails?.subscription_id ? (
               <>
                 <CurrentSubscription subscription={subscription} />
@@ -297,7 +296,9 @@ export default function AccountUI({
             ) : (
               <>
                 <p>Not subscribed yet</p>
-                <Link href="/subscribe" className={`${styles.subscriptionBtn} btn`}>
+                <Link
+                  href="/subscribe"
+                  className={`${styles.subscriptionBtn} btn`}>
                   Subscribe
                 </Link>
               </>
