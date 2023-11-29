@@ -59,6 +59,17 @@
     margin-top: 5px;
   }
 
+    .errorNoAccount {
+      color: #000000;
+      font-family: $neueMed;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+                .errorNoAccount a {
+                  text-decoration: underline;
+                }
+
   .success {
     color: green;
     font-size: 12px;

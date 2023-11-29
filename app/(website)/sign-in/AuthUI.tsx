@@ -29,15 +29,31 @@ export default function AuthUI() {
     const email = e.target.email.value;
 
     try {
-      const response = await fetch("/api/otp/send", {
+      const getResponse = await fetch(`/api/user?email=${email}`);
+
+      if (!getResponse.ok) {
+        throw new Error(`HTTP error! Status: ${getResponse.status}`);
+      }
+
+      const {user} = await getResponse.json();
+      if (!user) {
+        // Import Link from "next/link" at the top of the file
+
+        // Inside the handleEmailSubmit function, modify the error message to include a link
+        throw new Error(
+          `You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`,
+        );
+      }
+
+      const sendResponse = await fetch("/api/otp/send", {
         method: "POST",
         body: JSON.stringify({
           email,
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      if (!sendResponse.ok) {
+        throw new Error(`HTTP error! Status: ${sendResponse.status}`);
       }
 
       setEmail(email);
@@ -141,7 +157,12 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
-        {error && <p className={styles.error}>{error}</p>}
+        {error && (
+          <p
+            className={styles.errorNoAccount}
+            dangerouslySetInnerHTML={{__html: error}}
+          />
+        )}
         {successMsg && <p className={styles.success}>{successMsg}</p>}
       </>
       <div className={styles.substackNotice}>
