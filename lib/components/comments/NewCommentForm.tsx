@@ -87,6 +87,7 @@ const NewCommentForm = ({
       authorId: user?.id,
       content: content,
       parentId: parentId ?? rootId,
+      rootId,
       slug,
     };
 
