@@ -1,59 +1,70 @@
-import {serve} from "https://deno.land/std@0.208.0/http/server.ts";
+// import {serve} from "https://deno.land/std@0.208.0/http/server.ts";
 
-const CUSTOMER_IO_API_KEY = Deno.env.get("CUSTOMER_IO_API_KEY");
-const aesSecretKey = Deno.env.get("AES_SECRET_KEY");
+// const CUSTOMER_IO_API_KEY = Deno.env.get("CUSTOMER_IO_API_KEY");
+// const decryptScretKey = Deno.env.get("OTP_ENC_DEC_KEY");
 
-const Authorization = `Bearer ${CUSTOMER_IO_API_KEY}`;
-const CIO_MESSAGE_ID = 3;
+// const Authorization = `Bearer ${CUSTOMER_IO_API_KEY}`;
+// const CIO_MESSAGE_ID = 3;
 
-const sendOTPMail = async record => {
-  const {email, otp} = record;
+// const decrypt = (encryptedOTP: string, key: string): string => {
+//   let decrypted = '';
+//   for (let i = 0; i < encryptedOTP.length; i += 2) {
+//       const byte = parseInt(encryptedOTP.slice(i, i + 2), 16);
+//       decrypted += String.fromCharCode(byte - key[Math.floor(i / 2) % key.length].charCodeAt(0));
+//   }
+//   return decrypted;
+// };
 
-  const res = await fetch("https://api.customer.io/v1/send/email", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization,
-    },
-    body: JSON.stringify({
-      transactional_message_id: `${CIO_MESSAGE_ID}`,
-      message_data: {
-        token: otp,
-      },
-      identifiers: {
-        email,
-      },
-      to: email,
-    }),
-  });
+// const sendOTPEmail = async record => {
+//   const {email, otp} = record;
 
-  const data = await res.json();
+//   const originalOTP = decrypt(otp, decryptScretKey);
 
-  if (data.meta) {
-    console.log(`Error sending email to ${email}: ${data.meta.error}`);
-    return null;
-  }
+//   const res = await fetch("https://api.customer.io/v1/send/email", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization,
+//     },
+//     body: JSON.stringify({
+//       transactional_message_id: `${CIO_MESSAGE_ID}`,
+//       message_data: {
+//         token: originalOTP,
+//       },
+//       identifiers: {
+//         email,
+//       },
+//       to: email,
+//     }),
+//   });
 
-  console.log(`Sent otp email to ${email}: ${otp}`);
-  return data.delivery_id;
-};
+//   const data = await res.json();
 
-serve(async req => {
-  if (req.method !== "POST") {
-    return new Response(JSON.stringify({error: "Method Not Allowed"}), {
-      status: 405,
-      headers: {"Content-Type": "application/json"},
-    });
-  }
+//   if (data.meta) {
+//     console.log(`Error sending email to ${email}: ${data.meta.error}`);
+//     return null;
+//   }
 
-  const payload = await req.json();
+//   console.log(`Sent otp email to ${email}: ${originalOTP}`);
+//   return data.delivery_id;
+// };
 
-  console.log("Webhook received:", payload);
+// serve(async req => {
+//   if (req.method !== "POST") {
+//     return new Response(JSON.stringify({error: "Method Not Allowed"}), {
+//       status: 405,
+//       headers: {"Content-Type": "application/json"},
+//     });
+//   }
 
-  await sendOTPMail(payload.record);
+//   const payload = await req.json();
 
-  return new Response(
-    JSON.stringify({message: "Webhook received successfully!"}),
-    {status: 200, headers: {"Content-Type": "application/json"}},
-  );
-});
+//   console.log("Webhook received:", payload);
+
+//   await sendOTPEmail(payload.record);
+
+//   return new Response(
+//     JSON.stringify({message: "Webhook received successfully!"}),
+//     {status: 200, headers: {"Content-Type": "application/json"}},
+//   );
+// });
