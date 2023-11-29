@@ -1,9 +1,11 @@
+// app/(website)/layout.tsx
 import SupabaseProvider from "./supabase-provider";
 import {getGlobalFields, getSettings} from "@/lib/sanity/client";
 import {urlForImage} from "@/lib/sanity/image";
 import React from "react";
 import {getSession, getUserDetails, getProfile} from "./supabase-server";
-export async function sharedMetaData(params) {
+
+async function sharedMetaData(params) {
   const settings = await getSettings();
 
   return {
@@ -31,8 +33,7 @@ export async function sharedMetaData(params) {
       siteName: "Pirate Wires",
       images: [
         {
-          url:
-            urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
+          url: urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
           width: 1200,
           height: 600,
         },
@@ -63,7 +64,8 @@ export default async function Layout({children, params}) {
         globalFields={globalFields}
         session={session}
         user={user}
-        profile={profile}>
+        profile={profile}
+      >
         <main
           style={
             {
@@ -72,7 +74,8 @@ export default async function Layout({children, params}) {
               "--doloresParkColor": globalFields.dolores_park_bgcolor,
               "--accentLight": "rgba(227, 227, 227, 0.45)",
             } as React.CSSProperties
-          }>
+          }
+        >
           <div>{children}</div>
         </main>
       </SupabaseProvider>
