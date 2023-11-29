@@ -24,6 +24,11 @@ const PostList: React.FC<PostListProps> = ({
       setLoaded(true);
     }, 250);
   };
+
+  const dateToDisplay = post.publishedAt;
+  const formattedDate = dateToDisplay ? new Date(dateToDisplay) : null;
+  const formattedDateString = useDateFormatter(formattedDate || new Date());
+
   return (
     <article className="hasGoIcon mtb-20">
       <Link
@@ -75,9 +80,13 @@ const PostList: React.FC<PostListProps> = ({
               xmlns="http://www.w3.org/2000/svg">
               <path d="M6.17157 0.46444L9.35355 3.64642C9.54882 3.84168 9.54882 4.15827 9.35355 4.35353L6.17157 7.53551C5.97631 7.73077 5.65973 7.73077 5.46447 7.53551C5.2692 7.34025 5.2692 7.02366 5.46447 6.8284L7.79289 4.49997L0.5 4.49997L0.5 3.49997L7.79289 3.49997L5.46447 1.17155C5.2692 0.976285 5.2692 0.659702 5.46447 0.46444C5.65973 0.269178 5.97631 0.269178 6.17157 0.46444Z" />
             </svg>
-            <span className="date">
+
+            {/* Using formattedDateString */}
+            {/* <span className="date">
               {useDateFormatter(post?.publishedAt || post._createdAt)}
-            </span>
+            </span> */}
+
+            <span className="date">{formattedDateString}</span>
           </div>
         </h1>
 

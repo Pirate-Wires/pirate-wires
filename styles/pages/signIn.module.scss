@@ -17,6 +17,18 @@
   > div {
     width: 100%;
   }
+  form {
+    .errorNoAccount {
+      color: #000000;
+      font-family: $neueMed;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .errorNoAccount a {
+      text-decoration: underline;
+    }
+  }
 
   .substackNotice {
     display: flex;
