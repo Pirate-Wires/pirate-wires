@@ -21,13 +21,9 @@ dayjs.tz.setDefault(dayjs.tz.guess());
 
 interface Props {
   initialData?: CommentType | null;
-  useInfiniteScroll: boolean;
 }
 
-const CommentsList = ({
-  initialData = null,
-  useInfiniteScroll = false,
-}: Props): JSX.Element => {
+const CommentsList = ({initialData = null}: Props): JSX.Element => {
   const {
     rootComment,
     comments,
@@ -53,8 +49,6 @@ const CommentsList = ({
       setIsScrolled(true);
     }
 
-    if (!useInfiniteScroll) return;
-
     if (
       wrapperRef.current &&
       contentRef.current &&
@@ -68,20 +62,12 @@ const CommentsList = ({
   }
 
   if (error || commentsError) {
-    console.log(error);
-    return (
-      <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
-        An error occurred.
-      </div>
-    );
+    console.error(error);
+    return <div className={styles.errorMessage}>An error occurred.</div>;
   }
 
   if (!isLoadingInitialData && !rootComment) {
-    return (
-      <div className="text-center text-red-600 dark:text-red-400 px-3 sm:px-6">
-        This post does not exist.
-      </div>
-    );
+    return <div className={styles.errorMessage}>Post not found.</div>;
   }
 
   return (
@@ -89,8 +75,7 @@ const CommentsList = ({
       ref={wrapperRef}
       className={cn("", {
         "shadow-inner": isScrolled,
-      })}
-      onScroll={handleScroll}>
+      })}>
       <div ref={contentRef}>
         {/* <SortCommentsSelect /> */}
         {isLoadingInitialData &&
@@ -100,14 +85,12 @@ const CommentsList = ({
         {!isLoadingInitialData && (
           <>
             {comments.map((comment: CommentType) => (
-              <div
-                className={styles.commentList}
-                key={`${comment.slug}${useInfiniteScroll ? "-s" : ""}`}>
+              <div className={styles.commentList} key={`${comment.slug}`}>
                 <Comment comment={comment} highlight={comment.highlight} />
               </div>
             ))}
             {error && (
-              <div className="text-center text-gray-600 dark:text-gray-400 px-3 sm:px-6">
+              <div className={styles.errorMessage}>
                 Couldn&apos;t load comments. Please refresh the page.
               </div>
             )}
@@ -132,7 +115,7 @@ const CommentsList = ({
             )} */}
 
             {isEmpty && (
-              <div className="my-6 text-gray-700 dark:text-gray-200">
+              <div className={styles.errorMessage}>
                 There are no comments. Be the first.
               </div>
             )}

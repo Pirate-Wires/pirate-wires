@@ -9,6 +9,9 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
+import styles from "@/styles/pages/subscribe.module.scss";
+import Link from "next/link";
+import React from "react";
 
 export default async function SubscribePage({params, searchParams}) {
   const user = await getUserDetails();
@@ -47,8 +50,28 @@ export default async function SubscribePage({params, searchParams}) {
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
-      <StepSwitcher step={params.step} />
-      <Footer globalFields={globalFields} />
+      <section
+        className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
+        <StepSwitcher step={params.step} />
+        <p className={`disclaimer`}>
+          By continuing, you agree to the{" "}
+          <Link
+            target={"_blank"}
+            href={
+              "https://app.termly.io/document/terms-of-service/7109fc1e-402d-466e-9f79-fe8cbe4a2b71"
+            }>
+            Terms & Conditions
+          </Link>{" "}
+          and{" "}
+          <Link
+            target={"_blank"}
+            href={
+              "https://app.termly.io/document/privacy-policy/42d3d1fe-f9d0-4cc4-9685-91ce1329b836"
+            }>
+            Privacy Policy
+          </Link>
+        </p>
+      </section>
     </div>
   );
 }

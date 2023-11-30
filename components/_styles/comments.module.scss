@@ -72,6 +72,16 @@
 .commentsTop + .newCommentForm {
   margin-top: 0;
 }
+.errorMessage {
+  font-family: $neueReg;
+  color: #cc0000;
+  @include get-vw-small-increase(font-size, 15px, 15px);
+  @include get-vw-small-increase(margin-top, 20px, 20px);
+}
+.readMoreLess {
+  @include get-vw-small-increase(margin-top, 5px, 5px);
+  @include get-vw-small-increase(margin-bottom, 5px, 5px);
+}
 .newCommentForm {
   display: flex;
   width: 100%;
@@ -174,6 +184,7 @@
   display: flex;
   font-family: $neueMed;
   color: #848484;
+  @include get-vw-small-increase(margin-top, 10px, 10px);
   @include get-vw-small-increase(font-size, 12px, 12px);
   @include get-vw-small-increase(gap, 10px, 10px);
 }

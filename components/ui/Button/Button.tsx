@@ -1,8 +1,8 @@
 "use client";
 
 import cn from "classnames";
-import React, { forwardRef, useRef, ButtonHTMLAttributes } from "react";
-import { mergeRefs } from "react-merge-refs";
+import React, {forwardRef, useRef, ButtonHTMLAttributes} from "react";
+import {mergeRefs} from "react-merge-refs";
 
 import LoadingDots from "@/components/ui/LoadingDots";
 
@@ -60,6 +60,6 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, buttonRef) => {
   );
 });
 
-Button.displayName = 'Button';
+Button.displayName = "Button";
 
 export default Button;

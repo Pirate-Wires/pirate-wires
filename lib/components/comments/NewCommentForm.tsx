@@ -16,7 +16,6 @@ import styles from "@/components/_styles/comments.module.scss";
 // Placeholder function for modal handling
 const open = (modalName: string): void => {
   // Implement modal handling logic here or do something else
-  console.log(`Opening ${modalName} modal`);
 };
 
 interface Props {
@@ -94,7 +93,7 @@ const NewCommentForm = ({
     const {error} = await supabase.from("posts").insert([post]);
 
     if (error) {
-      console.log(error);
+      console.error(error);
     } else {
       await mutateComments();
       mutateGlobalCount((count: number) => count + 1);

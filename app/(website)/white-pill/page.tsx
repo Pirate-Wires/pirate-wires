@@ -43,7 +43,6 @@ export async function generateMetadata({params}) {
   };
 }
 export default async function IndustryPage() {
-  const pageData = await getPublicationData("white-pill");
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts("the-white-pill");
   const publicationNewsletters =
@@ -57,14 +56,15 @@ export default async function IndustryPage() {
         {
           "--color": "#060606",
           "--bgColor": "#e3e3e3",
+          "--pubColor": globalFields.white_pill_bgcolor,
           "--accentLight": "rgba(43, 43, 43, 0.45)",
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
       <WhitePill
-        pageData={pageData[0]}
         publicationPosts={publicationPosts}
         publicationNewsletters={publicationNewsletters}
+        globalFields={globalFields}
         user={user}
       />
       <Footer globalFields={globalFields} />

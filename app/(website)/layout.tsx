@@ -1,15 +1,11 @@
+// app/(website)/layout.tsx
 import SupabaseProvider from "./supabase-provider";
 import {getGlobalFields, getSettings} from "@/lib/sanity/client";
-import Footer from "@/components/footer";
 import {urlForImage} from "@/lib/sanity/image";
-import Navigation from "@/components/navigation";
-import SectionTabs from "@/components/section-tabs";
 import React from "react";
-import {headers} from "next/headers";
-import MegaNav from "@/components/megaNav";
 import {getSession, getUserDetails, getProfile} from "./supabase-server";
 
-export async function sharedMetaData(params) {
+async function sharedMetaData(params) {
   const settings = await getSettings();
 
   return {
@@ -37,8 +33,7 @@ export async function sharedMetaData(params) {
       siteName: "Pirate Wires",
       images: [
         {
-          url:
-            urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
+          url: urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
           width: 1200,
           height: 600,
         },
@@ -53,7 +48,7 @@ export async function sharedMetaData(params) {
   };
 }
 
-export async function generateMetadata({params}) {
+export async function metadata({params}) {
   return await sharedMetaData(params);
 }
 
@@ -69,7 +64,8 @@ export default async function Layout({children, params}) {
         globalFields={globalFields}
         session={session}
         user={user}
-        profile={profile}>
+        profile={profile}
+      >
         <main
           style={
             {
@@ -78,7 +74,8 @@ export default async function Layout({children, params}) {
               "--doloresParkColor": globalFields.dolores_park_bgcolor,
               "--accentLight": "rgba(227, 227, 227, 0.45)",
             } as React.CSSProperties
-          }>
+          }
+        >
           <div>{children}</div>
         </main>
       </SupabaseProvider>

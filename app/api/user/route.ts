@@ -46,3 +46,20 @@ export async function POST(req: Request) {
     return new Response(`${err.message}`, {status: 500});
   }
 }
+
+export async function GET(req: Request) {
+  const {searchParams} = new URL(req.url);
+  const email = searchParams.get("email");
+
+  if (!email) {
+    return new Response(`Query Error`, {status: 500});
+  }
+
+  try {
+    const user = await getUserByEmail(email);
+
+    return new Response(JSON.stringify({user: user}), {status: 200});
+  } catch (err) {
+    return new Response(`Error: ${err.message}`, {status: 500});
+  }
+}

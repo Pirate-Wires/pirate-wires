@@ -8,8 +8,6 @@ export const CurrentSubscription = ({subscription}) => {
     return moment(trialEnd).format("MMM DD");
   };
 
-  console.log("subscription", subscription);
-
   const hasTrial =
     subscription.trial_end && moment(subscription.trial_end).isValid();
 

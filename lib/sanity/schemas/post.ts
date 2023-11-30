@@ -105,16 +105,18 @@ const schema = {
     //   type: 'blockContent'
     // },
     defineField({
-      title: "Meta Title",
+      title: "Optional Meta Title",
       name: "meta_title",
       type: "text",
+      description: "If not filled in, it will use the article title",
       rows: 1,
     }),
 
     defineField({
-      title: "Meta Description",
+      title: "Optional Meta Description",
       name: "meta_description",
       type: "text",
+      description: "If not filled in, it will use the excerpt",
       rows: 5,
       validation: Rule => Rule.min(20).max(200),
     }),
@@ -122,8 +124,9 @@ const schema = {
     defineField({
       name: "openGraphImage",
       type: "image",
-      title: "Open Graph Image",
-      description: "Image for sharing previews on Facebook, Twitter etc.",
+      title: "Optional Meta Image",
+      description:
+        "If not filled in, it will use the main image from the article",
     }),
     defineField({
       title: "Related posts override",

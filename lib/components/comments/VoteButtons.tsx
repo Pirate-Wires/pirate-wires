@@ -17,13 +17,12 @@ export async function invokeVote(
   userId: string,
   value: number,
 ): Promise<any> {
-  console.log(postId, userId, value);
   return supabase
     .from("votes")
     .upsert([{postId, userId, value}])
     .then(({data, error}) => {
       if (error) {
-        console.log(error);
+        console.error(error);
         throw error;
       }
 

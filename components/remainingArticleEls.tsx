@@ -3,7 +3,7 @@ import articleCountStyles from "./_styles/articleCountEls.module.scss";
 import Link from "next/link";
 import React from "react";
 
-export default function RemainingArticleEls({relatedArticles}) {
+export default function RemainingArticleEls() {
   const showRemainingArticles = false;
   const showNoMoreArticles = false;
   return (
@@ -39,7 +39,7 @@ export default function RemainingArticleEls({relatedArticles}) {
             Subscribe Now – 14 Days Free Trial
           </Link>
           <p className={articleCountStyles.accountLink}>
-            Already have an account? <Link href={"/subscribe"}>Sign In</Link>
+            Already have an account? <Link href={"/subscribe"}> Sign In</Link>
           </p>
         </div>
       )}

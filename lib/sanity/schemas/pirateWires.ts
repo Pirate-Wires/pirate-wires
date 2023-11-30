@@ -15,12 +15,6 @@ export default defineType({
     }),
 
     defineField({
-      name: "tagline",
-      type: "string",
-      title: "Pub tagline",
-    }),
-
-    defineField({
       title: "Meta Title",
       name: "meta_title",
       type: "text",

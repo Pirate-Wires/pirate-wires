@@ -161,7 +161,7 @@ export default function Post(props) {
       {/* For convenience showing comment component regardless of a user's subscription status
       so that it can be styled  */}
 
-      {postId && <Comment postId={1} />}
+      {postId && <Comment postId={postId} />}
 
       {/* Conditionally showing comment component based on a user's subscription status */}
 
@@ -178,7 +178,7 @@ export default function Post(props) {
         </h2>
       )} */}
 
-      <RemainingArticleEls relatedArticles={[]} />
+      <RemainingArticleEls />
 
       <RelatedArticles relatedArticles={relatedArticles} />
     </>

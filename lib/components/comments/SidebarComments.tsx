@@ -42,7 +42,6 @@ const SidebarComments = (): JSX.Element => {
   }
 
   function handleHashChange(): void {
-    // console.log(location.hash, e);
     if (location.hash === "#comments") {
       setShowComments(true);
     }
@@ -83,7 +82,7 @@ const SidebarComments = (): JSX.Element => {
         </div>
 
         <div className="flex-grow flex flex-col overflow-hidden">
-          <CommentsList useInfiniteScroll={true} />
+          <CommentsList />
         </div>
 
         <div className="min-h-14 block sm:hidden"></div>

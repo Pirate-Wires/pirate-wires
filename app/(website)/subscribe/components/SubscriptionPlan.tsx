@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import moment from "moment";
-
+import styles from "@/styles/pages/subscribe.module.scss";
 const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
 const EXPIRES_MONTH = process.env.NEXT_PUBLIC_SUBSCRIBE_EXPIRES_MONTH;
 const TRIAL_PERIOD_DAYS = process.env.NEXT_PUBLIC_SUBSCRIBE_TRIAL_PERIOD_DAYS;
@@ -25,12 +25,12 @@ const SubscriptionPlan = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Subscription Plan</h2>
-      <p>Price: ${MONTHLY_PRICE}</p>
-      <p>Free trial Days: {TRIAL_PERIOD_DAYS} days</p>
-      <p>Expires: {EXPIRES_MONTH} month</p>
-      <p>Expire Date: {expireDateStr}</p>
+    <div className={`${styles.subscriptionDetails}`}>
+      <h1>Start Your {TRIAL_PERIOD_DAYS}-day Free Trial</h1>
+      <p className={styles.copy}>
+        After your free trial, your card will be billed ${MONTHLY_PRICE}{" "}
+        monthly. Pause or cancel at any time.
+      </p>
     </div>
   );
 };

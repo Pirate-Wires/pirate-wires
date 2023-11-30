@@ -62,7 +62,7 @@ const StepThree: React.FC<StepThreeProps> = ({
   };
 
   return (
-    <section className={`${styles.subscribeWrapper} flowContainer c-20 pb-20`}>
+    <>
       <SubscriptionPlan />
       {isLoading && <div>Loading...</div>}
       {subscription ? (
@@ -72,15 +72,13 @@ const StepThree: React.FC<StepThreeProps> = ({
         </>
       ) : (
         clientSecret && (
-          <>
-            <Elements stripe={stripePromise} options={{clientSecret}}>
-              <CheckoutForm email={email} customerId={customerId} />
-            </Elements>
-          </>
+          <Elements stripe={stripePromise} options={{clientSecret}}>
+            <CheckoutForm email={email} customerId={customerId} />
+          </Elements>
         )
       )}
       {error && <p className={styles.error}>{error}</p>}
-    </section>
+    </>
   );
 };
 

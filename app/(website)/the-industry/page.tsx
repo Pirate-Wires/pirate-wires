@@ -41,7 +41,6 @@ export async function generateMetadata({params}) {
   };
 }
 export default async function IndustryPage() {
-  const pageData = await getPublicationData("the-industry");
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts("the-industry");
   const publicationNewsletters =
@@ -55,13 +54,14 @@ export default async function IndustryPage() {
         {
           "--color": "#060606",
           "--bgColor": "#e3e3e3",
+          "--pubColor": globalFields.industry_bgcolor,
           "--accentLight": "rgba(43, 43, 43, 0.45)",
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
       <Industry
-        pageData={pageData[1]}
         publicationPosts={publicationPosts}
+        globalFields={globalFields}
         publicationNewsletters={publicationNewsletters}
         user={user}
       />

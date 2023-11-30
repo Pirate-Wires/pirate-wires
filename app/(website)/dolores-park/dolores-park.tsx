@@ -2,18 +2,24 @@
 import Link from "next/link";
 import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
-import styles from "../../../styles/pages/home.module.scss";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function DoloresPark({
-  pageData,
+  globalFields,
   publicationPosts,
   publicationNewsletters,
   user,
 }) {
   useScrollBasedAnims();
+
+  // Sorting the publicationPosts by publishedAt
+  const sortedPosts = [...publicationPosts].sort(
+    (a: {publishedAt: any}, b: {publishedAt: any}) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
+
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
@@ -66,14 +72,14 @@ export default function DoloresPark({
             fill="black"
           />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M1113.01 59.9791L1083.32 36.1688L1090.74 102.838L1230.39 102.838L1241.66 102.838L1392.58 102.838L1400 36.1688L1370.31 59.9791L1364.13 20.6921L1334.44 55.2171L1315.88 12.3585L1286.19 43.3119L1275.06 5.21536L1241.66 48.074L1241.66 48.0909V48.074L1208.26 5.21536L1197.13 43.3119L1167.44 12.3585L1148.88 55.2171L1119.19 20.6921L1113.01 59.9791Z"
             fill="black"
           />
         </svg>
         <div className={`taglineRow`}>
-          {pageData.tagline}
+          {globalFields.doloresParkTagline}
           <span className="martina-reg">
             Sign up for{" "}
             <Link href={`/newsletters`}>The Dolores Park Newsletter</Link>
@@ -81,16 +87,17 @@ export default function DoloresPark({
         </div>
       </div>
 
-      <Featured post={publicationPosts[0]} pathPrefix="" />
+      <Featured post={sortedPosts[0]} pathPrefix="" />
 
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
-        section={"The Industry"}
+        section={"Dolores Park"}
+        description={globalFields.doloresParkDescription}
         user={user}
       />
 
       <section className="postGrid c-20">
-        {publicationPosts.slice(1).map((post, index) => (
+        {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
           <PostList
             key={index}

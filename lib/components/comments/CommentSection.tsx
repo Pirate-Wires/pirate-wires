@@ -24,7 +24,7 @@ const CommentSection = ({initialData = null}: Props): JSX.Element => {
       <NewCommentForm />
 
       <div className="">
-        <CommentsList initialData={initialData} useInfiniteScroll={false} />
+        <CommentsList initialData={initialData} />
       </div>
     </>
   );

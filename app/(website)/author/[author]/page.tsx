@@ -1,3 +1,4 @@
+// app/(website)/author/[author]/page.tsx
 import Author from "./author";
 
 import {
@@ -11,6 +12,8 @@ import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import {urlForImage} from "@/lib/sanity/image";
+
+export const dynamic = 'force-static';
 
 export async function generateStaticParams() {
   return await getAllAuthorsSlugs();

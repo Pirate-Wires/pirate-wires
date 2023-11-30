@@ -37,7 +37,7 @@ export async function generateMetadata({params}) {
     : pageData.excerpt;
   const image = pageData.openGraphImage
     ? urlForImage(pageData.openGraphImage)?.src
-    : urlForImage(settings?.openGraphImage)?.src;
+    : pageData.mainImage.asset.url;
 
   return {
     title: title,
@@ -75,7 +75,7 @@ export default async function PostDefault({params}) {
   return (
     <>
       <div
-        className={`colorWrapper ${post.section}`}
+        className={`colorWrapper article ${post.section}`}
         style={
           {
             "--color": "#060606",

@@ -53,7 +53,7 @@ export default async function NewslettersPage() {
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
-      <Newsletters pageData={pageData[0]} />
+      <Newsletters pageData={pageData[0]} globalFields={globalFields} />
       <Footer globalFields={globalFields} />
     </div>
   );

@@ -17,10 +17,10 @@ interface Tab {
 
 const tabs: Tab[] = [
   {name: "Home", href: "/"},
-  {name: "Wires", href: "/wires"},
-  {name: "The Industry", href: "/the-industry"},
-  {name: "The White Pill", href: "/white-pill"},
-  {name: "Dolores Park", href: "/dolores-park"},
+  {name: "Pirate Wires", href: "/wires"},
+  {name: "Tech", href: "/the-industry"},
+  {name: "Science", href: "/white-pill"},
+  {name: "San Francisco", href: "/dolores-park"},
 ];
 
 interface NavigationProps {
@@ -31,7 +31,8 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
   const currentRoute = usePathname();
   const {session, user: userDetails} = useSupabase();
-  const flowNav = currentRoute === "/subscribe" || currentRoute === "/sign-in";
+  const flowNav =
+    currentRoute.includes("/subscribe") || currentRoute.includes("/sign-in");
   const simpleNav = currentRoute === "/account";
   const homePage = currentRoute === "/" || currentRoute === "/home";
   const industryPage =

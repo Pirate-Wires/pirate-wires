@@ -7,12 +7,19 @@ import FeaturedNewsletters from "@/components/featuredNewsletters";
 import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 
 export default function WhitePill({
-  pageData,
+  globalFields,
   publicationPosts,
   publicationNewsletters,
   user,
 }) {
   useScrollBasedAnims();
+
+  // Sorting the publicationPosts by publishedAt
+  const sortedPosts = [...publicationPosts].sort(
+    (a: {publishedAt: any}, b: {publishedAt: any}) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
+
   return (
     <>
       <div className="featuredPostsTop ptb-20 c-20">
@@ -62,23 +69,25 @@ export default function WhitePill({
           />
         </svg>
         <div className={`taglineRow`}>
-          {pageData.tagline}
+          {globalFields.whitePillTagline}
           <span className="martina-reg">
             Sign up for{" "}
             <Link href={`/newsletters`}>The White Pill Newsletter</Link>
           </span>
         </div>
       </div>
-      <Featured post={publicationPosts[0]} pathPrefix="" />
+
+      <Featured post={sortedPosts[0]} pathPrefix="" />
 
       <FeaturedNewsletters
         newsletters={publicationNewsletters}
         section={"The White Pill"}
+        description={globalFields.whitePillDescription}
         user={user}
       />
 
       <section className="postGrid c-20">
-        {publicationPosts.slice(1).map((post, index) => (
+        {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
           <PostList
             key={index}

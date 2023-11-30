@@ -5,7 +5,7 @@ import {useSupabase} from "@/app/(website)/supabase-provider";
 
 import styles from "./_styles/newsletterCallout.module.scss";
 
-export default function NewsletterCallout({newsletterData}) {
+export default function NewsletterCallout({newsletterData, globalFields}) {
   const currentRoute = usePathname();
   const {user} = useSupabase();
   const interiorPage = currentRoute === "/newsletters";
@@ -105,167 +105,153 @@ export default function NewsletterCallout({newsletterData}) {
     }
   };
 
-  return user ? (
-    <h1>Redirecting to your account page...</h1>
-  ) : (
-    <div
-      className={`${styles.newsletterCallout} ${
-        interiorPage ? styles.interiorPage : ""
-      } ptb-40`}>
-      <form
-        className={`${styles.inner} c-20`}
-        id="newsletter-form"
-        method="POST"
-        action=""
-        onSubmit={handleSubmit}>
-        <div className={styles.top}>
-          {!interiorPage && <h4>Sign up for our Newsletters</h4>}
-          <div className={`${styles.inputWrapper} inputWrapper`}>
-            <input
-              id="email_input"
-              name="email"
-              type="email"
-              placeholder="Your email here..."
-            />
-            <button
-              type="submit"
-              name="Submit newsletter signup"
-              id="submit"
-              disabled={isLoading}>
-              {isLoading ? "Loading..." : "Sign Up"}
-            </button>
-          </div>
-          {isSuccess && (
-            <p className={styles.successMessage}>Thanks for subscribing!</p>
-          )}
-          {!!error && <p className={styles.errorMessage}>{error}</p>}
-          <p className={styles.selectedCount}>
-            (<span>{selectedNewsLetters.length}</span>) Newsletters Selected
-          </p>
-        </div>
+  return (
+    <>
+      {/* <h1>Redirecting to your account page...</h1> */}
 
-        <div className={styles.bottom}>
-          <div
-            className={`${styles.tile} ${styles.pirateWires} newsletter-tile mb-40`}
-            onClick={clickInnerInput}>
-            <p className={styles.eyebrow}>
-              {newsletterData.pirate_wires_frequency}
+      <div
+        className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""
+          } ptb-40`}>
+        <form
+          className={`${styles.inner} c-20`}
+          id="newsletter-form"
+          method="POST"
+          action=""
+          onSubmit={handleSubmit}>
+          <div className={styles.top}>
+            {!interiorPage && <h4>Sign up for our Newsletters</h4>}
+            <div className={`${styles.inputWrapper} inputWrapper`}>
+              <input
+                id="email_input"
+                name="email"
+                type="email"
+                placeholder="Your email here..."
+              />
+              <button
+                type="submit"
+                name="Submit newsletter signup"
+                id="submit"
+                disabled={isLoading}>
+                {isLoading ? "Loading..." : "Sign Up"}
+              </button>
+            </div>
+            {isSuccess && (
+              <p className={styles.successMessage}>Thanks for subscribing!</p>
+            )}
+            {!!error && <p className={styles.errorMessage}>{error}</p>}
+            <p className={styles.selectedCount}>
+              (<span>{selectedNewsLetters.length}</span>) Newsletters Selected
             </p>
-            <p className={styles.title}>Pirate Wires</p>
-            <p className={`${styles.subtitle} martina-reg`}>
-              Technology, Politics, Culture.
-            </p>
-            <p className={styles.description}>
-              Sign up for the original Pirate Wires newsletter. You get: a
-              bi-weekly deep dive from Editor-in-Chief Mike Solana, an
-              occasional piece from our team of writers, and a weekly feature
-              from the internet’s top creative talent. Sign up, or die.
-            </p>
-            <div className={styles.tileBottom}>
-              <div className={styles.checkboxWrapper}>
-                <label htmlFor="selected1">Selected</label>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  id="selected1"
-                  name="Wires"
-                  onChange={handleSelect}
-                  checked={selectedNewsLetters.indexOf("Wires") > -1}
-                />
+          </div>
+
+          <div className={styles.bottom}>
+            <div
+              className={`${styles.tile} ${styles.pirateWires} newsletter-tile mb-40`}
+              onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>
+                {globalFields.pirateWiresFrequency}
+              </p>
+              <p className={styles.title}>Pirate Wires</p>
+              <p className={`${styles.subtitle} martina-reg`}>
+                {globalFields.pirateWiresTagline}
+              </p>
+              <p className={styles.description}>
+                {globalFields.pirateWiresDescription}
+              </p>
+              <div className={styles.tileBottom}>
+                <div className={styles.checkboxWrapper}>
+                  <label htmlFor="selected1">Selected</label>
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    id="selected1"
+                    name="Wires"
+                    onChange={handleSelect}
+                    checked={selectedNewsLetters.indexOf("Wires") > -1}
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`}
+              onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>{globalFields.whitePillFrequency}</p>
+              <p className={styles.title}>The White Pill</p>
+              <p className={`${styles.subtitle} martina-reg`}>
+                {globalFields.whitePillTagline}
+              </p>
+              <p className={styles.description}>
+                {globalFields.whitePillDescription}
+              </p>
+              <div className={styles.tileBottom}>
+                <div className={styles.checkboxWrapper}>
+                  <label htmlFor="selected2">Selected</label>
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    id="selected2"
+                    name="The White Pill"
+                    onChange={handleSelect}
+                    checked={selectedNewsLetters.indexOf("The White Pill") > -1}
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${styles.tile} ${styles.industry} newsletter-tile mb-40`}
+              onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>{globalFields.industryFrequency}</p>
+              <p className={styles.title}>The Industry</p>
+              <p className={`${styles.subtitle} martina-reg`}>
+                {globalFields.industryTagline}
+              </p>
+              <p className={styles.description}>
+                {globalFields.industryDescription}
+              </p>
+              <div className={styles.tileBottom}>
+                <div className={styles.checkboxWrapper}>
+                  <label htmlFor="selected3">Selected</label>
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    id="selected3"
+                    name="The Industry"
+                    onChange={handleSelect}
+                    checked={selectedNewsLetters.indexOf("The Industry") > -1}
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className={`${styles.tile} ${styles.doloresPark} newsletter-tile mb-40`}
+              onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>
+                {globalFields.doloresParkFrequency}
+              </p>
+              <p className={styles.title}>Dolores Park</p>
+              <p className={`${styles.subtitle} martina-reg`}>
+                {globalFields.doloresParkTagline}
+              </p>
+              <p className={styles.description}>
+                {globalFields.doloresParkDescription}
+              </p>
+              <div className={styles.tileBottom}>
+                <div className={styles.checkboxWrapper}>
+                  <label htmlFor="selected4">Selected</label>
+                  <input
+                    type="checkbox"
+                    className="checkbox"
+                    id="selected4"
+                    name="Dolores Park"
+                    onChange={handleSelect}
+                    checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`}
-            onClick={clickInnerInput}>
-            <p className={styles.eyebrow}>
-              {newsletterData.white_pill_frequency}
-            </p>
-            <p className={styles.title}>The White Pill</p>
-            <p className={`${styles.subtitle} martina-reg`}>
-              Science, Progress, Optimism, Innovation.
-            </p>
-            <p className={styles.description}>
-              Sign up for the White Pill, a weekly newsletter — and occasional
-              stories — covering the most inspiring, fascinating, and evocative
-              developments in technology, from engineering to medicine, and
-              science, from physics and astronomy to space and beyond.
-            </p>
-            <div className={styles.tileBottom}>
-              <div className={styles.checkboxWrapper}>
-                <label htmlFor="selected2">Selected</label>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  id="selected2"
-                  name="The White Pill"
-                  onChange={handleSelect}
-                  checked={selectedNewsLetters.indexOf("The White Pill") > -1}
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            className={`${styles.tile} ${styles.industry} newsletter-tile mb-40`}
-            onClick={clickInnerInput}>
-            <p className={styles.eyebrow}>
-              {newsletterData.industry_frequency}
-            </p>
-            <p className={styles.title}>The Industry</p>
-            <p className={`${styles.subtitle} martina-reg`}>
-              Technology, Business.
-            </p>
-            <p className={styles.description}>
-              Sign up for The Industry, a concentrated technology / business
-              newsletter from Pirate Wires, including: a weekly blast of all the
-              major industry stories worth following, interviews with industry
-              leaders, and analysis from professionals who actually know what
-              they’re talking about. We’re glad you’ve found us. Now let’s all
-              be rich and powerful.
-            </p>
-            <div className={styles.tileBottom}>
-              <div className={styles.checkboxWrapper}>
-                <label htmlFor="selected3">Selected</label>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  id="selected3"
-                  name="The Industry"
-                  onChange={handleSelect}
-                  checked={selectedNewsLetters.indexOf("The Industry") > -1}
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            className={`${styles.tile} ${styles.doloresPark} newsletter-tile mb-40`}
-            onClick={clickInnerInput}>
-            <p className={styles.eyebrow}>
-              {newsletterData.doloresPark_frequency}
-            </p>
-            <p className={styles.title}>Dolores Park</p>
-            <p className={`${styles.subtitle} martina-reg`}>San Francisco</p>
-            <p className={styles.description}>
-              Sign up for Dolores Park, a San Francisco focused newsletter from
-              Pirate Wires. We’re glad you’ve found us. Now let’s all devalue
-              prime real estate and later purchase it at a discount.
-            </p>
-            <div className={styles.tileBottom}>
-              <div className={styles.checkboxWrapper}>
-                <label htmlFor="selected4">Selected</label>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  id="selected4"
-                  name="Dolores Park"
-                  onChange={handleSelect}
-                  checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 }

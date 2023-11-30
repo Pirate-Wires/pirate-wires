@@ -77,10 +77,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const {email, section} = body;
 
-    // Log received payload for verification
-    console.log("Received email:", email);
-    console.log("Received subscription:", section);
-
     await createAuthUser(email);
 
     const cioId = await getCustomerId(email);
