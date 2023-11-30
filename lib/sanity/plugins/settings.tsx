@@ -1,11 +1,3 @@
-/**
- * This plugin contains all the logic for setting up the singletons
- */
-
-// import {
-//   apiVersion,
-//   previewSecretId,
-// } from "@/lib/sanity/config";
 import {type DocumentDefinition} from "sanity";
 import {type StructureResolver} from "sanity/desk";
 
