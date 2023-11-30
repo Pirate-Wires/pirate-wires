@@ -1,10 +1,5 @@
-// lib/sanity/client.ts
-import {apiVersion, dataset, projectId, useCdn} from "./config";
-import revalidateTag from "../../app/actions";
 import {
   postquery,
-  limitquery,
-  paginatedquery,
   configQuery,
   globalFieldsQuery,
   singlePostQuery,
@@ -12,13 +7,11 @@ import {
   podcastQuery,
   pathquery,
   postsbyauthorquery,
-  searchquery,
   publicationDocQuery,
   newsletterQuery,
   careersQuery,
   authorsQuery,
   postBySectionQuery,
-  allauthorsquery,
   authorSlugsQuery,
   newslettersBySectionQuery,
   authorQuery,
@@ -27,15 +20,17 @@ import {
 } from "./groq";
 import {createClient} from "next-sanity";
 
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
+const useCdn = process.env.NODE_ENV === "production";
+
 if (!projectId) {
   console.error(
     "The Sanity Project ID is not set. Check your environment variables.",
   );
 }
 
-/**
- * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
- */
 const client = projectId
   ? createClient({projectId, dataset, apiVersion, useCdn})
   : null;
