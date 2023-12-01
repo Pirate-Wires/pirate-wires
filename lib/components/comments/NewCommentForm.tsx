@@ -104,7 +104,15 @@ const NewCommentForm = ({
     }
   }
 
-  return !!user && user.subscription_id ? (
+  return !user ? (
+    <div>
+      Please <Link href="/sign-in">sign-in</Link> to comment
+    </div>
+  ) : !user.subscription_id ? (
+    <div>
+      Please <Link href="/subscribe">subscribe</Link> to comment
+    </div>
+  ) : (
     <div className={`${styles.newCommentForm}`}>
       {/* {!user && (
               <button
@@ -141,10 +149,6 @@ const NewCommentForm = ({
           Send
         </button>
       </div>
-    </div>
-  ) : (
-    <div>
-      Please <Link href="/subscribe">subscribe</Link> to comment
     </div>
   );
 };
