@@ -118,7 +118,7 @@ export default async function Account({params}) {
 
     if (user) {
       const {error} = await supabase
-        .from("users")
+        .from("profiles")
         .update({comments_notifications: newCommentsNotifications})
         .eq("id", user.id);
 

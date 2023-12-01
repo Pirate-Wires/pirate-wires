@@ -1,5 +1,6 @@
 // import { useSignInModal } from '@/lib/components/comments/SignInModal';
 import User from "@/lib/icons/User";
+import Link from "next/link";
 import updateFieldHeight from "@/lib/utils/autosize";
 // import supabase from '@/lib/utils/initSupabase';
 import punctuationRegex from "@/lib/utils/regex/punctuationRegex";
@@ -103,22 +104,30 @@ const NewCommentForm = ({
     }
   }
 
-  return (
+  return !user ? (
+    <div>
+      Please <Link href="/sign-in">sign-in</Link> to comment
+    </div>
+  ) : !user.subscription_id ? (
+    <div>
+      Please <Link href="/subscribe">subscribe</Link> to comment
+    </div>
+  ) : (
     <div className={`${styles.newCommentForm}`}>
       {/* {!user && (
-            <button
-              className=""
-              onClick={() => open('signInModal')}
-              aria-label="Create new account"
-            >
-              <User className="" />
-            </button>
-          )}
-          {user && (
-            <button className="" aria-label="View profile information">
-              <Avatar profile={profile} />
-            </button>
-          )} */}
+              <button
+                className=""
+                onClick={() => open('signInModal')}
+                aria-label="Create new account"
+              >
+                <User className="" />
+              </button>
+            )}
+            {user && (
+              <button className="" aria-label="View profile information">
+                <Avatar profile={profile} />
+              </button>
+            )} */}
 
       <label className="">
         <textarea

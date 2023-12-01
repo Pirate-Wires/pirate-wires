@@ -6,11 +6,14 @@
 // const Authorization = `Bearer ${CUSTOMER_IO_API_KEY}`;
 // const CIO_MESSAGE_ID = 2;
 
-// const sendCommentReplyEmail = async (parentComment, rootPost) => {
-//   const {title, slug} = rootPost;
+// const sendCommentReplyEmail = async (record, parentComment, rootPost) => {
+//   const {
+//     author: {comments_display_name: username},
+//   } = record;
 //   const {
 //     author: {email},
 //   } = parentComment;
+//   const {title, slug} = rootPost;
 
 //   const res = await fetch("https://api.customer.io/v1/send/email", {
 //     method: "POST",
@@ -23,6 +26,7 @@
 //       message_data: {
 //         title,
 //         slug,
+//         username,
 //       },
 //       identifiers: {
 //         email,
@@ -77,9 +81,19 @@
 //       throw new Error("The user leave comment on the post");
 //     }
 
+//     const {data: newComment, error: newGetError} = await supabaseAdmin
+//       .from("comments_thread_with_user_vote")
+//       .select("author")
+//       .eq("id", record.id)
+//       .single();
+
+//     if (newGetError) {
+//       throw newGetError;
+//     }
+
 //     const {data: parentComment, error: parentGetError} = await supabaseAdmin
 //       .from("comments_thread_with_user_vote")
-//       .select("slug, title, author")
+//       .select("author")
 //       .eq("id", record.parentId)
 //       .single();
 
@@ -87,9 +101,11 @@
 //       throw parentGetError;
 //     }
 
+//     if(!parentComment.author.comments_notifications) return;
+
 //     const {data: rootPost, error: rootGetError} = await supabaseAdmin
 //       .from("comments_thread_with_user_vote")
-//       .select("slug, title, author")
+//       .select("slug, title")
 //       .eq("id", record.rootId)
 //       .single();
 
@@ -97,7 +113,7 @@
 //       throw rootGetError;
 //     }
 
-//     await sendCommentReplyEmail(parentComment, rootPost);
+//     await sendCommentReplyEmail(newComment, parentComment, rootPost);
 
 //     return new Response(JSON.stringify({postTitle: rootPost.title}), {
 //       headers: {"Content-Type": "application/json"},

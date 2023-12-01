@@ -305,7 +305,7 @@ const upsertUserRecord = async (
   email: string,
   full_name: string,
 ) => {
-  const userData: User = {
+  const userData = {
     id,
     full_name,
     email,
