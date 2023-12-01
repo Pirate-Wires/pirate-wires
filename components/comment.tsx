@@ -1,35 +1,34 @@
+// components/comments.tsx
 "use client";
 
 import CommentSection from "@/lib/components/comments/CommentSection";
-import SidebarComments from "@/lib/components/comments/SidebarComments";
 import MessageBubbleButton from "@/lib/components/comments/MessageBubbleButton";
-import HeartButton from "@/lib/components/comments/HeartButton";
+import LikeButton from "@/lib/components/comments/LikeButton";
 import ShareButton from "@/lib/components/comments/ShareButton";
 import {CommentsContextProvider} from "@/lib/hooks/use-comments";
+
+// SidebarComments and ModalProvider are not yet required features
+// import SidebarComments from "@/lib/components/comments/SidebarComments";
 // import { ModalProvider } from '@/lib/hooks/use-modal';
+
 
 import styles from "@/components/_styles/comments.module.scss";
 
 export default function Comment({postId}): JSX.Element {
   return (
     <CommentsContextProvider postId={postId}>
-      {/* <ModalProvider> */}
       <section className={`${styles.commentsSection}`}>
         <div className={`${styles.commentsTop} pb-20`}>
           <div className={`${styles.buttonGroup}`}>
-            <HeartButton />
+            <LikeButton />
             <MessageBubbleButton />
           </div>
           <div className={`${styles.buttonGroup}`}>
             <ShareButton />
           </div>
         </div>
-
         <CommentSection />
-
-        {/* <SidebarComments /> */}
       </section>
-      {/* </ModalProvider> */}
     </CommentsContextProvider>
   );
 }

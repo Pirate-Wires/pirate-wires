@@ -13,8 +13,10 @@ import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 import Comment from "@/components/comment";
 
 export default function Post(props) {
-  const {loading, post, postId, thisSectionArticles, userDetails} = props;
-
+  const {loading, post, postId, thisSectionArticles, userDetails, subscription, session} = props;
+  console.log("subscription", subscription);
+  console.log("userDetails", userDetails);
+  console.log("session", session);
   const slug = post?.slug;
 
   if (!loading && !slug) {
@@ -49,9 +51,8 @@ export default function Post(props) {
   return (
     <>
       <section
-        className={`${styles.articleHero} ${
-          post.wide_image_top ? styles.wideImageTop : ""
-        } ${post.wide_image_top ? "c-20" : ""}`}>
+        className={`${styles.articleHero} ${post.wide_image_top ? styles.wideImageTop : ""
+          } ${post.wide_image_top ? "c-20" : ""}`}>
         {!post.wide_image_top ? (
           <>
             <div className={`${styles.imageWrapper} imageWrapper`}>
@@ -157,9 +158,6 @@ export default function Post(props) {
           {post.body && <PortableText value={post.body} />}
         </div>
       </section>
-
-      {/* For convenience showing comment component regardless of a user's subscription status
-      so that it can be styled  */}
 
       {postId && <Comment postId={postId} />}
 
