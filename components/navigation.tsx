@@ -32,7 +32,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
   const currentRoute = usePathname();
   const {session, user: userDetails} = useSupabase();
   const flowNav =
-    currentRoute.includes("/subscribe") || currentRoute.includes("/sign-in");
+    currentRoute?.includes("/subscribe") || currentRoute?.includes("/sign-in");
   const simpleNav = currentRoute === "/account";
   const homePage = currentRoute === "/" || currentRoute === "/home";
   const industryPage =
