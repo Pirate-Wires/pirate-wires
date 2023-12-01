@@ -51,7 +51,7 @@ const LikeButton = (): JSX.Element => {
       const guestUserId = generateRandomId();
       localStorage.setItem(`guestVote_${rootComment.id}`, guestUserId);
 
-      // Make an API call to add/update vote for the guest user using their generated ID
+      // Make API call to add/update vote for the guest user using their generated ID
       await invokeGuestVote(supabase, rootComment.id, guestUserId, 1);
     }
   }
