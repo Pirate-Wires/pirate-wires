@@ -96,18 +96,6 @@ export default async function Account({params}) {
     revalidatePath("/account");
   };
 
-  const updateEmail = async (formData: FormData) => {
-    "use server";
-
-    const newEmail = formData.get("email") as string;
-    const supabase = createServerActionClient<Database>({cookies});
-    const {error} = await supabase.auth.updateUser({email: newEmail});
-    if (error) {
-      throw error;
-    }
-    revalidatePath("/account");
-  };
-
   const updateCommentsNotifications = async (
     newCommentsNotifications: boolean,
   ) => {
@@ -148,7 +136,6 @@ export default async function Account({params}) {
         session={session}
         profile={profile}
         updateName={updateName}
-        updateEmail={updateEmail}
         updateCommentsNotifications={updateCommentsNotifications}
         updateCommentsDisplayName={updateCommentsDisplayName}
       />

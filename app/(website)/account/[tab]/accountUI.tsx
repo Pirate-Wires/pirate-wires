@@ -18,7 +18,6 @@ export default function AccountUI({
   session,
   profile,
   updateName,
-  updateEmail,
   updateCommentsNotifications,
   updateCommentsDisplayName,
 }) {
@@ -120,7 +119,17 @@ export default function AccountUI({
         return;
       }
 
-      await updateEmail(formData);
+      const response = await fetch("/api/user", {
+        method: "PUT",
+        body: JSON.stringify({
+          id: userDetails?.id!,
+          email: newEmail,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
       setLastUpdatedEmail(newEmail);
       setDetailUpdateMsg(`User email updated successfully`);
