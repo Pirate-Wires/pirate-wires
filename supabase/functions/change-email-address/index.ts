@@ -3,7 +3,7 @@
 // const CUSTOMER_IO_API_KEY = Deno.env.get("CUSTOMER_IO_API_KEY");
 
 // const Authorization = `Bearer ${CUSTOMER_IO_API_KEY}`;
-// const CIO_MESSAGE_ID = 6;
+// const CIO_MESSAGE_ID = "change-email";
 
 // const sendChangeEmail = async (oldEmail, newEmail) => {
 //   const res = await fetch("https://api.customer.io/v1/send/email", {
@@ -52,6 +52,10 @@
 //     const { record, old_record } = payload;
 //     const { email: newEmail } = record;
 //     const { email: oldEmail } = old_record;
+
+//     if(newEmail === oldEmail) {
+//       throw new Error(`Email hasn't changed`);
+//     }
 
 //     await sendChangeEmail(oldEmail, newEmail);
 

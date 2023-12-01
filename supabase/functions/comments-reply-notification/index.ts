@@ -4,7 +4,7 @@
 // const CUSTOMER_IO_API_KEY = Deno.env.get("CUSTOMER_IO_API_KEY");
 
 // const Authorization = `Bearer ${CUSTOMER_IO_API_KEY}`;
-// const CIO_MESSAGE_ID = 2;
+// const CIO_MESSAGE_ID = "comments-reply-notification";
 
 // const sendCommentReplyEmail = async (record, parentComment, rootPost) => {
 //   const {
