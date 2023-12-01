@@ -42,7 +42,7 @@ export async function generateMetadata({params}) {
     },
   };
 }
-export default async function IndustryPage() {
+export default async function WhitePillPage() {
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts("the-white-pill");
   const publicationNewsletters =
