@@ -1,5 +1,5 @@
 // /api/article-metering/route.ts
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -7,9 +7,10 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || '',
 );
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'PUT') {
-    const { cookieId, viewedArticles, viewCounts, ipAddresses, lastAccessedAt } = req.body;
+export async function POST(req: NextRequest) {
+  if (req.method === 'POST') { 
+
+    const { cookieId, viewedArticles, viewCounts, ipAddresses, lastAccessedAt } = await req.json();
 
     try {
       const { data, error } = await supabase
@@ -26,12 +27,21 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
         throw error;
       }
 
-      res.status(200).json({ message: 'Record updated successfully', updatedRecord: data });
+      return new Response(
+        JSON.stringify({ message: 'Record updated successfully', updatedRecord: data }),
+        { status: 200 }
+      );
     } catch (error) {
       console.error('Error updating record:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      return new Response(
+        JSON.stringify({ error: 'Internal Server Error' }),
+        { status: 500 }
+      );
     }
   } else {
-    res.status(405).json({ error: 'Method Not Allowed' });
+    return new Response(
+      JSON.stringify({ error: 'Method Not Allowed' }),
+      { status: 405 }
+    );
   }
 }
