@@ -18,7 +18,7 @@
 //         newEmail, oldEmail
 //       },
 //       identifiers: {
-//         oldEmail,
+//         email: oldEmail,
 //       },
 //       to: oldEmail,
 //     }),
