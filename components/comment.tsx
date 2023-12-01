@@ -7,11 +7,6 @@ import LikeButton from "@/lib/components/comments/LikeButton";
 import ShareButton from "@/lib/components/comments/ShareButton";
 import {CommentsContextProvider} from "@/lib/hooks/use-comments";
 
-// SidebarComments and ModalProvider are not yet required features
-// import SidebarComments from "@/lib/components/comments/SidebarComments";
-// import { ModalProvider } from '@/lib/hooks/use-modal';
-
-
 import styles from "@/components/_styles/comments.module.scss";
 
 export default function Comment({postId}): JSX.Element {
