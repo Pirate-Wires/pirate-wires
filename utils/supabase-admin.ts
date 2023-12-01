@@ -305,7 +305,7 @@ const upsertUserRecord = async (
   email: string,
   full_name: string,
 ) => {
-  const userData: User = {
+  const userData = {
     id,
     full_name,
     email,
@@ -376,6 +376,14 @@ const verifyOTP = async (email: string, inputOtpHash: string) => {
   return {error: new Error(`Token has expired or is invalid`)};
 };
 
+const updateAuthUser = async (id, userData) => {
+  const {data, error} = await supabaseAdmin.auth.admin.updateUserById(
+    id,
+    userData,
+  );
+  return {data, error};
+};
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
@@ -387,4 +395,5 @@ export {
   upsertUserRecord,
   upsertOTPRecord,
   verifyOTP,
+  updateAuthUser,
 };
