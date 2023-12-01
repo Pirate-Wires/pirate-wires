@@ -1,7 +1,3 @@
-// the sanity.config.ts is in a pirate-wires folder in the root of the project.
-// todo: decide final location of sanity.config.ts
-
-import {projectId, dataset, previewSecretId} from "./lib/sanity/config";
 import {pageStructure, singletonPlugin} from "./lib/sanity/plugins/settings";
 import {schemaTypes} from "./lib/sanity/schemas";
 import settings from "./lib/sanity/schemas/settings";

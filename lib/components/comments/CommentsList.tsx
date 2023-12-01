@@ -96,7 +96,7 @@ const CommentsList = ({initialData = null}: Props): JSX.Element => {
             )}
             {isLoadingMore && <CommentSkeleton />}
 
-            {!isReachingEnd && remainingCount && (
+            {!isReachingEnd && !!remainingCount && (
               <div className={`${styles.moreButtonWrapper}`}>
                 <button
                   onClick={() => loadMore()}
