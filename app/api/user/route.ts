@@ -3,6 +3,7 @@ import {
   createAuthUser,
   upsertUserRecord,
   createOrRetrieveCustomer,
+  updateAuthUser,
 } from "@/utils/supabase-admin";
 
 export async function POST(req: Request) {
@@ -42,6 +43,26 @@ export async function POST(req: Request) {
         status: 200,
       },
     );
+  } catch (err) {
+    return new Response(`${err.message}`, {status: 500});
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const body = await req.json();
+    const {id, email} = body;
+
+    const {
+      data: {user},
+      error,
+    } = await updateAuthUser(id, {email});
+
+    if (error) throw error;
+
+    return new Response(JSON.stringify({success: true, payload: {user}}), {
+      status: 200,
+    });
   } catch (err) {
     return new Response(`${err.message}`, {status: 500});
   }
