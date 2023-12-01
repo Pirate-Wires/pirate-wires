@@ -1,20 +1,16 @@
 // app/(website)/p/[slug]/page.tsx
 import PostPage from "./default";
-// import { CommentsContextProvider } from '@/lib/supabase-comments/hooks/use-comments';
 import {
   getAllPostsSlugs,
   getGlobalFields,
-  getPodcastData,
   getPostBySlug,
   getPublicationPosts,
   getSettings,
 } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import Newsletters from "@/app/(website)/newsletters/newsletters";
 import Footer from "@/components/footer";
 import {
-  getActiveProductsWithPrices,
   getSession,
   getSubscription,
   getUserDetails,
@@ -66,12 +62,18 @@ export default async function PostDefault({params}) {
   const allRelatedArticles = await getPublicationPosts(post.section);
   const globalFields = await getGlobalFields();
   const publication = post.section;
-  const [session, userDetails, products, subscription] = await Promise.all([
-    getSession(),
-    getUserDetails(),
-    getActiveProductsWithPrices(),
-    getSubscription(),
-  ]);
+
+  const session = await getSession();
+  console.log("session", session);
+
+  const userDetails = await getUserDetails();
+  console.log("userDetails", userDetails);
+
+  const subscription = await getSubscription();
+  console.log("subscription", subscription);
+
+  // if there is not a session 
+
   return (
     <>
       <div
@@ -89,6 +91,8 @@ export default async function PostDefault({params}) {
           postId={postId}
           userDetails={userDetails}
           thisSectionArticles={allRelatedArticles}
+          subscription={subscription}
+          session={session}
         />
         <Footer globalFields={globalFields} />
       </div>

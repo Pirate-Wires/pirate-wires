@@ -1,9 +1,6 @@
 import {useComments} from "@/lib/hooks/use-comments";
 import {useSupabase} from "@/app/(website)/supabase-provider";
 import Heart from "@/lib/icons/Heart";
-import ThumbsUpFilled from "@/lib/icons/ThumbUpFilled";
-import ThumbsUpOutlined from "@/lib/icons/ThumbUpOutlined";
-// import supabase from '@/lib/utils/initSupabase';
 import type {CommentType} from "@/lib/utils/types";
 import cn from "classnames";
 import React from "react";
@@ -20,6 +17,25 @@ export async function invokeVote(
   return supabase
     .from("votes")
     .upsert([{postId, userId, value}])
+    .then(({data, error}) => {
+      if (error) {
+        console.error(error);
+        throw error;
+      }
+
+      return data;
+    });
+}
+// invokeGuestVote function to suupport guest voting in LikeButton.tsx
+export async function invokeGuestVote(
+  supabase: any,
+  postId: number,
+  guestId: string,
+  value: number,
+): Promise<any> {
+  return supabase
+    .from("votes")
+    .upsert([{postId, guestId, value}])
     .then(({data, error}) => {
       if (error) {
         console.error(error);
@@ -74,6 +90,7 @@ const VoteButtons = ({
     }
   }
 
+  // this can serve as a "reporting" function where 
   function handleDownvote(): void {
     if (!user || !user.id) return redirectToSignIn();
 
@@ -115,35 +132,7 @@ const VoteButtons = ({
             onClick={handleUpvote}
             aria-label="Like this comment">
             Like {!!comment.votes && `(${comment.votes})`}
-            {/* {status === 'upvoted' && <ThumbsUpFilled className="w-4 h-4 text-red-500" />}
-            {status !== 'upvoted' && (
-<<<<<<< HEAD
-              <ThumbsUpOutlined className="" />
-            )}
           </button>
-          <span className="">
-=======
-              <ThumbsUpOutlined className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            )} */}
-          </button>
-          {/* <span className="text-gray-600 dark:text-gray-400 text-xs tabular-nums min-w-[12px] text-center mx-1">
->>>>>>> 4d0d7481fd96cb7c903caae0518b0a735107cc5b
-            {comment.votes}
-          </span> */}
-          {/* {config.canDownvote && (
-            <button
-              className=""
-              onClick={handleDownvote}
-              aria-label="Dislike this comment"
-            >
-              {status === 'downvoted' && (
-                <ThumbsUpFilled className="" />
-              )}
-              {status !== 'downvoted' && (
-                <ThumbsUpOutlined className="" />
-              )}
-            </button>
-          )} */}
         </>
       )}
     </>
