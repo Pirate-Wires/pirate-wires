@@ -7,7 +7,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || "",
 );
 
-export default async function handler(
+export default async function articleMetering(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
