@@ -12,7 +12,7 @@ import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import {urlForImage} from "@/lib/sanity/image";
 export async function generateMetadata({params}) {
-  const pageData = await getPublicationData("the-industry");
+  const pageData = await getPublicationData("dolores-park");
   const settings = await getSettings();
   const title = pageData[1].meta_title
     ? pageData[1].meta_title
@@ -40,7 +40,7 @@ export async function generateMetadata({params}) {
     },
   };
 }
-export default async function IndustryPage() {
+export default async function DoloresParkPage() {
   const globalFields = await getGlobalFields();
   const publicationPosts = await getPublicationPosts("dolores-park");
   const publicationNewsletters =
