@@ -154,8 +154,11 @@ export async function getAuthorsData() {
 export async function getAuthorData(slug) {
   if (client) {
     return (
-      (await client.fetch(authorQuery, {slug}, {next: {tags: ["author", "post"]}})) ||
-      {}
+      (await client.fetch(
+        authorQuery,
+        {slug},
+        {next: {tags: ["author", "post"]}},
+      )) || {}
     );
   }
   return {};
@@ -183,7 +186,15 @@ export async function getPublicationData(slug) {
         publicationDocQuery,
         {slug},
         {
-          next: {tags: ["theIndustry", "pirateWires", "whitePill", "post"]},
+          next: {
+            tags: [
+              "theIndustry",
+              "pirateWires",
+              "whitePill",
+              "doloresPark",
+              "post",
+            ],
+          },
         },
       )) || {}
     );
@@ -237,7 +248,7 @@ export async function getAuthorPosts(slug) {
         postsbyauthorquery,
         {slug},
         {
-          next: {tags: ["author", "post"]},
+          next: {tags: ["post"]},
         },
       )) || {}
     );

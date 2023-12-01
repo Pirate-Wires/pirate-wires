@@ -14,14 +14,14 @@ import {urlForImage} from "@/lib/sanity/image";
 export async function generateMetadata({params}) {
   const pageData = await getPublicationData("dolores-park");
   const settings = await getSettings();
-  const title = pageData[1].meta_title
-    ? pageData[1].meta_title
+  const title = pageData[0].meta_title
+    ? pageData[0].meta_title
     : settings.meta_title;
-  const description = pageData[1].meta_description
-    ? pageData[1].meta_description
+  const description = pageData[0].meta_description
+    ? pageData[0].meta_description
     : settings.meta_description;
-  const image = pageData[1].openGraphImage
-    ? urlForImage(pageData[1].openGraphImage)?.src
+  const image = pageData[0].openGraphImage
+    ? urlForImage(pageData[0].openGraphImage)?.src
     : urlForImage(settings?.openGraphImage)?.src;
 
   return {
