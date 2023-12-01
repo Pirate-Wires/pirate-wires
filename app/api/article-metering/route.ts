@@ -7,7 +7,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || '',
 );
 
-export default async function putHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'PUT') {
     const { cookieId, viewedArticles, viewCounts, ipAddresses, lastAccessedAt } = req.body;
 
