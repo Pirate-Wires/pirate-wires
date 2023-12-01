@@ -14,6 +14,9 @@ import Comment from "@/components/comment";
 
 export default function Post(props) {
   const {loading, post, postId, thisSectionArticles, userDetails, subscription, session} = props;
+  console.log("subscription", subscription);
+  console.log("userDetails", userDetails);
+  console.log("session", session);
   const slug = post?.slug;
 
   if (!loading && !slug) {
