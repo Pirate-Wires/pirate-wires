@@ -22,7 +22,6 @@ export default function AccountUI({
   updateCommentsDisplayName,
 }) {
   const router = useRouter();
-  const user = session?.user;
   const tabItems = useMemo(
     () => [
       "my-details",
@@ -41,7 +40,7 @@ export default function AccountUI({
     userDetails?.comments_display_name ?? "",
   );
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(
-    user ? user.email : "",
+    userDetails?.email ?? "",
   );
 
   useEffect(() => {
@@ -171,7 +170,7 @@ export default function AccountUI({
             className={`${styles.cardWrapper} ${
               tabVisibility[1] ? styles.activeCard : ""
             } email-preferences`}>
-            <EmailPreferences user={user} />
+            <EmailPreferences user={userDetails} />
           </div>
           <div
             className={`${styles.cardWrapper} ${
