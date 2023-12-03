@@ -359,6 +359,15 @@ const verifyOTP = async (email: string, inputOtpHash: string) => {
   return {error: new Error(`Token has expired or is invalid`)};
 };
 
+const updateAuthUser = async (id, userData) => {
+  const {data, error} = await supabaseAdmin.auth.admin.updateUserById(
+    id,
+    userData,
+  );
+  
+  return {data, error};
+};
+
 const upsertPostRecord = async postData => {
   const {data, error} = await supabaseAdmin
     .from("posts")
@@ -370,7 +379,7 @@ const upsertPostRecord = async postData => {
   }
 
   return {data: data[0], error: null};
-};
+}
 
 export {
   upsertProductRecord,
@@ -383,5 +392,6 @@ export {
   upsertUserRecord,
   upsertOTPRecord,
   verifyOTP,
+  updateAuthUser,
   upsertPostRecord,
 };

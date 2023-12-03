@@ -4,7 +4,7 @@
 // const decryptScretKey = Deno.env.get("OTP_ENC_DEC_KEY");
 
 // const Authorization = `Bearer ${CUSTOMER_IO_API_KEY}`;
-// const CIO_MESSAGE_ID = 3;
+// const CIO_MESSAGE_ID = "otp";
 
 // const decrypt = (encryptedOTP: string, key: string): string => {
 //   let decrypted = '';
