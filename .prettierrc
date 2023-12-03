@@ -6,7 +6,7 @@
   "singleQuote": false,
   "trailingComma": "all",
   "endOfLine": "auto",
-  "bracketSpacing": false,
+  "bracketSpacing": true,
   "bracketSameLine": true,
   "arrowParens": "avoid",
   "rangeStart": 0,
