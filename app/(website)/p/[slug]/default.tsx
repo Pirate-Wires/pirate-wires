@@ -5,7 +5,6 @@ import {notFound} from "next/navigation";
 import {PortableText} from "@/lib/sanity/plugins/portabletext";
 import {useDateFormatter} from "@/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss";
-import articleCountStyles from "@/components/_styles/articleCountEls.module.scss";
 import React, {useState} from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
@@ -13,7 +12,7 @@ import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
 import Comment from "@/components/comment";
 
 export default function Post(props) {
-  const {loading, post, postId, thisSectionArticles, userDetails} = props;
+  const {loading, post, postId, thisSectionArticles} = props;
 
   const slug = post?.slug;
 
@@ -158,25 +157,7 @@ export default function Post(props) {
         </div>
       </section>
 
-      {/* For convenience showing comment component regardless of a user's subscription status
-      so that it can be styled  */}
-
       {postId && <Comment postId={postId} />}
-
-      {/* Conditionally showing comment component based on a user's subscription status */}
-
-      {/* {userDetails?.subscription_id ? (
-        <Comment />
-      ) : (
-        <h2>
-          {userDetails ? (
-            <Link href="/subscribe">Subscribe</Link>
-          ) : (
-            <Link href="/sign-in">Sign-In</Link>
-          )}
-          to comment
-        </h2>
-      )} */}
 
       <RemainingArticleEls />
 
