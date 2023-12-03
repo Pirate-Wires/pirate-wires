@@ -18,7 +18,6 @@ import {
   getSession,
   getSubscription,
   getUserDetails,
-  getPostIdBySlug,
 } from "@/app/(website)/supabase-server";
 import {urlForImage} from "@/lib/sanity/image";
 
@@ -57,8 +56,39 @@ export async function generateMetadata({params}) {
 }
 
 export default async function PostDefault({params}) {
-  const post = await getPostBySlug(params.slug);
-  const postId = await getPostIdBySlug(params.slug);
+  const {slug} = params;
+  const post = await getPostBySlug(slug);
+  let postId;
+  if (post) {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/post`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            payload: {
+              sanity_id: post._id,
+              slug: post.slug?.current,
+              title: post.title,
+              content: "content",
+              parentId: null,
+              isPublished: true,
+              authorId: `bc4528f1-22f7-44a6-97c4-78bd54d33d11`,
+            },
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      postId = data.id;
+    } catch (error) {
+      console.error(`Error: ${error.message}`);
+    }
+  }
   if (!post.section) {
     // quick fix. if section is not available, make 'the-wire' as ddfault
     post.section = "the-wire";
