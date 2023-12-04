@@ -320,32 +320,15 @@ const upsertUserRecord = async (
 const upsertOTPRecord = async (email: string, otpHash: string) => {
   const currentTime = new Date().toISOString();
 
-  const {data, error} = await supabaseAdmin
+  const {error} = await supabaseAdmin
     .from("otps")
-    .select()
-    .eq("email", email);
+    .upsert(
+      {email, otp: otpHash, created_at: currentTime},
+      {onConflict: "email"},
+    );
 
   if (error) {
     return {error};
-  }
-
-  if (data?.length) {
-    const {error} = await supabaseAdmin
-      .from("otps")
-      .update({otp: otpHash, created_at: currentTime})
-      .eq("email", email);
-
-    if (error) {
-      return {error};
-    }
-  } else {
-    const {error} = await supabaseAdmin
-      .from("otps")
-      .insert({email, otp: otpHash, created_at: currentTime});
-
-    if (error) {
-      return {error};
-    }
   }
 
   return {error: null};
@@ -381,8 +364,22 @@ const updateAuthUser = async (id, userData) => {
     id,
     userData,
   );
+  
   return {data, error};
 };
+
+const upsertPostRecord = async postData => {
+  const {data, error} = await supabaseAdmin
+    .from("posts")
+    .upsert(postData, {onConflict: "slug"})
+    .select();
+
+  if (error) {
+    return {data: null, error};
+  }
+
+  return {data: data[0], error: null};
+}
 
 export {
   upsertProductRecord,
@@ -396,4 +393,5 @@ export {
   upsertOTPRecord,
   verifyOTP,
   updateAuthUser,
+  upsertPostRecord,
 };
