@@ -17,6 +17,7 @@ import {
   authorQuery,
   utilityPageQuery,
   utilityPageSlugsQuery,
+  searchquery,
 } from "./groq";
 import {createClient} from "next-sanity";
 
@@ -36,8 +37,12 @@ const client = projectId
   : null;
 
 export const fetcher = async ([query, params]) => {
-  return client ? client.fetch(query, params) : [];
+  return client ? await client.fetch(query, params) : [];
 };
+
+export async function getSearchResults(query) {
+  return client ? await client.fetch(searchquery, {query}, {next: {tags: ["post"]}}) : [];
+}
 
 export async function getAllPosts() {
   if (client) {
