@@ -2,10 +2,11 @@
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 
-import React, {useState, FormEvent} from "react";
+import React, {useEffect, useState, FormEvent} from "react";
 
 import {useSupabase} from "@/app/(website)/supabase-provider";
 import styles from "@/styles/pages/subscribe.module.scss";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 interface StepFourProps {
   email: string;
@@ -17,6 +18,15 @@ const StepFour: React.FC<StepFourProps> = ({email}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -126,6 +136,7 @@ const StepFour: React.FC<StepFourProps> = ({email}) => {
         </Link>
       </form>
       {error && <p className={styles.error}>{error}</p>}
+      <Toast />
     </>
   );
 };

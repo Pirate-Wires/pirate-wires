@@ -1,7 +1,8 @@
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {useStripe, useElements, PaymentElement} from "@stripe/react-stripe-js";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
@@ -18,6 +19,15 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -73,6 +83,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
         </button>
       </form>
       {error && <p className={styles.error}>{error}</p>}
+      <Toast />
     </>
   );
 };
