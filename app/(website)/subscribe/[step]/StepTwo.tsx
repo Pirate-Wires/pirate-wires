@@ -17,20 +17,19 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
   const handleOTPSubmit = async event => {
     event.preventDefault();
     setError(null);
     setIsLoading(true);
     setSuccessMsg(null);
-
-    useEffect(() => {
-      if (isLoading) {
-        ToastUtil.showLoadingToast();
-      } else {
-        ToastUtil.dismissToast();
-      }
-    }, [isLoading]);
-  
 
     try {
       const response = await fetch("/api/otp/verify", {
