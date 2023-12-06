@@ -3,13 +3,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export class ToastUtil {
     static showLoadingToast() {
-        return toast('Loading', {
+        return toast.loading('Loading', {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: false,
             hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
+            draggable: false,
             progress: undefined,
             theme: "dark",
         });
@@ -22,19 +20,19 @@ export class ToastUtil {
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
-            draggable: true,
+            draggable: false,
             theme: "dark",
         });
     }
 
-    static showWarningToast(message: string) {
-        return toast.warn(message, {
+    static showSuccessToast(message: string) {
+        return toast.success(message, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
-            draggable: true,
+            draggable: false,
             theme: "dark",
         });
     }
@@ -53,7 +51,7 @@ export default function Toast() {
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
-                    rtl
+                    rtl={false}
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover
