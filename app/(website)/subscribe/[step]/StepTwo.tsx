@@ -1,8 +1,9 @@
 "use client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import styles from "@/styles/pages/subscribe.module.scss";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 interface StepTwoProps {
   email: string;
@@ -15,6 +16,14 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
 
   const handleOTPSubmit = async event => {
     event.preventDefault();
@@ -89,6 +98,7 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
       </div>
       {error && <p className={styles.error}>{error}</p>}
       {successMsg && <p className={styles.success}>{successMsg}</p>}
+      <Toast />
     </>
   );
 };

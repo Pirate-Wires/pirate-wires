@@ -3,6 +3,8 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 import React, {useState, useEffect, FormEvent} from "react";
 
+import {Toast, ToastUtil} from "@/components/ui/Toast";
+
 import styles from "@/styles/pages/subscribe.module.scss";
 const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
 const EXPIRES_MONTH = process.env.NEXT_PUBLIC_SUBSCRIBE_EXPIRES_MONTH;
@@ -16,6 +18,14 @@ const StepOne = ({email}) => {
   useEffect(() => {
     setCurrentEmail(email ?? null);
   }, [email]);
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
 
   const sendOTP = async (email: string) => {
     const response = await fetch("/api/otp/send", {
@@ -171,6 +181,7 @@ const StepOne = ({email}) => {
       )}
 
       {error && <p className={styles.error}>{error}</p>}
+      <Toast />
     </>
   );
 };
