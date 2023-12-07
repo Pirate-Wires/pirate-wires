@@ -1,17 +1,22 @@
 "use client";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import styles from "@/styles/pages/subscribe.module.scss";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { useSupabase } from "@/app/(website)/supabase-provider";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
 import {Toast, ToastUtil} from "@/components/ui/Toast";
+
+import styles from "@/styles/pages/subscribe.module.scss";
 
 interface StepTwoProps {
   email: string;
   customerId: string;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
+const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
   const router = useRouter();
+  const { supabase } = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +59,17 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
 
       if (!response.ok) {
         throw new Error(`Error verifying otp`);
+      }
+
+      const password = process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        console.error("Error signing in:", signInError);
+        return { error: signInError };
       }
 
       router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
