@@ -24,6 +24,7 @@ export default function AccountUI({
   const router = useRouter();
   const tabItems = useMemo(() => ["my-details", "email-preferences", "commenting", "subscription-billing"], []);
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
+  const [userName, setUserName] = useState(userDetails?.full_name ?? "Account");
 
   useEffect(() => {
     const tabStatus: boolean[] = new Array(tabItems.length).fill(false);
@@ -40,7 +41,7 @@ export default function AccountUI({
   return (
     <section className="accountContainer c-20">
       <div className={styles.top} data-name={userDetails?.full_name}>
-        <h1>{userDetails?.full_name && userDetails?.full_name !== "" ? userDetails?.full_name : "Account"}</h1>
+        <h1>{userName}</h1>
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
@@ -49,7 +50,7 @@ export default function AccountUI({
 
         <div className={`${styles.right}`}>
           <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
-            <MyDetails userDetails={userDetails} />
+            <MyDetails userDetails={userDetails} setUserName={setUserName} />
           </div>
           <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
             <EmailPreferences user={userDetails} />

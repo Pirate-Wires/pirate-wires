@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
-export const MyDetails = ({ userDetails }) => {
+export const MyDetails = ({ userDetails, setUserName }) => {
   const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? "");
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(userDetails?.email ?? "");
   const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
@@ -26,13 +26,19 @@ export const MyDetails = ({ userDetails }) => {
           id: userDetails?.id!,
           full_name: newName,
         }),
+        next: { tags: [userDetails?.id!] },
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      setLastUpdatedName(newName);
+      const {
+        user_metadata: { full_name: updatedName },
+      } = await response.json();
+
+      setUserName(updatedName);
+      setLastUpdatedName(updatedName);
       setDetailUpdateMsg(`User name updated successfully`);
       setTimeout(() => {
         setDetailUpdateMsg("");
