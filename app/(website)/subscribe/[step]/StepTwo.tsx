@@ -25,6 +25,12 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
   const handleOTPSubmit = async event => {
     event.preventDefault();
     setError(null);

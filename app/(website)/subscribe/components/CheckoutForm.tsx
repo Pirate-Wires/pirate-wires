@@ -28,6 +28,11 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
 
   const handleSubmit = async event => {
     event.preventDefault();
