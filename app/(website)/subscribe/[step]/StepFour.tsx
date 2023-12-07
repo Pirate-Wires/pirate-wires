@@ -1,19 +1,17 @@
 "use client";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
-import React, {useState, FormEvent} from "react";
+import React, { useState, FormEvent } from "react";
 
-import {useSupabase} from "@/app/(website)/supabase-provider";
 import styles from "@/styles/pages/subscribe.module.scss";
 
 interface StepFourProps {
   email: string;
 }
 
-const StepFour: React.FC<StepFourProps> = ({email}) => {
+const StepFour: React.FC<StepFourProps> = ({ email }) => {
   const router = useRouter();
-  const {supabase} = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
@@ -35,18 +33,6 @@ const StepFour: React.FC<StepFourProps> = ({email}) => {
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const password =
-        process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
-      const {error: signInError} = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (signInError) {
-        console.error("Error signing in:", signInError);
-        return {error: signInError};
       }
 
       setSelectedNewsLetters([]);
