@@ -1,7 +1,9 @@
 "use client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {usePathname, redirect} from "next/navigation";
 import {useSupabase} from "@/app/(website)/supabase-provider";
+
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 import styles from "./_styles/newsletterCallout.module.scss";
 
@@ -18,6 +20,12 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
   // if (user) {
   //     redirect('/account/');
   // }
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -255,6 +263,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
           </div>
         </form>
       </div>
+      <Toast />
     </>
   );
 }

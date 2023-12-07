@@ -27,6 +27,12 @@ const StepOne = ({email}) => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
   const sendOTP = async (email: string) => {
     const response = await fetch("/api/otp/send", {
       method: "POST",

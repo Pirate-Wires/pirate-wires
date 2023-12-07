@@ -27,6 +27,11 @@ const StepFour: React.FC<StepFourProps> = ({email}) => {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

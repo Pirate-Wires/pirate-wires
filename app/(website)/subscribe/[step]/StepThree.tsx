@@ -38,6 +38,12 @@ const StepThree: React.FC<StepThreeProps> = ({
   }, [isLoading]);
 
   useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
     const createPaymentIntent = async () => {
       setIsLoading(true);
       setError(null);

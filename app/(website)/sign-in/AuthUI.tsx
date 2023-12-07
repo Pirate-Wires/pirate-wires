@@ -146,6 +146,12 @@ export default function AuthUI() {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
   return (
     <section className={`${styles.signInWrapper} flowContainer c-20 pb-20`}>
       <h1>Sign In to Pirate Wires</h1>
