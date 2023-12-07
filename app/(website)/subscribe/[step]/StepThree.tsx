@@ -93,7 +93,6 @@ const StepThree: React.FC<StepThreeProps> = ({
           </Elements>
         )
       )}
-      {error && <p className={styles.error}>{error}</p>}
       <Toast />
     </>
   );

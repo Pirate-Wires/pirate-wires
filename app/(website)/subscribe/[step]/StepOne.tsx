@@ -185,8 +185,6 @@ const StepOne = ({email}) => {
           </p>
         </>
       )}
-
-      {error && <p className={styles.error}>{error}</p>}
       <Toast />
     </>
   );

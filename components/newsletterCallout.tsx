@@ -22,10 +22,24 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
   // }
 
   useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading])
+
+  useEffect(() => {
     if (error) {
       ToastUtil.showErrorToast(error);
     }
   }, [error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      ToastUtil.showSuccessToast("Thanks for subscribing!")
+    }
+  }, [isSuccess]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -144,10 +158,6 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
                 {isLoading ? "Loading..." : "Sign Up"}
               </button>
             </div>
-            {isSuccess && (
-              <p className={styles.successMessage}>Thanks for subscribing!</p>
-            )}
-            {!!error && <p className={styles.errorMessage}>{error}</p>}
             <p className={styles.selectedCount}>
               (<span>{selectedNewsLetters.length}</span>) Newsletters Selected
             </p>
