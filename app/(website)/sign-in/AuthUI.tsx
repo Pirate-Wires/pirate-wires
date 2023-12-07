@@ -152,6 +152,12 @@ export default function AuthUI() {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (successMsg) {
+      ToastUtil.showSuccessToast(successMsg);
+    }
+  }, [successMsg]);
+
   return (
     <section className={`${styles.signInWrapper} flowContainer c-20 pb-20`}>
       <h1>Sign In to Pirate Wires</h1>
@@ -174,13 +180,6 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
-        {error && (
-          <p
-            className={styles.errorNoAccount}
-            dangerouslySetInnerHTML={{__html: error}}
-          />
-        )}
-        {successMsg && <p className={styles.success}>{successMsg}</p>}
       </>
       <div className={styles.substackNotice}>
         <h3>

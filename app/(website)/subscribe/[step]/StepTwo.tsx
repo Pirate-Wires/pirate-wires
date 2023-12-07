@@ -31,6 +31,12 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (successMsg) {
+      ToastUtil.showSuccessToast(successMsg);
+    }
+  }, [successMsg]);
+
   const handleOTPSubmit = async event => {
     event.preventDefault();
     setError(null);
@@ -102,8 +108,6 @@ const StepTwo: React.FC<StepTwoProps> = ({email, customerId}) => {
           </a>
         </form>
       </div>
-      {error && <p className={styles.error}>{error}</p>}
-      {successMsg && <p className={styles.success}>{successMsg}</p>}
       <Toast />
     </>
   );
