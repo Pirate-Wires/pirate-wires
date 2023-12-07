@@ -13,19 +13,12 @@ export default function Search({posts}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams?.get("q") || "";
-  const [timer, setTimer] = useState(setTimeout(() => {}, 0.01));
   const [isLoading, setIsLoading] = useState(false);
   const {data, error} = useSWR(query, getSearchResults);
 
   const handleChange = e => {
-    clearTimeout(timer);
-    // replace below to only fire timer when text changes
-    const newTimer = setTimeout(() => {
-      if (e.target.value !== query) {
-        router.replace(`/search?q=${e.target.value}`);
-        setIsLoading(true);
-      }
-    }, 500);
+    router.replace(`/search?q=${e.target.value}`);
+    setIsLoading(true);
   };
 
   useEffect(() => {
