@@ -6,6 +6,8 @@ import {loadStripe} from "@stripe/stripe-js";
 
 import SubscriptionPlan from "../components/SubscriptionPlan";
 import CheckoutForm from "../components/CheckoutForm";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
+
 import styles from "@/styles/pages/subscribe.module.scss";
 
 // const stripePromise = loadStripe((env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ) ?? '')
@@ -26,6 +28,20 @@ const StepThree: React.FC<StepThreeProps> = ({
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
 
   useEffect(() => {
     const createPaymentIntent = async () => {
@@ -77,7 +93,7 @@ const StepThree: React.FC<StepThreeProps> = ({
           </Elements>
         )
       )}
-      {error && <p className={styles.error}>{error}</p>}
+      <Toast />
     </>
   );
 };
