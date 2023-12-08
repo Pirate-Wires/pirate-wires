@@ -18,25 +18,10 @@ export default function Search({posts}) {
   const {data, error} = useSWR(query, getSearchResults);
 
   useEffect(() => {
-    if (isLoading) {
-      // add delay between loading
-      ToastUtil.showLoadingToast();
-    } else {
-      ToastUtil.dismissToast();
-    }
-  }, [isLoading]);
-
-  useEffect(() => {
     if (data) {
       setIsLoading(false);
     }
   }, [data]);
-
-  useEffect(() => {
-    if (!query || query === "") {
-      setIsLoading(false);
-    }
-  }, [query]);
 
   useEffect(() => {
     if (error) {
@@ -66,9 +51,13 @@ export default function Search({posts}) {
           <MagnifyingGlassIcon />
         </div>
         {query ? (
-          <p className={`${styles.resultsText}`}>
+          isLoading ? (
+            <p className={`${styles.resultsText}`}>Searching...</p>
+          ) : (
+            <p className={`${styles.resultsText}`}>
               Showing {data?.length > 0 ? data?.length : 0} results for {query}.
-          </p>
+            </p>
+          )
         ) : (
           <p className={`${styles.resultsText}`}>
             Showing the latest 12 posts.
