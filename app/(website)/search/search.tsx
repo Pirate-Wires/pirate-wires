@@ -8,6 +8,7 @@ import useSWR from "swr";
 import styles from "@/styles/pages/search.module.scss";
 import {getSearchResults} from "@/lib/sanity/client";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 export default function Search({posts}) {
   const router = useRouter();
@@ -16,16 +17,31 @@ export default function Search({posts}) {
   const [isLoading, setIsLoading] = useState(false);
   const {data, error} = useSWR(query, getSearchResults);
 
-  const handleChange = e => {
-    router.replace(`/search?q=${e.target.value}`);
-    setIsLoading(true);
-  };
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (data) {
       setIsLoading(false);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      setIsLoading(false);
+      ToastUtil.showErrorToast("Error fetching search results");
+    }
+  }, [error]);
+
+  const handleChange = e => {
+    router.replace(`/search?q=${e.target.value}`);
+    setIsLoading(true);
+  };
 
   return (
     <section className={`${styles.searchPage} c-20`}>
@@ -43,13 +59,9 @@ export default function Search({posts}) {
           <MagnifyingGlassIcon />
         </div>
         {query ? (
-          isLoading ? (
-            <p className={`${styles.resultsText}`}>Searching...</p>
-          ) : (
-            <p className={`${styles.resultsText}`}>
+          <p className={`${styles.resultsText}`}>
               Showing {data?.length > 0 ? data?.length : 0} results for {query}.
-            </p>
-          )
+          </p>
         ) : (
           <p className={`${styles.resultsText}`}>
             Showing the latest 12 posts.
@@ -72,6 +84,7 @@ export default function Search({posts}) {
             ))}
         </div>
       )}
+      <Toast />
     </section>
   );
 }
