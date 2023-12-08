@@ -1,7 +1,9 @@
 "use client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {usePathname, redirect} from "next/navigation";
 import {useSupabase} from "@/app/(website)/supabase-provider";
+
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 import styles from "./_styles/newsletterCallout.module.scss";
 
@@ -18,6 +20,26 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
   // if (user) {
   //     redirect('/account/');
   // }
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      ToastUtil.showSuccessToast("Thanks for subscribing!")
+    }
+  }, [isSuccess]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -136,10 +158,6 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
                 {isLoading ? "Loading..." : "Sign Up"}
               </button>
             </div>
-            {isSuccess && (
-              <p className={styles.successMessage}>Thanks for subscribing!</p>
-            )}
-            {!!error && <p className={styles.errorMessage}>{error}</p>}
             <p className={styles.selectedCount}>
               (<span>{selectedNewsLetters.length}</span>) Newsletters Selected
             </p>
@@ -255,6 +273,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
           </div>
         </form>
       </div>
+      <Toast />
     </>
   );
 }
