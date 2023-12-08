@@ -19,6 +19,7 @@ export default function Search({posts}) {
 
   useEffect(() => {
     if (isLoading) {
+      // add delay between loading
       ToastUtil.showLoadingToast();
     } else {
       ToastUtil.dismissToast();
@@ -30,6 +31,12 @@ export default function Search({posts}) {
       setIsLoading(false);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (!query || query === "") {
+      setIsLoading(false);
+    }
+  }, [query]);
 
   useEffect(() => {
     if (error) {
