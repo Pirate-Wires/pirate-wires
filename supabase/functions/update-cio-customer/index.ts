@@ -49,7 +49,7 @@
 //     }),
 //   });
 
-//   console.log(`Updated stripe customer detail email: ${newEmail}, name: ${newName}`);
+//   console.log(`Updated cio customer detail email: ${newEmail}, name: ${newName}`);
 //   return { ...oldCustomer, attributes: { full_name: newName, email: newEmail }, identifiers: { email: newEmail } };
 // };
 
