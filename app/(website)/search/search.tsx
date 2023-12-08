@@ -26,6 +26,7 @@ export default function Search({posts}) {
   useEffect(() => {
     if (error) {
       setIsLoading(false);
+      ToastUtil.dismissToast();
       ToastUtil.showErrorToast("Error fetching search results");
     }
   }, [error]);
