@@ -5,12 +5,12 @@
 // const CUSTOMER_IO_API_KEY = Deno.env.get("CUSTOMER_IO_API_KEY");
 // const CUSTOMER_IO_TRACKING_API_KEY = Deno.env.get("CUSTOMER_IO_TRACKING_API_KEY");
 
-// const updateCioCustomer = async (record, oldRecord) => {
+// const createCioCustomer = async record => {
 //   const {
-//     raw_user_meta_data: { full_name: newName },
-//     email: newEmail,
+//     id,
+//     email,
+//     raw_user_meta_data: { full_name },
 //   } = record;
-//   const { id } = oldRecord;
 
 //   const getResponse = await fetch(`https://api.customer.io/v1/customers/${id}/attributes?id_type=id`, {
 //     method: "GET",
@@ -18,39 +18,35 @@
 //       Authorization: `Bearer ${CUSTOMER_IO_API_KEY}`,
 //     },
 //   });
+
 //   const cusotmerData = await getResponse.json();
 
-//   if (cusotmerData.errors) {
-//     console.error(`Error fetching cio customer detail: ${cusotmerData.errors.detail}`);
-//     return null;
+//   console.log(cusotmerData);
+
+//   if (!cusotmerData.errors) {
+//     const {
+//       customer: { attributes: oldCustomer },
+//     } = cusotmerData;
+
+//     if (oldCustomer.full_name === full_name && oldCustomer.email === email) {
+//       console.error(`The cio customer already exists.`);
+//       return;
+//     }
 //   }
 
-//   const {
-//     customer: {
-//       attributes: oldCustomer,
-//       identifiers: { cio_id: customerId },
-//     },
-//   } = cusotmerData;
-
-//   if (oldCustomer.full_name === newName && oldCustomer.email === newEmail) {
-//     console.error(`The cio customer is already up to date`);
-//     return null;
-//   }
-
-//   await fetch(`https://track.customer.io/api/v1/customers/cio_${customerId}`, {
+//   await fetch(`https://track.customer.io/api/v1/customers/${id}`, {
 //     method: "PUT",
 //     headers: {
 //       "Content-Type": "application/json",
 //       Authorization: `Basic ${btoa(`${CUSTOMER_IO_SITE_ID}:${CUSTOMER_IO_TRACKING_API_KEY}`)}`,
 //     },
 //     body: JSON.stringify({
-//       email: newEmail,
-//       full_name: newName,
+//       email,
+//       full_name,
 //     }),
 //   });
 
-//   console.log(`Updated cio customer detail email: ${newEmail}, name: ${newName}`);
-//   return { ...oldCustomer, attributes: { full_name: newName, email: newEmail }, identifiers: { email: newEmail } };
+//   console.log(`Created cio customer detail email: ${email}, name: ${full_name}`);
 // };
 
 // serve(async req => {
@@ -81,16 +77,9 @@
 
 //     console.log("Webhook received:", payload);
 
-//     const { record, old_record: oldRecord } = payload;
+//     const { record } = payload;
 
-//     if (
-//       record.email === oldRecord.email &&
-//       record.raw_user_meta_data.full_name === oldRecord.raw_user_meta_data.full_name
-//     ) {
-//       throw new Error("The user record hasn't changed");
-//     }
-
-//     await updateCioCustomer(record, oldRecord);
+//     await createCioCustomer(record);
 
 //     return new Response(JSON.stringify({ newEmail: record.email }), {
 //       headers: { "Content-Type": "application/json" },
