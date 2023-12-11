@@ -2,12 +2,15 @@
 
 import {useState, useEffect} from "react";
 
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+
 import LoadingOverlay from "./LoadingOverlay";
 
 const EmailPreferences = ({user}) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(0);
+  const [error, setError] = useState<ToastableError | null>(null);
 
   // Fetch and update user preferences on component mount
   useEffect(() => {

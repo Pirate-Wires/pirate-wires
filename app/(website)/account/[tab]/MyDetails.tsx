@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@/components/ui/Button";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+
 import styles from "@/styles/pages/account.module.scss";
+import { set } from "sanity";
 
 export const MyDetails = ({ userDetails, setUserName }) => {
   const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? "");
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(userDetails?.email ?? "");
   const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<ToastableError | null>(null);
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
 
   const handleSubmitName = async event => {
     event.preventDefault();
     setDetailUpdateMsg("");
+    setIsLoading(true);
 
     try {
       const formData = new FormData(event.target);
@@ -30,7 +50,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new ToastableError("Error could not update name", response.status);
       }
 
       const {
@@ -43,15 +63,20 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       setTimeout(() => {
         setDetailUpdateMsg("");
       }, 3000);
+      setIsLoading(false);
+      ToastUtil.showSuccessToast("Successfully updated user name");
     } catch (error) {
       console.error(`Error updating name: ${error.message}`);
       setDetailUpdateMsg(error.message);
+      setIsLoading(false);
+      setError(error);
     }
   };
 
   const handleSubmitEmail = async event => {
     event.preventDefault();
     setDetailUpdateMsg("");
+    setIsLoading(true);
 
     try {
       const formData = new FormData(event.target);
@@ -70,14 +95,18 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new ToastableError("Error updating user email", response.status);
       }
 
       setLastUpdatedEmail(newEmail);
       setDetailUpdateMsg(`User email updated successfully`);
+      setIsLoading(false);
+      ToastUtil.showSuccessToast("Successfully updated user email");
     } catch (error) {
       console.error(`Error updating email: ${error.message}`);
       setDetailUpdateMsg(error.message);
+      setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -127,6 +156,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
           and we’ll help you out
         </p>
       </div>
+      <Toast />
     </>
   );
 };

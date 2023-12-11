@@ -6,7 +6,7 @@ import {loadStripe} from "@stripe/stripe-js";
 
 import SubscriptionPlan from "../components/SubscriptionPlan";
 import CheckoutForm from "../components/CheckoutForm";
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
@@ -27,7 +27,7 @@ const StepThree: React.FC<StepThreeProps> = ({
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
 
   useEffect(() => {
     if (isLoading) {
@@ -56,7 +56,7 @@ const StepThree: React.FC<StepThreeProps> = ({
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new ToastableError("Error creating payment intent", response.status);
         }
 
         const data = await response.json();
@@ -66,7 +66,7 @@ const StepThree: React.FC<StepThreeProps> = ({
       } catch (error) {
         console.error(`Error creating payment intent: ${error.message}`);
         setIsLoading(false);
-        setError(error.message);
+        setError(error);
       }
     };
 
