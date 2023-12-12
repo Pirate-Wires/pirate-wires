@@ -8,7 +8,7 @@ import useSWR from "swr";
 import styles from "@/styles/pages/search.module.scss";
 import {getSearchResults} from "@/lib/sanity/client";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 export default function Search({posts}) {
   const router = useRouter();
@@ -24,10 +24,9 @@ export default function Search({posts}) {
   }, [data]);
 
   useEffect(() => {
+    setIsLoading(false);
     if (error) {
-      setIsLoading(false);
-      ToastUtil.dismissToast();
-      ToastUtil.showErrorToast("Error fetching search results");
+      ToastUtil.showErrorToast(new ToastableError(error.message));
     }
   }, [error]);
 
