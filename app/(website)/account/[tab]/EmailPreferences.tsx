@@ -29,6 +29,12 @@ const EmailPreferences = ({user}) => {
       });
   }, [user.email]);
 
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
   const handleSelect = event => {
     if (isLoading || isProgress) return;
 
@@ -55,7 +61,7 @@ const EmailPreferences = ({user}) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new ToastableError("Error updating preferences", response.status);
       }
 
       // API call successful
@@ -67,6 +73,7 @@ const EmailPreferences = ({user}) => {
       // Handle the error if needed
       // Set isProgress to false even if there's an error
       setIsProgress(false);
+      setError(error);
     }
   };
 
@@ -143,6 +150,7 @@ const EmailPreferences = ({user}) => {
           Important Pirate Wires Updates
         </label>
       </div>
+      <Toast />
     </>
   );
 };

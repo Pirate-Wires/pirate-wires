@@ -51,6 +51,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
       });
 
       if (result.error) {
+        if (result.error.message) {
+          throw new ToastableError(result.error.message);
+        }
         throw new ToastableError("Error setting up subscription. Please try again");
       }
       if (result.setupIntent && result.setupIntent.status === "succeeded") {

@@ -97,7 +97,7 @@ export default function AuthUI() {
 
       if (signInError) {
         console.error("Error signing in:", signInError);
-        throw new ToastableError(`Error signing in`, signInError.status);
+        throw new ToastableError(signInError.message, signInError.status);
       }
 
       setIsLoading(false);

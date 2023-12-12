@@ -10,6 +10,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
   const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? "");
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(userDetails?.email ?? "");
   const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ToastableError | null>(null);
 
@@ -22,6 +23,12 @@ export const MyDetails = ({ userDetails, setUserName }) => {
   }, [isLoading]);
 
   useEffect(() => {
+    if (successMsg) {
+      ToastUtil.showSuccessToast(successMsg);
+    }
+  }, [successMsg]);
+
+  useEffect(() => {
     if (error) {
       ToastUtil.showErrorToast(error);
     }
@@ -30,6 +37,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
   const handleSubmitName = async event => {
     event.preventDefault();
     setDetailUpdateMsg("");
+    setSuccessMsg("");
     setIsLoading(true);
 
     try {
@@ -37,6 +45,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       const newName = formData.get("name") as string;
       if (newName === lastUpdatedName) {
         setDetailUpdateMsg(`Different name required`);
+        setIsLoading(false);
         return;
       }
 
@@ -64,7 +73,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
         setDetailUpdateMsg("");
       }, 3000);
       setIsLoading(false);
-      ToastUtil.showSuccessToast("Successfully updated user name");
+      setSuccessMsg("Successfully updated user name");
     } catch (error) {
       console.error(`Error updating name: ${error.message}`);
       setDetailUpdateMsg(error.message);
@@ -76,6 +85,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
   const handleSubmitEmail = async event => {
     event.preventDefault();
     setDetailUpdateMsg("");
+    setSuccessMsg("");
     setIsLoading(true);
 
     try {
@@ -83,6 +93,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       const newEmail = formData.get("email") as string;
       if (newEmail === lastUpdatedEmail) {
         setDetailUpdateMsg(`Different email required`);
+        setIsLoading(false);
         return;
       }
 
@@ -101,7 +112,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       setLastUpdatedEmail(newEmail);
       setDetailUpdateMsg(`User email updated successfully`);
       setIsLoading(false);
-      ToastUtil.showSuccessToast("Successfully updated user email");
+      setSuccessMsg("Successfully updated user email");
     } catch (error) {
       console.error(`Error updating email: ${error.message}`);
       setDetailUpdateMsg(error.message);
