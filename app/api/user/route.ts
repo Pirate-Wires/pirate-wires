@@ -8,10 +8,18 @@ import {
 import { verifyEmail } from "@/utils/kickbox";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { email, fullName } = body;
-
   try {
+    const body = await req.json();
+    const { email, fullName } = body;
+
+    const { data: result, error: verifyError } = await verifyEmail(email);
+
+    if (verifyError) {
+      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+    } else if (!result) {
+      return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
+    }
+
     const data = await getUserByEmail(email);
     let userId = data?.id!;
 
