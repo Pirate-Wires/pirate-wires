@@ -56,6 +56,16 @@ export async function PUT(req: Request) {
       error,
     } = await updateAuthUser(id, { email, full_name });
 
+    if (email) {
+      const { data: result, error } = await verifyEmail(email);
+
+      if (error) {
+        return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+      } else if (!result) {
+        return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
+      }
+    }
+
     if (error) throw error;
 
     return new Response(JSON.stringify(user), {
