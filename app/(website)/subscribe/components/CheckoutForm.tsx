@@ -69,7 +69,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
         });
 
         if (!response.ok) {
-          throw new ToastableError("Error creating subscription. Please try again", response.status)
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
         }
 
         setIsLoading(false);

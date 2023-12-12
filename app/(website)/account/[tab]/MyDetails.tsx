@@ -59,7 +59,8 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       });
 
       if (!response.ok) {
-        throw new ToastableError("Error could not update name", response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       const {
@@ -106,7 +107,8 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       });
 
       if (!response.ok) {
-        throw new ToastableError("Error updating user email", response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setLastUpdatedEmail(newEmail);

@@ -47,7 +47,8 @@ const StepFour: React.FC<StepFourProps> = ({ email }) => {
       });
 
       if (!response.ok) {
-        throw new ToastableError("Error updating preferences", response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setSelectedNewsLetters([]);

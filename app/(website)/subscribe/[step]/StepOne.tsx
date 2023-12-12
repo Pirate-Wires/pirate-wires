@@ -42,7 +42,8 @@ const StepOne = ({email}) => {
     });
 
     if (!response.ok) {
-      throw new ToastableError("Error sending password code", response.status);
+      const data = await response.json();
+      throw new ToastableError(data.message, response.status);
     }
   };
 
@@ -63,7 +64,8 @@ const StepOne = ({email}) => {
         });
 
         if (!response.ok) {
-          throw new ToastableError("Error creating user account", response.status);
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
         }
 
         const data = await response.json();
@@ -104,7 +106,8 @@ const StepOne = ({email}) => {
         });
 
         if (!response.ok) {
-          throw new ToastableError("Error creating user account", response.status);
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
         }
 
         const data = await response.json();

@@ -58,7 +58,8 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
       });
 
       if (!response.ok) {
-        throw new ToastableError("Error verifying OTP", response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       const password = process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
@@ -69,7 +70,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
 
       if (signInError) {
         console.error("Error signing in:", signInError);
-        throw new ToastableError("Error signing in", signInError.status);
+        throw new ToastableError(signInError.message, signInError.status);
       }
 
       router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
@@ -94,7 +95,8 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
       });
 
       if (!response.ok) {
-        throw new ToastableError("Error resending OTP", response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setIsLoading(false);

@@ -35,7 +35,8 @@ export default function AuthUI() {
       const getResponse = await fetch(`/api/user?email=${email}`);
 
       if (!getResponse.ok) {
-        throw new ToastableError("Error could not fetch user", getResponse.status);
+        const data = await getResponse.json();
+        throw new ToastableError(data.message, getResponse.status);
       }
 
       const {user} = await getResponse.json();
@@ -43,7 +44,7 @@ export default function AuthUI() {
         // Import Link from "next/link" at the top of the file
 
         // Inside the handleEmailSubmit function, modify the error message to include a link
-        setUnknownUserErrorMessage(`You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`);
+        setUnknownUserErrorMessage(`<br>You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`);
         throw new ToastableError(
           `You don't have an account. Please go to the subscribe page to sign up!`,
         );
@@ -57,7 +58,8 @@ export default function AuthUI() {
       });
 
       if (!sendResponse.ok) {
-        throw new ToastableError(`Error sending password code`, sendResponse.status);
+        const data = await sendResponse.json();
+        throw new ToastableError(data.message, sendResponse.status);
       }
 
       setEmail(email);
@@ -85,7 +87,8 @@ export default function AuthUI() {
       });
 
       if (!response.ok) {
-        throw new ToastableError(`Error verifying OTP`, response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       const password =
@@ -124,7 +127,8 @@ export default function AuthUI() {
       });
 
       if (!response.ok) {
-        throw new ToastableError(`Error resending OTP`, response.status);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setOtpVisible(true);
@@ -182,6 +186,7 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
+        {unknownUserErrorMessage && <div dangerouslySetInnerHTML={{__html: unknownUserErrorMessage}}></div>}
       </>
       <div className={styles.substackNotice}>
         <h3>
