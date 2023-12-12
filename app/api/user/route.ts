@@ -5,12 +5,21 @@ import {
   createOrRetrieveCustomer,
   updateAuthUser,
 } from "@/utils/supabase-admin";
+import { verifyEmail } from "@/utils/kickbox";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { email, fullName } = body;
-
   try {
+    const body = await req.json();
+    const { email, fullName } = body;
+
+    const { data: result, error: verifyError } = await verifyEmail(email);
+
+    if (verifyError) {
+      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+    } else if (!result) {
+      return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
+    }
+
     const data = await getUserByEmail(email);
     let userId = data?.id!;
 
@@ -55,6 +64,16 @@ export async function PUT(req: Request) {
       error,
     } = await updateAuthUser(id, { email, full_name });
 
+    if (email) {
+      const { data: result, error } = await verifyEmail(email);
+
+      if (error) {
+        return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+      } else if (!result) {
+        return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
+      }
+    }
+
     if (error) throw error;
 
     return new Response(JSON.stringify(user), {
@@ -66,18 +85,26 @@ export async function PUT(req: Request) {
 }
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const email = searchParams.get("email");
-
-  if (!email) {
-    return new Response(`Query Error`, { status: 500 });
-  }
-
   try {
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get("email");
+
+    if (!email) {
+      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+    }
+
+    const { data: result, error } = await verifyEmail(email);
+
+    if (error) {
+      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+    } else if (!result) {
+      return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
+    }
+
     const user = await getUserByEmail(email);
 
     return new Response(JSON.stringify({ user: user }), { status: 200 });
   } catch (err) {
-    return new Response(`Error: ${err.message}`, { status: 500 });
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
