@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       const { data: user, error: createError } = await createAuthUser(email);
 
       if (createError) {
-        return new Response(`${createError.message}`, { status: 500 });
+        return new Response(JSON.stringify({ message: createError.message }), { status: 500 });
       }
 
       userId = user?.id!;
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         const { error } = await upsertUserRecord(userId, email, fullName);
 
         if (error) {
-          return new Response(`${error.message}`, { status: 500 });
+          return new Response(JSON.stringify({ message: error.message }), { status: 500 });
         }
       }
     }
@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       status: 200,
     });
   } catch (err) {
-    return new Response(`${err.message}`, { status: 500 });
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
 
@@ -80,7 +80,7 @@ export async function PUT(req: Request) {
       status: 200,
     });
   } catch (err) {
-    return new Response(`${err.message}`, { status: 500 });
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
 
