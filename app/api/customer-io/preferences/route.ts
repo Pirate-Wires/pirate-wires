@@ -63,8 +63,7 @@ export async function PUT(req: Request) {
 
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (err) {
-    console.error("Error in PUT request:", err);
-    return new Response(`Error: ${err.message}`, { status: 500 });
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
 
@@ -117,8 +116,7 @@ export async function POST(req: Request) {
       status: 200,
     });
   } catch (err) {
-    console.error("Error in POST request:", err);
-    return new Response(`Error: ${err.message}`, { status: 500 });
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
 
@@ -127,7 +125,7 @@ export async function GET(req: Request) {
   const email = searchParams.get("email");
 
   if (!email) {
-    return new Response(`Query Error`, { status: 500 });
+    return new Response(JSON.stringify({ message: `Query Error` }), { status: 500 });
   }
 
   try {
@@ -141,6 +139,6 @@ export async function GET(req: Request) {
       status: 200,
     });
   } catch (err) {
-    return new Response(`Error: ${err.message}`, { status: 500 });
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
