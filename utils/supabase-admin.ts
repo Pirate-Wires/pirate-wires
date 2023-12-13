@@ -197,10 +197,10 @@ const manageSubscriptionStatusChange = async (subscriptionId: string, customerId
     await copyBillingDetailsToCustomer(uuid, subscription.default_payment_method as Stripe.PaymentMethod);
 };
 
-const createAuthUser = async (email: string, full_name: string) => {
+const createAuthUser = async (email: string, full_name?: string) => {
   const userData: AuthUser = {
     email: email,
-    user_metadata: { full_name },
+    user_metadata: { full_name: full_name ?? "" },
     password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || ("12345678" as string),
     email_confirm: true,
   };
