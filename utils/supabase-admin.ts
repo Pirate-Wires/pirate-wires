@@ -7,9 +7,9 @@ import Stripe from "stripe";
 
 type Product = Database["public"]["Tables"]["products"]["Row"];
 type Price = Database["public"]["Tables"]["prices"]["Row"];
-type User = Database["public"]["Tables"]["users"]["Row"];
 type AuthUser = {
   email: string;
+  user_metadata: { full_name: string };
   password: string;
   email_confirm: boolean;
 };
@@ -197,9 +197,10 @@ const manageSubscriptionStatusChange = async (subscriptionId: string, customerId
     await copyBillingDetailsToCustomer(uuid, subscription.default_payment_method as Stripe.PaymentMethod);
 };
 
-const createAuthUser = async (email: string) => {
+const createAuthUser = async (email: string, full_name?: string) => {
   const userData: AuthUser = {
     email: email,
+    user_metadata: { full_name: full_name ?? "" },
     password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || ("12345678" as string),
     email_confirm: true,
   };
@@ -216,7 +217,7 @@ const createAuthUser = async (email: string) => {
 };
 
 const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
-  const { data: user } = await createAuthUser(customer.email!);
+  const { data: user } = await createAuthUser(customer.email!, customer.name!);
 
   const { error } = await supabaseAdmin.from("customers").upsert({ id: user?.id!, stripe_customer_id: customer.id });
 

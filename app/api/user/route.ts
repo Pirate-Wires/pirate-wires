@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     let userId = data?.id!;
 
     if (!data) {
-      const { data: user, error: createError } = await createAuthUser(email);
+      const { data: user, error: createError } = await createAuthUser(email, fullName);
 
       if (createError) {
         return new Response(JSON.stringify({ message: createError.message }), { status: 500 });
