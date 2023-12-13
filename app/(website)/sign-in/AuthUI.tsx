@@ -1,6 +1,6 @@
 // /app/(website)/sign-in/AuthUI.tsx
 "use client";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 
@@ -8,6 +8,7 @@ import {useSupabase} from "@/app/(website)/supabase-provider";
 
 import OTPInput from "./OTPInput";
 import EmailInput from "./EmailInput";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/signIn.module.scss";
 
@@ -137,6 +138,26 @@ export default function AuthUI() {
     setOtp(value);
   };
 
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (successMsg) {
+      ToastUtil.showSuccessToast(successMsg);
+    }
+  }, [successMsg]);
+
   return (
     <section className={`${styles.signInWrapper} flowContainer c-20 pb-20`}>
       <h1>Sign In to Pirate Wires</h1>
@@ -159,13 +180,6 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
-        {error && (
-          <p
-            className={styles.errorNoAccount}
-            dangerouslySetInnerHTML={{__html: error}}
-          />
-        )}
-        {successMsg && <p className={styles.success}>{successMsg}</p>}
       </>
       <div className={styles.substackNotice}>
         <h3>
@@ -210,6 +224,7 @@ export default function AuthUI() {
           Privacy Policy
         </Link>
       </p>
+      <Toast />
     </section>
   );
 }

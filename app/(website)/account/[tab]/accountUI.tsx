@@ -1,9 +1,9 @@
 // /app/(website)/account/accountUI.tsx
 "use client";
 import Link from "next/link";
-import {notFound, useRouter} from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
-import React, {useState, useEffect, useMemo} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import TabButton from "./TabButtons";
 import MyDetails from "./MyDetails";
 import EmailPreferences from "./EmailPreferences";
@@ -22,26 +22,9 @@ export default function AccountUI({
   updateCommentsDisplayName,
 }) {
   const router = useRouter();
-  const tabItems = useMemo(
-    () => [
-      "my-details",
-      "email-preferences",
-      "commenting",
-      "subscription-billing",
-    ],
-    [],
-  );
+  const tabItems = useMemo(() => ["my-details", "email-preferences", "commenting", "subscription-billing"], []);
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
-  const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
-  const [lastUpdatedName, setLastUpdatedName] = useState(
-    userDetails?.full_name ?? "",
-  );
-  const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(
-    userDetails?.comments_display_name ?? "",
-  );
-  const [lastUpdatedEmail, setLastUpdatedEmail] = useState(
-    userDetails?.email ?? "",
-  );
+  const [userName, setUserName] = useState(userDetails?.full_name ?? "Account");
 
   useEffect(() => {
     const tabStatus: boolean[] = new Array(tabItems.length).fill(false);
@@ -55,97 +38,10 @@ export default function AccountUI({
     router.push(`/account/${tabItems[idx]}`);
   };
 
-  const handleSubmitName = async event => {
-    event.preventDefault();
-    setDetailUpdateMsg("");
-
-    try {
-      const formData = new FormData(event.target);
-      const newName = formData.get("name") as string;
-      if (newName === lastUpdatedName) {
-        setDetailUpdateMsg(`Different name required`);
-        return;
-      }
-
-      await updateName(formData);
-
-      setLastUpdatedName(newName);
-      setDetailUpdateMsg(`User name updated successfully`);
-      setTimeout(() => {
-        setDetailUpdateMsg("");
-      }, 3000);
-    } catch (error) {
-      console.error(`Error updating name: ${error.message}`);
-      setDetailUpdateMsg(error.message);
-    }
-  };
-
-  const handleSubmitCommentsDisplayName = async event => {
-    event.preventDefault();
-    setDetailUpdateMsg("");
-
-    try {
-      const formData = new FormData(event.target);
-      const newDisplayName = formData.get("commentsDisplayName") as string; // Updated key
-
-      if (newDisplayName === lastUpdatedDisplayName) {
-        setDetailUpdateMsg(`Different display name required`);
-        return;
-      }
-
-      await updateCommentsDisplayName(formData);
-
-      setLastUpdatedDisplayName(newDisplayName);
-      setDetailUpdateMsg(`Comments display name updated successfully`);
-      setTimeout(() => {
-        setDetailUpdateMsg("");
-      }, 3000);
-    } catch (error) {
-      console.error(`Error updating comments display name: ${error.message}`);
-      setDetailUpdateMsg(error.message);
-    }
-  };
-
-  const handleSubmitEmail = async event => {
-    event.preventDefault();
-    setDetailUpdateMsg("");
-
-    try {
-      const formData = new FormData(event.target);
-      const newEmail = formData.get("email") as string;
-      if (newEmail === lastUpdatedEmail) {
-        setDetailUpdateMsg(`Different email required`);
-        return;
-      }
-
-      const response = await fetch("/api/user", {
-        method: "PUT",
-        body: JSON.stringify({
-          id: userDetails?.id!,
-          email: newEmail,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      setLastUpdatedEmail(newEmail);
-      setDetailUpdateMsg(`User email updated successfully`);
-    } catch (error) {
-      console.error(`Error updating email: ${error.message}`);
-      setDetailUpdateMsg(error.message);
-    }
-  };
-
   return (
     <section className="accountContainer c-20">
       <div className={styles.top} data-name={userDetails?.full_name}>
-        <h1>
-          {userDetails?.full_name && userDetails?.full_name !== ""
-            ? userDetails?.full_name
-            : "Account"}
-        </h1>
+        <h1>{userName}</h1>
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
@@ -153,23 +49,10 @@ export default function AccountUI({
         </div>
 
         <div className={`${styles.right}`}>
-          <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[0] ? styles.activeCard : ""
-            } user-details`}>
-            {!!detailUpdateMsg && (
-              <h2 className={styles.tag}>{detailUpdateMsg}</h2>
-            )}
-            <MyDetails
-              handleSubmitName={handleSubmitName}
-              handleSubmitEmail={handleSubmitEmail}
-              userDetails={userDetails}
-            />
+          <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
+            <MyDetails userDetails={userDetails} setUserName={setUserName} />
           </div>
-          <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[1] ? styles.activeCard : ""
-            } email-preferences`}>
+          <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
             <EmailPreferences user={userDetails} />
           </div>
           <div
@@ -177,16 +60,13 @@ export default function AccountUI({
               tabVisibility[2] ? styles.activeCard : ""
             } email-notifictation-preferences`}>
             <Commenting
-              handleSubmitCommentsDisplayName={handleSubmitCommentsDisplayName}
+              updateCommentsDisplayName={updateCommentsDisplayName}
               updateCommentsNotifications={updateCommentsNotifications}
               profile={profile}
             />
           </div>
 
-          <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[3] ? styles.activeCard : ""
-            } subscription`}>
+          <div className={`${styles.cardWrapper} ${tabVisibility[3] ? styles.activeCard : ""} subscription`}>
             {userDetails?.subscription_id ? (
               <>
                 <CurrentSubscription subscription={subscription} />
@@ -196,9 +76,7 @@ export default function AccountUI({
             ) : (
               <>
                 <p>Not subscribed yet</p>
-                <Link
-                  href="/subscribe"
-                  className={`${styles.subscriptionBtn} btn`}>
+                <Link href="/subscribe" className={`${styles.subscriptionBtn} btn`}>
                   Subscribe
                 </Link>
               </>

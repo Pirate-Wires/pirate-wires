@@ -3,25 +3,37 @@
 import PostList from "@/components/postlist";
 import {searchquery} from "@/lib/sanity/groq";
 import {useRouter, useSearchParams} from "next/navigation";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useSWR from "swr";
 import styles from "@/styles/pages/search.module.scss";
-import {fetcher} from "@/lib/sanity/client";
+import {getSearchResults} from "@/lib/sanity/client";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {Toast, ToastUtil} from "@/components/ui/Toast";
 
 export default function Search({posts}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams?.get("q") || "";
-  const [timer, setTimer] = useState(setTimeout(() => {}, 0.01));
-  const {data, error} = useSWR([searchquery, {query: query}], fetcher);
+  const [isLoading, setIsLoading] = useState(false);
+  const {data, error} = useSWR(query, getSearchResults);
+
+  useEffect(() => {
+    if (data) {
+      setIsLoading(false);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      setIsLoading(false);
+      ToastUtil.dismissToast();
+      ToastUtil.showErrorToast("Error fetching search results");
+    }
+  }, [error]);
 
   const handleChange = e => {
-    clearTimeout(timer);
-    const newTimer = setTimeout(() => {
-      router.replace(`/search?q=${e.target.value}`);
-    }, 500);
-    setTimer(newTimer);
+    router.replace(`/search?q=${e.target.value}`);
+    setIsLoading(true);
   };
 
   return (
@@ -40,9 +52,13 @@ export default function Search({posts}) {
           <MagnifyingGlassIcon />
         </div>
         {query ? (
-          <p className={`${styles.resultsText}`}>
-            Showing {data?.length > 0 ? data?.length : 0} results for {query}.
-          </p>
+          isLoading ? (
+            <p className={`${styles.resultsText}`}>Searching...</p>
+          ) : (
+            <p className={`${styles.resultsText}`}>
+              Showing {data?.length > 0 ? data?.length : 0} results for {query}.
+            </p>
+          )
         ) : (
           <p className={`${styles.resultsText}`}>
             Showing the latest 12 posts.
@@ -65,6 +81,7 @@ export default function Search({posts}) {
             ))}
         </div>
       )}
+      <Toast />
     </section>
   );
 }

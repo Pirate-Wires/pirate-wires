@@ -1,14 +1,11 @@
-import kickbox from "kickbox";
+const API_KEY = process.env.KICKBOX_LIVE_API_KEY;
 
-const client = kickbox.client(process.env.KICKBOX_LIVE_API_KEY).kickbox();
-
-export const checkEmail = async (email: string) => {
+export const verifyEmail = async (email: string) => {
   try {
-    const response = await client.verify(email);
-    const result = response.body.result === "deliverable";
-    return {data: result, error: null};
+    const response = await fetch(`https://api.kickbox.com/v2/verify?email=${email}&apikey=${API_KEY}`);
+    const data = await response.json();
+    return { data: data.result === "deliverable", error: null };
   } catch (error) {
-    console.error(`Error checking email ${email}: ${error.message}`);
-    return {data: null, error};
+    return { data: false, error };
   }
 };

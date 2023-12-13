@@ -1,20 +1,19 @@
 // /app/(website)/supabase-server.ts
-import type {Database} from "@/types/supabase";
-import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
-import {cookies} from "next/headers";
-import {cache} from "react";
+import type { Database } from "@/types/supabase";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { cache } from "react";
 
 export const createServerSupabaseClient = cache(() => {
   const cookieStore = cookies();
-  return createServerComponentClient<Database>({cookies: () => cookieStore});
+  return createServerComponentClient<Database>({ cookies: () => cookieStore });
 });
 
 export async function getSession() {
-  "use server";
   const supabase = createServerSupabaseClient();
   try {
     const {
-      data: {session},
+      data: { session },
     } = await supabase.auth.getSession();
     return session;
   } catch (error) {
@@ -26,10 +25,7 @@ export async function getSession() {
 export async function getUserDetails() {
   const supabase = createServerSupabaseClient();
   try {
-    const {data: userDetails} = await supabase
-      .from("users")
-      .select("*")
-      .single();
+    const { data: userDetails } = await supabase.from("users").select("*").single();
     return userDetails;
   } catch (error) {
     console.error("Error:", error);
@@ -40,11 +36,7 @@ export async function getUserDetails() {
 export async function getProfile(profileId: string) {
   const supabase = createServerSupabaseClient();
   try {
-    const {data: profile} = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", profileId)
-      .single();
+    const { data: profile } = await supabase.from("profiles").select("*").eq("id", profileId).single();
     return profile;
   } catch (error) {
     console.error("Error:", error);
@@ -54,14 +46,10 @@ export async function getProfile(profileId: string) {
 
 export async function getUserCustomerId(userDetails) {
   if (!userDetails) return null;
-  const {id} = userDetails;
+  const { id } = userDetails;
   const supabase = createServerSupabaseClient();
   try {
-    const {data: customer, error} = await supabase
-      .from("customers")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const { data: customer, error } = await supabase.from("customers").select("*").eq("id", id).single();
     if (error) throw error;
     return customer.stripe_customer_id;
   } catch (error) {
@@ -73,7 +61,7 @@ export async function getUserCustomerId(userDetails) {
 export async function getSubscription() {
   const supabase = createServerSupabaseClient();
   try {
-    const {data: subscription} = await supabase
+    const { data: subscription } = await supabase
       .from("subscriptions")
       .select("*, prices(*, products(*))")
       .in("status", ["trialing", "active"])
@@ -88,13 +76,13 @@ export async function getSubscription() {
 
 export const getActiveProductsWithPrices = async () => {
   const supabase = createServerSupabaseClient();
-  const {data, error} = await supabase
+  const { data, error } = await supabase
     .from("products")
     .select("*, prices(*)")
     .eq("active", true)
     .eq("prices.active", true)
     .order("metadata->index")
-    .order("unit_amount", {foreignTable: "prices"});
+    .order("unit_amount", { foreignTable: "prices" });
 
   if (error) {
     console.error(error.message);

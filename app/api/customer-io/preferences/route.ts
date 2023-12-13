@@ -1,23 +1,26 @@
 // /app/api/customer-io/preferences/route.ts
 import crypto from "crypto";
-import {
-  trackerCio,
-  getCustomerId,
-  getCustomerSubscription,
-} from "@/lib/cioClient";
-import {createAuthUser} from "@/utils/supabase-admin";
-import {CustomerIORequestError} from "customerio-node";
+import { trackerCio, getCustomerId, getCustomerSubscription } from "@/lib/cioClient";
+import { createAuthUser } from "@/utils/supabase-admin";
+import { verifyEmail } from "@/utils/kickbox";
 
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const {email, subscription} = body;
+    const { email, subscription } = body;
+
+    const { data: result, error: verifyError } = await verifyEmail(email);
+
+    if (verifyError) {
+      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+    } else if (!result) {
+      return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
+    }
 
     await createAuthUser(email);
 
     const cioId = await getCustomerId(email);
-    const {data: currentSubscription, error} =
-      await getCustomerSubscription(email);
+    const { data: currentSubscription, error } = await getCustomerSubscription(email);
 
     if (error) {
       throw error;
@@ -44,16 +47,9 @@ export async function PUT(req: Request) {
 
     let identifyResponse;
     if (cioId) {
-      identifyResponse = await trackerCio.identify(
-        `cio_${cioId}`,
-        preferencesPayload,
-      );
+      identifyResponse = await trackerCio.identify(`cio_${cioId}`, preferencesPayload);
     } else {
-      const cio_id = crypto
-        .createHash("sha256")
-        .update(email)
-        .digest("hex")
-        .slice(0, 12);
+      const cio_id = crypto.createHash("sha256").update(email).digest("hex").slice(0, 12);
 
       identifyResponse = await trackerCio.identify(cio_id, {
         email,
@@ -65,22 +61,21 @@ export async function PUT(req: Request) {
       throw new Error("Failed to update preferences in Customer.io");
     }
 
-    return new Response(JSON.stringify({success: true}), {status: 200});
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (err) {
-    console.error("Error in PUT request:", err);
-    return new Response(`Error: ${err.message}`, {status: 500});
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const {email, section} = body;
+    const { email, section } = body;
 
     await createAuthUser(email);
 
     const cioId = await getCustomerId(email);
-    const {data} = await getCustomerSubscription(email);
+    const { data } = await getCustomerSubscription(email);
     const customerSubscription = data || [];
 
     const subscription = customerSubscription.includes(section)
@@ -97,9 +92,7 @@ export async function POST(req: Request) {
 
     const updatedPreferences = {};
     Object.keys(updatedTopics).forEach((key, index) => {
-      updatedPreferences[`topic_${index + 1}`] = subscription.includes(
-        updatedTopics[key],
-      );
+      updatedPreferences[`topic_${index + 1}`] = subscription.includes(updatedTopics[key]);
     });
 
     const preferencesPayload = {
@@ -111,11 +104,7 @@ export async function POST(req: Request) {
     if (cioId) {
       trackerCio.identify(`cio_${cioId}`, preferencesPayload);
     } else {
-      const cio_id = crypto
-        .createHash("sha256")
-        .update(email)
-        .digest("hex")
-        .slice(0, 12);
+      const cio_id = crypto.createHash("sha256").update(email).digest("hex").slice(0, 12);
 
       trackerCio.identify(cio_id, {
         email,
@@ -123,34 +112,33 @@ export async function POST(req: Request) {
       });
     }
 
-    return new Response(JSON.stringify({message: `Thanks for subscribing`}), {
+    return new Response(JSON.stringify({ message: `Thanks for subscribing` }), {
       status: 200,
     });
   } catch (err) {
-    console.error("Error in POST request:", err);
-    return new Response(`Error: ${err.message}`, {status: 500});
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
 
 export async function GET(req: Request) {
-  const {searchParams} = new URL(req.url);
+  const { searchParams } = new URL(req.url);
   const email = searchParams.get("email");
 
   if (!email) {
-    return new Response(`Query Error`, {status: 500});
+    return new Response(JSON.stringify({ message: `Query Error` }), { status: 500 });
   }
 
   try {
-    const {data: subscription, error} = await getCustomerSubscription(email);
+    const { data: subscription, error } = await getCustomerSubscription(email);
 
     if (error) {
       throw error;
     }
 
-    return new Response(JSON.stringify({preferences: subscription}), {
+    return new Response(JSON.stringify({ preferences: subscription }), {
       status: 200,
     });
   } catch (err) {
-    return new Response(`Error: ${err.message}`, {status: 500});
+    return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }

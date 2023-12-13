@@ -247,8 +247,8 @@ export const searchquery = groq`*[_type == "post" && _score > 0]
   excerpt,
   author->,
   section,
-   title,
-   slug
+  title,
+  slug
 }`;
 
 // Get all Authors
