@@ -1,6 +1,15 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+export class ToastableError extends Error {
+    statusCode: number | null;
+
+    constructor(message: string, statusCode?: number | null) {
+        super(message);
+        this.statusCode = statusCode ?? null;
+    }
+}
+
 export class ToastUtil {
     static showLoadingToast() {
         return toast.loading('Loading', {
@@ -13,16 +22,19 @@ export class ToastUtil {
         });
     }
 
-    static showErrorToast(message: string) {
-        return toast.error(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            theme: "dark",
-        });
+    static showErrorToast(error: ToastableError) {
+        this.dismissToast();
+        if (error) {
+            return toast.error(error.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                theme: "dark",
+            });
+        }
     }
 
     static showSuccessToast(message: string) {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 import React, {useState, useEffect, FormEvent} from "react";
 
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
@@ -12,7 +12,7 @@ const TRIAL_PERIOD_DAYS = process.env.NEXT_PUBLIC_SUBSCRIBE_TRIAL_PERIOD_DAYS;
 const StepOne = ({email}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
   const [currentEmail, setCurrentEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -42,7 +42,8 @@ const StepOne = ({email}) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Error sending OTP`);
+      const data = await response.json();
+      throw new ToastableError(data.message, response.status);
     }
   };
 
@@ -63,7 +64,8 @@ const StepOne = ({email}) => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
         }
 
         const data = await response.json();
@@ -77,7 +79,7 @@ const StepOne = ({email}) => {
       } catch (error) {
         console.error("There was an error!", error);
         setIsLoading(false);
-        setError(error.message);
+        setError(error);
       }
     } else {
       const form = event.target as HTMLFormElement;
@@ -104,7 +106,8 @@ const StepOne = ({email}) => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
         }
 
         const data = await response.json();
@@ -119,7 +122,7 @@ const StepOne = ({email}) => {
       } catch (error) {
         console.error("There was an error!", error);
         setIsLoading(false);
-        setError(error.message);
+        setError(error);
       }
     }
   };

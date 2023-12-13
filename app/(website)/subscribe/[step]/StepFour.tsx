@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, {useEffect, useState, FormEvent} from "react";
 
 import styles from "@/styles/pages/subscribe.module.scss";
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 interface StepFourProps {
   email: string;
@@ -14,7 +14,7 @@ interface StepFourProps {
 const StepFour: React.FC<StepFourProps> = ({ email }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
 
   useEffect(() => {
@@ -47,7 +47,8 @@ const StepFour: React.FC<StepFourProps> = ({ email }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setSelectedNewsLetters([]);
@@ -57,7 +58,7 @@ const StepFour: React.FC<StepFourProps> = ({ email }) => {
     } catch (error) {
       console.error("There was an error!", error);
       setIsLoading(false);
-      setError(error.message);
+      setError(error);
     }
   };
 
@@ -126,7 +127,6 @@ const StepFour: React.FC<StepFourProps> = ({ email }) => {
           No thanks, I just wanna start reading
         </Link>
       </form>
-      {error && <p className={styles.error}>{error}</p>}
       <Toast />
     </>
   );

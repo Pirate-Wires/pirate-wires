@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useSupabase } from "@/app/(website)/supabase-provider";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
@@ -19,7 +19,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
   const { supabase } = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
   useEffect(() => {
@@ -58,7 +58,8 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error verifying otp`);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       const password = process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
@@ -69,13 +70,13 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
 
       if (signInError) {
         console.error("Error signing in:", signInError);
-        return { error: signInError };
+        throw new ToastableError(signInError.message, signInError.status);
       }
 
       router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
     } catch (error) {
-      setError(error.message);
       setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -94,14 +95,15 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error sending OTP`);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setIsLoading(false);
       setSuccessMsg("Resent OTP successfully");
     } catch (error) {
-      setError(error.message);
       setIsLoading(false);
+      setError(error);
     }
   };
 

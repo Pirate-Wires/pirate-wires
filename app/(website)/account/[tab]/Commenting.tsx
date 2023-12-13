@@ -1,18 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
 import LoadingOverlay from "./LoadingOverlay";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotifications, profile }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(profile?.comments_display_name ?? "");
   const [notification, setNotification] = useState<boolean>(profile.comments_notifications);
   const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
+  const [error, setError] = useState<ToastableError | null>(null);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (successMsg) {
+      ToastUtil.showSuccessToast(successMsg);
+    }
+  }, [successMsg]);
 
   const handleSubmitCommentsDisplayName = async event => {
     event.preventDefault();
     setDetailUpdateMsg("");
+    setSuccessMsg("");
+    setIsLoading(true);
 
     try {
       const formData = new FormData(event.target);
@@ -20,6 +45,8 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
 
       if (newDisplayName === lastUpdatedDisplayName) {
         setDetailUpdateMsg(`Different display name required`);
+        setIsLoading(false);
+        throw new ToastableError(`Different display name required`);
         return;
       }
 
@@ -27,12 +54,15 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
 
       setLastUpdatedDisplayName(newDisplayName);
       setDetailUpdateMsg(`Comments display name updated successfully`);
+      setIsLoading(false);
+      setSuccessMsg(`Comment display name updated`);
       setTimeout(() => {
         setDetailUpdateMsg("");
       }, 3000);
     } catch (error) {
       console.error(`Error updating comments display name: ${error.message}`);
       setDetailUpdateMsg(error.message);
+      setError(new ToastableError(error.message));
     }
   };
 
@@ -49,8 +79,6 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
 
   return (
     <>
-      {!!isLoading && <LoadingOverlay message="Toggling comment reply notification..." />}
-      {!!detailUpdateMsg && <h2 className={styles.tag}>{detailUpdateMsg}</h2>}
       <div className={styles.infoGroup}>
         <form id="commentsDisplayNameForm" onSubmit={handleSubmitCommentsDisplayName}>
           <label>Comments username</label>
@@ -73,6 +101,7 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
           Email me when someone replies to my comments
         </label>
       </div>
+      <Toast />
     </>
   );
 };

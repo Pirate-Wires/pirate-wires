@@ -5,6 +5,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import {useEffect, useState, FormEvent} from "react";
 import Link from "next/link";
 
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+
 export default function FeaturedNewsletters({
   newsletters,
   section,
@@ -16,6 +18,8 @@ export default function FeaturedNewsletters({
   const [isChecking, setIsChecking] = useState(false);
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState<ToastableError | null>(null);
+
   const onLoad = () => {
     setTimeout(() => {
       setLoaded(true);
@@ -26,6 +30,21 @@ export default function FeaturedNewsletters({
     align: "start",
     containScroll: "trimSnaps",
   });
+
+  useEffect(() => {
+    if (isLoading) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
   useEffect(() => {
     if (emblaApi) {
       // emblaApi.slidesToScroll = window.innerWidth > 767 ? 2 : 1
@@ -64,7 +83,7 @@ export default function FeaturedNewsletters({
         );
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new ToastableError("Error checking email preferences", response.status)
         }
 
         const {preferences} = await response.json();
@@ -73,6 +92,7 @@ export default function FeaturedNewsletters({
         setIsChecking(false);
       } catch (error) {
         console.error("There was an error!", error);
+        setError(error);
         setIsChecking(false);
       }
     };
@@ -100,16 +120,17 @@ export default function FeaturedNewsletters({
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new ToastableError("Error updating newsletter preferences", response.status)
       }
 
       const data = await response.json();
 
-      setIsSuccess(true);
-
       setIsLoading(false);
+      setIsSuccess(true);
+      ToastUtil.showSuccessToast("Successfully updated newsletter preferences!")
     } catch (error) {
       console.error("There was an error!", error);
+      setError(error);
       setIsLoading(false);
     }
   };
@@ -243,6 +264,7 @@ export default function FeaturedNewsletters({
           </>
         )}
       </div>
+      <Toast />
     </section>
   );
 }

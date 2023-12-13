@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {usePathname, redirect} from "next/navigation";
 import {useSupabase} from "@/app/(website)/supabase-provider";
 
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "./_styles/newsletterCallout.module.scss";
 
@@ -14,7 +14,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
 
   // we can't redirect from here, so we need to do it from the parent component
   // if (user) {
@@ -30,16 +30,16 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
   }, [isLoading])
 
   useEffect(() => {
-    if (error) {
-      ToastUtil.showErrorToast(error);
-    }
-  }, [error]);
-
-  useEffect(() => {
     if (isSuccess) {
       ToastUtil.showSuccessToast("Thanks for subscribing!")
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -48,13 +48,11 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
 
     if (!email) {
       setIsSuccess(false);
-      setError("Email is required");
-      return;
+      setError(new ToastableError("Email is required"));
     }
     if (!selectedNewsLetters.length) {
       setIsSuccess(false);
-      setError("Newsletter selection is required");
-      return;
+      setError(new ToastableError("Please select at least one newsletter"));
     }
 
     setIsLoading(true);
@@ -68,9 +66,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
       const checkData = await checkResponse.json();
 
       if (!checkResponse.ok) {
-        throw new Error(
-          `Error checking email existence! Status: ${checkResponse.status}`,
-        );
+        throw new ToastableError("Error checking email existence", checkResponse.status);
       }
 
       if (checkData.exists) {
@@ -89,7 +85,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
       });
 
       if (!updateResponse.ok) {
-        throw new Error(`HTTP error! Status: ${updateResponse.status}`);
+        throw new ToastableError("Error updating newsletter preferences", updateResponse.status);
       }
 
       const updateData = await updateResponse.json();
@@ -106,7 +102,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
     } catch (error) {
       console.error("There was an error!", error);
       setIsLoading(false);
-      setError(error.message);
+      setError(error);
     }
   };
 

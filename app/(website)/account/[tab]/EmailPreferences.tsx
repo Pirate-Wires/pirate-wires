@@ -2,19 +2,29 @@
 
 import {useState, useEffect} from "react";
 
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+
 import LoadingOverlay from "./LoadingOverlay";
 
 const EmailPreferences = ({user}) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(0);
+  const [error, setError] = useState<ToastableError | null>(null);
+  const [successMsg, setSuccessMsg] = useState("");
 
   // Fetch and update user preferences on component mount
   useEffect(() => {
     setIsLoading(prev => prev + 1);
     // Make a GET request to fetch the user's preferences from the new API endpoint
     fetch(`/api/customer-io/preferences?email=${user.email}`)
-      .then(response => response.json())
+      .then(async response => {
+        if (!response.ok) {
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
+        }
+        return response.json();
+      })
       .then(data => {
         const userPreferences = data.preferences;
         setSelectedNewsLetters(userPreferences);
@@ -25,6 +35,26 @@ const EmailPreferences = ({user}) => {
         setIsLoading(prev => prev - 1);
       });
   }, [user.email]);
+
+  useEffect(() => {
+    if (error) {
+      ToastUtil.showErrorToast(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isProgress) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isProgress]);
+
+  useEffect(() => {
+    if (successMsg) {
+      ToastUtil.showSuccessToast(successMsg);
+    }
+  }, [successMsg]);
 
   const handleSelect = event => {
     if (isLoading || isProgress) return;
@@ -41,6 +71,7 @@ const EmailPreferences = ({user}) => {
     if (isLoading || isProgress) return;
 
     setIsProgress(true);
+    setSuccessMsg("");
 
     try {
       const response = await fetch("/api/customer-io/preferences", {
@@ -52,18 +83,21 @@ const EmailPreferences = ({user}) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       // API call successful
       // Set isProgress to false to hide the "Processing..." message
       setIsProgress(false);
       setSelectedNewsLetters(subscription);
+      setSuccessMsg("Newsletter preferences updated");
     } catch (error) {
       console.error("There was an error!", error);
       // Handle the error if needed
       // Set isProgress to false even if there's an error
       setIsProgress(false);
+      setError(error);
     }
   };
 
@@ -72,9 +106,6 @@ const EmailPreferences = ({user}) => {
       {/* Display Loading or Progress Indicators */}
       {!!isLoading && (
         <LoadingOverlay message="Loading Newsletter Preferences..." />
-      )}
-      {isProgress && (
-        <LoadingOverlay message="Updating Newsletter Preferences..." />
       )}
 
       <p>Subscribe or unsubscribe to our newsletters</p>
@@ -140,6 +171,7 @@ const EmailPreferences = ({user}) => {
           Important Pirate Wires Updates
         </label>
       </div>
+      <Toast />
     </>
   );
 };
