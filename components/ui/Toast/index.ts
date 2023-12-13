@@ -1,1 +1,1 @@
-export { default as Toast, ToastUtil } from "./Toast";
+export { default as Toast, ToastUtil, ToastableError } from "./Toast";

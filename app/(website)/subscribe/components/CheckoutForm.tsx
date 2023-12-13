@@ -2,7 +2,7 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 
 import {useStripe, useElements, PaymentElement} from "@stripe/react-stripe-js";
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
@@ -18,7 +18,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
 
   useEffect(() => {
     if (isLoading) {
@@ -33,7 +33,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
       ToastUtil.showErrorToast(error);
     }
   }, [error]);
-
+  
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -51,7 +51,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
       });
 
       if (result.error) {
-        throw result.error;
+        if (result.error.message) {
+          throw new ToastableError(result.error.message);
+        }
+        throw new ToastableError("Error setting up subscription. Please try again");
       }
       if (result.setupIntent && result.setupIntent.status === "succeeded") {
         const paymentMethodId = result.setupIntent.payment_method;
@@ -66,7 +69,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          const data = await response.json();
+          throw new ToastableError(data.message, response.status);
         }
 
         setIsLoading(false);
@@ -74,8 +78,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
       }
     } catch (error) {
       console.error(`Error creating subscription: ${error.message}`);
-      setError(error.message);
       setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -87,7 +91,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
           {isLoading ? "Loading..." : "Subscribe"}
         </button>
       </form>
-      {error && <p className={styles.error}>{error}</p>}
       <Toast />
     </>
   );

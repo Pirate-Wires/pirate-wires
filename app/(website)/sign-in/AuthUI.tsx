@@ -8,7 +8,7 @@ import {useSupabase} from "@/app/(website)/supabase-provider";
 
 import OTPInput from "./OTPInput";
 import EmailInput from "./EmailInput";
-import {Toast, ToastUtil} from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/signIn.module.scss";
 
@@ -19,7 +19,8 @@ export default function AuthUI() {
   const [resending, setResending] = useState(false);
   const [otp, setOtp] = useState("");
   const [otpVisible, setOtpVisible] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [unknownUserErrorMessage, setUnknownUserErrorMessage] = useState<string | null>(null);
+  const [error, setError] = useState<ToastableError | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const {supabase} = useSupabase();
 
@@ -34,7 +35,8 @@ export default function AuthUI() {
       const getResponse = await fetch(`/api/user?email=${email}`);
 
       if (!getResponse.ok) {
-        throw new Error(`HTTP error! Status: ${getResponse.status}`);
+        const data = await getResponse.json();
+        throw new ToastableError(data.message, getResponse.status);
       }
 
       const {user} = await getResponse.json();
@@ -42,8 +44,9 @@ export default function AuthUI() {
         // Import Link from "next/link" at the top of the file
 
         // Inside the handleEmailSubmit function, modify the error message to include a link
-        throw new Error(
-          `You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`,
+        setUnknownUserErrorMessage(`<br>You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`);
+        throw new ToastableError(
+          `You don't have an account. Please go to the subscribe page to sign up!`,
         );
       }
 
@@ -55,15 +58,16 @@ export default function AuthUI() {
       });
 
       if (!sendResponse.ok) {
-        throw new Error(`HTTP error! Status: ${sendResponse.status}`);
+        const data = await sendResponse.json();
+        throw new ToastableError(data.message, sendResponse.status);
       }
 
       setEmail(email);
       setOtpVisible(true);
       setIsLoading(false);
     } catch (error) {
-      setError(error.message);
       setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -83,7 +87,8 @@ export default function AuthUI() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       const password =
@@ -95,14 +100,14 @@ export default function AuthUI() {
 
       if (signInError) {
         console.error("Error signing in:", signInError);
-        return {error: signInError};
+        throw new ToastableError(signInError.message, signInError.status);
       }
 
       setIsLoading(false);
       router.push("/account");
     } catch (error) {
-      setError(error.message);
       setIsLoading(false);
+      setError(error);
     }
   };
 
@@ -122,14 +127,15 @@ export default function AuthUI() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        throw new ToastableError(data.message, response.status);
       }
 
       setOtpVisible(true);
       setResending(false);
       setSuccessMsg("Resent OTP successfully");
     } catch (error) {
-      setError(error.message);
+      setError(error);
       setResending(false);
     }
   };
@@ -180,6 +186,7 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
+        {unknownUserErrorMessage && <div dangerouslySetInnerHTML={{__html: unknownUserErrorMessage}}></div>}
       </>
       <div className={styles.substackNotice}>
         <h3>
