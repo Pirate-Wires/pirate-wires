@@ -9,7 +9,7 @@ import styles from "@/styles/pages/subscribe.module.scss";
 const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
 const EXPIRES_MONTH = process.env.NEXT_PUBLIC_SUBSCRIBE_EXPIRES_MONTH;
 const TRIAL_PERIOD_DAYS = process.env.NEXT_PUBLIC_SUBSCRIBE_TRIAL_PERIOD_DAYS;
-const StepOne = ({email}) => {
+const FourteenDayTrial = ({email}) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ToastableError | null>(null);
@@ -74,7 +74,7 @@ const StepOne = ({email}) => {
         setError(null);
 
         router.push(
-          `/subscribe/step-3?email=${currentEmail}&customerId=${customerId}`,
+          `/subscribe/payment?email=${currentEmail}&customerId=${customerId}`,
         );
       } catch (error) {
         console.error("There was an error!", error);
@@ -117,7 +117,7 @@ const StepOne = ({email}) => {
 
         await sendOTP(email);
         router.push(
-          `/subscribe/step-2?email=${email}&customerId=${customerId}`,
+          `/subscribe/confirm-subscription?email=${email}&customerId=${customerId}`,
         );
       } catch (error) {
         console.error("There was an error!", error);
@@ -193,4 +193,4 @@ const StepOne = ({email}) => {
   );
 };
 
-export default StepOne;
+export default FourteenDayTrial;

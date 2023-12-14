@@ -13,13 +13,13 @@ import styles from "@/styles/pages/subscribe.module.scss";
 // const stripePromise = loadStripe((env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ) ?? '')
 const stripePromise = loadStripe("pk_test_81KfkhavLe3j0FbgVinVWlRH");
 
-interface StepThreeProps {
+interface PaymentProps {
   email: string;
   customerId: string;
   subscription: string | null;
 }
 
-const StepThree: React.FC<StepThreeProps> = ({
+const Payment: React.FC<PaymentProps> = ({
   email,
   customerId,
   subscription,
@@ -75,7 +75,7 @@ const StepThree: React.FC<StepThreeProps> = ({
   }, [customerId]);
 
   const handleClickSkip = () => {
-    router.push(`/subscribe/step-4?email=${email}`);
+    router.push(`/subscribe/newsletters?email=${email}`);
   };
 
   return (
@@ -99,4 +99,4 @@ const StepThree: React.FC<StepThreeProps> = ({
   );
 };
 
-export default StepThree;
+export default Payment;

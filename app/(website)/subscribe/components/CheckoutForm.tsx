@@ -33,7 +33,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
       ToastUtil.showErrorToast(error);
     }
   }, [error]);
-  
+
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -74,7 +74,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
         }
 
         setIsLoading(false);
-        router.push(`/subscribe/step-4?email=${email}`);
+        router.push(`/subscribe/newsletters?email=${email}`);
       }
     } catch (error) {
       console.error(`Error creating subscription: ${error.message}`);

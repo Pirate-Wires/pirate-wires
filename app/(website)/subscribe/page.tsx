@@ -12,8 +12,8 @@ export default async function PreviewPage() {
   const customerId = await getUserCustomerId(userDetails);
 
   if (!user) {
-    redirect(`/subscribe/step-1`);
+    redirect(`/subscribe/14-day-trial`);
   } else {
-    redirect(`/subscribe/step-3?email=${user?.email}&customerId=${customerId}`);
+    redirect(`/subscribe/payment?email=${user?.email}&customerId=${customerId}`);
   }
 }
