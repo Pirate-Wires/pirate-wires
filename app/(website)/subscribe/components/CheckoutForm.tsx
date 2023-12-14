@@ -73,7 +73,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ email }) => {
         }
 
         setIsLoading(false);
-        router.push(`/subscribe/step-4?email=${email}`);
+        router.push(`/subscribe/preference?email=${email}`);
       }
     } catch (error) {
       console.error(`Error creating subscription: ${error.message}`);

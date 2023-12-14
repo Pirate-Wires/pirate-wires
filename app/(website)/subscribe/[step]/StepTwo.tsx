@@ -72,7 +72,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email }) => {
         throw new ToastableError(signInError.message, signInError.status);
       }
 
-      router.push(`/subscribe/step-3?email=${email}`);
+      router.push(`/subscribe/payment?email=${email}`);
     } catch (error) {
       setIsLoading(false);
       setError(error);

@@ -68,7 +68,7 @@ const StepThree: React.FC<StepThreeProps> = ({ email, subscription }) => {
   }, [email]);
 
   const handleClickSkip = () => {
-    router.push(`/subscribe/step-4?email=${email}`);
+    router.push(`/subscribe/preference?email=${email}`);
   };
 
   return (

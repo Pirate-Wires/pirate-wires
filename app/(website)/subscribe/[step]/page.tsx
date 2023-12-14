@@ -19,13 +19,13 @@ export default async function SubscribePage({ params, searchParams }) {
 
   const StepSwitcher = ({ step }: { step: string }) => {
     switch (step) {
-      case "step-1":
+      case "detail":
         return <StepOne email={user?.email} />;
-      case "step-2":
+      case "verify":
         return <StepTwo email={email} />;
-      case "step-3":
+      case "payment":
         return <StepThree email={email} subscription={user?.subscription_id!} />;
-      case "step-4":
+      case "preference":
         return <StepFour email={email} />;
       default:
         return notFound();

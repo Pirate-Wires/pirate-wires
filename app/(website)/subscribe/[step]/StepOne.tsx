@@ -69,7 +69,7 @@ const StepOne = ({ email }) => {
 
         setError(null);
 
-        router.push(`/subscribe/step-3?email=${currentEmail}`);
+        router.push(`/subscribe/payment?email=${currentEmail}`);
       } catch (error) {
         console.error("There was an error!", error);
         setIsLoading(false);
@@ -107,7 +107,7 @@ const StepOne = ({ email }) => {
         setError(null);
 
         await sendOTP(email);
-        router.push(`/subscribe/step-2?email=${email}`);
+        router.push(`/subscribe/verify?email=${email}`);
       } catch (error) {
         console.error("There was an error!", error);
         setIsLoading(false);
