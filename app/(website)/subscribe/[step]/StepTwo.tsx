@@ -5,16 +5,15 @@ import { useRouter } from "next/navigation";
 
 import { useSupabase } from "@/app/(website)/supabase-provider";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
 interface StepTwoProps {
   email: string;
-  customerId: string;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
+const StepTwo: React.FC<StepTwoProps> = ({ email }) => {
   const router = useRouter();
   const { supabase } = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +72,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
         throw new ToastableError(signInError.message, signInError.status);
       }
 
-      router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
+      router.push(`/subscribe/step-3?email=${email}`);
     } catch (error) {
       setIsLoading(false);
       setError(error);
