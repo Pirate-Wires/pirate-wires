@@ -1,10 +1,4 @@
-import {
-  getUserByEmail,
-  createAuthUser,
-  upsertUserRecord,
-  createOrRetrieveCustomer,
-  updateAuthUser,
-} from "@/utils/supabase-admin";
+import { getUserByEmail, createAuthUser, updateAuthUser } from "@/utils/supabase-admin";
 import { verifyEmail } from "@/utils/kickbox";
 
 export async function POST(req: Request) {
@@ -21,7 +15,6 @@ export async function POST(req: Request) {
     }
 
     const data = await getUserByEmail(email);
-    let userId = data?.id!;
 
     if (!data) {
       const { data: user, error: createError } = await createAuthUser(email, fullName);
@@ -29,24 +22,9 @@ export async function POST(req: Request) {
       if (createError) {
         return new Response(JSON.stringify({ message: createError.message }), { status: 500 });
       }
-
-      userId = user?.id!;
-      if (fullName) {
-        const { error } = await upsertUserRecord(userId, email, fullName);
-
-        if (error) {
-          return new Response(JSON.stringify({ message: error.message }), { status: 500 });
-        }
-      }
     }
 
-    const customerId = await createOrRetrieveCustomer({
-      email,
-      name: fullName,
-      uuid: userId!,
-    });
-
-    return new Response(JSON.stringify({ success: true, payload: { customerId } }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
     });
   } catch (err) {
