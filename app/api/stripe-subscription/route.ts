@@ -1,9 +1,23 @@
 import { setDefaultPaymentMethod, createCustomerSubscription } from "@/utils/stripe";
+import { getUserByEmail, getCustomerById } from "@/utils/supabase-admin";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { paymentMethodId, customerId, priceId } = body;
   try {
+    const body = await req.json();
+    const { paymentMethodId, email, priceId } = body;
+
+    const user = await getUserByEmail(email);
+    if (!user) {
+      return new Response(JSON.stringify({ message: "Error fetching user data" }), { status: 400 });
+    }
+
+    const customerData = await getCustomerById(user.id);
+    if (!customerData) {
+      return new Response(JSON.stringify({ message: "Error fetching customer data" }), { status: 400 });
+    }
+
+    const customerId = customerData.stripe_customer_id!;
+
     const { error } = await setDefaultPaymentMethod({
       paymentMethodId,
       customerId,
