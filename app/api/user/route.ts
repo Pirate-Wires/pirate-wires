@@ -90,14 +90,21 @@ export async function GET(req: Request) {
     const email = searchParams.get("email");
 
     if (!email) {
-      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+      return new Response(JSON.stringify({ message: "Email parameter missing" }), { status: 400 });
     }
 
     const { data: result, error } = await verifyEmail(email);
 
     if (error) {
       return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
-    } else if (!result) {
+    } else if (result === false) {
+      // Check if the email exists in your system using getUserByEmail
+      const userExists = await getUserByEmail(email);
+
+      if (!userExists) {
+        return new Response(JSON.stringify({ message: "User does not exist. Please create an account." }), { status: 404 });
+      }
+
       return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
     }
 
@@ -108,3 +115,4 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
+

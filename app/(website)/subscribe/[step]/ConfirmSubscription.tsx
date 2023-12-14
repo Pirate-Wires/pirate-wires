@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 
-import { useSupabase } from "@/app/(website)/supabase-provider";
+import {useSupabase} from "@/app/(website)/supabase-provider";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
-interface StepTwoProps {
+interface ConfirmSubscriptionProps {
   email: string;
   customerId: string;
 }
 
-const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
+const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({email, customerId}) => {
   const router = useRouter();
-  const { supabase } = useSupabase();
+  const {supabase} = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<ToastableError | null>(null);
@@ -63,7 +63,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
       }
 
       const password = process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const {error: signInError} = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -73,7 +73,7 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
         throw new ToastableError(signInError.message, signInError.status);
       }
 
-      router.push(`/subscribe/step-3?email=${email}&customerId=${customerId}`);
+      router.push(`/subscribe/payment?email=${email}&customerId=${customerId}`);
     } catch (error) {
       setIsLoading(false);
       setError(error);
@@ -131,4 +131,4 @@ const StepTwo: React.FC<StepTwoProps> = ({ email, customerId }) => {
   );
 };
 
-export default StepTwo;
+export default ConfirmSubscription;

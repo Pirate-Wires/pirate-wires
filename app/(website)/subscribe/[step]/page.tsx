@@ -5,10 +5,10 @@ import {getGlobalFields} from "@/lib/sanity/client";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 
-import StepOne from "./StepOne";
-import StepTwo from "./StepTwo";
-import StepThree from "./StepThree";
-import StepFour from "./StepFour";
+import FourteenDayTrial from "./FourteenDayTrial";
+import ConfirmSubscription from "./ConfirmSubscription";
+import Payment from "./Payment";
+import Newsletters from "./Newsletters";
 import styles from "@/styles/pages/subscribe.module.scss";
 import Link from "next/link";
 import React from "react";
@@ -20,20 +20,20 @@ export default async function SubscribePage({params, searchParams}) {
 
   const StepSwitcher = ({step}: {step: string}) => {
     switch (step) {
-      case "step-1":
-        return <StepOne email={user?.email} />;
-      case "step-2":
-        return <StepTwo email={email} customerId={customerId} />;
-      case "step-3":
+      case "14-day-trial":
+        return <FourteenDayTrial email={user?.email} />;
+      case "confirm-subscription":
+        return <ConfirmSubscription email={email} customerId={customerId} />;
+      case "payment":
         return (
-          <StepThree
+          <Payment
             email={email}
             customerId={customerId}
             subscription={user?.subscription_id!}
           />
         );
-      case "step-4":
-        return <StepFour email={email} />;
+      case "newsletters":
+        return <Newsletters email={email} />;
       default:
         return notFound();
     }
