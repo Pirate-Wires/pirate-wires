@@ -16,10 +16,7 @@ interface PaymentProps {
   subscription: string | null;
 }
 
-const Payment: React.FC<PaymentProps> = ({
-  email,
-  subscription,
-}) => {
+const Payment: React.FC<PaymentProps> = ({ email, subscription }) => {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
