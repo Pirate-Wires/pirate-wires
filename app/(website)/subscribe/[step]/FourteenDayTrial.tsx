@@ -1,15 +1,14 @@
 "use client";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
-import React, {useState, useEffect, FormEvent} from "react";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect, FormEvent } from "react";
 
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 const MONTHLY_PRICE = process.env.NEXT_PUBLIC_SUBSCRIBE_MONTHLY_PRICE;
-const EXPIRES_MONTH = process.env.NEXT_PUBLIC_SUBSCRIBE_EXPIRES_MONTH;
 const TRIAL_PERIOD_DAYS = process.env.NEXT_PUBLIC_SUBSCRIBE_TRIAL_PERIOD_DAYS;
-const FourteenDayTrial = ({email}) => {
+const FourteenDayTrial = ({ email }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ToastableError | null>(null);
@@ -68,14 +67,9 @@ const FourteenDayTrial = ({email}) => {
           throw new ToastableError(data.message, response.status);
         }
 
-        const data = await response.json();
-        const customerId = data.payload.customerId;
-
         setError(null);
 
-        router.push(
-          `/subscribe/payment?email=${currentEmail}&customerId=${customerId}`,
-        );
+        router.push(`/subscribe/payment?email=${currentEmail}`);
       } catch (error) {
         console.error("There was an error!", error);
         setIsLoading(false);
@@ -110,15 +104,10 @@ const FourteenDayTrial = ({email}) => {
           throw new ToastableError(data.message, response.status);
         }
 
-        const data = await response.json();
-        const customerId = data.payload.customerId;
-
         setError(null);
 
         await sendOTP(email);
-        router.push(
-          `/subscribe/confirm-subscription?email=${email}&customerId=${customerId}`,
-        );
+        router.push(`/subscribe/confirm-subscription?email=${email}`);
       } catch (error) {
         console.error("There was an error!", error);
         setIsLoading(false);
@@ -131,9 +120,8 @@ const FourteenDayTrial = ({email}) => {
     <>
       <h1>Start Your {TRIAL_PERIOD_DAYS}-day Free Trial</h1>
       <p className={styles.copy}>
-        After your free {TRIAL_PERIOD_DAYS} day trial ends, we will charge $
-        {MONTHLY_PRICE} from your account every month. Subscription can be
-        cancelled anytime within your trial period.
+        After your free {TRIAL_PERIOD_DAYS} day trial ends, we will charge ${MONTHLY_PRICE} from your account every
+        month. Subscription can be cancelled anytime within your trial period.
       </p>
       <form onSubmit={handleSubmit}>
         {!!currentEmail ? (
@@ -145,21 +133,11 @@ const FourteenDayTrial = ({email}) => {
             <div className={`input-groups`}>
               <div className={`input-group`}>
                 <label>First Name:</label>
-                <input
-                  type="text"
-                  name="fname"
-                  placeholder="First name"
-                  required
-                />
+                <input type="text" name="fname" placeholder="First name" required />
               </div>
               <div className={`input-group`}>
                 <label>Last Name:</label>
-                <input
-                  type="text"
-                  name="lname"
-                  placeholder="Last name"
-                  required
-                />
+                <input type="text" name="lname" placeholder="Last name" required />
               </div>
             </div>
 

@@ -1,9 +1,5 @@
-import {redirect} from "next/navigation";
-import {
-  getSession,
-  getUserDetails,
-  getUserCustomerId,
-} from "@/app/(website)/supabase-server";
+import { redirect } from "next/navigation";
+import { getSession, getUserDetails, getUserCustomerId } from "@/app/(website)/supabase-server";
 
 export default async function PreviewPage() {
   const session = await getSession();

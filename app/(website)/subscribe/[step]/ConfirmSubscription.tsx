@@ -5,16 +5,15 @@ import {useRouter} from "next/navigation";
 
 import {useSupabase} from "@/app/(website)/supabase-provider";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
 interface ConfirmSubscriptionProps {
   email: string;
-  customerId: string;
 }
 
-const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({email, customerId}) => {
+const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({email}) => {
   const router = useRouter();
   const {supabase} = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +72,7 @@ const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({email, custome
         throw new ToastableError(signInError.message, signInError.status);
       }
 
-      router.push(`/subscribe/payment?email=${email}&customerId=${customerId}`);
+      router.push(`/subscribe/payment?email=${email}`);
     } catch (error) {
       setIsLoading(false);
       setError(error);

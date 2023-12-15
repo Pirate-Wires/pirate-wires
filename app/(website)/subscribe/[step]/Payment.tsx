@@ -1,29 +1,22 @@
 "use client";
-import {useRouter} from "next/navigation";
-import React, {useState, useEffect} from "react";
-import {Elements} from "@stripe/react-stripe-js";
-import {loadStripe} from "@stripe/stripe-js";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import SubscriptionPlan from "../components/SubscriptionPlan";
 import CheckoutForm from "../components/CheckoutForm";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
-
-import styles from "@/styles/pages/subscribe.module.scss";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 // const stripePromise = loadStripe((env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ) ?? '')
 const stripePromise = loadStripe("pk_test_81KfkhavLe3j0FbgVinVWlRH");
 
 interface PaymentProps {
   email: string;
-  customerId: string;
   subscription: string | null;
 }
 
-const Payment: React.FC<PaymentProps> = ({
-  email,
-  customerId,
-  subscription,
-}) => {
+const Payment: React.FC<PaymentProps> = ({ email, subscription }) => {
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +44,7 @@ const Payment: React.FC<PaymentProps> = ({
         const response = await fetch("/api/stripe-payment", {
           method: "POST",
           body: JSON.stringify({
-            customerId,
+            email,
           }),
         });
 
@@ -72,7 +65,7 @@ const Payment: React.FC<PaymentProps> = ({
     };
 
     createPaymentIntent();
-  }, [customerId]);
+  }, [email]);
 
   const handleClickSkip = () => {
     router.push(`/subscribe/newsletters?email=${email}`);
@@ -89,8 +82,8 @@ const Payment: React.FC<PaymentProps> = ({
         </>
       ) : (
         clientSecret && (
-          <Elements stripe={stripePromise} options={{clientSecret}}>
-            <CheckoutForm email={email} customerId={customerId} />
+          <Elements stripe={stripePromise} options={{ clientSecret }}>
+            <CheckoutForm email={email} />
           </Elements>
         )
       )}

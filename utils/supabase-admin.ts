@@ -241,7 +241,18 @@ const getUserByEmail = async (email: string) => {
   const { data, error } = await supabaseAdmin.from("users").select().eq("email", email).single();
 
   if (error) {
-    console.error(`Error fetching post data: ${error.message}`);
+    console.error(`Error fetching user data: ${error.message}`);
+    return null;
+  }
+
+  return data;
+};
+
+const getCustomerById = async (id: string) => {
+  const { data, error } = await supabaseAdmin.from("customers").select().eq("id", id).single();
+
+  if (error) {
+    console.error(`Error fetching customer data: ${error.message}`);
     return null;
   }
 
@@ -329,6 +340,7 @@ export {
   createAuthUser,
   syncSupbaseUserWithStripe,
   getUserByEmail,
+  getCustomerById,
   upsertUserRecord,
   upsertOTPRecord,
   verifyOTP,
