@@ -1226,8 +1226,8 @@ footer {
     align-items: flex-start;
   }
   .disclaimer {
-    position: absolute;
-    bottom: 20px;
+    position: relative;
+    margin-top: 10px;
     align-self: center;
     a {
       text-decoration: underline rgba(0, 0, 0, 0.5);
