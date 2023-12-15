@@ -62,10 +62,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   &.square {
     border: 1px solid var(--color);
   }
 }
+
 input[type="checkbox"] {
   border: 1px solid #060606;
   width: 20px;
@@ -95,28 +97,35 @@ input[type="checkbox"] {
     }
   }
 }
+
 .colorWrapper {
   background-color: var(--bgColor);
   color: var(--color);
   padding-top: 80px;
   height: 100%;
+
   &.reducedHeaderPage {
     padding-top: 50px;
   }
+
   &.article {
+
     .relatedArticles,
     footer {
       background: #d9d9d9;
     }
   }
+
   &.search {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
 }
+
 .hitbox {
   position: relative;
+
   &:after {
     content: "";
     position: absolute;
@@ -126,56 +135,67 @@ input[type="checkbox"] {
     top: -10px;
   }
 }
+
 .embla {
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
   .prev,
   .next {
     transition: opacity 0.22s $ease-in-out-sine;
+
     &.disabled {
       opacity: 0.6;
       pointer-events: none;
     }
   }
 }
+
 .embla__container {
   display: flex;
   width: 100%;
   justify-content: flex-start;
 }
+
 .embla__slide {
   position: relative;
 }
+
 .theme-color {
   &.white-pill {
     background-color: var(--whitePillColor);
     color: #060606;
     --color: #060606;
   }
+
   &.industry {
     background-color: var(--industryColor);
     color: #060606;
     --color: #060606;
   }
+
   &.dolores-park {
     background-color: var(--doloresParkColor);
     color: #060606;
     --color: #060606;
   }
 }
+
 .pageTitle {
   font-family: $gtBold;
   @include get-vw(font-size, 178px, 140px);
   @include get-vw(letter-spacing, -5.34px);
   line-height: 84.27%;
 }
+
 footer {
   padding-top: 40px;
   color: var(--color);
   background-color: var(--bgColor);
+
   .bottom {
     border-top: 1px solid var(--color);
     display: flex;
@@ -184,11 +204,13 @@ footer {
     font-family: $neueMed;
     font-size: 14px;
   }
+
   .right {
     br {
       display: none;
     }
   }
+
   .left,
   .middle,
   .right {
@@ -197,6 +219,7 @@ footer {
     align-items: center;
     gap: 20px;
   }
+
   .svgWrapper {
     path {
       fill: var(--color);
@@ -208,11 +231,13 @@ footer {
       flex-wrap: wrap;
       border-top: none;
     }
+
     .left {
       order: 2;
       width: 50%;
       justify-content: flex-start;
     }
+
     .middle {
       width: 100%;
       justify-content: center;
@@ -221,6 +246,7 @@ footer {
       padding-bottom: 20px;
       margin-bottom: 20px;
     }
+
     .right {
       width: 50%;
       order: 2;
@@ -231,15 +257,18 @@ footer {
 
   @include bp-767 {
     padding-top: 20px;
+
     .bottom {
       align-items: flex-end;
       padding-bottom: 20px;
     }
+
     .right {
       br {
         display: block;
       }
     }
+
     .left {
       flex-direction: column;
       align-items: flex-start;
@@ -268,6 +297,7 @@ footer {
   position: relative;
   @include get-vw(margin-bottom, 20px, 20px);
   @include get-vw(padding-bottom, 20px, 20px);
+
   &:after {
     width: 0.5px;
     background-color: var(--color);
@@ -281,9 +311,11 @@ footer {
 
   @include bp-1024 {
     width: calc((100% / 3) - 27px);
+
     &:last-child {
       display: none;
     }
+
     &:nth-child(3) {
       &:after {
         content: none;
@@ -294,17 +326,21 @@ footer {
   @include bp-767 {
     width: calc(50% - 10px);
     margin: 20px 0;
+
     &:last-child {
       display: flex;
     }
+
     &:after {
       right: -10px;
     }
+
     &:nth-child(3) {
       &:after {
         content: "";
       }
     }
+
     &:nth-last-child(-n + 2) {
       &:before {
         content: "";
@@ -317,6 +353,7 @@ footer {
         opacity: 0.6;
       }
     }
+
     &:nth-child(even) {
       &:after {
         content: none;
@@ -330,15 +367,18 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
   article,
   .pubLink,
   .dummyTile,
   .authorTile {
     width: calc((100% / 3) - 27px);
     position: relative;
+
     a {
       position: relative;
     }
+
     &:before {
       content: "";
       height: 0.5px;
@@ -348,6 +388,7 @@ footer {
       left: 0;
       @include get-vw(top, -20.5px, -20.5px);
     }
+
     &:after {
       content: "";
       width: 0.5px;
@@ -357,35 +398,43 @@ footer {
       right: -20.5px;
       top: 0;
     }
+
     &:nth-child(3n + 3) {
       &:after {
         content: none;
       }
     }
+
     &:nth-child(-n + 3) {
       &:before {
         content: none;
       }
     }
   }
+
   &.pirate-wires {
+
     article,
     .pubLink {
+
       &:before,
       &:after {
         background-color: var(--accentLight);
       }
     }
+
     .excerpt {
       span {
         opacity: 0.7;
       }
     }
   }
+
   .imgWrapper {
     aspect-ratio: 1.5/1;
     margin-bottom: 20px;
   }
+
   .postTitle {
     font-family: $gtBold;
     text-wrap: balance;
@@ -398,66 +447,82 @@ footer {
     align-items: flex-start;
     position: relative;
   }
+
   .goIcon {
     right: 0;
     position: absolute;
   }
+
   .white-pill & {
+
     article,
     .pubLink {
       &:before {
         background-color: #060606;
         opacity: 0.6;
       }
+
       &:after {
         background-color: #060606;
         opacity: 0.6;
       }
     }
+
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
     }
+
     .goIcon path {
       fill: var(--whitePillColor);
     }
   }
+
   .industry & {
+
     article,
     .pubLink {
       &:before {
         background-color: #060606;
         opacity: 0.6;
       }
+
       &:after {
         background-color: #060606;
         opacity: 0.6;
       }
     }
+
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
     }
+
     .goIcon path {
       fill: var(--industryColor);
     }
   }
+
   .dolores-park & {
+
     article,
     .pubLink {
       &:before {
         background-color: #060606;
         opacity: 0.6;
       }
+
       &:after {
         background-color: #060606;
         opacity: 0.6;
       }
     }
+
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
     }
+
     .goIcon path {
       fill: var(--doloresParkColor);
     }
@@ -467,9 +532,11 @@ footer {
     &:before {
       background-color: #060606;
     }
+
     &:after {
       background-color: #060606;
     }
+
     .imgWrapper {
       aspect-ratio: 1/1;
     }
@@ -478,11 +545,13 @@ footer {
   &.related {
     .excerpt {
       line-height: 1.33;
+
       span:after {
         border-top: 1px solid var(--color);
       }
     }
   }
+
   @include bp-959 {
     .postTitle {
       font-size: 26px;
@@ -493,40 +562,49 @@ footer {
     &.related {
       flex-direction: column;
       flex-wrap: nowrap;
+
       article,
       .pubLink,
       .dummyTile,
       .authorTile {
         width: 100%;
+
         &:nth-last-child(-n + 2) {
           margin-bottom: 20px;
+
           &:before {
             content: "";
           }
         }
+
         &:after,
         &:nth-child(3n + 3):after {
           content: unset;
         }
       }
     }
+
     .postTitle {
       padding-right: 0;
       position: unset;
     }
+
     .goIcon {
       top: 100%;
       transform: translateY(-100%);
     }
+
     .goIconWrapper .goIcon {
       top: -2.5px;
       transform: none;
     }
+
     article,
     .pubLink,
     .dummyTile,
     .authorTile {
       width: calc(50% - 10px);
+
       &:after {
         content: "";
         width: 0.5px;
@@ -536,45 +614,54 @@ footer {
         right: -10px;
         top: 0;
       }
+
       a {
         position: unset;
       }
+
       &:nth-child(3n + 3) {
         &:after {
           content: "";
         }
       }
+
       &:nth-child(-n + 3) {
         &:before {
           content: "";
         }
       }
+
       &:nth-child(-n + 2) {
         &:before {
           content: none;
         }
       }
+
       &:nth-child(even) {
         &:after {
           content: none;
         }
       }
+
       &:nth-last-child(-n + 2) {
         margin-bottom: 0;
       }
     }
   }
 }
+
 .dummyTile {
   height: 0;
   opacity: 0;
 }
+
 .featuredPostsTop {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   @include get-vw(font-size, 15px, 15px);
   line-height: 20px;
+
   .right {
     display: flex;
     flex-direction: column;
@@ -584,6 +671,7 @@ footer {
     width: 50%;
     align-items: flex-start;
     position: relative;
+
     &:after {
       width: 0.5px;
       background-color: var(--color);
@@ -594,23 +682,28 @@ footer {
       content: "";
     }
   }
+
   a {
     text-decoration: underline;
   }
+
   .white-pill & {
     svg {
       @include get-vw(width, 196px, 150px);
       height: auto;
     }
+
     .right:after {
       background-color: #060606;
     }
   }
+
   .industry & {
     svg {
       @include get-vw(width, 154px, 113px);
       height: auto;
     }
+
     .right:after {
       background-color: #060606;
     }
@@ -621,6 +714,7 @@ footer {
       @include get-vw(width, 165px, 120px);
       height: auto;
     }
+
     .right:after {
       background-color: #060606;
     }
@@ -629,6 +723,7 @@ footer {
   @include bp-1024 {
     justify-content: flex-start;
     @include get-vw(gap, 120px, 55px);
+
     .right {
       width: auto;
     }
@@ -637,19 +732,24 @@ footer {
   @include bp-767 {
     flex-direction: column;
     gap: 20px;
+
     span {
       line-height: 1.8em;
     }
+
     .right {
       padding: 0;
       width: 100%;
+
       &:after {
         content: none;
       }
     }
   }
 }
+
 .postInfo {
+
   .white-pill &,
   .industry &,
   .dolores-park & {
@@ -657,44 +757,56 @@ footer {
       background-color: #060606;
       opacity: 0.6;
     }
+
     &:after {
       background-color: #060606;
       opacity: 0.6;
     }
   }
 }
+
 .featuredPost {
   height: auto;
   aspect-ratio: 2.29/1;
   display: flex;
+
   a {
     display: flex;
     width: 100%;
     gap: 20px;
   }
+
   .white-pill & {
+
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
     }
+
     .goIcon path {
       fill: var(--whitePillColor);
     }
   }
+
   .industry & {
+
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
     }
+
     .goIcon path {
       fill: var(--industryColor);
     }
   }
+
   .dolores-park & {
+
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
     }
+
     .goIcon path {
       fill: var(--doloresParkColor);
     }
@@ -702,25 +814,31 @@ footer {
 
   @include bp-767 {
     aspect-ratio: unset;
+
     a {
       flex-direction: column-reverse;
     }
   }
 }
+
 .featNewslettersBorder {
   border-top: 0.5px solid var(--color);
 }
+
 .interiorPub {
   .postInfo {
     padding-bottom: 0;
     border: none;
+
     &:after {
       content: none;
     }
+
     &:before {
       background-color: var(--color);
     }
   }
+
   .postGrid {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -729,57 +847,71 @@ footer {
     color: var(--color);
     background-color: var(--bgColor);
   }
+
   .featuredPostsTop {
     font-family: $neueMed;
     flex-wrap: wrap;
     flex-direction: row;
     @include get-vw-small-increase(padding-top, 15px, 15px);
     @include get-vw-small-increase(gap, 30px, 20px);
-    > svg {
+
+    >svg {
       width: 100%;
     }
+
     span {
       position: relative;
       bottom: -2px;
       line-height: normal;
     }
+
     .taglineRow {
       display: flex;
       justify-content: space-between;
       gap: 30px;
       width: 100%;
     }
+
     @include bp-1024 {
       justify-content: space-between;
+
       span {
         bottom: auto;
       }
     }
+
     @include bp-767 {
       padding-top: 8px;
       gap: 0;
-      > svg {
+
+      >svg {
         margin-bottom: 20px;
       }
+
       .taglineRow {
         flex-wrap: wrap;
         gap: 5px;
       }
     }
   }
+
   &.pirate-wires {
+
     .prev,
     .next {
       rect {
         fill: var(--color);
       }
+
       path {
         fill: var(--bgColor);
       }
     }
+
     .featNewslettersBorder {
       border-top: 0.5px solid var(--color);
     }
+
     .postInfo {
       &:before {
         opacity: 0.45;
@@ -787,6 +919,7 @@ footer {
     }
   }
 }
+
 .pubLink {
   height: auto;
   aspect-ratio: 0.85/1;
@@ -796,6 +929,7 @@ footer {
   flex-direction: column;
   justify-content: space-between;
   align-content: flex-start;
+
   h2,
   h3,
   h4 {
@@ -804,25 +938,30 @@ footer {
     @include get-vw(letter-spacing, -2.4px, -1.8px);
     line-height: 90%;
   }
+
   .goIconWrapper {
     align-self: flex-end;
   }
 
   @include bp-1024 {
+
     h2,
     h3,
     h4 {
       font-size: 40px;
     }
   }
+
   @include bp-767 {
     padding: 10px;
+
     .goIconWrapper {
       bottom: -4px;
       position: relative;
     }
   }
 }
+
 .postAuthor {
   font-family: $neueMed;
   display: flex;
@@ -831,6 +970,7 @@ footer {
   @include get-vw(font-size, 14px, 14px);
   @include get-vw(letter-spacing, 0.07px, 0.07px);
   margin-top: 13px;
+
   @include bp-767 {
     margin-top: 15px;
   }
@@ -843,6 +983,7 @@ footer {
   @include get-vw(padding-right, 40px, 40px);
   flex-wrap: wrap;
   display: flex;
+
   svg {
     height: 1px;
     width: 100%;
@@ -850,6 +991,7 @@ footer {
     top: 0;
     left: 0;
   }
+
   span {
     position: relative;
     @include get-vw(padding-top, 20px, 12px);
@@ -860,6 +1002,7 @@ footer {
     -webkit-line-clamp: 3;
     overflow: hidden;
   }
+
   @include bp-767 {
     margin-top: 20px;
     padding-right: 0;
@@ -872,10 +1015,12 @@ footer {
       display: none;
     }
   }
+
   @include bp-767 {
     .excerpt {
       padding-top: 12px;
       margin-top: 20px;
+
       svg {
         width: 100%;
         display: flex;
@@ -884,6 +1029,7 @@ footer {
         top: 0;
       }
     }
+
     .postAuthor {
       position: relative;
     }
@@ -894,6 +1040,7 @@ footer {
   .excerpt {
     line-height: 1.33;
   }
+
   .excerpt span:after {
     border-top: 2px solid var(--color);
   }
@@ -905,10 +1052,12 @@ footer {
   display: flex;
   font-family: $neueMed;
   @include get-vw(font-size, 16px, 16px);
+
   input {
     @include get-vw(padding-left, 16px, 16px);
     height: 100%;
   }
+
   button {
     height: 100%;
   }
@@ -918,6 +1067,7 @@ footer {
 .imageWrapper {
   position: relative;
 }
+
 .imageCaption {
   color: #e3e3e3;
   font-family: $neueReg;
@@ -929,50 +1079,60 @@ footer {
   white-space: nowrap;
   z-index: 2;
 }
+
 .hasHoverArrow {
   display: flex;
   align-items: center;
   white-space: nowrap;
   overflow: hidden;
+
   span {
     @include get-vw(margin-left, 9px, 9px);
     position: relative;
     display: flex;
   }
+
   svg {
     @include get-vw(width, 12.5px, 12.5px);
     @include get-vw(height, 12.5px, 12.5px);
   }
 }
+
 .hasGoIcon {
   .date {
     opacity: 0;
     transition: 0.2s opacity $ease-out-sine;
   }
+
   body:not(.touch) & {
     &:hover {
       .date {
         opacity: 1;
       }
+
       .leftHalf {
         transform: translateY(-2px);
       }
+
       .rightHalf {
         transform: translateY(2px);
       }
     }
   }
 }
+
 .goIconWrapper {
   display: flex;
   align-items: center;
   @include get-vw(gap, 20px, 10px);
   @include get-vw(font-size, 14px, 14px);
+
   .goIcon {
     position: relative;
     top: -2.5px;
   }
 }
+
 .goIcon {
   @include get-vw(width, 20px, 20px);
   @include get-vw(height, 20px, 20px);
@@ -981,6 +1141,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+
   .leftHalf,
   .rightHalf {
     width: 50%;
@@ -990,17 +1151,21 @@ footer {
     background-color: var(--color);
     transition: transform 0.2s $ease-out-sine;
   }
+
   path {
     fill: var(--bgColor);
   }
+
   svg {
     position: relative;
     z-index: 2;
   }
+
   .rightHalf {
     left: auto;
     right: 0;
   }
+
   .date {
     font-family: $neueMed;
     @include get-vw(font-size, 14px, 14px);
@@ -1020,19 +1185,20 @@ footer {
   @include get-vw-small-increase(max-width, 630px, 630px);
   display: flex;
   flex-direction: column;
-  [class*="sectionContent"] {
-    border: 1px solid #1c1c1c;
-    padding: 20px 30px 30px 22px;
-    display: block;
-  }
-  [class*="horRule"] {
-    height: 1px;
-    display: block;
-    width: 100%;
-    background-color: var(--color);
-    opacity: 0.4;
-    text-indent: -999999px;
-  }
+
+  // [class*="sectionContent"] {
+  //   border: 1px solid #1c1c1c;
+  //   padding: 20px 30px 30px 22px;
+  //   display: block;
+  // }
+  // [class*="horRule"] {
+  //   height: 1px;
+  //   display: block;
+  //   width: 100%;
+  //   background-color: var(--color);
+  //   opacity: 0.4;
+  //   text-indent: -999999px;
+  // }
   h2,
   h3,
   h4 {
@@ -1049,24 +1215,25 @@ footer {
     @include get-vw-small-increase(font-size, 26px, 26px);
     @include get-vw-small-increase(margin-top, 32px, 32px);
   }
-  h2 + p,
-  h2 + blockquote,
-  h2 + ul,
-  h2 + ol,
-  h2 + img {
+
+  h2+p,
+  h2+blockquote,
+  h2+ul,
+  h2+ol,
+  h2+img {
     @include get-vw-small-increase(margin-top, 24px, 24px);
   }
 
-  h3 + p,
-  h3 + blockquote,
-  h3 + ul,
-  h3 + ol,
-  h3 + img,
-  h4 + p,
-  h4 + blockquote,
-  h4 + ul,
-  h4 + ol,
-  h4 + img {
+  h3+p,
+  h3+blockquote,
+  h3+ul,
+  h3+ol,
+  h3+img,
+  h4+p,
+  h4+blockquote,
+  h4+ul,
+  h4+ol,
+  h4+img {
     @include get-vw-small-increase(margin-top, 10px, 10px);
   }
 
@@ -1108,8 +1275,10 @@ footer {
     padding-left: 19px;
     border-left: 1px solid #999;
   }
-  blockquote + blockquote {
+
+  blockquote+blockquote {
     position: relative;
+
     &:after {
       content: "";
       position: absolute;
@@ -1120,15 +1289,18 @@ footer {
       width: 1px;
     }
   }
+
   strong,
   b {
     font-family: $martinaBold;
   }
+
   h2 strong,
   h3 strong,
   h4 strong {
     font-family: inherit;
   }
+
   img {
     @include get-vw-small-increase(margin-top, 22px, 22px);
     height: auto;
@@ -1155,37 +1327,45 @@ footer {
       margin-top: 0;
     }
   }
+
   a {
     text-decoration: underline rgba(0, 0, 0, 0.5);
     text-underline-position: under;
     text-decoration-thickness: 0.05em;
     text-underline-offset: 2px;
   }
+
   @include bp-1024 {
     max-width: 740px;
   }
+
   @include bp-959 {
     max-width: 100%;
   }
 
   @include bp-767 {
+
     p,
     blockquote,
     li {
       font-size: 18px;
     }
+
     [class*="sectionContent"] {
       padding: 20px 20px 22px;
     }
+
     a {
       text-underline-offset: 1px;
     }
   }
 }
+
 // font classes
 .martina-light {
   font-family: $martinaLight;
 }
+
 .martina-reg {
   font-family: $martinaReg;
 }
@@ -1194,16 +1374,19 @@ footer {
 .c-20 {
   @include get-vw(padding-left, 20px, 20px);
   @include get-vw(padding-right, 20px, 20px);
+
   @include bp-767 {
     padding-left: 10px;
     padding-right: 10px;
   }
 }
+
 .checkboxRow {
   display: flex;
   align-items: center;
   gap: 5px;
 }
+
 .flowContainer {
   @include get-vw-small-increase(padding-left, 20px, 20px);
   @include get-vw-small-increase(padding-right, 20px, 20px);
@@ -1214,21 +1397,25 @@ footer {
   margin: 0 auto;
   text-align: center;
   min-height: calc(100vh - 50px);
+
   .input-groups {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
   }
+
   .input-group {
     display: flex;
     flex-direction: column;
     flex: 1;
     align-items: flex-start;
   }
+
   .disclaimer {
     position: relative;
     margin-top: 10px;
     align-self: center;
+
     a {
       text-decoration: underline rgba(0, 0, 0, 0.5);
       text-underline-position: under;
@@ -1236,16 +1423,19 @@ footer {
       text-underline-offset: 2px;
     }
   }
+
   h1 {
     @include get-vw(font-size, 40px, 36px);
     @include get-vw(letter-spacing, -1.2px, -1.08px);
     font-family: $gtBold;
     line-height: 95%;
   }
+
   .otp-input-container {
     display: flex;
     gap: 10px;
     justify-content: center;
+
     input {
       width: 50px;
       height: 60px;
@@ -1257,14 +1447,18 @@ footer {
       border: 1px solid #000;
     }
   }
+
   form {
     text-align: left;
+
     .checkboxRow {
       margin-bottom: 20px;
+
       &:first-child {
         margin-top: 40px;
       }
     }
+
     label:not(.checkboxRow) {
       margin-bottom: 7px;
       display: flex;
@@ -1280,11 +1474,13 @@ footer {
       margin-bottom: 20px;
       border: 1px solid #060606;
     }
+
     .input-group {
       input {
         margin-bottom: 0;
       }
     }
+
     button {
       width: 100%;
       padding: 12px;
@@ -1295,6 +1491,7 @@ footer {
       cursor: pointer;
       //transition: background-color 0.2s;
     }
+
     body:not(.touch) & {
       button:hover {
         //background-color: rgba(0,0,0,0.8);
@@ -1342,6 +1539,7 @@ footer {
         cursor: pointer;
         transition: background-color 0.2s;
       }
+
       body:not(.touch) & {
         button:hover {
           background-color: #111;
@@ -1360,6 +1558,7 @@ footer {
       color: green;
     }
   }
+
   h2 {
     color: #060606;
     font-family: $neueMed;
@@ -1367,20 +1566,24 @@ footer {
     line-height: normal;
     margin-bottom: 30px;
   }
-  button + a {
+
+  button+a {
     margin-top: 10px;
     @include get-vw-small-increase(font-size, 14px, 14px);
     display: flex;
     justify-content: center;
     color: #06060680;
   }
+
   @include bp-767 {
     padding-left: 10px;
     padding-right: 10px;
+
     .input-groups {
       flex-direction: column;
       gap: 20px;
     }
+
     .disclaimer {
       position: relative;
       bottom: auto;
@@ -1390,6 +1593,7 @@ footer {
     }
   }
 }
+
 .line-clamp-10 {
   position: relative;
   -webkit-box-orient: vertical;
@@ -1398,6 +1602,7 @@ footer {
   -webkit-line-clamp: 10;
   overflow: hidden;
 }
+
 .accountContainer {
   @include get-vw(padding-left, 20px, 20px);
   @include get-vw(padding-right, 20px, 20px);
@@ -1408,6 +1613,7 @@ footer {
   flex-direction: column;
   align-items: flex-start;
   min-height: calc(100vh - 90px);
+
   h1 {
     @include get-vw-small-increase(font-size, 60px, 60px);
     @include get-vw-small-increase(letter-spacing, -1.8px, -1.8px);
@@ -1415,6 +1621,7 @@ footer {
     font-family: $gtBold;
     line-height: 95%;
   }
+
   @include bp-767 {
     padding-left: 10px;
     padding-right: 10px;
@@ -1450,6 +1657,7 @@ footer {
 .ptb-40 {
   @include get-vw(padding-top, 40px, 32px);
   @include get-vw(padding-bottom, 40px, 32px);
+
   @include bp-767 {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -1458,6 +1666,7 @@ footer {
 
 .pt-40 {
   @include get-vw(padding-top, 40px, 32px);
+
   @include bp-767 {
     padding-top: 20px;
   }
@@ -1465,6 +1674,7 @@ footer {
 
 .pb-40 {
   @include get-vw(padding-bottom, 40px, 32px);
+
   @include bp-767 {
     padding-bottom: 20px;
   }

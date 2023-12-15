@@ -1,6 +1,9 @@
+// lib/sanity/plugins/portabletext.tsx
 import Image from "next/image";
 import Link from "next/link";
 import {PortableText as PortableTextComponent} from "@portabletext/react";
+// import HorizontalRule from "@/lib/sanity/schemas/HorizontalRule";
+
 import {urlForImage} from "@/lib/sanity/image";
 import Iframe from "react-iframe";
 import articleStyles from "@/styles/pages/article.module.scss";
