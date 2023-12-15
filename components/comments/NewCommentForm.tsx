@@ -1,23 +1,12 @@
-// import { useSignInModal } from '@/lib/components/comments/SignInModal';
-import User from "@/lib/icons/User";
 import Link from "next/link";
 import updateFieldHeight from "@/lib/utils/autosize";
-// import supabase from '@/lib/utils/initSupabase';
 import punctuationRegex from "@/lib/utils/regex/punctuationRegex";
-import {CommentType} from "@/lib/utils/types";
 import {useSupabase} from "@/app/(website)/supabase-provider";
-import cn from "classnames";
 import cuid from "cuid";
 import React, {useRef, useState, useEffect, ChangeEvent} from "react";
-import {useComments} from "@/lib/hooks/use-comments";
-import Avatar from "./Avatar";
+import {useComments} from "@/hooks/useComments";
 
 import styles from "@/components/_styles/comments.module.scss";
-
-// Placeholder function for modal handling
-const open = (modalName: string): void => {
-  // Implement modal handling logic here or do something else
-};
 
 interface Props {
   parentId?: number | null;
@@ -114,21 +103,6 @@ const NewCommentForm = ({
     </div>
   ) : (
     <div className={`${styles.newCommentForm}`}>
-      {/* {!user && (
-              <button
-                className=""
-                onClick={() => open('signInModal')}
-                aria-label="Create new account"
-              >
-                <User className="" />
-              </button>
-            )}
-            {user && (
-              <button className="" aria-label="View profile information">
-                <Avatar profile={profile} />
-              </button>
-            )} */}
-
       <label className="">
         <textarea
           className=""

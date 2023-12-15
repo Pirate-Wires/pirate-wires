@@ -1,14 +1,11 @@
-import NewCommentForm from "@/lib/components/comments/NewCommentForm";
-// import { useComments } from '@/lib/hooks/use-comments';
-import Plus from "@/lib/icons/Plus";
+import NewCommentForm from "@/components/comments/NewCommentForm";
+import Plus from "@/components/icons/Plus";
 import {useSupabase} from "@/app/(website)/supabase-provider";
-// import supabase from '@/lib/utils/initSupabase';
 import type {CommentType} from "@/lib/utils/types";
 import cn from "classnames";
 import dayjs from "dayjs";
 import {useEffect, useRef, useState} from "react";
 import VoteButtons from "./VoteButtons";
-import Avatar from "./Avatar";
 import styles from "@/components/_styles/comments.module.scss";
 const MAX_LINES = 10;
 const LINE_HEIGHT = 24; // in px
@@ -283,9 +280,8 @@ const Comment = ({
                 aria-label={`Continue thread`}>
                 <div className="h-px w-8 bg-gray-400 dark:bg-gray-600 mr-2" />
                 <span className="text-gray-600 dark:text-gray-400">
-                  {`View ${
-                    comment.responsesCount === 1 ? "reply" : "replies"
-                  } (${comment.responsesCount})`}
+                  {`View ${comment.responsesCount === 1 ? "reply" : "replies"
+                    } (${comment.responsesCount})`}
                 </span>
               </button>
             </div>

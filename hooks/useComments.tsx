@@ -1,8 +1,6 @@
 import {useRouter} from "next/navigation";
 import {PAGE_SIZE} from "@/lib/constants/pagination";
 import {useSupabase} from "@/app/(website)/supabase-provider";
-import {definitions} from "@/lib/types/supabase";
-// import supabase from '@/lib/utils/initSupabase';
 import type {CommentType, User} from "@/lib/utils/types";
 import {arrayToTree} from "performant-array-to-tree";
 import {createContext, useContext, useState} from "react";
@@ -197,10 +195,10 @@ export const CommentsContextProvider = (
 
   const comments: CommentType[] = data
     ? (arrayToTree(flattenedComments, {
-        dataField: null,
-        childrenField: "responses",
-        rootParentIds,
-      }) as CommentType[])
+      dataField: null,
+      childrenField: "responses",
+      rootParentIds,
+    }) as CommentType[])
     : [];
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =

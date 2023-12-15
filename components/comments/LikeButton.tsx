@@ -1,9 +1,7 @@
-import {invokeVote} from "@/lib/components/comments/VoteButtons";
-import {useComments} from "@/lib/hooks/use-comments";
+import {invokeVote} from "@/components/comments/VoteButtons";
+import {useComments} from "@/hooks/useComments";
 import {useSupabase} from "@/app/(website)/supabase-provider";
-import Heart from "@/lib/icons/Heart";
 import {CommentType} from "@/lib/utils/types";
-import cn from "classnames";
 import React from "react";
 
 import styles from "@/components/_styles/comments.module.scss";
