@@ -5,6 +5,7 @@
   flex-direction: column;
   @include get-vw-small-increase(max-width, 630px, 630px);
   margin: 0 auto;
+
   svg {
     width: 20px;
   }
@@ -31,6 +32,7 @@
   gap: 20px;
   @include get-vw-small-increase(gap, 10px, 10px);
 }
+
 .collapseBtn {
   position: absolute;
   width: 14px;
@@ -38,9 +40,11 @@
   top: 0;
   height: 100%;
 }
+
 .topButton {
   padding: 8px 10px 7px;
 }
+
 .nameRow {
   font-family: $neueMed;
   @include get-vw-small-increase(font-size, 14px, 14px);
@@ -48,12 +52,14 @@
   @include get-vw-small-increase(margin-bottom, 10px, 10px);
   align-items: center;
 }
+
 .name {
   font-family: $neueMed;
   @include get-vw-small-increase(font-size, 14px, 14px);
   @include get-vw-small-increase(margin-right, 7px, 7px);
   color: #1c1c1c;
 }
+
 .postedDate {
   font-family: $neueReg;
   color: #848484;
@@ -61,38 +67,54 @@
   bottom: -1px;
   @include get-vw-small-increase(font-size, 12px, 12px);
 }
+
 .commentWrapper {
   display: flex;
   flex-direction: column;
 }
+
 .comment {
   font-family: $neueReg;
   @include get-vw-small-increase(font-size, 15px, 15px);
 }
-.commentsTop + .newCommentForm {
+
+.commentsTop+.newCommentForm {
   margin-top: 0;
 }
+
 .errorMessage {
   font-family: $neueReg;
   color: #cc0000;
   @include get-vw-small-increase(font-size, 15px, 15px);
   @include get-vw-small-increase(margin-top, 20px, 20px);
 }
+
+.noCommentsMessage {
+  font-family: $neueReg;
+  color: #000000;
+  font-weight: bold;
+  @include get-vw-small-increase(font-size, 18px, 18px);
+  @include get-vw-small-increase(margin-top, 20px, 20px);
+}
+
 .readMoreLess {
   @include get-vw-small-increase(margin-top, 5px, 5px);
   @include get-vw-small-increase(margin-bottom, 5px, 5px);
 }
+
 .newCommentForm {
   display: flex;
   width: 100%;
   position: relative;
   margin-top: 15px;
+
   label,
   textarea {
     width: 100%;
     height: 100%;
     display: flex;
   }
+
   textarea {
     padding: 10px;
     font-family: $martinaReg;
@@ -109,6 +131,7 @@
     @include get-vw-small-increase(font-size, 15px, 15px);
     @include get-vw-small-increase(font-size, 15px, 15px);
   }
+
   button {
     position: absolute;
     @include get-vw-small-increase(right, 10px, 10px);
@@ -116,36 +139,43 @@
     z-index: 2;
   }
 }
+
 .commentList {
   margin-top: 40px;
-  > .threadWrapper {
+
+  >.threadWrapper {
     border-left: 1px solid #bebebe;
   }
 }
+
 .childComment {
   border-left: 1px solid #bebebe;
   @include get-vw-small-increase(margin-left, 20px, 20px);
   @include get-vw-small-increase(margin-top, 30px, 30px);
   @include get-vw-small-increase(margin-bottom, 30px, 30px);
 }
-.nestedComments {
-}
+
+// .nestedComments {}
+
 .threadWrapper {
   @include get-vw-small-increase(gap, 15px, 15px);
   @include get-vw-small-increase(padding-left, 20px, 20px);
   display: flex;
   flex-direction: column;
   position: relative;
+
   &:last-child {
     gap: 0;
   }
 }
+
 .expandBtn {
   width: 20px;
   height: 20px;
   position: absolute;
   left: -6px;
   top: 0;
+
   &:after {
     content: "";
     background: #e3e3e3;
@@ -156,12 +186,14 @@
     height: 30px;
     z-index: 1;
   }
+
   svg {
     width: 100%;
     z-index: 2;
     position: relative;
   }
 }
+
 .sendButton {
   background: black;
   color: white;

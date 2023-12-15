@@ -1,7 +1,7 @@
-import Comment from "@/lib/components/comments/Comment";
-import CommentSkeleton from "@/lib/components/comments/CommentSkeleton";
+import Comment from "@/components/comments/Comment";
+import CommentSkeleton from "@/components/comments/CommentSkeleton";
 import {SCROLL_OFFSET_PX} from "@/lib/constants/pagination";
-import {useComments} from "@/lib/hooks/use-comments";
+import {useComments} from "@/hooks/useComments";
 import {CommentType} from "@/lib/utils/types";
 import cn from "classnames";
 import dayjs from "dayjs";
@@ -9,7 +9,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import React, {useRef, useState} from "react";
-import SortCommentsSelect from "./SortCommentsSelect";
 import styles from "@/components/_styles/comments.module.scss";
 
 dayjs.extend(relativeTime, {
@@ -53,9 +52,9 @@ const CommentsList = ({initialData = null}: Props): JSX.Element => {
       wrapperRef.current &&
       contentRef.current &&
       wrapperRef.current.scrollTop +
-        wrapperRef.current.offsetHeight +
-        SCROLL_OFFSET_PX >
-        contentRef.current.offsetHeight
+      wrapperRef.current.offsetHeight +
+      SCROLL_OFFSET_PX >
+      contentRef.current.offsetHeight
     ) {
       loadMore();
     }
@@ -108,15 +107,9 @@ const CommentsList = ({initialData = null}: Props): JSX.Element => {
               </div>
             )}
 
-            {/* {!error && isReachingEnd && count !== 0 && (
-              <div className="my-6 text-gray-700 dark:text-gray-200">
-                You&apos;ve reached the end.
-              </div>
-            )} */}
-
             {isEmpty && (
-              <div className={styles.errorMessage}>
-                There are no comments. Be the first.
+              <div className={styles.noCommentsMessage}>
+                There are no comments yet. Be the first!
               </div>
             )}
           </>
