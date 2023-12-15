@@ -1,10 +1,7 @@
 "use client";
 
 import {useState, useEffect} from "react";
-
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
-
-import LoadingOverlay from "./LoadingOverlay";
 
 const EmailPreferences = ({user}) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
@@ -49,6 +46,14 @@ const EmailPreferences = ({user}) => {
       ToastUtil.dismissToast();
     }
   }, [isProgress]);
+
+  useEffect(() => {
+    if (isLoading > 1) {
+      ToastUtil.showLoadingToast();
+    } else {
+      ToastUtil.dismissToast();
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (successMsg) {
@@ -103,11 +108,6 @@ const EmailPreferences = ({user}) => {
 
   return (
     <>
-      {/* Display Loading or Progress Indicators */}
-      {!!isLoading && (
-        <LoadingOverlay message="Loading Newsletter Preferences..." />
-      )}
-
       <p>Subscribe or unsubscribe to our newsletters</p>
       <div className={`checkboxRow`}>
         <label>

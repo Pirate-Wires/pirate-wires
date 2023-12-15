@@ -74,7 +74,6 @@ const Payment: React.FC<PaymentProps> = ({ email, subscription }) => {
   return (
     <>
       <SubscriptionPlan />
-      {isLoading && <div>Loading...</div>}
       {subscription ? (
         <>
           <h1>You have already subscribed</h1>

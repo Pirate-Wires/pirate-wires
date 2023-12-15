@@ -68,6 +68,7 @@ export default function Toast() {
                     draggable
                     pauseOnHover
                     theme="dark"
+                    limit={1}
             />
         </div>
     );
