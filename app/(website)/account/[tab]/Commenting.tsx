@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
-import LoadingOverlay from "./LoadingOverlay";
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 export const Commenting = ({updateCommentsDisplayName, updateCommentsNotifications, profile}) => {
@@ -22,9 +21,7 @@ export const Commenting = ({updateCommentsDisplayName, updateCommentsNotificatio
   }, [isLoading]);
 
   useEffect(() => {
-
     if (error) {
-
       ToastUtil.showErrorToast(error);
     }
   }, [error]);
@@ -82,9 +79,11 @@ export const Commenting = ({updateCommentsDisplayName, updateCommentsNotificatio
     const newNotification = event.target.checked;
 
     setIsLoading(true);
+    setSuccessMsg("");
     await updateCommentsNotifications(newNotification);
     setNotification(newNotification);
     setIsLoading(false);
+    setSuccessMsg("Comment notifications updated");
   };
 
   return (
