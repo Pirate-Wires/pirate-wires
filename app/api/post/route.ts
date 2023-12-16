@@ -1,4 +1,4 @@
-import { upsertPostRecord } from "@/utils/supabase-admin";
+import { upsertPostRecord } from "@/lib/utils/supabase-admin";
 
 export async function POST(req: Request) {
   try {

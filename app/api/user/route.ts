@@ -1,5 +1,5 @@
-import { getUserByEmail, createAuthUser, updateAuthUser } from "@/utils/supabase-admin";
-import { verifyEmail } from "@/utils/kickbox";
+import { getUserByEmail, createAuthUser, updateAuthUser } from "@/lib/utils/supabase-admin";
+import { verifyEmail } from "@/lib/utils/kickbox";
 
 export async function POST(req: Request) {
   try {

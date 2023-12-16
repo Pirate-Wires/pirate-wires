@@ -1,5 +1,5 @@
-import { upsertOTPRecord } from "@/utils/supabase-admin";
-import { verifyEmail } from "@/utils/kickbox";
+import { upsertOTPRecord } from "@/lib/utils/supabase-admin";
+import { verifyEmail } from "@/lib/utils/kickbox";
 
 const encryptKey = process.env.SUPABASE_OTP_ENC_DEC_KEY || "0f65436ac418";
 

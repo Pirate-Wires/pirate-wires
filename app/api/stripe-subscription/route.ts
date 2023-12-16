@@ -1,5 +1,5 @@
-import { setDefaultPaymentMethod, createCustomerSubscription } from "@/utils/stripe";
-import { getUserByEmail, getCustomerById } from "@/utils/supabase-admin";
+import { setDefaultPaymentMethod, createCustomerSubscription } from "@/lib/utils/stripe";
+import { getUserByEmail, getCustomerById } from "@/lib/utils/supabase-admin";
 
 export async function POST(req: Request) {
   try {
