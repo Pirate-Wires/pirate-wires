@@ -1,12 +1,12 @@
 // /app/(website)/account/accountUI.tsx
 "use client";
 import Link from "next/link";
-import { notFound, useRouter } from "next/navigation";
+import {notFound, useRouter} from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
-import React, { useState, useEffect, useMemo } from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import TabButton from "./TabButtons";
 import MyDetails from "./MyDetails";
-import EmailPreferences from "./EmailPreferences";
+import NewsletterPreferences from "./NewsletterPreferences";
 import Commenting from "./Commenting";
 import CurrentSubscription from "./CurrentSubscription";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
@@ -22,7 +22,7 @@ export default function AccountUI({
   updateCommentsDisplayName,
 }) {
   const router = useRouter();
-  const tabItems = useMemo(() => ["my-details", "email-preferences", "commenting", "subscription-billing"], []);
+  const tabItems = useMemo(() => ["my-details", "newsletter-preferences", "commenting", "subscription-billing"], []);
   const [tabVisibility, setActiveTab] = useState([true, false, false, false]);
   const [userName, setUserName] = useState(userDetails?.full_name ?? "Account");
 
@@ -52,13 +52,12 @@ export default function AccountUI({
           <div className={`${styles.cardWrapper} ${tabVisibility[0] ? styles.activeCard : ""} user-details`}>
             <MyDetails userDetails={userDetails} setUserName={setUserName} />
           </div>
-          <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} email-preferences`}>
-            <EmailPreferences user={userDetails} />
+          <div className={`${styles.cardWrapper} ${tabVisibility[1] ? styles.activeCard : ""} newsletter-preferences`}>
+            <NewsletterPreferences user={userDetails} />
           </div>
           <div
-            className={`${styles.cardWrapper} ${
-              tabVisibility[2] ? styles.activeCard : ""
-            } email-notifictation-preferences`}>
+            className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""
+              } email-notifictation-preferences`}>
             <Commenting
               updateCommentsDisplayName={updateCommentsDisplayName}
               updateCommentsNotifications={updateCommentsNotifications}

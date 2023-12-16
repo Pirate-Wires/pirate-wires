@@ -3,7 +3,7 @@
 import {useState, useEffect} from "react";
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
-const EmailPreferences = ({user}) => {
+const NewsletterPreferences = ({user}) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(0);
@@ -176,4 +176,4 @@ const EmailPreferences = ({user}) => {
   );
 };
 
-export default EmailPreferences;
+export default NewsletterPreferences;

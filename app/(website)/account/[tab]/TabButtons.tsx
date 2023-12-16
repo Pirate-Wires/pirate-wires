@@ -16,7 +16,7 @@ export const TabButtons = ({updateActiveTab}) => {
         onClick={() => {
           updateActiveTab(1);
         }}>
-        Email preferences
+        Newsletter preferences
       </button>
       <button
         className={`${styles.cardTrigger}`}
