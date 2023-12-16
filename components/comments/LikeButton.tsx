@@ -33,7 +33,7 @@ const HeartButton = (): JSX.Element => {
   }
 
   async function createGuestVote(): Promise<void> {
-    var guestId = localStorage.getItem("guestId");
+    var guestId = localStorage.getItem("guestId") as string;
     if (!guestId) {
       guestId = v4();
       localStorage.setItem("guestId", guestId);
