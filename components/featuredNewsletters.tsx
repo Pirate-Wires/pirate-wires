@@ -83,7 +83,7 @@ export default function FeaturedNewsletters({
         );
 
         if (!response.ok) {
-          throw new ToastableError("Error checking email preferences", response.status)
+          throw new ToastableError("Error checking newsletter preferences", response.status)
         }
 
         const {preferences} = await response.json();
@@ -136,9 +136,8 @@ export default function FeaturedNewsletters({
   };
   return (
     <section
-      className={`${styles.featuredNewsletters} ${
-        section === "Wires" ? styles.wiresVertical : ""
-      } c-20 pb-40 pt-20`}>
+      className={`${styles.featuredNewsletters} ${section === "Wires" ? styles.wiresVertical : ""
+        } c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
@@ -223,7 +222,7 @@ export default function FeaturedNewsletters({
               You&apos;ve already subscribed to the {section} newsletter. Check
               out our other newsletters or{" "}
               <Link
-                href="/account/email-preferences"
+                href="/account/newsletters-preferences"
                 style={{textDecoration: "underline"}}>
                 manage your subscription preferences
               </Link>
