@@ -1,6 +1,5 @@
 import React from "react";
 import {useComments} from "@/lib/hooks/useComments";
-
 import styles from "@/components/_styles/comments.module.scss";
 
 const CommentsCount = (): JSX.Element => {
