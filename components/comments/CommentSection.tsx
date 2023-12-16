@@ -1,6 +1,6 @@
 import CommentsList from "@/components/comments/CommentsList";
 import NewCommentForm from "@/components/comments/NewCommentForm";
-import {useComments} from "@/hooks/useComments";
+import {useComments} from "@/lib/hooks/useComments";
 import {CommentType} from "@/lib/utils/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

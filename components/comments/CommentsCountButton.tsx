@@ -1,5 +1,5 @@
 import React from "react";
-import {useComments} from "@/hooks/useComments";
+import {useComments} from "@/lib/hooks/useComments";
 
 import styles from "@/components/_styles/comments.module.scss";
 

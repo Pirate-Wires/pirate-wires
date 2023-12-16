@@ -1,8 +1,8 @@
 "use client";
 import styles from "@/styles/pages/podcast.module.scss";
 import Link from "next/link";
-import {useHoverArrow} from "@/hooks/useHoverArrow";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useHoverArrow} from "@/lib/hooks/useHoverArrow";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 
 export default function Podcasts({pageData}) {
   useHoverArrow();

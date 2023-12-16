@@ -1,5 +1,5 @@
 import React from "react";
-import {useComments, SortingBehavior} from "@/hooks/useComments";
+import {useComments, SortingBehavior} from "@/lib/hooks/useComments";
 
 const SortCommentsSelect = (): JSX.Element => {
   const {sortingBehavior, setSortingBehavior} = useComments();

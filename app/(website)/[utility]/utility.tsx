@@ -4,7 +4,7 @@ import {notFound} from "next/navigation";
 import React, {useState} from "react";
 import styles from "@/styles/pages/utilityPage.module.scss";
 import Link from "next/link";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 
 export default function Utility({pageData}) {
   if (!pageData.slug) {

@@ -1,4 +1,4 @@
-import {useComments} from "@/hooks/useComments";
+import {useComments} from "@/lib/hooks/useComments";
 import {useSupabase} from "@/app/(website)/supabase-provider";
 import Heart from "@/components/icons/Heart";
 import type {CommentType} from "@/lib/utils/types";

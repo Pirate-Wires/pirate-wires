@@ -3,12 +3,12 @@
 import Link from "next/link";
 import {notFound} from "next/navigation";
 import {PortableText} from "@/lib/sanity/plugins/portabletext";
-import {useDateFormatter} from "@/hooks/useDateFormatter";
+import {useDateFormatter} from "@/lib/hooks/useDateFormatter";
 import styles from "@/styles/pages/article.module.scss";
 import React, {useState} from "react";
 import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 import Comment from "@/components/comment";
 
 export default function Post(props) {
@@ -48,9 +48,8 @@ export default function Post(props) {
   return (
     <>
       <section
-        className={`${styles.articleHero} ${
-          post.wide_image_top ? styles.wideImageTop : ""
-        } ${post.wide_image_top ? "c-20" : ""}`}>
+        className={`${styles.articleHero} ${post.wide_image_top ? styles.wideImageTop : ""
+          } ${post.wide_image_top ? "c-20" : ""}`}>
         {!post.wide_image_top ? (
           <>
             <div className={`${styles.imageWrapper} imageWrapper`}>
