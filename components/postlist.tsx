@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {useDateFormatter} from "@/hooks/useDateFormatter";
+import {useDateFormatter} from "@/lib/hooks/useDateFormatter";
 import {useState} from "react";
 
 import {Post} from "@/types";
@@ -32,9 +32,8 @@ const PostList: React.FC<PostListProps> = ({
   return (
     <article className="hasGoIcon mtb-20">
       <Link
-        href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${
-          post.slug ? post.slug.current : ""
-        }`}>
+        href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${post.slug ? post.slug.current : ""
+          }`}>
         <div className="imgWrapper">
           {post.mainImage && post.mainImage.asset && (
             <>

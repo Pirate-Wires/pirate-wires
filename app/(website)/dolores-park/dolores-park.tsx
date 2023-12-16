@@ -4,7 +4,7 @@ import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 
 export default function DoloresPark({
   globalFields,

@@ -1,5 +1,5 @@
-import { verifyOTP } from "@/utils/supabase-admin";
-import { verifyEmail } from "@/utils/kickbox";
+import { verifyOTP } from "@/lib/utils/supabase-admin";
+import { verifyEmail } from "@/lib/utils/kickbox";
 
 const encryptKey = process.env.SUPABASE_OTP_ENC_DEC_KEY as string;
 

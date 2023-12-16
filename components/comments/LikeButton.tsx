@@ -1,5 +1,5 @@
 import {invokeVote} from "@/components/comments/VoteButtons";
-import {useComments} from "@/hooks/useComments";
+import {useComments} from "@/lib/hooks/useComments";
 import {useSupabase} from "@/app/(website)/supabase-provider";
 import {CommentType} from "@/lib/utils/types";
 import React from "react";

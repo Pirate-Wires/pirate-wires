@@ -8,7 +8,7 @@ import {urlForImage} from "@/lib/sanity/image";
 import Iframe from "react-iframe";
 import articleStyles from "@/styles/pages/article.module.scss";
 import getVideoId from "get-video-id";
-import {cx} from "@/utils/all";
+import {cx} from "@/lib/utils/all";
 
 import Refractor from "react-refractor";
 // @ts-ignore

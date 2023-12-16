@@ -6,7 +6,7 @@ import styles from "../../../styles/pages/home.module.scss";
 import LatestWriters from "@/components/latestWriters";
 import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 import React from "react";
 
 export default function DefaultHome({pageData, globalFields, newsletterData}) {

@@ -5,8 +5,8 @@ import {notFound} from "next/navigation";
 import React, {useState} from "react";
 import styles from "@/styles/pages/authors.module.scss";
 import Link from "next/link";
-import {useHoverArrow} from "@/hooks/useHoverArrow";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useHoverArrow} from "@/lib/hooks/useHoverArrow";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 
 export default function Author({posts, authorData}) {
   const slug = authorData.slug?.current ?? null;

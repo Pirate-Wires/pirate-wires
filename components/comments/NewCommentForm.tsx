@@ -4,8 +4,7 @@ import punctuationRegex from "@/lib/utils/regex/punctuationRegex";
 import {useSupabase} from "@/app/(website)/supabase-provider";
 import cuid from "cuid";
 import React, {useRef, useState, useEffect, ChangeEvent} from "react";
-import {useComments} from "@/hooks/useComments";
-
+import {useComments} from "@/lib/hooks/useComments";
 import styles from "@/components/_styles/comments.module.scss";
 
 interface Props {
