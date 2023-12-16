@@ -5,7 +5,7 @@ import Link from "next/link";
 import styles from "./_styles/header.module.scss";
 import {usePathname} from "next/navigation";
 import React, {useEffect, useState} from "react";
-import {globalObject} from "@/constants/globalStorage";
+import {globalObject} from "@/lib/constants/globalStorage";
 import {gsap} from "gsap";
 import MegaNav from "@/components/megaNav";
 import isMobile from "ismobilejs";
@@ -213,10 +213,10 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                     href={tab.href}
                     className={
                       currentRoute === tab.href ||
-                      (publication === "the-wire" && index === 1) ||
-                      (publication === "the-industry" && index === 2) ||
-                      (publication === "the-white-pill" && index === 3) ||
-                      (publication === "dolores-park" && index === 4)
+                        (publication === "the-wire" && index === 1) ||
+                        (publication === "the-industry" && index === 2) ||
+                        (publication === "the-white-pill" && index === 3) ||
+                        (publication === "dolores-park" && index === 4)
                         ? styles.active
                         : ""
                     }>
