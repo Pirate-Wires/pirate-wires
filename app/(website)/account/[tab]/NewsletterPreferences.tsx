@@ -1,6 +1,7 @@
 "use client";
 
 import {useState, useEffect} from "react";
+import Button from "@/components/ui/Button";
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 const NewsletterPreferences = ({user}) => {
@@ -69,10 +70,11 @@ const NewsletterPreferences = ({user}) => {
       selectedNewsLetters.indexOf(name) > -1
         ? selectedNewsLetters.filter(item => item !== name)
         : [...selectedNewsLetters, name];
-    setPreferences(newSubscription);
+    setSelectedNewsLetters(newSubscription);
   };
 
-  const setPreferences = async (subscription: string[]) => {
+  const setPreferences = async () => {
+    const subscription = selectedNewsLetters;
     if (isLoading || isProgress) return;
 
     setIsProgress(true);
@@ -95,7 +97,6 @@ const NewsletterPreferences = ({user}) => {
       // API call successful
       // Set isProgress to false to hide the "Processing..." message
       setIsProgress(false);
-      setSelectedNewsLetters(subscription);
       setSuccessMsg("Newsletter preferences updated");
     } catch (error) {
       console.error("There was an error!", error);
@@ -171,6 +172,9 @@ const NewsletterPreferences = ({user}) => {
           Important Pirate Wires Updates
         </label>
       </div>
+      <Button variant="slim" type="submit" onClick={setPreferences} style={{ width: "20%" }}>
+          Save
+      </Button>
       <Toast />
     </>
   );
