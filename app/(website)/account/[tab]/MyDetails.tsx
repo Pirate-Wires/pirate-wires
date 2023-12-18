@@ -9,7 +9,6 @@ import { set } from "sanity";
 export const MyDetails = ({ userDetails, setUserName }) => {
   const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? "");
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(userDetails?.email ?? "");
-  const [detailUpdateMsg, setDetailUpdateMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ToastableError | null>(null);
@@ -36,7 +35,6 @@ export const MyDetails = ({ userDetails, setUserName }) => {
 
   const handleSubmitName = async event => {
     event.preventDefault();
-    setDetailUpdateMsg("");
     setSuccessMsg("");
     setIsLoading(true);
 
@@ -44,7 +42,6 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       const formData = new FormData(event.target);
       const newName = formData.get("name") as string;
       if (newName === lastUpdatedName) {
-        setDetailUpdateMsg(`Different name required`);
         setIsLoading(false);
         return;
       }
@@ -69,15 +66,10 @@ export const MyDetails = ({ userDetails, setUserName }) => {
 
       setUserName(updatedName);
       setLastUpdatedName(updatedName);
-      setDetailUpdateMsg(`User name updated successfully`);
-      setTimeout(() => {
-        setDetailUpdateMsg("");
-      }, 3000);
       setIsLoading(false);
       setSuccessMsg("Successfully updated user name");
     } catch (error) {
       console.error(`Error updating name: ${error.message}`);
-      setDetailUpdateMsg(error.message);
       setIsLoading(false);
       setError(error);
     }
@@ -85,7 +77,6 @@ export const MyDetails = ({ userDetails, setUserName }) => {
 
   const handleSubmitEmail = async event => {
     event.preventDefault();
-    setDetailUpdateMsg("");
     setSuccessMsg("");
     setIsLoading(true);
 
@@ -93,7 +84,6 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       const formData = new FormData(event.target);
       const newEmail = formData.get("email") as string;
       if (newEmail === lastUpdatedEmail) {
-        setDetailUpdateMsg(`Different email required`);
         setIsLoading(false);
         return;
       }
@@ -112,12 +102,10 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       }
 
       setLastUpdatedEmail(newEmail);
-      setDetailUpdateMsg(`User email updated successfully`);
       setIsLoading(false);
       setSuccessMsg("Successfully updated user email");
     } catch (error) {
       console.error(`Error updating email: ${error.message}`);
-      setDetailUpdateMsg(error.message);
       setIsLoading(false);
       setError(error);
     }
@@ -125,7 +113,6 @@ export const MyDetails = ({ userDetails, setUserName }) => {
 
   return (
     <>
-      {!!detailUpdateMsg && <h2 className={styles.tag}>{detailUpdateMsg}</h2>}
       <div className={styles.infoGroup}>
         <form id="nameForm" onSubmit={handleSubmitName}>
           <label>Full name</label>

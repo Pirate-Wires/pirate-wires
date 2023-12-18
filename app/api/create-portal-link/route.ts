@@ -1,8 +1,8 @@
 // app/api/create-portal-link/route.ts
 import type {Database} from "@/types/supabase";
-import {getURL} from "@/utils/helpers";
-import {stripe} from "@/utils/stripe";
-import {createOrRetrieveCustomer} from "@/utils/supabase-admin";
+import {getURL} from "@/lib/utils/helpers";
+import {stripe} from "@/lib/utils/stripe";
+import {createOrRetrieveCustomer} from "@/lib/utils/supabase-admin";
 import {createRouteHandlerClient} from "@supabase/auth-helpers-nextjs";
 import {cookies} from "next/headers";
 

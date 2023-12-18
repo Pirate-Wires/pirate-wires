@@ -1,19 +1,18 @@
-import {useRouter} from "next/navigation";
-import React, {useEffect, useState} from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-import {useStripe, useElements, PaymentElement} from "@stripe/react-stripe-js";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/subscribe.module.scss";
 
 interface CheckoutFormProps {
   email: string;
-  customerId: string;
 }
 
 const PRICE_ID = `price_1OC2psBkYPy9DRcAeTacJpsM`;
 
-const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
+const CheckoutForm: React.FC<CheckoutFormProps> = ({ email }) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -33,7 +32,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
       ToastUtil.showErrorToast(error);
     }
   }, [error]);
-  
+
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -63,7 +62,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
           method: "POST",
           body: JSON.stringify({
             paymentMethodId,
-            customerId,
+            email,
             priceId: PRICE_ID,
           }),
         });
@@ -74,7 +73,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
         }
 
         setIsLoading(false);
-        router.push(`/subscribe/step-4?email=${email}`);
+        router.push(`/subscribe/newsletters?email=${email}`);
       }
     } catch (error) {
       console.error(`Error creating subscription: ${error.message}`);
@@ -87,9 +86,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({email, customerId}) => {
     <>
       <form onSubmit={handleSubmit}>
         <PaymentElement />
-        <button disabled={!stripe || isLoading}>
-          {isLoading ? "Loading..." : "Subscribe"}
-        </button>
+        <button disabled={!stripe || isLoading}>{isLoading ? "Loading..." : "Subscribe"}</button>
       </form>
       <Toast />
     </>

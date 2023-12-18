@@ -205,8 +205,8 @@ export default function AuthUI() {
         </h3>
         <p>
           If you’ve been a subscriber of Pirate Wires while we were published on
-          Substack, then you already have an account! Just go to the Sign In
-          page and enter your email to get started.
+          Substack, then you already have an account! Just sign in
+          here with your Substack email.
         </p>
         {/* <Link href="/sign-in-github" style={{textDecoration: "underline"}}>
           Dev: GitHub Sign-in (OTP under construction)

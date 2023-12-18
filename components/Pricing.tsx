@@ -2,8 +2,8 @@
 
 import Button from "@/components/ui/Button";
 import type {Database} from "@/types/supabase";
-import {postData} from "@/utils/helpers";
-import {getStripe} from "@/utils/stripe-client";
+import {postData} from "@/lib/utils/helpers";
+import {getStripe} from "@/lib/utils/stripe-client";
 import {Session, User} from "@supabase/supabase-js";
 import cn from "classnames";
 import {useRouter} from "next/navigation";
@@ -142,7 +142,7 @@ export default function Pricing({
                         onClick={() => handleCheckout(price)}
                         className="block w-full py-2 mt-12 text-sm font-semibold text-center  rounded-xs hover:bg-zinc-900 ">
                         {products[0].name ===
-                        subscription?.prices?.products?.name
+                          subscription?.prices?.products?.name
                           ? "Manage"
                           : "Newsletters"}
                       </Button>
@@ -165,11 +165,10 @@ export default function Pricing({
               <button
                 onClick={() => setBillingInterval("month")}
                 type="button"
-                className={`${
-                  billingInterval === "month"
-                    ? "relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm "
-                    : "ml-0.5 relative w-1/2 border border-transparent "
-                } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}>
+                className={`${billingInterval === "month"
+                  ? "relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm "
+                  : "ml-0.5 relative w-1/2 border border-transparent "
+                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}>
                 Monthly billing
               </button>
             )}
@@ -177,11 +176,10 @@ export default function Pricing({
               <button
                 onClick={() => setBillingInterval("year")}
                 type="button"
-                className={`${
-                  billingInterval === "year"
-                    ? "relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm "
-                    : "ml-0.5 relative w-1/2 border border-transparent "
-                } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}>
+                className={`${billingInterval === "year"
+                  ? "relative w-1/2 bg-gray-300 border-zinc-800 shadow-sm "
+                  : "ml-0.5 relative w-1/2 border border-transparent "
+                  } rounded-xs m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}>
                 Yearly billing
               </button>
             )}

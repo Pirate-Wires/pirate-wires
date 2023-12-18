@@ -1,11 +1,5 @@
-import {
-  getUserByEmail,
-  createAuthUser,
-  upsertUserRecord,
-  createOrRetrieveCustomer,
-  updateAuthUser,
-} from "@/utils/supabase-admin";
-import { verifyEmail } from "@/utils/kickbox";
+import { getUserByEmail, createAuthUser, updateAuthUser } from "@/lib/utils/supabase-admin";
+import { verifyEmail } from "@/lib/utils/kickbox";
 
 export async function POST(req: Request) {
   try {
@@ -21,7 +15,6 @@ export async function POST(req: Request) {
     }
 
     const data = await getUserByEmail(email);
-    let userId = data?.id!;
 
     if (!data) {
       const { data: user, error: createError } = await createAuthUser(email, fullName);
@@ -29,24 +22,9 @@ export async function POST(req: Request) {
       if (createError) {
         return new Response(JSON.stringify({ message: createError.message }), { status: 500 });
       }
-
-      userId = user?.id!;
-      if (fullName) {
-        const { error } = await upsertUserRecord(userId, email, fullName);
-
-        if (error) {
-          return new Response(JSON.stringify({ message: error.message }), { status: 500 });
-        }
-      }
     }
 
-    const customerId = await createOrRetrieveCustomer({
-      email,
-      name: fullName,
-      uuid: userId!,
-    });
-
-    return new Response(JSON.stringify({ success: true, payload: { customerId } }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
     });
   } catch (err) {
@@ -90,14 +68,21 @@ export async function GET(req: Request) {
     const email = searchParams.get("email");
 
     if (!email) {
-      return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
+      return new Response(JSON.stringify({ message: "Email parameter missing" }), { status: 400 });
     }
 
     const { data: result, error } = await verifyEmail(email);
 
     if (error) {
       return new Response(JSON.stringify({ message: "Error verifying Email" }), { status: 500 });
-    } else if (!result) {
+    } else if (result === false) {
+      // Check if the email exists in your system using getUserByEmail
+      const userExists = await getUserByEmail(email);
+
+      if (!userExists) {
+        return new Response(JSON.stringify({ message: "User does not exist. Please create an account." }), { status: 404 });
+      }
+
       return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
     }
 
@@ -108,3 +93,4 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
+

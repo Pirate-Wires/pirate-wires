@@ -128,9 +128,8 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
       {/* <h1>Redirecting to your account page...</h1> */}
 
       <div
-        className={`${styles.newsletterCallout} ${
-          interiorPage ? styles.interiorPage : ""
-        } ptb-40`}>
+        className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""
+          } ptb-40`}>
         <form
           className={`${styles.inner} c-20`}
           id="newsletter-form"
@@ -145,6 +144,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
                 name="email"
                 type="email"
                 placeholder="Your email here..."
+                autoComplete="email"
               />
               <button
                 type="submit"

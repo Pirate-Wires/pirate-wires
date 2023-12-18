@@ -1,8 +1,8 @@
 // /app/api/customer-io/preferences/route.ts
 import crypto from "crypto";
 import { trackerCio, getCustomerId, getCustomerSubscription } from "@/lib/cioClient";
-import { createAuthUser } from "@/utils/supabase-admin";
-import { verifyEmail } from "@/utils/kickbox";
+import { createAuthUser } from "@/lib/utils/supabase-admin";
+import { verifyEmail } from "@/lib/utils/kickbox";
 
 export async function PUT(req: Request) {
   try {

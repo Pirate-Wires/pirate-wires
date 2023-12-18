@@ -21,6 +21,8 @@ export default function AuthorTile({authorData}) {
           priority
           fill
           className="object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 200px" // Example sizes
+
         />
       </div>
       <div className={styles.name}>

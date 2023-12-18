@@ -1,6 +1,6 @@
 "use client";
 
-import {postData} from "@/utils/helpers";
+import {postData} from "@/lib/utils/helpers";
 import styles from "@/styles/pages/account.module.scss";
 
 import {Session} from "@supabase/supabase-js";

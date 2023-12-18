@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
-import LoadingOverlay from "./LoadingOverlay";
-import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
-export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotifications, profile }) => {
+export const Commenting = ({updateCommentsDisplayName, updateCommentsNotifications, profile}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(profile?.comments_display_name ?? "");
   const [notification, setNotification] = useState<boolean>(profile.comments_notifications);
@@ -43,6 +42,13 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
       const formData = new FormData(event.target);
       const newDisplayName = formData.get("commentsDisplayName") as string; // Updated key
 
+      if (newDisplayName.length < 3) {
+        setDetailUpdateMsg(`3 char display name required`);
+        setIsLoading(false);
+        throw new ToastableError(`3 char  display name required`);
+        return; // Stop the submission process
+      }
+
       if (newDisplayName === lastUpdatedDisplayName) {
         setDetailUpdateMsg(`Different display name required`);
         setIsLoading(false);
@@ -66,15 +72,18 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
     }
   };
 
+
   const handleToggleCommentsNotifications = async event => {
     event.preventDefault();
 
     const newNotification = event.target.checked;
 
     setIsLoading(true);
+    setSuccessMsg("");
     await updateCommentsNotifications(newNotification);
     setNotification(newNotification);
     setIsLoading(false);
+    setSuccessMsg("Comment notifications updated");
   };
 
   return (

@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import styles from "../../../styles/pages/careers.module.scss";
-import {useDateFormatter} from "@/hooks/useDateFormatter";
-import {useScrollBasedAnims} from "@/hooks/useScrollBasedAnims";
+import {useDateFormatter} from "@/lib/hooks/useDateFormatter";
+import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
 import CareerItem from "./careerItem";
 export default function Authors({pageData}) {
   useScrollBasedAnims();
