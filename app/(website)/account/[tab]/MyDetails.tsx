@@ -43,7 +43,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       const newName = formData.get("name") as string;
       if (newName === lastUpdatedName) {
         setIsLoading(false);
-        return;
+        throw new ToastableError("Updated name is the same");
       }
 
       const response = await fetch("/api/user", {
@@ -85,7 +85,7 @@ export const MyDetails = ({ userDetails, setUserName }) => {
       const newEmail = formData.get("email") as string;
       if (newEmail === lastUpdatedEmail) {
         setIsLoading(false);
-        return;
+        throw new ToastableError("Updated email is the same");
       }
 
       const response = await fetch("/api/user", {
