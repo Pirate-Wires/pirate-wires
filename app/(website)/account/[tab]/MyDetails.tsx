@@ -125,8 +125,8 @@ export const MyDetails = ({ userDetails, setUserName }) => {
             maxLength={64}
           />
         </form>
-        <Button variant="slim" type="submit" form="nameForm" style={{ width: "20%" }}>
-          Save
+        <Button variant="slim" type="submit" form="nameForm">
+          Update name
         </Button>
       </div>
 
@@ -142,8 +142,8 @@ export const MyDetails = ({ userDetails, setUserName }) => {
             maxLength={64}
           />
         </form>
-        <Button variant="slim" type="submit" form="emailForm" style={{ width: "20%" }}>
-          Save
+        <Button variant="slim" type="submit" form="emailForm">
+          Update email
         </Button>
       </div>
       <div className={`${styles.infoGroup} ${styles.textGroup}`}>
