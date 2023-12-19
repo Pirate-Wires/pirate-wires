@@ -1,7 +1,7 @@
 import moment from "moment";
 import styles from "@/styles/pages/account.module.scss";
 
-export const CurrentSubscription = ({subscription}) => {
+export const CurrentSubscription = ({ subscription }) => {
   const formatTrialEnd = trialEnd => {
     if (!trialEnd || !moment(trialEnd).isValid()) {
       return "Not specified";
@@ -9,8 +9,11 @@ export const CurrentSubscription = ({subscription}) => {
     return moment(trialEnd).format("MMM D, YYYY");
   };
 
-  const hasTrial =
-    subscription.trial_end && moment(subscription.trial_end).isValid();
+  const hasTrial = subscription.trial_end && moment(subscription.trial_end).isValid();
+
+  const currentPeriodStart = moment(subscription.current_period_start);
+  const currentPeriodEnd = moment(subscription.current_period_end);
+  const remainingDays = currentPeriodEnd.diff(currentPeriodStart, 'days');
 
   const currentPeriodStart = moment(subscription.current_period_start);
   const currentPeriodEnd = moment(subscription.current_period_end);

@@ -1,5 +1,5 @@
-import {BlockElementIcon, HomeIcon} from "@sanity/icons";
-import {defineArrayMember, defineField, defineType} from "sanity";
+import { BlockElementIcon, HomeIcon } from "@sanity/icons";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "singleHome",
@@ -14,8 +14,7 @@ export default defineType({
     }),
     defineField({
       title: "The Wire Featured Posts",
-      description:
-        "Six posts from The Wire, the first position here gets the featured spot",
+      description: "Six posts from The Wire, the first position here gets the featured spot",
       name: "featured_posts",
       type: "array",
       of: [
@@ -23,10 +22,10 @@ export default defineType({
           title: "Post",
           name: "featured_post",
           type: "reference",
-          to: [{type: "post"}],
+          to: [{ type: "post" }],
           options: {
             filter: "section == $section",
-            filterParams: {section: "the-wire"},
+            filterParams: { section: "the-wire" },
           },
         },
       ],
@@ -41,14 +40,13 @@ export default defineType({
           title: "Writer",
           name: "latest_writer",
           type: "reference",
-          to: [{type: "author"}],
+          to: [{ type: "author" }],
         },
       ],
     }),
     defineField({
       title: "White Pill Featured Posts",
-      description:
-        "Six posts from The White Pill, the first position here gets the featured spot",
+      description: "Six posts from The White Pill, the first position here gets the featured spot",
       name: "featured_posts_white_pill",
       type: "array",
       of: [
@@ -56,18 +54,17 @@ export default defineType({
           title: "Post",
           name: "featured_post_white_pill",
           type: "reference",
-          to: [{type: "post"}],
+          to: [{ type: "post" }],
           options: {
             filter: "section == $section",
-            filterParams: {section: "the-white-pill"},
+            filterParams: { section: "the-white-pill" },
           },
         },
       ],
     }),
     defineField({
       title: "Industry Featured Posts",
-      description:
-        "Six posts from The Industry, the first position here gets the featured spot",
+      description: "Six posts from The Industry, the first position here gets the featured spot",
       name: "featured_posts_industry",
       type: "array",
       of: [
@@ -75,18 +72,17 @@ export default defineType({
           title: "Post",
           name: "featured_post_industry",
           type: "reference",
-          to: [{type: "post"}],
+          to: [{ type: "post" }],
           options: {
             filter: "section == $section",
-            filterParams: {section: "the-industry"},
+            filterParams: { section: "the-industry" },
           },
         },
       ],
     }),
     defineField({
       title: "Dolores Park Featured Posts",
-      description:
-        "Six posts from Dolores Park, the first position here gets the featured spot",
+      description: "Six posts from Dolores Park, the first position here gets the featured spot",
       name: "featured_posts_dolores_park",
       type: "array",
       of: [
@@ -94,10 +90,10 @@ export default defineType({
           title: "Post",
           name: "featured_posts_dolores_park",
           type: "reference",
-          to: [{type: "post"}],
+          to: [{ type: "post" }],
           options: {
             filter: "section == $section",
-            filterParams: {section: "dolores-park"},
+            filterParams: { section: "dolores-park" },
           },
         },
       ],

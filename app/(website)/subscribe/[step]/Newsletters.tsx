@@ -1,17 +1,15 @@
 "use client";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState, FormEvent } from "react";
 
-import React, {useEffect, useState, FormEvent} from "react";
-
-import styles from "@/styles/pages/subscribe.module.scss";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 interface NewslettersProps {
   email: string;
 }
 
-const Newsletters: React.FC<NewslettersProps> = ({email}) => {
+const Newsletters: React.FC<NewslettersProps> = ({ email }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ToastableError | null>(null);
@@ -85,7 +83,7 @@ const Newsletters: React.FC<NewslettersProps> = ({email}) => {
             className={"checkBox"}
             name="Wires"
             onChange={handleSelect}
-            checked={selectedNewsLetters.indexOf("Wires") > -1}
+            checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
           />
           Pirate Wires
         </label>

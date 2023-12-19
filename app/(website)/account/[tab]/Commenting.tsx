@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 import {Toggle} from "@/components/ui/Toggle";
 
-export const Commenting = ({updateCommentsDisplayName, updateCommentsNotifications, profile}) => {
+export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotifications, profile }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lastUpdatedDisplayName, setLastUpdatedDisplayName] = useState(profile?.comments_display_name ?? "");
   const [notification, setNotification] = useState<boolean>(profile.comments_notifications);
@@ -72,7 +72,6 @@ export const Commenting = ({updateCommentsDisplayName, updateCommentsNotificatio
       setError(new ToastableError(error.message));
     }
   };
-
 
   const handleToggleCommentsNotifications = async event => {
     event.preventDefault();

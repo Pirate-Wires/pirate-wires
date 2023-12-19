@@ -1,7 +1,7 @@
-import {PauseIcon} from "@/components/podcast/PauseIcon";
-import {PlayIcon} from "@/components/podcast/PlayIcon";
+import { PauseIcon } from "@/components/podcast/PauseIcon";
+import { PlayIcon } from "@/components/podcast/PlayIcon";
 
-export function PlayButton({player}) {
+export function PlayButton({ player }) {
   let Icon = player.playing ? PauseIcon : PlayIcon;
 
   return (

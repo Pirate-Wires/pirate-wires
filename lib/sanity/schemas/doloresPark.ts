@@ -1,6 +1,6 @@
-import {LuCrown} from "react-icons/lu";
+import { LuCrown } from "react-icons/lu";
 
-import {defineArrayMember, defineField, defineType} from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "doloresPark",

@@ -1,4 +1,4 @@
-const TheWireSVG = ({className = "", ...props}) => (
+const TheWireSVG = ({ className = "", ...props }) => (
   <svg
     width="32"
     height="32"
@@ -8,12 +8,7 @@ const TheWireSVG = ({className = "", ...props}) => (
     className={className}
     {...props}>
     <rect width="100%" height="100%" rx="16" />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M11 1 L4 14 L23 17 Z"
-      fill="currentColor"
-    />
+    <path fillRule="evenodd" clipRule="evenodd" d="M11 1 L4 14 L23 17 Z" fill="currentColor" />
   </svg>
 );
 

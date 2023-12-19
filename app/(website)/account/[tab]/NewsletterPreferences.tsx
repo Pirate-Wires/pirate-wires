@@ -4,7 +4,7 @@ import {useState, useEffect} from "react";
 import Button from "@/components/ui/Button";
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
-const NewsletterPreferences = ({user}) => {
+const NewsletterPreferences = ({ user }) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isProgress, setIsProgress] = useState(false);
   const [isLoading, setIsLoading] = useState(0);
@@ -169,9 +169,7 @@ const NewsletterPreferences = ({user}) => {
             className={"checkBox"}
             id="topicImportantPirateWiresUpdates"
             name="Important Pirate Wires Updates"
-            checked={
-              selectedNewsLetters.indexOf("Important Pirate Wires Updates") > -1
-            }
+            checked={selectedNewsLetters.indexOf("Important Pirate Wires Updates") > -1}
             onChange={handleSelect}
           />
           Important Pirate Wires Updates

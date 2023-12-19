@@ -1,5 +1,5 @@
-import {defineField, defineType} from "sanity";
-import {LuFileAudio} from "react-icons/lu";
+import { defineField, defineType } from "sanity";
+import { LuFileAudio } from "react-icons/lu";
 
 export default defineType({
   name: "Podcasts",

@@ -1,6 +1,6 @@
-require("dotenv").config({path: "./.env.local"});
+require("dotenv").config({ path: "./.env.local" });
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const {getAllStripeCustomers} = require("./utils");
+const { getAllStripeCustomers } = require("./utils");
 
 const removeDuplicateCustomers = async () => {
   const allCustomers = await getAllStripeCustomers();
@@ -22,17 +22,13 @@ const removeDuplicateCustomers = async () => {
       const sortedCustomers = customers.sort((a, b) => {
         const aHasPaymentMethod = a.default_source != null;
         const bHasPaymentMethod = b.default_source != null;
-        return (
-          bHasPaymentMethod - aHasPaymentMethod || a.created_at - b.created_at
-        );
+        return bHasPaymentMethod - aHasPaymentMethod || a.created_at - b.created_at;
       });
 
       // Deleting all other customers
       for (const customer of sortedCustomers.slice(1)) {
         await stripe.customers.del(customer.id);
-        console.log(
-          `Deleted duplicate customer with email, ID: ${customer.email}, ${customer.id}`,
-        );
+        console.log(`Deleted duplicate customer with email, ID: ${customer.email}, ${customer.id}`);
       }
     }
   }

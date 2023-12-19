@@ -1,4 +1,4 @@
-import {groq} from "next-sanity";
+import { groq } from "next-sanity";
 
 // Get all posts
 export const postquery = groq`

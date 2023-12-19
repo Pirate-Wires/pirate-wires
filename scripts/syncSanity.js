@@ -1,11 +1,9 @@
-require("dotenv").config({path: "./.env.local"});
+require("dotenv").config({ path: "./.env.local" });
 
-const {createClient: createSupabaseClient} = require("@supabase/supabase-js");
-const {createClient: createSanityClient} = require("next-sanity");
+const { createClient: createSupabaseClient } = require("@supabase/supabase-js");
+const { createClient: createSanityClient } = require("next-sanity");
 
-const projectId =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
-  process.env.SANITY_STUDIO_PROJECT_ID;
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || process.env.SANITY_STUDIO_PROJECT_ID;
 
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2023-03-25";
@@ -18,13 +16,10 @@ const client = createSanityClient({
   useCdn,
 });
 
-const supabaseAdmin = createSupabaseClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-);
+const supabaseAdmin = createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 const createSupabasePost = async postData => {
-  const {data, error} = await supabaseAdmin.from("posts").insert(postData);
+  const { data, error } = await supabaseAdmin.from("posts").insert(postData);
   if (error) {
     console.error(`Error inserting post: ${error.message}`);
     return;

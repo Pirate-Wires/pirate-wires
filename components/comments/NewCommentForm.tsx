@@ -1,10 +1,10 @@
 import Link from "next/link";
 import updateFieldHeight from "@/lib/utils/autosize";
 import punctuationRegex from "@/lib/utils/regex/punctuationRegex";
-import {useSupabase} from "@/app/(website)/supabase-provider";
+import { useSupabase } from "@/app/(website)/supabase-provider";
 import cuid from "cuid";
-import React, {useRef, useState, useEffect, ChangeEvent} from "react";
-import {useComments} from "@/lib/hooks/useComments";
+import React, { useRef, useState, useEffect, ChangeEvent } from "react";
+import { useComments } from "@/lib/hooks/useComments";
 import styles from "@/components/_styles/comments.module.scss";
 
 interface Props {
@@ -23,9 +23,8 @@ const NewCommentForm = ({
   const [content, setContent] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const {supabase, user, profile} = useSupabase();
-  const {mutateGlobalCount, rootId, mutateComments, redirectToSignIn} =
-    useComments();
+  const { supabase, user, profile } = useSupabase();
+  const { mutateGlobalCount, rootId, mutateComments, redirectToSignIn } = useComments();
 
   useEffect(() => {
     if (autofocus && textareaRef && textareaRef.current) {
@@ -80,7 +79,7 @@ const NewCommentForm = ({
       slug,
     };
 
-    const {error} = await supabase.from("posts").insert([post]);
+    const { error } = await supabase.from("posts").insert([post]);
 
     if (error) {
       console.error(error);

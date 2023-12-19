@@ -6,9 +6,7 @@ function countLines(el: HTMLElement): number {
   // object.style.lineHeight, returns
   // the lineHeight property
   // height of one line
-  const lineHeight = parseInt(
-    window.getComputedStyle(el).getPropertyValue("line-height"),
-  );
+  const lineHeight = parseInt(window.getComputedStyle(el).getPropertyValue("line-height"));
 
   const lines = divHeight / lineHeight;
   return lines;

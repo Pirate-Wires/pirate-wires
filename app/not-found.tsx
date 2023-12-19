@@ -1,5 +1,5 @@
-import {getGlobalFields} from "@/lib/sanity/client";
-import React, {useEffect, useState} from "react";
+import { getGlobalFields } from "@/lib/sanity/client";
+import React, { useEffect, useState } from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import NotFoundArms from "@/components/notFoundArms";
@@ -11,11 +11,7 @@ export default async function NotFound() {
   const globalFields = await getGlobalFields();
 
   return (
-    <SupabaseProvider
-      globalFields={globalFields}
-      session={null}
-      user={null}
-      profile={null}>
+    <SupabaseProvider globalFields={globalFields} session={null} user={null} profile={null}>
       <div
         className="colorWrapper"
         style={

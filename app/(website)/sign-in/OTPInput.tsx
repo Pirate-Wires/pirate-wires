@@ -1,12 +1,12 @@
 // /app/(website)/sign-in/OTPInput.tsx
 import styles from "@/styles/pages/signIn.module.scss";
-import React, {useState, useRef, ChangeEvent, KeyboardEvent} from "react";
+import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 
 interface OTPInputProps {
   onOTPChange: (otp: string) => void;
 }
 
-const OTPInput: React.FC<OTPInputProps> = ({onOTPChange}) => {
+const OTPInput: React.FC<OTPInputProps> = ({ onOTPChange }) => {
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
 
   const ref0 = useRef<HTMLInputElement>(null);
@@ -18,10 +18,7 @@ const OTPInput: React.FC<OTPInputProps> = ({onOTPChange}) => {
 
   const inputRefs = [ref0, ref1, ref2, ref3, ref4, ref5];
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = event.target.value;
 
     if (isNaN(Number(value))) {
@@ -42,10 +39,7 @@ const OTPInput: React.FC<OTPInputProps> = ({onOTPChange}) => {
     }
   };
 
-  const handleBackspace = (
-    event: KeyboardEvent<HTMLInputElement>,
-    index: number,
-  ) => {
+  const handleBackspace = (event: KeyboardEvent<HTMLInputElement>, index: number) => {
     if (event.key === "Backspace" && index > 0 && otp[index] === "") {
       inputRefs[index - 1]?.current?.focus();
     }

@@ -19,7 +19,7 @@ import {
   utilityPageSlugsQuery,
   searchquery,
 } from "./groq";
-import {createClient} from "next-sanity";
+import { createClient } from "next-sanity";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
@@ -27,35 +27,29 @@ const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
 const useCdn = process.env.NODE_ENV === "production";
 
 if (!projectId) {
-  console.error(
-    "The Sanity Project ID is not set. Check your environment variables.",
-  );
+  console.error("The Sanity Project ID is not set. Check your environment variables.");
 }
 
-const client = projectId
-  ? createClient({projectId, dataset, apiVersion, useCdn})
-  : null;
+const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null;
 
 export const fetcher = async ([query, params]) => {
   return client ? await client.fetch(query, params) : [];
 };
 
 export async function getSearchResults(query) {
-  return client ? await client.fetch(searchquery, {query}, {next: {tags: ["post"]}}) : [];
+  return client ? await client.fetch(searchquery, { query }, { next: { tags: ["post"] } }) : [];
 }
 
 export async function getAllPosts() {
   if (client) {
-    return (await client.fetch(postquery, {}, {next: {tags: ["post"]}})) || [];
+    return (await client.fetch(postquery, {}, { next: { tags: ["post"] } })) || [];
   }
   return [];
 }
 
 export async function getSettings() {
   if (client) {
-    return (
-      (await client.fetch(configQuery, {}, {next: {tags: ["settings"]}})) || []
-    );
+    return (await client.fetch(configQuery, {}, { next: { tags: ["settings"] } })) || [];
   }
   return [];
 }
@@ -67,7 +61,7 @@ export async function getGlobalFields() {
         globalFieldsQuery,
         {},
         {
-          next: {tags: ["globalFields"]},
+          next: { tags: ["globalFields"] },
         },
       )) || []
     );
@@ -77,36 +71,21 @@ export async function getGlobalFields() {
 
 export async function getPostBySlug(slug) {
   if (client) {
-    return (
-      (await client.fetch(singlePostQuery, {slug}, {next: {tags: ["post"]}})) ||
-      {}
-    );
+    return (await client.fetch(singlePostQuery, { slug }, { next: { tags: ["post"] } })) || {};
   }
   return {};
 }
 
 export async function getHomeData(slug) {
   if (client) {
-    return (
-      (await client.fetch(
-        homeQuery,
-        {slug},
-        {next: {tags: ["singleHome", "post", "author"]}},
-      )) || {}
-    );
+    return (await client.fetch(homeQuery, { slug }, { next: { tags: ["singleHome", "post", "author"] } })) || {};
   }
   return {};
 }
 
 export async function getPodcastData() {
   if (client) {
-    return (
-      (await client.fetch(
-        podcastQuery,
-        {},
-        {next: {tags: ["singlePodcast", "Podcasts"]}},
-      )) || {}
-    );
+    return (await client.fetch(podcastQuery, {}, { next: { tags: ["singlePodcast", "Podcasts"] } })) || {};
   }
   return {};
 }
@@ -118,7 +97,7 @@ export async function getNewsletterData() {
         newsletterQuery,
         {},
         {
-          next: {tags: ["singleNewsletters"]},
+          next: { tags: ["singleNewsletters"] },
         },
       )) || {}
     );
@@ -133,7 +112,7 @@ export async function getCareersData() {
         careersQuery,
         {},
         {
-          next: {tags: ["singleCareers", "Career"]},
+          next: { tags: ["singleCareers", "Career"] },
         },
       )) || {}
     );
@@ -148,7 +127,7 @@ export async function getAuthorsData() {
         authorsQuery,
         {},
         {
-          next: {tags: ["singleAuthors", "author"]},
+          next: { tags: ["singleAuthors", "author"] },
         },
       )) || {}
     );
@@ -158,13 +137,7 @@ export async function getAuthorsData() {
 
 export async function getAuthorData(slug) {
   if (client) {
-    return (
-      (await client.fetch(
-        authorQuery,
-        {slug},
-        {next: {tags: ["author", "post"]}},
-      )) || {}
-    );
+    return (await client.fetch(authorQuery, { slug }, { next: { tags: ["author", "post"] } })) || {};
   }
   return {};
 }
@@ -174,9 +147,9 @@ export async function getUtilityPageData(slug) {
     return (
       (await client.fetch(
         utilityPageQuery,
-        {slug},
+        { slug },
         {
-          next: {tags: ["utilityPage"]},
+          next: { tags: ["utilityPage"] },
         },
       )) || {}
     );
@@ -189,16 +162,10 @@ export async function getPublicationData(slug) {
     return (
       (await client.fetch(
         publicationDocQuery,
-        {slug},
+        { slug },
         {
           next: {
-            tags: [
-              "theIndustry",
-              "pirateWires",
-              "whitePill",
-              "doloresPark",
-              "post",
-            ],
+            tags: ["theIndustry", "pirateWires", "whitePill", "doloresPark", "post"],
           },
         },
       )) || {}
@@ -212,9 +179,9 @@ export async function getPublicationPosts(section) {
     return (
       (await client.fetch(
         postBySectionQuery,
-        {section},
+        { section },
         {
-          next: {tags: ["post"]},
+          next: { tags: ["post"] },
         },
       )) || {}
     );
@@ -227,9 +194,9 @@ export async function getPublicationNewsletters(section) {
     return (
       (await client.fetch(
         newslettersBySectionQuery,
-        {section},
+        { section },
         {
-          next: {tags: ["post"]},
+          next: { tags: ["post"] },
         },
       )) || {}
     );
@@ -239,9 +206,8 @@ export async function getPublicationNewsletters(section) {
 
 export async function getAllPostsSlugs() {
   if (client) {
-    const slugs =
-      (await client.fetch(pathquery, {}, {next: {tags: ["post"]}})) || [];
-    return slugs.map(slug => ({slug}));
+    const slugs = (await client.fetch(pathquery, {}, { next: { tags: ["post"] } })) || [];
+    return slugs.map(slug => ({ slug }));
   }
   return [];
 }
@@ -251,9 +217,9 @@ export async function getAuthorPosts(slug) {
     return (
       (await client.fetch(
         postsbyauthorquery,
-        {slug},
+        { slug },
         {
-          next: {tags: ["post"]},
+          next: { tags: ["post"] },
         },
       )) || {}
     );
@@ -263,10 +229,7 @@ export async function getAuthorPosts(slug) {
 
 export async function getAllAuthorsSlugs() {
   if (client) {
-    return (
-      (await client.fetch(authorSlugsQuery, {}, {next: {tags: ["author"]}})) ||
-      []
-    );
+    return (await client.fetch(authorSlugsQuery, {}, { next: { tags: ["author"] } })) || [];
   }
   return [];
 }
@@ -278,7 +241,7 @@ export async function getAllUtilityPageSlugs() {
         utilityPageSlugsQuery,
         {},
         {
-          next: {tags: ["utility"]},
+          next: { tags: ["utility"] },
         },
       )) || []
     );

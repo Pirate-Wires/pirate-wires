@@ -1,6 +1,6 @@
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {ScrollBasedAnims} from "@/lib/utils/classes/ScrollBasedAnims";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ScrollBasedAnims } from "@/lib/utils/classes/ScrollBasedAnims";
 
 declare global {
   interface Window {

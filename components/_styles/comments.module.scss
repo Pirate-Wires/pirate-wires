@@ -78,7 +78,7 @@
   @include get-vw-small-increase(font-size, 15px, 15px);
 }
 
-.commentsTop+.newCommentForm {
+.commentsTop + .newCommentForm {
   margin-top: 0;
 }
 
@@ -143,7 +143,7 @@
 .commentList {
   margin-top: 40px;
 
-  >.threadWrapper {
+  > .threadWrapper {
     border-left: 1px solid #bebebe;
   }
 }

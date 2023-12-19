@@ -1,23 +1,18 @@
-import {useComments} from "@/lib/hooks/useComments";
-import {useSupabase} from "@/app/(website)/supabase-provider";
+import { useComments } from "@/lib/hooks/useComments";
+import { useSupabase } from "@/app/(website)/supabase-provider";
 import Heart from "@/components/icons/Heart";
-import type {CommentType} from "@/lib/utils/types";
+import type { CommentType } from "@/lib/utils/types";
 import cn from "classnames";
 import React from "react";
 import styles from "@/components/_styles/comments.module.scss";
 
 type StatusType = "upvoted" | "unvoted" | "downvoted";
 
-export async function invokeVote(
-  supabase: any,
-  postId: number,
-  userId: string,
-  value: number,
-): Promise<any> {
+export async function invokeVote(supabase: any, postId: number, userId: string, value: number): Promise<any> {
   return supabase
     .from("votes")
-    .upsert([{postId, userId, value}])
-    .then(({data, error}) => {
+    .upsert([{ postId, userId, value }])
+    .then(({ data, error }) => {
       if (error) {
         console.error(error);
         throw error;
@@ -27,12 +22,7 @@ export async function invokeVote(
     });
 }
 
-export const mutateVotes = async (
-  mutate: any,
-  postId: number,
-  incrementBy: number,
-  userVoteValue: number,
-) => {};
+export const mutateVotes = async (mutate: any, postId: number, incrementBy: number, userVoteValue: number) => {};
 
 function resolveStatus(userVoteValue: number | undefined | null): StatusType {
   if (userVoteValue === 1) return "upvoted";
@@ -48,12 +38,9 @@ interface Props {
   };
 }
 
-const VoteButtons = ({
-  comment,
-  config = {type: "thumbs", canDownvote: true},
-}: Props): JSX.Element | null => {
-  const {supabase, user} = useSupabase();
-  const {mutateComments, redirectToSignIn} = useComments();
+const VoteButtons = ({ comment, config = { type: "thumbs", canDownvote: true } }: Props): JSX.Element | null => {
+  const { supabase, user } = useSupabase();
+  const { mutateComments, redirectToSignIn } = useComments();
   const status = resolveStatus(comment.userVoteValue);
 
   async function handleUpvote(): Promise<any> {
@@ -101,16 +88,11 @@ const VoteButtons = ({
               "stroke-1.5": status !== "upvoted",
             })}
           />
-          <span className="ml-1 text-gray-600 dark:text-gray-400 tabular-nums">
-            {comment.votes}
-          </span>
+          <span className="ml-1 text-gray-600 dark:text-gray-400 tabular-nums">{comment.votes}</span>
         </button>
       ) : (
         <>
-          <button
-            className={`${styles.likeButton}`}
-            onClick={handleUpvote}
-            aria-label="Like this comment">
+          <button className={`${styles.likeButton}`} onClick={handleUpvote} aria-label="Like this comment">
             Like {!!comment.votes && `(${comment.votes})`}
           </button>
         </>

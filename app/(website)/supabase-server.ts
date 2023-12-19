@@ -22,10 +22,10 @@ export async function getSession() {
   }
 }
 
-export async function getUserDetails() {
+export async function getUserDetails(userId: string) {
   const supabase = createServerSupabaseClient();
   try {
-    const { data: userDetails } = await supabase.from("users").select("*").single();
+    const { data: userDetails } = await supabase.from("users").select("*").eq("id", userId).single();
     return userDetails;
   } catch (error) {
     console.error("Error:", error);
@@ -38,20 +38,6 @@ export async function getProfile(profileId: string) {
   try {
     const { data: profile } = await supabase.from("profiles").select("*").eq("id", profileId).single();
     return profile;
-  } catch (error) {
-    console.error("Error:", error);
-    return null;
-  }
-}
-
-export async function getUserCustomerId(userDetails) {
-  if (!userDetails) return null;
-  const { id } = userDetails;
-  const supabase = createServerSupabaseClient();
-  try {
-    const { data: customer, error } = await supabase.from("customers").select("*").eq("id", id).single();
-    if (error) throw error;
-    return customer.stripe_customer_id;
   } catch (error) {
     console.error("Error:", error);
     return null;

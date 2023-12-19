@@ -10,10 +10,7 @@ export default function RemainingArticleEls() {
     <div className={articleCountStyles.articleCountEls}>
       {showNoMoreArticles && (
         <div className={articleCountStyles.noMoreArticles}>
-          <svg
-            viewBox="0 0 33 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 33 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M0 0.0446548H7.49502C9.19222 0.0446548 10.5249 1.3507 10.5249 3.05861V11.52C10.5249 13.1163 9.19222 14.4558 7.49502 14.4558H3.8842V24H0V0.0446548ZM4.02088 13.92L6.04841 12.4354C6.33317 12.2233 6.48125 11.8995 6.48125 11.587V2.88C6.48125 2.52279 6.33317 2.21024 6.04841 1.99814L4.02088 0.569306C3.95254 0.535818 3.8728 0.569306 3.8728 0.636283V13.8419C3.8842 13.92 3.95254 13.9535 4.02088 13.92Z"
               fill="var(--color)"></path>
@@ -33,9 +30,7 @@ export default function RemainingArticleEls() {
             Get access to all our articles and newsletters from
             <br /> Pirate Wires, The White Pill & The Industry
           </p>
-          <Link
-            href={"/subscribe"}
-            className={`${articleCountStyles.noMoreBtn} btn`}>
+          <Link href={"/subscribe"} className={`${articleCountStyles.noMoreBtn} btn`}>
             Subscribe Now – 14 Days Free Trial
           </Link>
           <p className={articleCountStyles.accountLink}>
@@ -45,12 +40,7 @@ export default function RemainingArticleEls() {
       )}
       {showRemainingArticles && (
         <div className={articleCountStyles.remainingArticles}>
-          <svg
-            width="9"
-            height="9"
-            viewBox="0 0 9 9"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect
               width="11.3986"
               height="1.13986"
@@ -65,16 +55,10 @@ export default function RemainingArticleEls() {
             />
           </svg>
           <div className={articleCountStyles.remainingLeft}>
-            <p className={articleCountStyles.remainingTitle}>
-              2 Free Articles Left This Month
-            </p>
-            <p className={articleCountStyles.remainingInfo}>
-              Start your 14 day free trial for unilimited access
-            </p>
+            <p className={articleCountStyles.remainingTitle}>2 Free Articles Left This Month</p>
+            <p className={articleCountStyles.remainingInfo}>Start your 14 day free trial for unilimited access</p>
           </div>
-          <Link
-            href={"/subscribe"}
-            className={`${articleCountStyles.noMoreBtn} btn`}>
+          <Link href={"/subscribe"} className={`${articleCountStyles.noMoreBtn} btn`}>
             Subscribe Now
           </Link>
         </div>

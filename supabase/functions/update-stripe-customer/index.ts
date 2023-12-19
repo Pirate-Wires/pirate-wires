@@ -90,7 +90,7 @@
 //     }
 
 //     const { data: customerData, error } = await supabaseAdmin
-//       .from("customers")
+//       .from("users")
 //       .select("stripe_customer_id")
 //       .eq("id", oldRecord.id)
 //       .single();

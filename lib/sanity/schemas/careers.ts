@@ -1,5 +1,5 @@
-import {defineField, defineType} from "sanity";
-import {LuBriefcase} from "react-icons/lu";
+import { defineField, defineType } from "sanity";
+import { LuBriefcase } from "react-icons/lu";
 
 export default defineType({
   name: "singleCareers",
@@ -27,7 +27,7 @@ export default defineType({
           title: "Career",
           name: "career",
           type: "reference",
-          to: [{type: "Career"}],
+          to: [{ type: "Career" }],
         },
       ],
     }),

@@ -1,6 +1,6 @@
 /* eslint-disable */
-import {useEffect, useState} from "react";
-import {gsap} from "gsap";
+import { useEffect, useState } from "react";
+import { gsap } from "gsap";
 // import GlobalConfig from '../app.config.js'
 
 export const usePageEntrance = () => {

@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 export const useHoverArrow = () => {
   const [once, setOnce] = useState(false);
   let onceVar = false;
@@ -13,7 +13,7 @@ export const useHoverArrow = () => {
     for (let i = 0; i < hoverWrappers.length; i++) {
       const el = hoverWrappers[i];
       const svg = el.querySelector("svg");
-      const timeline = gsap.timeline({paused: true});
+      const timeline = gsap.timeline({ paused: true });
       let exitTime = 0;
       timeline.to(svg, {
         xPercent: 200,
@@ -24,7 +24,7 @@ export const useHoverArrow = () => {
 
       exitTime = timeline.duration();
 
-      timeline.set(svg, {xPercent: -200, yPercent: 200, scale: 0.3}).to(svg, {
+      timeline.set(svg, { xPercent: -200, yPercent: 200, scale: 0.3 }).to(svg, {
         xPercent: 0,
         yPercent: 0,
         scale: 1,

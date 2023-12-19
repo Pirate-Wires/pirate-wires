@@ -1,11 +1,11 @@
 // /app/(website)/supabase-provider.tsx
 "use client";
 
-import type {Database} from "types/supabase";
-import {createPagesBrowserClient} from "@supabase/auth-helpers-nextjs";
-import type {SupabaseClient, Session} from "@supabase/auth-helpers-nextjs";
-import {useRouter} from "next/navigation";
-import {createContext, useContext, useEffect, useState} from "react";
+import type { Database } from "types/supabase";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import type { SupabaseClient, Session } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type MaybeSession = Session | null;
 type SupabaseContext = {
@@ -36,7 +36,7 @@ export default function SupabaseProvider({
 
   useEffect(() => {
     const {
-      data: {subscription},
+      data: { subscription },
     } = supabase.auth.onAuthStateChange(event => {
       if (event === "SIGNED_IN") router.refresh();
     });
@@ -47,7 +47,7 @@ export default function SupabaseProvider({
   }, [router, supabase]);
 
   return (
-    <Context.Provider value={{supabase, session, user, profile, globalFields}}>
+    <Context.Provider value={{ supabase, session, user, profile, globalFields }}>
       <>{children}</>
     </Context.Provider>
   );

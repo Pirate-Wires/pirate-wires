@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getUserDetails } from "@/app/(website)/supabase-server";
+import { getSession, getUserDetails } from "@/app/(website)/supabase-server";
 import { getGlobalFields } from "@/lib/sanity/client";
 import Navigation from "@/components/navigation";
 
@@ -13,7 +13,8 @@ import Link from "next/link";
 import React from "react";
 
 export default async function SubscribePage({ params, searchParams }) {
-  const user = await getUserDetails();
+  const session = await getSession();
+  const user = await getUserDetails(session?.user.id!);
   const globalFields = await getGlobalFields();
   const { email } = searchParams;
 
