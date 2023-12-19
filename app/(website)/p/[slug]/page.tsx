@@ -13,30 +13,19 @@ import React from "react";
 import Navigation from "@/components/navigation";
 import Newsletters from "@/app/(website)/newsletters/newsletters";
 import Footer from "@/components/footer";
-import {
-  getActiveProductsWithPrices,
-  getSession,
-  getSubscription,
-  getUserDetails,
-} from "@/app/(website)/supabase-server";
-import {urlForImage} from "@/lib/sanity/image";
+import { getSession, getUserDetails } from "@/app/(website)/supabase-server";
+import { urlForImage } from "@/lib/sanity/image";
 
 export async function generateStaticParams() {
   return await getAllPostsSlugs();
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata({ params }) {
   const pageData = await getPostBySlug(params.slug);
   const settings = await getSettings();
-  const title = pageData.meta_title
-    ? pageData.meta_title
-    : pageData.title + " | Pirate Wires";
-  const description = pageData.meta_description
-    ? pageData.meta_description
-    : pageData.excerpt;
-  const image = pageData.openGraphImage
-    ? urlForImage(pageData.openGraphImage)?.src
-    : pageData.mainImage.asset.url;
+  const title = pageData.meta_title ? pageData.meta_title : pageData.title + " | Pirate Wires";
+  const description = pageData.meta_description ? pageData.meta_description : pageData.excerpt;
+  const image = pageData.openGraphImage ? urlForImage(pageData.openGraphImage)?.src : pageData.mainImage.asset.url;
 
   return {
     title: title,
@@ -55,29 +44,26 @@ export async function generateMetadata({params}) {
   };
 }
 
-export default async function PostDefault({params}) {
-  const {slug} = params;
+export default async function PostDefault({ params }) {
+  const { slug } = params;
   const post = await getPostBySlug(slug);
   let postId;
   if (post) {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/post`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            payload: {
-              sanity_id: post._id,
-              slug: post.slug?.current,
-              title: post.title,
-              content: "content",
-              parentId: null,
-              isPublished: true,
-              authorId: `bc4528f1-22f7-44a6-97c4-78bd54d33d11`,
-            },
-          }),
-        },
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/post`, {
+        method: "POST",
+        body: JSON.stringify({
+          payload: {
+            sanity_id: post._id,
+            slug: post.slug?.current,
+            title: post.title,
+            content: "content",
+            parentId: null,
+            isPublished: true,
+            authorId: `bc4528f1-22f7-44a6-97c4-78bd54d33d11`,
+          },
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -96,12 +82,9 @@ export default async function PostDefault({params}) {
   const allRelatedArticles = await getPublicationPosts(post.section);
   const globalFields = await getGlobalFields();
   const publication = post.section;
-  const [session, userDetails, products, subscription] = await Promise.all([
-    getSession(),
-    getUserDetails(),
-    getActiveProductsWithPrices(),
-    getSubscription(),
-  ]);
+  const session = await getSession();
+  const userDetails = await getUserDetails(session?.user.id!);
+
   return (
     <>
       <div
@@ -114,12 +97,7 @@ export default async function PostDefault({params}) {
           } as React.CSSProperties
         }>
         <Navigation publication={publication} />
-        <PostPage
-          post={post}
-          postId={postId}
-          userDetails={userDetails}
-          thisSectionArticles={allRelatedArticles}
-        />
+        <PostPage post={post} postId={postId} userDetails={userDetails} thisSectionArticles={allRelatedArticles} />
         <Footer globalFields={globalFields} />
       </div>
     </>

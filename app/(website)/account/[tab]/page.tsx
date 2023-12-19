@@ -34,7 +34,9 @@ export async function generateMetadata({ params }) {
   };
 }
 export default async function Account({ params }) {
-  const [session, userDetails, subscription] = await Promise.all([getSession(), getUserDetails(), getSubscription()]);
+  const session = await getSession();
+  const userDetails = await getUserDetails(session?.user.id!);
+  const subscription = await getSubscription();
   const profile = await getProfile(userDetails?.id!);
   const { tab } = params;
 
