@@ -6,10 +6,10 @@ import styles from "../../../styles/pages/home.module.scss";
 import LatestWriters from "@/components/latestWriters";
 import PodcastCallout from "@/components/podcastCallout";
 import NewsletterCallout from "@/components/newsletterCallout";
-import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
+import { useScrollBasedAnims } from "@/lib/hooks/useScrollBasedAnims";
 import React from "react";
 
-export default function DefaultHome({pageData, globalFields, newsletterData}) {
+export default function DefaultHome({ pageData, globalFields, newsletterData }) {
   useScrollBasedAnims();
   const wirePosts = pageData.featured_posts;
   const whitePillPosts = pageData.featured_posts_white_pill;
@@ -18,10 +18,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
   return (
     <>
       <div className={`${styles.hero} c-20`}>
-        <svg
-          viewBox="0 0 1400 291"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1400 291" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M83.237 0H0V290.655H44.1233V158.96H83.237C101.638 158.96 116.089 144.123 116.089 126.493V33.237C115.992 14.4509 101.541 0 83.237 0ZM72.2543 127.36C72.2543 130.925 70.7129 134.393 67.5337 136.705L45.6647 153.083C44.894 153.468 44.1233 153.083 44.1233 152.312V6.6474C44.1233 5.87669 44.894 5.49133 45.6647 5.87669L67.5337 21.4836C70.6166 23.7958 72.2543 27.3603 72.2543 31.2139V127.36Z"
             fill="#E3E3E3"
@@ -69,12 +66,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
           <div className="postGrid pirate-wires c-20">
             {wirePosts.slice(1, 4).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
 
             <Link href={`/wires`} className="pubLink hasGoIcon mtb-20">
@@ -84,12 +76,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                 <div className="goIcon">
                   <div className="leftHalf"></div>
                   <div className="rightHalf"></div>
-                  <svg
-                    width="10"
-                    height="8"
-                    viewBox="0 0 10 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.17157 0.46444L9.35355 3.64642C9.54882 3.84168 9.54882 4.15827 9.35355 4.35353L6.17157 7.53551C5.97631 7.73077 5.65973 7.73077 5.46447 7.53551C5.2692 7.34025 5.2692 7.02366 5.46447 6.8284L7.79289 4.49997L0.5 4.49997L0.5 3.49997L7.79289 3.49997L5.46447 1.17155C5.2692 0.976285 5.2692 0.659702 5.46447 0.46444C5.65973 0.269178 5.97631 0.269178 6.17157 0.46444Z" />
                   </svg>
                 </div>
@@ -98,12 +85,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
 
             {wirePosts.slice(4, 6).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
           </div>
         )}
@@ -113,19 +95,13 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
 
       <PodcastCallout videoLink={pageData.podcastCalloutVid} />
 
-      <NewsletterCallout
-        newsletterData={newsletterData}
-        globalFields={globalFields}
-      />
+      <NewsletterCallout newsletterData={newsletterData} globalFields={globalFields} />
 
       {whitePillPosts && (
         <div className="theme-color pt-40 pb-20 white-pill">
           <div className="featuredPostsTop pb-20 c-20">
             <Link href={`/white-pill`}>
-              <svg
-                viewBox="0 0 196 27"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 196 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M51.2926 26.9852L46.6176 0H51.8992L53.2603 9.52767C53.6184 12.2115 53.8258 14.9133 53.8817 17.6203H55.08C55.08 15.9929 55.3167 13.0636 55.6866 9.82356L56.8258 0H62.7436L63.9567 9.82356C64.3266 13.0636 64.5633 15.9929 64.5781 17.6203H65.7617C65.8327 14.914 66.0401 12.2131 66.383 9.52767L67.6258 0H72.9666L68.2767 26.9852H62.3589L61.1754 18.6707C60.7422 15.7877 60.4607 12.884 60.3321 9.97151H59.1781C59.0583 12.8846 58.7768 15.7888 58.3348 18.6707L57.1513 26.9852H51.2926Z"
                   fill="#060606"
@@ -134,10 +110,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                   d="M74.52 26.9852V0H79.4318V10.0455H86.1633V0H91.0751V26.9852H86.1633V16.1852H79.4022V26.9852H74.52Z"
                   fill="#060606"
                 />
-                <path
-                  d="M94.4926 26.9852V0H99.3896V26.9852H94.4926Z"
-                  fill="#060606"
-                />
+                <path d="M94.4926 26.9852V0H99.3896V26.9852H94.4926Z" fill="#060606" />
                 <path
                   d="M106.521 26.9852V5.59233H101.18V0H116.877V5.60712H111.492V27H106.521V26.9852Z"
                   fill="#060606"
@@ -150,18 +123,9 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                   d="M140.814 26.9852V0H150.253C154.041 0 157.073 2.9589 157.073 8.87671C157.073 14.7945 154.026 17.7534 150.268 17.7534H145.682V27L140.814 26.9852ZM145.682 12.383H149.706C151.304 12.383 151.762 11.9244 151.762 8.9063C151.762 5.88822 151.304 5.48877 149.706 5.48877H145.682V12.383Z"
                   fill="#060606"
                 />
-                <path
-                  d="M158.938 26.9852V0H163.849V26.9852H158.938Z"
-                  fill="#060606"
-                />
-                <path
-                  d="M167.267 26.9852V0H172.179V21.3633H180.242V26.9852H167.267Z"
-                  fill="#060606"
-                />
-                <path
-                  d="M182.52 26.9852V0H187.432V21.3633H195.495V26.9852H182.52Z"
-                  fill="#060606"
-                />
+                <path d="M158.938 26.9852V0H163.849V26.9852H158.938Z" fill="#060606" />
+                <path d="M167.267 26.9852V0H172.179V21.3633H180.242V26.9852H167.267Z" fill="#060606" />
+                <path d="M182.52 26.9852V0H187.432V21.3633H195.495V26.9852H182.52Z" fill="#060606" />
                 <path
                   d="M30.9649 0.562377L6.92385 6.39142C5.71645 6.69081 4.58545 7.24064 3.60421 8.00525C2.62296 8.76985 1.81338 9.73217 1.22796 10.8298C-0.0210259 13.1177 -0.339002 15.7993 0.34029 18.3158C0.937121 20.8152 2.48262 22.9845 4.64998 24.365C6.81734 25.7455 9.43663 26.2289 11.954 25.7131L35.9951 19.8692C37.2025 19.5698 38.3335 19.02 39.3147 18.2554C40.296 17.4908 41.1056 16.5285 41.691 15.4309C42.9291 13.1391 43.2415 10.46 42.5639 7.94484C41.9705 5.44739 40.4273 3.27945 38.2617 1.90112C36.0962 0.522795 33.4787 0.0425746 30.9649 0.562377ZM16.8806 11.4216L14.5874 11.9837L16.274 18.5821L14.617 18.9964L12.9304 12.3832L10.6669 12.9306L10.3562 11.5103L16.5551 10.0309L16.9249 11.5103L16.8806 11.4216ZM25.7573 16.289L24.1151 16.6884L23.257 13.3153L20.1649 14.0698L21.0526 17.4577L19.3956 17.8572L17.3096 9.80895L18.9666 9.4095L19.7655 12.5016L22.8428 11.8358L22.0438 8.72895L23.6712 8.25553L25.7573 16.289ZM32.548 14.6468L27.2515 15.9339L25.1507 7.90046L30.4175 6.61334L30.7874 8.09279L27.1628 8.8769L27.6362 10.6966L31.0685 9.92731L31.4384 11.4068L28.0356 12.2205L28.5534 14.1881L32.2225 13.3005L32.548 14.6468Z"
                   fill="#060606"
@@ -172,8 +136,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
             <div className="right">
               {globalFields.whitePillTagline}
               <span className="martina-reg">
-                Sign up for{" "}
-                <Link href={`/newsletters`}>The White Pill Newsletter</Link>
+                Sign up for <Link href={`/newsletters`}>The White Pill Newsletter</Link>
               </span>
             </div>
           </div>
@@ -181,12 +144,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
           <div className="postGrid c-20">
             {whitePillPosts.slice(1, 6).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
 
             <Link href={`/white-pill`} className="pubLink hasGoIcon mtb-20">
@@ -196,12 +154,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                 <div className="goIcon">
                   <div className="leftHalf"></div>
                   <div className="rightHalf"></div>
-                  <svg
-                    width="10"
-                    height="8"
-                    viewBox="0 0 10 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.17157 0.46444L9.35355 3.64642C9.54882 3.84168 9.54882 4.15827 9.35355 4.35353L6.17157 7.53551C5.97631 7.73077 5.65973 7.73077 5.46447 7.53551C5.2692 7.34025 5.2692 7.02366 5.46447 6.8284L7.79289 4.49997L0.5 4.49997L0.5 3.49997L7.79289 3.49997L5.46447 1.17155C5.2692 0.976285 5.2692 0.659702 5.46447 0.46444C5.65973 0.269178 5.97631 0.269178 6.17157 0.46444Z" />
                   </svg>
                 </div>
@@ -214,10 +167,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
         <div className="theme-color pt-40 pb-20 industry">
           <div className="featuredPostsTop pb-20 c-20">
             <Link href={`/the-industry`}>
-              <svg
-                viewBox="0 0 154 27"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 154 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M42.464 26.5451V26.614H34.5666V26.5451C35.4073 25.4563 35.49 24.6707 35.49 22.1898V4.79627C35.49 2.31541 35.4073 1.5298 34.5666 0.440983V0.37207H42.464V0.440983C41.6233 1.5298 41.5406 2.31541 41.5406 4.79627V22.1898C41.5406 24.6707 41.6233 25.4563 42.464 26.5451Z"
                   fill="#060606"
@@ -272,8 +222,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
             <div className="right">
               {globalFields.industryTagline}
               <span className="martina-reg">
-                Sign up for{" "}
-                <Link href={`/newsletters`}>The Industry Newsletter</Link>
+                Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link>
               </span>
             </div>
           </div>
@@ -281,12 +230,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
           <div className="postGrid c-20">
             {industryPosts.slice(1, 4).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
 
             <Link href={`/the-industry`} className="pubLink hasGoIcon mtb-20">
@@ -296,12 +240,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                 <div className="goIcon">
                   <div className="leftHalf"></div>
                   <div className="rightHalf"></div>
-                  <svg
-                    width="10"
-                    height="8"
-                    viewBox="0 0 10 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.17157 0.46444L9.35355 3.64642C9.54882 3.84168 9.54882 4.15827 9.35355 4.35353L6.17157 7.53551C5.97631 7.73077 5.65973 7.73077 5.46447 7.53551C5.2692 7.34025 5.2692 7.02366 5.46447 6.8284L7.79289 4.49997L0.5 4.49997L0.5 3.49997L7.79289 3.49997L5.46447 1.17155C5.2692 0.976285 5.2692 0.659702 5.46447 0.46444C5.65973 0.269178 5.97631 0.269178 6.17157 0.46444Z" />
                   </svg>
                 </div>
@@ -310,12 +249,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
 
             {industryPosts.slice(4, 6).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
           </div>
         </div>
@@ -325,10 +259,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
         <div className="theme-color pt-40 pb-20 dolores-park">
           <div className="featuredPostsTop pb-20 c-20">
             <Link href={`/dolores-park`}>
-              <svg
-                viewBox="0 0 1400 262"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+              <svg viewBox="0 0 1400 262" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M990.46 261.535C977.356 261.535 965.344 258.259 954.424 251.707C943.746 244.912 935.131 236.055 928.579 225.135C922.27 213.972 919.115 201.717 919.115 188.37V171.626C919.115 170.413 919.722 169.806 920.935 169.806H961.704C962.674 169.806 963.16 170.413 963.16 171.626V188.37C963.16 196.378 965.829 203.295 971.168 209.119C976.507 214.7 982.937 217.491 990.46 217.491C997.983 217.491 1004.41 214.579 1009.75 208.755C1015.09 202.931 1017.76 196.136 1017.76 188.37C1017.76 179.392 1011.94 171.626 1000.29 165.074C996.406 162.89 990.339 159.493 982.088 154.882C973.837 150.271 966.072 145.903 958.792 141.778C945.445 134.012 935.495 124.306 928.943 112.657C922.634 100.767 919.479 87.4198 919.479 72.6169C919.479 59.0274 922.755 46.8939 929.307 36.2165C935.859 25.2963 944.474 16.6816 955.152 10.3722C966.072 4.06274 977.841 0.908028 990.46 0.908028C1003.32 0.908028 1015.09 4.18407 1025.77 10.7362C1036.69 17.0456 1045.3 25.6603 1051.61 36.5805C1058.17 47.2579 1061.44 59.2701 1061.44 72.6169V102.465C1061.44 103.436 1060.96 103.921 1059.99 103.921H1019.22C1018.25 103.921 1017.76 103.436 1017.76 102.465L1017.4 72.6169C1017.4 64.1235 1014.73 57.2074 1009.39 51.8687C1004.05 46.5299 997.74 43.8606 990.46 43.8606C982.937 43.8606 976.507 46.7726 971.168 52.5967C965.829 58.1781 963.16 64.8515 963.16 72.6169C963.16 80.625 964.859 87.2985 968.256 92.6372C971.653 97.9759 977.841 103.072 986.82 107.925C988.033 108.653 990.339 109.988 993.736 111.929C997.376 113.628 1001.26 115.691 1005.38 118.118C1009.51 120.302 1013.15 122.243 1016.3 123.942C1019.7 125.64 1021.76 126.732 1022.49 127.218C1034.63 134.012 1044.21 142.384 1051.25 152.334C1058.29 162.041 1061.81 174.053 1061.81 188.37C1061.81 202.203 1058.53 214.7 1051.98 225.863C1045.67 236.783 1037.05 245.519 1026.13 252.071C1015.46 258.381 1003.56 261.535 990.46 261.535Z"
                   fill="black"
@@ -385,8 +316,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
             <div className="right">
               {globalFields.doloresParkTagline}
               <span className="martina-reg">
-                Sign up for{" "}
-                <Link href={`/newsletters`}>Dolores Park Newsletter</Link>
+                Sign up for <Link href={`/newsletters`}>Dolores Park Newsletter</Link>
               </span>
             </div>
           </div>
@@ -394,12 +324,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
           <div className="postGrid c-20">
             {doloresParkPosts.slice(1, 4).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
 
             <Link href={`/dolores-park`} className="pubLink hasGoIcon mtb-20">
@@ -409,12 +334,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
                 <div className="goIcon">
                   <div className="leftHalf"></div>
                   <div className="rightHalf"></div>
-                  <svg
-                    width="10"
-                    height="8"
-                    viewBox="0 0 10 8"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.17157 0.46444L9.35355 3.64642C9.54882 3.84168 9.54882 4.15827 9.35355 4.35353L6.17157 7.53551C5.97631 7.73077 5.65973 7.73077 5.46447 7.53551C5.2692 7.34025 5.2692 7.02366 5.46447 6.8284L7.79289 4.49997L0.5 4.49997L0.5 3.49997L7.79289 3.49997L5.46447 1.17155C5.2692 0.976285 5.2692 0.659702 5.46447 0.46444C5.65973 0.269178 5.97631 0.269178 6.17157 0.46444Z" />
                   </svg>
                 </div>
@@ -423,12 +343,7 @@ export default function DefaultHome({pageData, globalFields, newsletterData}) {
 
             {doloresParkPosts.slice(4, 6).map((post, index) => (
               // @ts-ignore
-              <PostList
-                key={index}
-                post={post}
-                aspect="landscape"
-                preloadImage={true}
-              />
+              <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
             ))}
           </div>
         </div>

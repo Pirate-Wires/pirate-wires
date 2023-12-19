@@ -40,12 +40,7 @@
     height: 100%;
     width: 21%;
     min-width: 100px;
-    background: linear-gradient(
-      270deg,
-      var(--bgColor) 0%,
-      var(--bgColor) 20%,
-      rgba(241, 203, 69, 0) 100%
-    );
+    background: linear-gradient(270deg, var(--bgColor) 0%, var(--bgColor) 20%, rgba(241, 203, 69, 0) 100%);
     z-index: 2;
   }
 

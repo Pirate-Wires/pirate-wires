@@ -80,7 +80,9 @@ export async function GET(req: Request) {
       const userExists = await getUserByEmail(email);
 
       if (!userExists) {
-        return new Response(JSON.stringify({ message: "User does not exist. Please create an account." }), { status: 404 });
+        return new Response(JSON.stringify({ message: "User does not exist. Please create an account." }), {
+          status: 404,
+        });
       }
 
       return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
@@ -93,4 +95,3 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify({ message: err.message }), { status: 500 });
   }
 }
-

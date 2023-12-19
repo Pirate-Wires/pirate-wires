@@ -1,4 +1,4 @@
-import {urlForImage} from "@/lib/sanity/image";
+import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
 import Label from "@/components/ui/label";
@@ -8,9 +8,7 @@ export default function Sidebar(props) {
     <div className="mt-5 font-sans">
       <Searchbar />
 
-      {props.related && (
-        <RelatedPosts related={props.related} pathPrefix={props.pathPrefix} />
-      )}
+      {props.related && <RelatedPosts related={props.related} pathPrefix={props.pathPrefix} />}
       {props.categories && <Categories categories={props.categories} />}
     </div>
   );
@@ -28,7 +26,7 @@ function Searchbar() {
   );
 }
 
-function RelatedPosts({related, pathPrefix}) {
+function RelatedPosts({ related, pathPrefix }) {
   return (
     <div className="mt-10">
       <h3 className="text-2xl font-bold dark:text-white">Related</h3>
@@ -36,11 +34,7 @@ function RelatedPosts({related, pathPrefix}) {
         {related.slice(0, 3).map((item, index) => {
           const imageProps = item?.image ? urlForImage(item?.image) : null;
           return (
-            <Link
-              key={index}
-              href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${
-                item.slug.current
-              }`}>
+            <Link key={index} href={`/p/${pathPrefix ? `${pathPrefix}/` : ""}${item.slug.current}`}>
               <div className="flex gap-5">
                 <div className="relative w-24 h-20 overflow-hidden rounded-xs shrink-0">
                   <Image
@@ -67,16 +61,14 @@ function RelatedPosts({related, pathPrefix}) {
   );
 }
 
-function Categories({categories}) {
+function Categories({ categories }) {
   return (
     <div className="mt-10">
       <h3 className="text-2xl font-bold dark:text-white">Categories</h3>
       <ul className="grid mt-4">
         {categories.map((item, index) => (
           <li key={item._id}>
-            <Link
-              href={`/${item.slug.current}`}
-              className="flex items-center justify-between py-2">
+            <Link href={`/${item.slug.current}`} className="flex items-center justify-between py-2">
               <h4 className="text-gray-800 dark:text-gray-400">{item.title}</h4>
               <Label pill={true} color={item.color}>
                 {item.count}

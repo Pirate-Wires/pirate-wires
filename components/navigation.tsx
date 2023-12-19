@@ -1,12 +1,12 @@
 "use client";
 
-import {useSupabase} from "@/app/(website)/supabase-provider";
+import { useSupabase } from "@/app/(website)/supabase-provider";
 import Link from "next/link";
 import styles from "./_styles/header.module.scss";
-import {usePathname} from "next/navigation";
-import React, {useEffect, useState} from "react";
-import {globalObject} from "@/lib/constants/globalStorage";
-import {gsap} from "gsap";
+import { usePathname } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { globalObject } from "@/lib/constants/globalStorage";
+import { gsap } from "gsap";
 import MegaNav from "@/components/megaNav";
 import isMobile from "ismobilejs";
 
@@ -16,11 +16,11 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  {name: "Home", href: "/"},
-  {name: "Pirate Wires", href: "/wires"},
-  {name: "Tech", href: "/the-industry"},
-  {name: "Science", href: "/white-pill"},
-  {name: "San Francisco", href: "/dolores-park"},
+  { name: "Home", href: "/" },
+  { name: "Pirate Wires", href: "/wires" },
+  { name: "Tech", href: "/the-industry" },
+  { name: "Science", href: "/white-pill" },
+  { name: "San Francisco", href: "/dolores-park" },
 ];
 
 interface NavigationProps {
@@ -28,19 +28,15 @@ interface NavigationProps {
   globalFields?: any; // Same here
 }
 
-const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
+const Navigation: React.FC<NavigationProps> = ({ publication, globalFields }) => {
   const currentRoute = usePathname();
-  const {session, user: userDetails} = useSupabase();
-  const flowNav =
-    currentRoute?.includes("/subscribe") || currentRoute?.includes("/sign-in");
+  const { session, user: userDetails } = useSupabase();
+  const flowNav = currentRoute?.includes("/subscribe") || currentRoute?.includes("/sign-in");
   const simpleNav = currentRoute === "/account";
   const homePage = currentRoute === "/" || currentRoute === "/home";
-  const industryPage =
-    currentRoute === "/the-industry" || publication === "the-industry";
-  const whitePillPage =
-    currentRoute === "/white-pill" || publication === "the-white-pill";
-  const doloresParkPage =
-    currentRoute === "/dolores-park" || publication === "dolores-park";
+  const industryPage = currentRoute === "/the-industry" || publication === "the-industry";
+  const whitePillPage = currentRoute === "/white-pill" || publication === "the-white-pill";
+  const doloresParkPage = currentRoute === "/dolores-park" || publication === "dolores-park";
 
   const [once, setOnce] = useState(false);
   const user = session?.user || null;
@@ -78,7 +74,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
 
       if (megaNav?.classList.contains("unprepped")) {
         megaNav?.classList.remove("unprepped");
-        gsap.set(megaNav, {xPercent: 20});
+        gsap.set(megaNav, { xPercent: 20 });
       }
 
       const closeNav = () => {
@@ -93,7 +89,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
             duration: 0.7,
             force3D: true,
           })
-          .to(megaNav, {opacity: 0, ease: "sine.inOut", duration: 0.2}, 0)
+          .to(megaNav, { opacity: 0, ease: "sine.inOut", duration: 0.2 }, 0)
           .to(
             megaNavBackdrop,
             {
@@ -120,7 +116,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
               duration: 0.12,
               force3D: true,
               onComplete: () => {
-                gsap.set(megaNav, {xPercent: 20});
+                gsap.set(megaNav, { xPercent: 20 });
               },
             },
             0,
@@ -152,7 +148,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
               duration: 0.7,
               force3D: true,
             })
-            .to(megaNav, {opacity: 1, ease: "sine.inOut", duration: 0.18}, 0)
+            .to(megaNav, { opacity: 1, ease: "sine.inOut", duration: 0.18 }, 0)
             .to(
               megaNavBackdrop,
               {
@@ -213,18 +209,15 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                     href={tab.href}
                     className={
                       currentRoute === tab.href ||
-                        (publication === "the-wire" && index === 1) ||
-                        (publication === "the-industry" && index === 2) ||
-                        (publication === "the-white-pill" && index === 3) ||
-                        (publication === "dolores-park" && index === 4)
+                      (publication === "the-wire" && index === 1) ||
+                      (publication === "the-industry" && index === 2) ||
+                      (publication === "the-white-pill" && index === 3) ||
+                      (publication === "dolores-park" && index === 4)
                         ? styles.active
                         : ""
                     }>
                     <span className={styles.categoryRadio}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 17 17"
-                        fill="none">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="none">
                         <circle
                           cx="8.49998"
                           cy="8.5"
@@ -252,10 +245,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
             <nav className={`${styles.mainNav} c-20`}>
               <div className={styles.left}>
                 <Link href="/" aria-label={"Go home"}>
-                  <svg
-                    viewBox="0 0 33 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
+                  <svg viewBox="0 0 33 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M0 0.0446548H7.49502C9.19222 0.0446548 10.5249 1.3507 10.5249 3.05861V11.52C10.5249 13.1163 9.19222 14.4558 7.49502 14.4558H3.8842V24H0V0.0446548ZM4.02088 13.92L6.04841 12.4354C6.33317 12.2233 6.48125 11.8995 6.48125 11.587V2.88C6.48125 2.52279 6.33317 2.21024 6.04841 1.99814L4.02088 0.569306C3.95254 0.535818 3.8728 0.569306 3.8728 0.636283V13.8419C3.8842 13.92 3.95254 13.9535 4.02088 13.92Z"
                       fill="var(--color)"
@@ -270,18 +260,11 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                     />
                   </svg>
                 </Link>
-                {homePage && (
-                  <h2 className="martina-light">
-                    Technology, Politics, Culture
-                  </h2>
-                )}
+                {homePage && <h2 className="martina-light">Technology, Politics, Culture</h2>}
                 {industryPage && (
                   <>
                     <span></span>
-                    <svg
-                      viewBox="0 0 154 27"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 154 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M42.464 26.5451V26.614H34.5666V26.5451C35.4073 25.4563 35.49 24.6707 35.49 22.1898V4.79627C35.49 2.31541 35.4073 1.5298 34.5666 0.440983V0.37207H42.464V0.440983C41.6233 1.5298 41.5406 2.31541 41.5406 4.79627V22.1898C41.5406 24.6707 41.6233 25.4563 42.464 26.5451Z"
                         fill="#060606"
@@ -336,10 +319,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                 {whitePillPage && (
                   <>
                     <span></span>
-                    <svg
-                      viewBox="0 0 196 27"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 196 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M51.2926 26.9852L46.6176 0H51.8992L53.2603 9.52767C53.6184 12.2115 53.8258 14.9133 53.8817 17.6203H55.08C55.08 15.9929 55.3167 13.0636 55.6866 9.82356L56.8258 0H62.7436L63.9567 9.82356C64.3266 13.0636 64.5633 15.9929 64.5781 17.6203H65.7617C65.8327 14.914 66.0401 12.2131 66.383 9.52767L67.6258 0H72.9666L68.2767 26.9852H62.3589L61.1754 18.6707C60.7422 15.7877 60.4607 12.884 60.3321 9.97151H59.1781C59.0583 12.8846 58.7768 15.7888 58.3348 18.6707L57.1513 26.9852H51.2926Z"
                         fill="#060606"
@@ -348,10 +328,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                         d="M74.52 26.9852V0H79.4318V10.0455H86.1633V0H91.0751V26.9852H86.1633V16.1852H79.4022V26.9852H74.52Z"
                         fill="#060606"
                       />
-                      <path
-                        d="M94.4926 26.9852V0H99.3896V26.9852H94.4926Z"
-                        fill="#060606"
-                      />
+                      <path d="M94.4926 26.9852V0H99.3896V26.9852H94.4926Z" fill="#060606" />
                       <path
                         d="M106.521 26.9852V5.59233H101.18V0H116.877V5.60712H111.492V27H106.521V26.9852Z"
                         fill="#060606"
@@ -364,18 +341,9 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                         d="M140.814 26.9852V0H150.253C154.041 0 157.073 2.9589 157.073 8.87671C157.073 14.7945 154.026 17.7534 150.268 17.7534H145.682V27L140.814 26.9852ZM145.682 12.383H149.706C151.304 12.383 151.762 11.9244 151.762 8.9063C151.762 5.88822 151.304 5.48877 149.706 5.48877H145.682V12.383Z"
                         fill="#060606"
                       />
-                      <path
-                        d="M158.938 26.9852V0H163.849V26.9852H158.938Z"
-                        fill="#060606"
-                      />
-                      <path
-                        d="M167.267 26.9852V0H172.179V21.3633H180.242V26.9852H167.267Z"
-                        fill="#060606"
-                      />
-                      <path
-                        d="M182.52 26.9852V0H187.432V21.3633H195.495V26.9852H182.52Z"
-                        fill="#060606"
-                      />
+                      <path d="M158.938 26.9852V0H163.849V26.9852H158.938Z" fill="#060606" />
+                      <path d="M167.267 26.9852V0H172.179V21.3633H180.242V26.9852H167.267Z" fill="#060606" />
+                      <path d="M182.52 26.9852V0H187.432V21.3633H195.495V26.9852H182.52Z" fill="#060606" />
                       <path
                         d="M30.9649 0.562377L6.92385 6.39142C5.71645 6.69081 4.58545 7.24064 3.60421 8.00525C2.62296 8.76985 1.81338 9.73217 1.22796 10.8298C-0.0210259 13.1177 -0.339002 15.7993 0.34029 18.3158C0.937121 20.8152 2.48262 22.9845 4.64998 24.365C6.81734 25.7455 9.43663 26.2289 11.954 25.7131L35.9951 19.8692C37.2025 19.5698 38.3335 19.02 39.3147 18.2554C40.296 17.4908 41.1056 16.5285 41.691 15.4309C42.9291 13.1391 43.2415 10.46 42.5639 7.94484C41.9705 5.44739 40.4273 3.27945 38.2617 1.90112C36.0962 0.522795 33.4787 0.0425746 30.9649 0.562377ZM16.8806 11.4216L14.5874 11.9837L16.274 18.5821L14.617 18.9964L12.9304 12.3832L10.6669 12.9306L10.3562 11.5103L16.5551 10.0309L16.9249 11.5103L16.8806 11.4216ZM25.7573 16.289L24.1151 16.6884L23.257 13.3153L20.1649 14.0698L21.0526 17.4577L19.3956 17.8572L17.3096 9.80895L18.9666 9.4095L19.7655 12.5016L22.8428 11.8358L22.0438 8.72895L23.6712 8.25553L25.7573 16.289ZM32.548 14.6468L27.2515 15.9339L25.1507 7.90046L30.4175 6.61334L30.7874 8.09279L27.1628 8.8769L27.6362 10.6966L31.0685 9.92731L31.4384 11.4068L28.0356 12.2205L28.5534 14.1881L32.2225 13.3005L32.548 14.6468Z"
                         fill="#060606"
@@ -387,10 +355,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
                 {doloresParkPage && (
                   <>
                     <span></span>
-                    <svg
-                      viewBox="0 0 1400 262"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 1400 262" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M990.46 261.535C977.356 261.535 965.344 258.259 954.424 251.707C943.746 244.912 935.131 236.055 928.579 225.135C922.27 213.972 919.115 201.717 919.115 188.37V171.626C919.115 170.413 919.722 169.806 920.935 169.806H961.704C962.674 169.806 963.16 170.413 963.16 171.626V188.37C963.16 196.378 965.829 203.295 971.168 209.119C976.507 214.7 982.937 217.491 990.46 217.491C997.983 217.491 1004.41 214.579 1009.75 208.755C1015.09 202.931 1017.76 196.136 1017.76 188.37C1017.76 179.392 1011.94 171.626 1000.29 165.074C996.406 162.89 990.339 159.493 982.088 154.882C973.837 150.271 966.072 145.903 958.792 141.778C945.445 134.012 935.495 124.306 928.943 112.657C922.634 100.767 919.479 87.4198 919.479 72.6169C919.479 59.0274 922.755 46.8939 929.307 36.2165C935.859 25.2963 944.474 16.6816 955.152 10.3722C966.072 4.06274 977.841 0.908028 990.46 0.908028C1003.32 0.908028 1015.09 4.18407 1025.77 10.7362C1036.69 17.0456 1045.3 25.6603 1051.61 36.5805C1058.17 47.2579 1061.44 59.2701 1061.44 72.6169V102.465C1061.44 103.436 1060.96 103.921 1059.99 103.921H1019.22C1018.25 103.921 1017.76 103.436 1017.76 102.465L1017.4 72.6169C1017.4 64.1235 1014.73 57.2074 1009.39 51.8687C1004.05 46.5299 997.74 43.8606 990.46 43.8606C982.937 43.8606 976.507 46.7726 971.168 52.5967C965.829 58.1781 963.16 64.8515 963.16 72.6169C963.16 80.625 964.859 87.2985 968.256 92.6372C971.653 97.9759 977.841 103.072 986.82 107.925C988.033 108.653 990.339 109.988 993.736 111.929C997.376 113.628 1001.26 115.691 1005.38 118.118C1009.51 120.302 1013.15 122.243 1016.3 123.942C1019.7 125.64 1021.76 126.732 1022.49 127.218C1034.63 134.012 1044.21 142.384 1051.25 152.334C1058.29 162.041 1061.81 174.053 1061.81 188.37C1061.81 202.203 1058.53 214.7 1051.98 225.863C1045.67 236.783 1037.05 245.519 1026.13 252.071C1015.46 258.381 1003.56 261.535 990.46 261.535Z"
                         fill="black"
@@ -448,45 +413,17 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
               <div className={styles.right}>
                 {!user && <Link href="/newsletters">Newsletters</Link>}
                 {(!user || (userDetails && !userDetails.subscription_id)) && (
-                  <Link
-                    href="/subscribe"
-                    className={`${styles.btn} btn square`}>
+                  <Link href="/subscribe" className={`${styles.btn} btn square`}>
                     Subscribe
                   </Link>
                 )}
                 {!user && <Link href="/sign-in">Sign In</Link>}
                 {user && <Link href="/account">My Account</Link>}
-                <button
-                  className={`${styles.hammy} hitbox`}
-                  id="mega-nav-trigger"
-                  aria-label={"Open main menu"}>
-                  <svg
-                    width="20"
-                    height="16"
-                    viewBox="0 0 20 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <line
-                      x1="20"
-                      y1="1"
-                      y2="1"
-                      stroke="var(--color)"
-                      strokeWidth="2"
-                    />
-                    <line
-                      x1="20"
-                      y1="7.99984"
-                      y2="7.99984"
-                      stroke="var(--color)"
-                      strokeWidth="2"
-                    />
-                    <line
-                      x1="20"
-                      y1="14.9998"
-                      y2="14.9998"
-                      stroke="var(--color)"
-                      strokeWidth="2"
-                    />
+                <button className={`${styles.hammy} hitbox`} id="mega-nav-trigger" aria-label={"Open main menu"}>
+                  <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="20" y1="1" y2="1" stroke="var(--color)" strokeWidth="2" />
+                    <line x1="20" y1="7.99984" y2="7.99984" stroke="var(--color)" strokeWidth="2" />
+                    <line x1="20" y1="14.9998" y2="14.9998" stroke="var(--color)" strokeWidth="2" />
                   </svg>
                 </button>
               </div>
@@ -497,10 +434,7 @@ const Navigation: React.FC<NavigationProps> = ({publication, globalFields}) => {
       ) : (
         <header className={styles.flowHeader} id="header">
           <Link href="/">
-            <svg
-              viewBox="0 0 33 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 33 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M0 0.0444489H7.49502C9.19222 0.0444489 10.5249 1.3436 10.5249 3.04249V11.4592C10.5249 13.0471 9.19222 14.3795 7.49502 14.3795H3.8842V23.8733H0V0.0444489ZM4.02088 13.8465L6.04841 12.3697C6.33317 12.1588 6.48125 11.8367 6.48125 11.5258V2.86483C6.48125 2.5095 6.33317 2.1986 6.04841 1.98762L4.02088 0.56633C3.95254 0.533018 3.8728 0.56633 3.8728 0.632953V13.7688C3.8842 13.8465 3.95254 13.8798 4.02088 13.8465Z"
                 fill="var(--color)"

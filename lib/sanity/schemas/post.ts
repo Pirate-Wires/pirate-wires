@@ -1,5 +1,5 @@
 // /lib/sanity/schemas/post.ts
-import {defineArrayMember, defineField} from "sanity";
+import { defineArrayMember, defineField } from "sanity";
 
 const schema = {
   name: "post",
@@ -28,7 +28,7 @@ const schema = {
       title: "Author",
       type: "reference",
       validation: Rule => Rule.required(),
-      to: {type: "author"},
+      to: { type: "author" },
     },
     {
       name: "body",
@@ -81,10 +81,10 @@ const schema = {
       validation: Rule => Rule.required(),
       options: {
         list: [
-          {title: "The Wire", value: "the-wire"},
-          {title: "The Industry", value: "the-industry"},
-          {title: "The White Pill", value: "the-white-pill"},
-          {title: "Dolores Park", value: "dolores-park"},
+          { title: "The Wire", value: "the-wire" },
+          { title: "The Industry", value: "the-industry" },
+          { title: "The White Pill", value: "the-white-pill" },
+          { title: "Dolores Park", value: "dolores-park" },
           // Add more predefined sections as needed
         ],
       },
@@ -125,13 +125,11 @@ const schema = {
       name: "openGraphImage",
       type: "image",
       title: "Optional Meta Image",
-      description:
-        "If not filled in, it will use the main image from the article",
+      description: "If not filled in, it will use the main image from the article",
     }),
     defineField({
       title: "Related posts override",
-      description:
-        "Three posts of your choosing to be recirculated with this article",
+      description: "Three posts of your choosing to be recirculated with this article",
       name: "related_posts",
       type: "array",
       of: [
@@ -139,7 +137,7 @@ const schema = {
           title: "Post",
           name: "related_post",
           type: "reference",
-          to: [{type: "post"}],
+          to: [{ type: "post" }],
         },
       ],
     }),

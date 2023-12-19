@@ -1,5 +1,5 @@
-import {defineArrayMember, defineField, defineType} from "sanity";
-import {LuFileAudio} from "react-icons/lu";
+import { defineArrayMember, defineField, defineType } from "sanity";
+import { LuFileAudio } from "react-icons/lu";
 
 export default defineType({
   name: "singlePodcast",
@@ -27,7 +27,7 @@ export default defineType({
           title: "Podcast",
           name: "podcast",
           type: "reference",
-          to: [{type: "Podcasts"}],
+          to: [{ type: "Podcasts" }],
         },
       ],
     }),

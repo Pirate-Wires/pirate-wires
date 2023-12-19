@@ -1,14 +1,14 @@
-import {invokeVote} from "@/components/comments/VoteButtons";
-import {useComments} from "@/lib/hooks/useComments";
-import {useSupabase} from "@/app/(website)/supabase-provider";
-import {CommentType} from "@/lib/utils/types";
+import { invokeVote } from "@/components/comments/VoteButtons";
+import { useComments } from "@/lib/hooks/useComments";
+import { useSupabase } from "@/app/(website)/supabase-provider";
+import { CommentType } from "@/lib/utils/types";
 import React from "react";
 
 import styles from "@/components/_styles/comments.module.scss";
 
 const HeartButton = (): JSX.Element => {
-  const {supabase, user} = useSupabase();
-  const {rootComment, mutateRootComment, redirectToSignIn} = useComments();
+  const { supabase, user } = useSupabase();
+  const { rootComment, mutateRootComment, redirectToSignIn } = useComments();
 
   async function handleVote(): Promise<void> {
     if (!user) return redirectToSignIn();

@@ -1,24 +1,15 @@
 import Newsletters from "./newsletters";
-import {
-  getCareersData,
-  getGlobalFields,
-  getNewsletterData,
-  getSettings,
-} from "@/lib/sanity/client";
+import { getCareersData, getGlobalFields, getNewsletterData, getSettings } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Home from "@/app/(website)/home/home";
 import Footer from "@/components/footer";
-import {urlForImage} from "@/lib/sanity/image";
-export async function generateMetadata({params}) {
+import { urlForImage } from "@/lib/sanity/image";
+export async function generateMetadata({ params }) {
   const pageData = await getNewsletterData();
   const settings = await getSettings();
-  const title = pageData[0].meta_title
-    ? pageData[0].meta_title
-    : settings.meta_title;
-  const description = pageData[0].meta_description
-    ? pageData[0].meta_description
-    : settings.meta_description;
+  const title = pageData[0].meta_title ? pageData[0].meta_title : settings.meta_title;
+  const description = pageData[0].meta_description ? pageData[0].meta_description : settings.meta_description;
   const image = pageData[0].openGraphImage
     ? urlForImage(pageData[0].openGraphImage)?.src
     : urlForImage(settings?.openGraphImage)?.src;

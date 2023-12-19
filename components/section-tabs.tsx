@@ -2,7 +2,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import classNames from "classnames";
 
 interface Tab {
@@ -11,10 +11,10 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  {name: "Podcast", href: "/podcast"},
-  {name: "Wires", href: "/wires"},
-  {name: "The Industry", href: "/the-industry"},
-  {name: "The White Pill", href: "/white-pill"},
+  { name: "Podcast", href: "/podcast" },
+  { name: "Wires", href: "/wires" },
+  { name: "The Industry", href: "/the-industry" },
+  { name: "The White Pill", href: "/white-pill" },
 ];
 
 const SectionNavigation = () => {
@@ -39,9 +39,7 @@ const SectionNavigation = () => {
               <div
                 className={classNames(
                   "transition-colors duration-300", // Add transition class for smooth color change
-                  currentRoute === tab.href
-                    ? "bg-gray-100 text-gray-700"
-                    : "hover:text-gray-700",
+                  currentRoute === tab.href ? "bg-gray-100 text-gray-700" : "hover:text-gray-700",
                   "rounded-md px-3 py-2 text-sm font-medium",
                 )}
                 aria-current={currentRoute === tab.href ? "page" : undefined}>

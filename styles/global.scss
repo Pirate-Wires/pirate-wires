@@ -109,7 +109,6 @@ input[type="checkbox"] {
   }
 
   &.article {
-
     .relatedArticles,
     footer {
       background: #d9d9d9;
@@ -413,10 +412,8 @@ footer {
   }
 
   &.pirate-wires {
-
     article,
     .pubLink {
-
       &:before,
       &:after {
         background-color: var(--accentLight);
@@ -454,7 +451,6 @@ footer {
   }
 
   .white-pill & {
-
     article,
     .pubLink {
       &:before {
@@ -479,7 +475,6 @@ footer {
   }
 
   .industry & {
-
     article,
     .pubLink {
       &:before {
@@ -504,7 +499,6 @@ footer {
   }
 
   .dolores-park & {
-
     article,
     .pubLink {
       &:before {
@@ -749,7 +743,6 @@ footer {
 }
 
 .postInfo {
-
   .white-pill &,
   .industry &,
   .dolores-park & {
@@ -777,7 +770,6 @@ footer {
   }
 
   .white-pill & {
-
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
@@ -789,7 +781,6 @@ footer {
   }
 
   .industry & {
-
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
@@ -801,7 +792,6 @@ footer {
   }
 
   .dolores-park & {
-
     .goIcon .leftHalf,
     .goIcon .rightHalf {
       background-color: #060606;
@@ -855,7 +845,7 @@ footer {
     @include get-vw-small-increase(padding-top, 15px, 15px);
     @include get-vw-small-increase(gap, 30px, 20px);
 
-    >svg {
+    > svg {
       width: 100%;
     }
 
@@ -884,7 +874,7 @@ footer {
       padding-top: 8px;
       gap: 0;
 
-      >svg {
+      > svg {
         margin-bottom: 20px;
       }
 
@@ -896,7 +886,6 @@ footer {
   }
 
   &.pirate-wires {
-
     .prev,
     .next {
       rect {
@@ -944,7 +933,6 @@ footer {
   }
 
   @include bp-1024 {
-
     h2,
     h3,
     h4 {
@@ -1216,24 +1204,24 @@ footer {
     @include get-vw-small-increase(margin-top, 32px, 32px);
   }
 
-  h2+p,
-  h2+blockquote,
-  h2+ul,
-  h2+ol,
-  h2+img {
+  h2 + p,
+  h2 + blockquote,
+  h2 + ul,
+  h2 + ol,
+  h2 + img {
     @include get-vw-small-increase(margin-top, 24px, 24px);
   }
 
-  h3+p,
-  h3+blockquote,
-  h3+ul,
-  h3+ol,
-  h3+img,
-  h4+p,
-  h4+blockquote,
-  h4+ul,
-  h4+ol,
-  h4+img {
+  h3 + p,
+  h3 + blockquote,
+  h3 + ul,
+  h3 + ol,
+  h3 + img,
+  h4 + p,
+  h4 + blockquote,
+  h4 + ul,
+  h4 + ol,
+  h4 + img {
     @include get-vw-small-increase(margin-top, 10px, 10px);
   }
 
@@ -1276,7 +1264,7 @@ footer {
     border-left: 1px solid #999;
   }
 
-  blockquote+blockquote {
+  blockquote + blockquote {
     position: relative;
 
     &:after {
@@ -1344,7 +1332,6 @@ footer {
   }
 
   @include bp-767 {
-
     p,
     blockquote,
     li {
@@ -1567,7 +1554,7 @@ footer {
     margin-bottom: 30px;
   }
 
-  button+a {
+  button + a {
     margin-top: 10px;
     @include get-vw-small-increase(font-size, 14px, 14px);
     display: flex;

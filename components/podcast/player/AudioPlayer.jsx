@@ -1,14 +1,14 @@
 "use client";
 
-import {useAudioPlayer} from "@/components/podcast/AudioProvider";
-import {ForwardButton} from "@/components/podcast/player/ForwardButton";
-import {MuteButton} from "@/components/podcast/player/MuteButton";
-import {PlayButton} from "@/components/podcast/player/PlayButton";
-import {PlaybackRateButton} from "@/components/podcast/player/PlaybackRateButton";
-import {RewindButton} from "@/components/podcast/player/RewindButton";
-import {Slider} from "@/components/podcast/player/Slider";
+import { useAudioPlayer } from "@/components/podcast/AudioProvider";
+import { ForwardButton } from "@/components/podcast/player/ForwardButton";
+import { MuteButton } from "@/components/podcast/player/MuteButton";
+import { PlayButton } from "@/components/podcast/player/PlayButton";
+import { PlaybackRateButton } from "@/components/podcast/player/PlaybackRateButton";
+import { RewindButton } from "@/components/podcast/player/RewindButton";
+import { Slider } from "@/components/podcast/player/Slider";
 import Link from "next/link";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 
 function parseTime(seconds) {
   let hours = Math.floor(seconds / 3600);
@@ -19,9 +19,7 @@ function parseTime(seconds) {
 
 function formatHumanTime(seconds) {
   let [h, m, s] = parseTime(seconds);
-  return `${h} hour${h === 1 ? "" : "s"}, ${m} minute${
-    m === 1 ? "" : "s"
-  }, ${s} second${s === 1 ? "" : "s"}`;
+  return `${h} hour${h === 1 ? "" : "s"}, ${m} minute${m === 1 ? "" : "s"}, ${s} second${s === 1 ? "" : "s"}`;
 }
 
 export function AudioPlayer() {
@@ -74,7 +72,7 @@ export function AudioPlayer() {
                 player.play();
               }
             }}
-            numberFormatter={{format: formatHumanTime}}
+            numberFormatter={{ format: formatHumanTime }}
             onChangeStart={() => {
               wasPlayingRef.current = player.playing;
               player.pause();

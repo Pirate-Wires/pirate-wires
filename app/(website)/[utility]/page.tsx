@@ -10,19 +10,17 @@ import {
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import {urlForImage} from "@/lib/sanity/image";
+import { urlForImage } from "@/lib/sanity/image";
 
 export async function generateStaticParams() {
   return await getAllUtilityPageSlugs();
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata({ params }) {
   const pageData = await getUtilityPageData(params.utility);
   const settings = await getSettings();
   const title = pageData.meta_title ? pageData.meta_title : settings.meta_title;
-  const description = pageData.meta_description
-    ? pageData.meta_description
-    : settings.meta_description;
+  const description = pageData.meta_description ? pageData.meta_description : settings.meta_description;
   const image = pageData.openGraphImage
     ? urlForImage(pageData.openGraphImage)?.src
     : urlForImage(settings?.openGraphImage)?.src;
@@ -44,7 +42,7 @@ export async function generateMetadata({params}) {
   };
 }
 
-export default async function UtilityPage({params}) {
+export default async function UtilityPage({ params }) {
   const pageData = await getUtilityPageData(params.utility);
   const globalFields = await getGlobalFields();
 

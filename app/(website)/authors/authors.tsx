@@ -1,13 +1,9 @@
 import Link from "next/link";
 import AuthorTile from "@/components/authorTile";
 import styles from "../../../styles/pages/authors.module.scss";
-export default function Authors({pageData}) {
-  const writers = pageData.author_list.filter(
-    author => author.position === "core",
-  );
-  const contributors = pageData.author_list.filter(
-    author => author.position === "contributor",
-  );
+export default function Authors({ pageData }) {
+  const writers = pageData.author_list.filter(author => author.position === "core");
+  const contributors = pageData.author_list.filter(author => author.position === "contributor");
   return (
     <section className={`${styles.authorsPage} c-20`}>
       <h1 className={`pageTitle pb-40`}>

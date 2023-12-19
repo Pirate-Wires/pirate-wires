@@ -1,19 +1,17 @@
 import Link from "next/link";
-import {createServerSupabaseClient} from "@/app/(website)/supabase-server";
+import { createServerSupabaseClient } from "@/app/(website)/supabase-server";
 import SignOutButton from "./SignOutButton";
 import React from "react";
 
 export default async function Navbar() {
   const supabase = createServerSupabaseClient();
   const {
-    data: {user},
+    data: { user },
   } = await supabase.auth.getUser();
 
   return (
     <div>
-      <div>
-        {user ? <SignOutButton /> : <Link href="/sign-in">Sign in</Link>}
-      </div>
+      <div>{user ? <SignOutButton /> : <Link href="/sign-in">Sign in</Link>}</div>
 
       <hr />
       <ul>
@@ -28,11 +26,7 @@ export default async function Navbar() {
           <pre>{user?.role}</pre>
         </li>
         <li>
-          <img
-            src={user?.user_metadata.avatar_url}
-            style={{width: "75px"}}
-            alt={user?.email}
-          />
+          <img src={user?.user_metadata.avatar_url} style={{ width: "75px" }} alt={user?.email} />
         </li>
       </ul>
 

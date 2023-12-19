@@ -1,13 +1,13 @@
 // /app/(website)/sign-in/page.tsx
-import {getSession} from "@/app/(website)/supabase-server";
+import { getSession } from "@/app/(website)/supabase-server";
 import AuthUI from "./AuthUI";
-import {getGlobalFields, getSettings} from "@/lib/sanity/client";
+import { getGlobalFields, getSettings } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 import "@/styles/supabaseAuth.scss";
-import {urlForImage} from "@/lib/sanity/image";
-export async function generateMetadata({params}) {
+import { urlForImage } from "@/lib/sanity/image";
+export async function generateMetadata({ params }) {
   const settings = await getSettings();
   const title = "Sign In | Pirate Wires";
   const description = settings.meta_description;

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./IframePreview.css";
 
 export default function PagePreview(props) {
-  const {displayed} = props.document;
+  const { displayed } = props.document;
   if (!displayed?.slug?.current) {
     return <div>The product needs a slug before it can be previewed.</div>;
   }

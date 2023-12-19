@@ -1,12 +1,12 @@
 "use client";
 
-import {useSupabase} from "@/app/(website)/supabase-provider";
-import {useRouter} from "next/navigation";
+import { useSupabase } from "@/app/(website)/supabase-provider";
+import { useRouter } from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
 
 export default function SignOutButton() {
   const router = useRouter();
-  const {supabase} = useSupabase();
+  const { supabase } = useSupabase();
   return (
     <button
       className={`${styles.cardTrigger}`}

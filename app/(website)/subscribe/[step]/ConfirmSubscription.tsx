@@ -1,9 +1,9 @@
 "use client";
 
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import {useSupabase} from "@/app/(website)/supabase-provider";
+import { useSupabase } from "@/app/(website)/supabase-provider";
 import OTPInput from "@/app/(website)/sign-in/OTPInput";
 import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
@@ -13,9 +13,9 @@ interface ConfirmSubscriptionProps {
   email: string;
 }
 
-const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({email}) => {
+const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({ email }) => {
   const router = useRouter();
-  const {supabase} = useSupabase();
+  const { supabase } = useSupabase();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const [error, setError] = useState<ToastableError | null>(null);
@@ -62,7 +62,7 @@ const ConfirmSubscription: React.FC<ConfirmSubscriptionProps> = ({email}) => {
       }
 
       const password = process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
-      const {error: signInError} = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });

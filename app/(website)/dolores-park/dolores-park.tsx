@@ -4,29 +4,21 @@ import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
-import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
+import { useScrollBasedAnims } from "@/lib/hooks/useScrollBasedAnims";
 
-export default function DoloresPark({
-  globalFields,
-  publicationPosts,
-  publicationNewsletters,
-  user,
-}) {
+export default function DoloresPark({ globalFields, publicationPosts, publicationNewsletters, user }) {
   useScrollBasedAnims();
 
   // Sorting the publicationPosts by publishedAt
   const sortedPosts = [...publicationPosts].sort(
-    (a: {publishedAt: any}, b: {publishedAt: any}) =>
+    (a: { publishedAt: any }, b: { publishedAt: any }) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
 
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
-        <svg
-          viewBox="0 0 1400 262"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1400 262" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M990.46 261.535C977.356 261.535 965.344 258.259 954.424 251.707C943.746 244.912 935.131 236.055 928.579 225.135C922.27 213.972 919.115 201.717 919.115 188.37V171.626C919.115 170.413 919.722 169.806 920.935 169.806H961.704C962.674 169.806 963.16 170.413 963.16 171.626V188.37C963.16 196.378 965.829 203.295 971.168 209.119C976.507 214.7 982.937 217.491 990.46 217.491C997.983 217.491 1004.41 214.579 1009.75 208.755C1015.09 202.931 1017.76 196.136 1017.76 188.37C1017.76 179.392 1011.94 171.626 1000.29 165.074C996.406 162.89 990.339 159.493 982.088 154.882C973.837 150.271 966.072 145.903 958.792 141.778C945.445 134.012 935.495 124.306 928.943 112.657C922.634 100.767 919.479 87.4198 919.479 72.6169C919.479 59.0274 922.755 46.8939 929.307 36.2165C935.859 25.2963 944.474 16.6816 955.152 10.3722C966.072 4.06274 977.841 0.908028 990.46 0.908028C1003.32 0.908028 1015.09 4.18407 1025.77 10.7362C1036.69 17.0456 1045.3 25.6603 1051.61 36.5805C1058.17 47.2579 1061.44 59.2701 1061.44 72.6169V102.465C1061.44 103.436 1060.96 103.921 1059.99 103.921H1019.22C1018.25 103.921 1017.76 103.436 1017.76 102.465L1017.4 72.6169C1017.4 64.1235 1014.73 57.2074 1009.39 51.8687C1004.05 46.5299 997.74 43.8606 990.46 43.8606C982.937 43.8606 976.507 46.7726 971.168 52.5967C965.829 58.1781 963.16 64.8515 963.16 72.6169C963.16 80.625 964.859 87.2985 968.256 92.6372C971.653 97.9759 977.841 103.072 986.82 107.925C988.033 108.653 990.339 109.988 993.736 111.929C997.376 113.628 1001.26 115.691 1005.38 118.118C1009.51 120.302 1013.15 122.243 1016.3 123.942C1019.7 125.64 1021.76 126.732 1022.49 127.218C1034.63 134.012 1044.21 142.384 1051.25 152.334C1058.29 162.041 1061.81 174.053 1061.81 188.37C1061.81 202.203 1058.53 214.7 1051.98 225.863C1045.67 236.783 1037.05 245.519 1026.13 252.071C1015.46 258.381 1003.56 261.535 990.46 261.535Z"
             fill="black"
@@ -81,8 +73,7 @@ export default function DoloresPark({
         <div className={`taglineRow`}>
           {globalFields.doloresParkTagline}
           <span className="martina-reg">
-            Sign up for{" "}
-            <Link href={`/newsletters`}>The Dolores Park Newsletter</Link>
+            Sign up for <Link href={`/newsletters`}>The Dolores Park Newsletter</Link>
           </span>
         </div>
       </div>
@@ -99,12 +90,7 @@ export default function DoloresPark({
       <section className="postGrid c-20">
         {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
-          <PostList
-            key={index}
-            post={post}
-            aspect="landscape"
-            preloadImage={true}
-          />
+          <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
         ))}
         <div className="dummyTile"></div>
         <div className="dummyTile"></div>

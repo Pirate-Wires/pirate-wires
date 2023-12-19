@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
-import {NextSeo} from "next-seo";
-import {urlForImage} from "@/lib/sanity/image";
+import { NextSeo } from "next-seo";
+import { urlForImage } from "@/lib/sanity/image";
 
 import Footer from "@/components/footer";
 
 export default function Layout(props) {
-  const {children} = props;
+  const { children } = props;
   const ogimage = urlForImage(props?.openGraphImage) ?? "";
   return (
     <>

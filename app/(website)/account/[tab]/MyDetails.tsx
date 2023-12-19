@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Button from "@/components/ui/Button";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/account.module.scss";
 import { set } from "sanity";

@@ -1,15 +1,15 @@
 "use client";
-import {useEffect, useState} from "react";
-import {usePathname, redirect} from "next/navigation";
-import {useSupabase} from "@/app/(website)/supabase-provider";
+import { useEffect, useState } from "react";
+import { usePathname, redirect } from "next/navigation";
+import { useSupabase } from "@/app/(website)/supabase-provider";
 
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "./_styles/newsletterCallout.module.scss";
 
-export default function NewsletterCallout({newsletterData, globalFields}) {
+export default function NewsletterCallout({ newsletterData, globalFields }) {
   const currentRoute = usePathname();
-  const {user} = useSupabase();
+  const { user } = useSupabase();
   const interiorPage = currentRoute === "/newsletters";
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,11 +27,11 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
     } else {
       ToastUtil.dismissToast();
     }
-  }, [isLoading])
+  }, [isLoading]);
 
   useEffect(() => {
     if (isSuccess) {
-      ToastUtil.showSuccessToast("Thanks for subscribing!")
+      ToastUtil.showSuccessToast("Thanks for subscribing!");
     }
   }, [isSuccess]);
 
@@ -60,9 +60,7 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
 
     try {
       // Check if the email already exists in Customer.io
-      const checkResponse = await fetch(
-        `/api/customer-io/preferences?email=${email}`,
-      );
+      const checkResponse = await fetch(`/api/customer-io/preferences?email=${email}`);
       const checkData = await checkResponse.json();
 
       if (!checkResponse.ok) {
@@ -127,30 +125,13 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
     <>
       {/* <h1>Redirecting to your account page...</h1> */}
 
-      <div
-        className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""
-          } ptb-40`}>
-        <form
-          className={`${styles.inner} c-20`}
-          id="newsletter-form"
-          method="POST"
-          action=""
-          onSubmit={handleSubmit}>
+      <div className={`${styles.newsletterCallout} ${interiorPage ? styles.interiorPage : ""} ptb-40`}>
+        <form className={`${styles.inner} c-20`} id="newsletter-form" method="POST" action="" onSubmit={handleSubmit}>
           <div className={styles.top}>
             {!interiorPage && <h4>Sign up for our Newsletters</h4>}
             <div className={`${styles.inputWrapper} inputWrapper`}>
-              <input
-                id="email_input"
-                name="email"
-                type="email"
-                placeholder="Your email here..."
-                autoComplete="email"
-              />
-              <button
-                type="submit"
-                name="Submit newsletter signup"
-                id="submit"
-                disabled={isLoading}>
+              <input id="email_input" name="email" type="email" placeholder="Your email here..." autoComplete="email" />
+              <button type="submit" name="Submit newsletter signup" id="submit" disabled={isLoading}>
                 {isLoading ? "Loading..." : "Sign Up"}
               </button>
             </div>
@@ -160,19 +141,11 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
           </div>
 
           <div className={styles.bottom}>
-            <div
-              className={`${styles.tile} ${styles.pirateWires} newsletter-tile mb-40`}
-              onClick={clickInnerInput}>
-              <p className={styles.eyebrow}>
-                {globalFields.pirateWiresFrequency}
-              </p>
+            <div className={`${styles.tile} ${styles.pirateWires} newsletter-tile mb-40`} onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>{globalFields.pirateWiresFrequency}</p>
               <p className={styles.title}>Pirate Wires</p>
-              <p className={`${styles.subtitle} martina-reg`}>
-                {globalFields.pirateWiresTagline}
-              </p>
-              <p className={styles.description}>
-                {globalFields.pirateWiresDescription}
-              </p>
+              <p className={`${styles.subtitle} martina-reg`}>{globalFields.pirateWiresTagline}</p>
+              <p className={styles.description}>{globalFields.pirateWiresDescription}</p>
               <div className={styles.tileBottom}>
                 <div className={styles.checkboxWrapper}>
                   <label htmlFor="selected1">Selected</label>
@@ -187,19 +160,11 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
                 </div>
               </div>
             </div>
-            <div
-              className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`}
-              onClick={clickInnerInput}>
-              <p className={styles.eyebrow}>
-                {globalFields.whitePillFrequency}
-              </p>
+            <div className={`${styles.tile} ${styles.whitePill} newsletter-tile mb-40`} onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>{globalFields.whitePillFrequency}</p>
               <p className={styles.title}>The White Pill</p>
-              <p className={`${styles.subtitle} martina-reg`}>
-                {globalFields.whitePillTagline}
-              </p>
-              <p className={styles.description}>
-                {globalFields.whitePillDescription}
-              </p>
+              <p className={`${styles.subtitle} martina-reg`}>{globalFields.whitePillTagline}</p>
+              <p className={styles.description}>{globalFields.whitePillDescription}</p>
               <div className={styles.tileBottom}>
                 <div className={styles.checkboxWrapper}>
                   <label htmlFor="selected2">Selected</label>
@@ -214,17 +179,11 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
                 </div>
               </div>
             </div>
-            <div
-              className={`${styles.tile} ${styles.industry} newsletter-tile mb-40`}
-              onClick={clickInnerInput}>
+            <div className={`${styles.tile} ${styles.industry} newsletter-tile mb-40`} onClick={clickInnerInput}>
               <p className={styles.eyebrow}>{globalFields.industryFrequency}</p>
               <p className={styles.title}>The Industry</p>
-              <p className={`${styles.subtitle} martina-reg`}>
-                {globalFields.industryTagline}
-              </p>
-              <p className={styles.description}>
-                {globalFields.industryDescription}
-              </p>
+              <p className={`${styles.subtitle} martina-reg`}>{globalFields.industryTagline}</p>
+              <p className={styles.description}>{globalFields.industryDescription}</p>
               <div className={styles.tileBottom}>
                 <div className={styles.checkboxWrapper}>
                   <label htmlFor="selected3">Selected</label>
@@ -239,19 +198,11 @@ export default function NewsletterCallout({newsletterData, globalFields}) {
                 </div>
               </div>
             </div>
-            <div
-              className={`${styles.tile} ${styles.doloresPark} newsletter-tile mb-40`}
-              onClick={clickInnerInput}>
-              <p className={styles.eyebrow}>
-                {globalFields.doloresParkFrequency}
-              </p>
+            <div className={`${styles.tile} ${styles.doloresPark} newsletter-tile mb-40`} onClick={clickInnerInput}>
+              <p className={styles.eyebrow}>{globalFields.doloresParkFrequency}</p>
               <p className={styles.title}>Dolores Park</p>
-              <p className={`${styles.subtitle} martina-reg`}>
-                {globalFields.doloresParkTagline}
-              </p>
-              <p className={styles.description}>
-                {globalFields.doloresParkDescription}
-              </p>
+              <p className={`${styles.subtitle} martina-reg`}>{globalFields.doloresParkTagline}</p>
+              <p className={styles.description}>{globalFields.doloresParkDescription}</p>
               <div className={styles.tileBottom}>
                 <div className={styles.checkboxWrapper}>
                   <label htmlFor="selected4">Selected</label>

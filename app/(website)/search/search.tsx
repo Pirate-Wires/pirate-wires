@@ -1,21 +1,21 @@
 "use client";
 
 import PostList from "@/components/postlist";
-import {searchquery} from "@/lib/sanity/groq";
-import {useRouter, useSearchParams} from "next/navigation";
-import {useEffect, useState} from "react";
+import { searchquery } from "@/lib/sanity/groq";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import styles from "@/styles/pages/search.module.scss";
-import {getSearchResults} from "@/lib/sanity/client";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { getSearchResults } from "@/lib/sanity/client";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
-export default function Search({posts}) {
+export default function Search({ posts }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams?.get("q") || "";
   const [isLoading, setIsLoading] = useState(false);
-  const {data, error} = useSWR(query, getSearchResults);
+  const { data, error } = useSWR(query, getSearchResults);
 
   useEffect(() => {
     if (data) {
@@ -59,9 +59,7 @@ export default function Search({posts}) {
             </p>
           )
         ) : (
-          <p className={`${styles.resultsText}`}>
-            Showing the latest 12 posts.
-          </p>
+          <p className={`${styles.resultsText}`}>Showing the latest 12 posts.</p>
         )}
       </div>
 
@@ -74,10 +72,7 @@ export default function Search({posts}) {
       )}
       {query && (
         <div className="postGrid mt-20">
-          {data &&
-            data.map((post, index) => (
-              <PostList key={index} post={post} aspect="landscape" />
-            ))}
+          {data && data.map((post, index) => <PostList key={index} post={post} aspect="landscape" />)}
         </div>
       )}
       <Toast />

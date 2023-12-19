@@ -4,10 +4,10 @@ import CommentSection from "@/components/comments/CommentSection";
 import LikeButton from "@/components/comments/LikeButton";
 import CommentsCountButton from "@/components/comments/CommentsCountButton";
 import ShareButton from "@/components/comments/ShareButton";
-import {CommentsContextProvider} from "@/lib/hooks/useComments";
+import { CommentsContextProvider } from "@/lib/hooks/useComments";
 import styles from "@/components/_styles/comments.module.scss";
 
-export default function Comment({postId}): JSX.Element {
+export default function Comment({ postId }): JSX.Element {
   return (
     <CommentsContextProvider postId={postId}>
       <section className={`${styles.commentsSection}`}>

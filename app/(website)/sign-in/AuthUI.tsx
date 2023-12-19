@@ -1,14 +1,14 @@
 // /app/(website)/sign-in/AuthUI.tsx
 "use client";
-import React, {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import {useSupabase} from "@/app/(website)/supabase-provider";
+import { useSupabase } from "@/app/(website)/supabase-provider";
 
 import OTPInput from "./OTPInput";
 import EmailInput from "./EmailInput";
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/signIn.module.scss";
 
@@ -22,7 +22,7 @@ export default function AuthUI() {
   const [unknownUserErrorMessage, setUnknownUserErrorMessage] = useState<string | null>(null);
   const [error, setError] = useState<ToastableError | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const {supabase} = useSupabase();
+  const { supabase } = useSupabase();
 
   const handleEmailSubmit = async e => {
     e.preventDefault();
@@ -39,15 +39,15 @@ export default function AuthUI() {
         throw new ToastableError(data.message, getResponse.status);
       }
 
-      const {user} = await getResponse.json();
+      const { user } = await getResponse.json();
       if (!user) {
         // Import Link from "next/link" at the top of the file
 
         // Inside the handleEmailSubmit function, modify the error message to include a link
-        setUnknownUserErrorMessage(`<br>You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`);
-        throw new ToastableError(
-          `You don't have an account. Please go to the subscribe page to sign up!`,
+        setUnknownUserErrorMessage(
+          `<br>You don't have an account. Please go to the <a href="/subscribe">subscribe page</a> to sign up!`,
         );
+        throw new ToastableError(`You don't have an account. Please go to the subscribe page to sign up!`);
       }
 
       const sendResponse = await fetch("/api/otp/send", {
@@ -91,9 +91,8 @@ export default function AuthUI() {
         throw new ToastableError(data.message, response.status);
       }
 
-      const password =
-        process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
-      const {error: signInError} = await supabase.auth.signInWithPassword({
+      const password = process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678";
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -186,14 +185,11 @@ export default function AuthUI() {
             <EmailInput onSubmit={handleEmailSubmit} isLoading={isLoading} />
           </div>
         )}
-        {unknownUserErrorMessage && <div dangerouslySetInnerHTML={{__html: unknownUserErrorMessage}}></div>}
+        {unknownUserErrorMessage && <div dangerouslySetInnerHTML={{ __html: unknownUserErrorMessage }}></div>}
       </>
       <div className={styles.substackNotice}>
         <h3>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 14 17"
-            fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 17" fill="none">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -204,9 +200,8 @@ export default function AuthUI() {
           Are you here from Substack?
         </h3>
         <p>
-          If you’ve been a subscriber of Pirate Wires while we were published on
-          Substack, then you already have an account! Just sign in
-          here with your Substack email.
+          If you’ve been a subscriber of Pirate Wires while we were published on Substack, then you already have an
+          account! Just sign in here with your Substack email.
         </p>
         {/* <Link href="/sign-in-github" style={{textDecoration: "underline"}}>
           Dev: GitHub Sign-in (OTP under construction)
@@ -217,17 +212,13 @@ export default function AuthUI() {
         By continuing, you agree to the{" "}
         <Link
           target={"_blank"}
-          href={
-            "https://app.termly.io/document/terms-of-service/7109fc1e-402d-466e-9f79-fe8cbe4a2b71"
-          }>
+          href={"https://app.termly.io/document/terms-of-service/7109fc1e-402d-466e-9f79-fe8cbe4a2b71"}>
           Terms & Conditions
         </Link>{" "}
         and{" "}
         <Link
           target={"_blank"}
-          href={
-            "https://app.termly.io/document/privacy-policy/42d3d1fe-f9d0-4cc4-9685-91ce1329b836"
-          }>
+          href={"https://app.termly.io/document/privacy-policy/42d3d1fe-f9d0-4cc4-9685-91ce1329b836"}>
           Privacy Policy
         </Link>
       </p>

@@ -12,4 +12,4 @@ const globalObject = {
   navScrollX: 0,
 };
 
-export {globalObject};
+export { globalObject };

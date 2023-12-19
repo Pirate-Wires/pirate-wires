@@ -1,4 +1,4 @@
-import type {Database} from "@/types/supabase";
+import type { Database } from "@/types/supabase";
 
 type Price = Database["public"]["Tables"]["prices"]["Row"];
 
@@ -14,22 +14,16 @@ export const getURL = () => {
   return url;
 };
 
-export const postData = async ({
-  url,
-  data,
-}: {
-  url: string;
-  data?: {price: Price};
-}) => {
+export const postData = async ({ url, data }: { url: string; data?: { price: Price } }) => {
   const res = await fetch(url, {
     method: "POST",
-    headers: new Headers({"Content-Type": "application/json"}),
+    headers: new Headers({ "Content-Type": "application/json" }),
     credentials: "same-origin",
     body: JSON.stringify(data),
   });
 
   if (!res.ok) {
-    console.error("Error in postData", {url, data, res});
+    console.error("Error in postData", { url, data, res });
 
     throw Error(res.statusText);
   }

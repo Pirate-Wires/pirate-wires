@@ -1,9 +1,9 @@
 // /app/(website)/account/accountUI.tsx
 "use client";
 import Link from "next/link";
-import {notFound, useRouter} from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
-import React, {useState, useEffect, useMemo} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import TabButton from "./TabButtons";
 import MyDetails from "./MyDetails";
 import NewsletterPreferences from "./NewsletterPreferences";
@@ -56,8 +56,9 @@ export default function AccountUI({
             <NewsletterPreferences user={userDetails} />
           </div>
           <div
-            className={`${styles.cardWrapper} ${tabVisibility[2] ? styles.activeCard : ""
-              } email-notifictation-preferences`}>
+            className={`${styles.cardWrapper} ${
+              tabVisibility[2] ? styles.activeCard : ""
+            } email-notifictation-preferences`}>
             <Commenting
               updateCommentsDisplayName={updateCommentsDisplayName}
               updateCommentsNotifications={updateCommentsNotifications}

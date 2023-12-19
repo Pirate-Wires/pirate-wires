@@ -1,10 +1,10 @@
 import NewCommentForm from "@/components/comments/NewCommentForm";
 import Plus from "@/components/icons/Plus";
-import {useSupabase} from "@/app/(website)/supabase-provider";
-import type {CommentType} from "@/lib/utils/types";
+import { useSupabase } from "@/app/(website)/supabase-provider";
+import type { CommentType } from "@/lib/utils/types";
 import cn from "classnames";
 import dayjs from "dayjs";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import VoteButtons from "./VoteButtons";
 import styles from "@/components/_styles/comments.module.scss";
 const MAX_LINES = 10;
@@ -16,10 +16,7 @@ interface ReplyFormProps {
   handleResetCallback: () => void;
 }
 
-const ReplyForm = ({
-  comment,
-  handleResetCallback,
-}: ReplyFormProps): JSX.Element => {
+const ReplyForm = ({ comment, handleResetCallback }: ReplyFormProps): JSX.Element => {
   const [hidden, setHidden] = useState<boolean>(false);
   return (
     <NewCommentForm
@@ -39,19 +36,14 @@ interface Props {
   parent?: CommentType | null;
 }
 
-const Comment = ({
-  comment,
-  pageIndex,
-  highlight = false,
-  parent = null,
-}: Props): JSX.Element => {
+const Comment = ({ comment, pageIndex, highlight = false, parent = null }: Props): JSX.Element => {
   const [hidden, setHidden] = useState(false);
   const [isOverflowExpanded, setIsOverflowExpanded] = useState(false);
   const [isOverflow, setIsOverflow] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const isAdmin = false;
-  const {supabase} = useSupabase();
+  const { supabase } = useSupabase();
 
   useEffect(() => {
     if (contentRef && contentRef.current) {
@@ -64,7 +56,7 @@ const Comment = ({
   }, []);
 
   async function handleDelete() {
-    const {data} = await supabase
+    const { data } = await supabase
       .from("posts")
       .update({
         isDeleted: true,
@@ -76,7 +68,7 @@ const Comment = ({
   }
 
   async function handleApprove() {
-    const {data} = await supabase
+    const { data } = await supabase
       .from("posts")
       .update({
         isApproved: true,
@@ -86,7 +78,7 @@ const Comment = ({
   }
 
   async function handleDeny() {
-    const {data} = await supabase
+    const { data } = await supabase
       .from("posts")
       .update({
         isPublished: false,
@@ -157,9 +149,7 @@ const Comment = ({
               {!comment.isDeleted ? comment.author?.full_name : <>[Deleted]</>}{" "}
             </span>
             <span className={styles.postedDate} suppressHydrationWarning>
-              {dayjs().diff(comment.createdAt, "seconds", true) < 30
-                ? "just now"
-                : dayjs(comment.createdAt).fromNow()}
+              {dayjs().diff(comment.createdAt, "seconds", true) < 30 ? "just now" : dayjs(comment.createdAt).fromNow()}
             </span>
             {isAdmin && (
               <button
@@ -171,7 +161,7 @@ const Comment = ({
             )}
           </div>
 
-          <div className={cn({hidden})}>
+          <div className={cn({ hidden })}>
             <div
               className={cn(`${styles.comment}`, {
                 "line-clamp-10": !isOverflowExpanded,
@@ -184,33 +174,21 @@ const Comment = ({
                 className={styles.readMoreLess}
                 onClick={() => setIsOverflowExpanded(!isOverflowExpanded)}
                 aria-label={isOverflowExpanded ? `Show less` : `Show more`}>
-                {isOverflowExpanded ? (
-                  <span>Show less</span>
-                ) : (
-                  <span>Read more</span>
-                )}
+                {isOverflowExpanded ? <span>Show less</span> : <span>Read more</span>}
               </button>
             )}
           </div>
           {!comment.isDeleted && (
-            <div className={cn(`${styles.likeReplyButton}`, {hidden})}>
+            <div className={cn(`${styles.likeReplyButton}`, { hidden })}>
               <VoteButtons comment={comment} />
               <button
                 className="text-xs flex items-center text-gray-600 dark:text-gray-400 focus-ring border-none"
                 onClick={() => setShowReplyForm(!showReplyForm)}
-                aria-label={
-                  showReplyForm
-                    ? `Hide reply form`
-                    : `Reply to comment by ${comment.author?.full_name}`
-                }>
+                aria-label={showReplyForm ? `Hide reply form` : `Reply to comment by ${comment.author?.full_name}`}>
                 {showReplyForm ? (
                   <>Cancel</>
                 ) : (
-                  <>
-                    Reply{" "}
-                    {!!comment.responses.length &&
-                      `(${comment.responses.length})`}
-                  </>
+                  <>Reply {!!comment.responses.length && `(${comment.responses.length})`}</>
                 )}
               </button>
               {isAdmin && (
@@ -248,23 +226,13 @@ const Comment = ({
             </div>
           )}
 
-          <div className={cn({hidden})}>
-            {showReplyForm && (
-              <ReplyForm
-                comment={comment}
-                handleResetCallback={() => setShowReplyForm(false)}
-              />
-            )}
+          <div className={cn({ hidden })}>
+            {showReplyForm && <ReplyForm comment={comment} handleResetCallback={() => setShowReplyForm(false)} />}
 
             {comment.responses.length > 0 && (
               <div className={`${styles.childComment}`}>
                 {comment.responses.map((comment: CommentType) => (
-                  <Comment
-                    key={comment.slug}
-                    comment={comment}
-                    pageIndex={pageIndex}
-                    highlight={comment.highlight}
-                  />
+                  <Comment key={comment.slug} comment={comment} pageIndex={pageIndex} highlight={comment.highlight} />
                 ))}
               </div>
             )}
@@ -275,13 +243,12 @@ const Comment = ({
               <button
                 className={cn(
                   "mt-5 text-xs inline-flex items-center text-gray-600 focus-ring border border-transparent",
-                  {hidden},
+                  { hidden },
                 )}
                 aria-label={`Continue thread`}>
                 <div className="h-px w-8 bg-gray-400 dark:bg-gray-600 mr-2" />
                 <span className="text-gray-600 dark:text-gray-400">
-                  {`View ${comment.responsesCount === 1 ? "reply" : "replies"
-                    } (${comment.responsesCount})`}
+                  {`View ${comment.responsesCount === 1 ? "reply" : "replies"} (${comment.responsesCount})`}
                 </span>
               </button>
             </div>

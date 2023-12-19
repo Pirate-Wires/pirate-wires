@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import styles from "./_styles/meganav.module.scss";
-import {usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-export default function Navigation({globalFields, publication}) {
+export default function Navigation({ globalFields, publication }) {
   const currentRoute = usePathname();
   // const loggedIn = condition
   return (

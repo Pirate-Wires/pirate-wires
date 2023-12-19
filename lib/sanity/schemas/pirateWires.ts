@@ -1,6 +1,6 @@
-import {LuSkull} from "react-icons/lu";
+import { LuSkull } from "react-icons/lu";
 
-import {defineField, defineType} from "sanity";
+import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "pirateWires",
