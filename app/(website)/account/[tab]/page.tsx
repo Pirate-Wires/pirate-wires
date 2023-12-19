@@ -42,8 +42,6 @@ export default async function Account({ params }) {
 
   const globalFields = await getGlobalFields();
 
-  console.log("#######", session);
-
   if (!session) {
     return redirect("/sign-in");
   }

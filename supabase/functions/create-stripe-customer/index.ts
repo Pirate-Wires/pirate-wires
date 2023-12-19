@@ -111,8 +111,8 @@
 //     const { id: stripeCustomerId } = await createOrUpdateStripeCustomer(record);
 
 //     const { data, error } = await supabaseAdmin
-//       .from("customers")
-//       .insert({ id: record.id, stripe_customer_id: stripeCustomerId })
+//       .from("users")
+//       .upsert({ id: record.id, stripe_customer_id: stripeCustomerId })
 //       .select();
 
 //     if (error) {
