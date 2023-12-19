@@ -15,7 +15,7 @@ function RewindIcon(props) {
   );
 }
 
-export function RewindButton({player, amount = 10}) {
+export function RewindButton({ player, amount = 10 }) {
   return (
     <button
       type="button"

@@ -15,16 +15,13 @@ interface Props {
   style?: any;
 }
 
-const Skeleton = ({children = null, className, style}: Props): JSX.Element => (
-  <div
-    className={cn("skeleton dark:skeleton-dark", className)}
-    style={style}
-    suppressHydrationWarning>
+const Skeleton = ({ children = null, className, style }: Props): JSX.Element => (
+  <div className={cn("skeleton dark:skeleton-dark", className)} style={style} suppressHydrationWarning>
     {children}
   </div>
 );
 
-const CommentSkeleton = ({innerRef = null}) => (
+const CommentSkeleton = ({ innerRef = null }) => (
   <div className="" ref={innerRef}>
     <div className="">
       <Skeleton className=""></Skeleton>

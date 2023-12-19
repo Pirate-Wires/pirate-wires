@@ -1,5 +1,5 @@
-import {defineField, defineType} from "sanity";
-import {UsersIcon} from "@sanity/icons";
+import { defineField, defineType } from "sanity";
+import { UsersIcon } from "@sanity/icons";
 
 export default defineType({
   name: "singleAuthors",
@@ -23,14 +23,13 @@ export default defineType({
       title: "Author list",
       name: "author_list",
       type: "array",
-      description:
-        "All writers and contributors go here, and get separated automatically on /authors",
+      description: "All writers and contributors go here, and get separated automatically on /authors",
       of: [
         {
           title: "Author",
           name: "Author",
           type: "reference",
-          to: [{type: "author"}],
+          to: [{ type: "author" }],
         },
       ],
     }),

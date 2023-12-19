@@ -6,20 +6,16 @@ import {
   getPublicationPosts,
   getSettings,
 } from "@/lib/sanity/client";
-import {getSession} from "@/app/(website)/supabase-server";
+import { getSession } from "@/app/(website)/supabase-server";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import {urlForImage} from "@/lib/sanity/image";
-export async function generateMetadata({params}) {
+import { urlForImage } from "@/lib/sanity/image";
+export async function generateMetadata({ params }) {
   const pageData = await getPublicationData("wires");
   const settings = await getSettings();
-  const title = pageData[0].meta_title
-    ? pageData[0].meta_title
-    : settings.meta_title;
-  const description = pageData[0].meta_description
-    ? pageData[0].meta_description
-    : settings.meta_description;
+  const title = pageData[0].meta_title ? pageData[0].meta_title : settings.meta_title;
+  const description = pageData[0].meta_description ? pageData[0].meta_description : settings.meta_description;
   const image = pageData[0].openGraphImage
     ? urlForImage(pageData[0].openGraphImage)?.src
     : urlForImage(settings?.openGraphImage)?.src;

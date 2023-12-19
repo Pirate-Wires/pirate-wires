@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 const playbackRates = [
   {
@@ -84,7 +84,7 @@ const playbackRates = [
   },
 ];
 
-export function PlaybackRateButton({player}) {
+export function PlaybackRateButton({ player }) {
   let [playbackRate, setPlaybackRate] = useState(playbackRates[0]);
 
   return (

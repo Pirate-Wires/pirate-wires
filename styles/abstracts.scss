@@ -145,11 +145,7 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   // Mobile size
   @if $mobile-size {
-    $bp: math.div(
-        $reference-width * strip-unit($mobile-size),
-        strip-unit($desktop-size)
-      ) *
-      1px;
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
 
     @media screen and (max-width: $bp) {
       #{$property}: $mobile-size;
@@ -172,11 +168,7 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   // Mobile size
   @if $mobile-size {
-    $bp: math.div(
-        $reference-width * strip-unit($mobile-size),
-        strip-unit($desktop-size)
-      ) *
-      1px;
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
 
     @media screen and (max-width: $bp) {
       #{$property}: $mobile-size;
@@ -199,11 +191,7 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   // Mobile size
   @if $mobile-size {
-    $bp: math.div(
-        $reference-width * strip-unit($mobile-size),
-        strip-unit($desktop-size)
-      ) *
-      1px;
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
 
     @media screen and (max-width: $bp) {
       #{$property}: $mobile-size;
@@ -221,11 +209,7 @@ $ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
   // Mobile size
   @if $mobile-size {
-    $bp: math.div(
-        $reference-width * strip-unit($mobile-size),
-        strip-unit($desktop-size)
-      ) *
-      1px;
+    $bp: math.div($reference-width * strip-unit($mobile-size), strip-unit($desktop-size)) * 1px;
 
     @media screen and (max-width: $bp) {
       #{$property}: $mobile-size;

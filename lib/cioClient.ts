@@ -1,6 +1,6 @@
 // lib/cioClient.js
 import axios from "axios";
-import {TrackClient, APIClient, RegionUS} from "customerio-node";
+import { TrackClient, APIClient, RegionUS } from "customerio-node";
 
 const SITE_ID = process.env.CUSTOMER_IO_SITE_ID as string;
 const SITE_API_KEY = process.env.CUSTOMER_IO_API_KEY as string;
@@ -9,7 +9,7 @@ const TRACKING_API_KEY = process.env.CUSTOMER_IO_TRACKING_API_KEY as string;
 export const trackerCio = new TrackClient(SITE_ID, TRACKING_API_KEY, {
   region: RegionUS,
 });
-export const apiCio = new APIClient(SITE_API_KEY, {region: RegionUS});
+export const apiCio = new APIClient(SITE_API_KEY, { region: RegionUS });
 
 export const getCustomerId = async (email: string) => {
   const response = await apiCio.getCustomersByEmail(email);
@@ -36,9 +36,7 @@ export const getCustomerSubscription = async (email: string) => {
 
     const response = await axios(options);
 
-    const {topics} = JSON.parse(
-      response.data.customer.attributes._cio_subscription_preferences_computed,
-    );
+    const { topics } = JSON.parse(response.data.customer.attributes._cio_subscription_preferences_computed);
 
     // keys mapping to the topics in the CIO dashboard
     const updatedTopics = {
@@ -56,8 +54,8 @@ export const getCustomerSubscription = async (email: string) => {
       }
     });
 
-    return {data: subscription, error: null};
+    return { data: subscription, error: null };
   } catch (err) {
-    return {data: null, error: err};
+    return { data: null, error: err };
   }
 };

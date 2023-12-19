@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/pages/notFound.module.scss";
 import gsap from "gsap";
 import isMobile from "ismobilejs";
@@ -16,7 +16,7 @@ export default function NotFoundArms() {
       const hitbox = document.getElementById("hitbox");
       const arms = hitbox?.querySelectorAll("img");
       const middleWidth = Math.round(window.innerWidth / 2);
-      const tl = gsap.timeline({paused: true});
+      const tl = gsap.timeline({ paused: true });
       const ease = 0.09;
 
       const lerp = (a, b, n) => (1 - n) * a + n * b;
@@ -25,7 +25,7 @@ export default function NotFoundArms() {
         tl
           .fromTo(
             arms[0],
-            {rotationY: 0, z: 50, xPercent: -20},
+            { rotationY: 0, z: 50, xPercent: -20 },
             {
               rotationY: 5,
               z: 0,
@@ -37,7 +37,7 @@ export default function NotFoundArms() {
           )
           .fromTo(
             arms[1],
-            {rotationY: 0, z: 50, xPercent: 20},
+            { rotationY: 0, z: 50, xPercent: 20 },
             {
               rotationY: -5,
               z: 0,
@@ -55,18 +55,12 @@ export default function NotFoundArms() {
       };
 
       hitbox?.addEventListener("mousemove", event => {
-        const dist = Math.abs(
-          Math.abs(event.clientX - middleWidth) - middleWidth,
-        );
+        const dist = Math.abs(Math.abs(event.clientX - middleWidth) - middleWidth);
         percentThrough.current = dist;
       });
 
       const callBack = () => {
-        percentThrough.prev = lerp(
-          percentThrough.prev,
-          percentThrough.current,
-          0.17,
-        );
+        percentThrough.prev = lerp(percentThrough.prev, percentThrough.current, 0.17);
         const progress = percentThrough.prev / middleWidth;
 
         tl.progress(progress);
@@ -78,24 +72,10 @@ export default function NotFoundArms() {
   return (
     <div className={styles.imagesWrapper} id="hitbox">
       <div className={styles.imageWrapper}>
-        <Image
-          src={"/img/handwire1.jpg"}
-          className="object-cover"
-          alt="object-cover"
-          quality={100}
-          priority
-          fill
-        />
+        <Image src={"/img/handwire1.jpg"} className="object-cover" alt="object-cover" quality={100} priority fill />
       </div>
       <div className={styles.imageWrapper}>
-        <Image
-          src={"/img/handwire2.jpg"}
-          className="object-cover"
-          alt="object-cover"
-          quality={100}
-          priority
-          fill
-        />
+        <Image src={"/img/handwire2.jpg"} className="object-cover" alt="object-cover" quality={100} priority fill />
       </div>
     </div>
   );

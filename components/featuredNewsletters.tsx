@@ -2,17 +2,12 @@
 import Image from "next/image";
 import styles from "./_styles/featuredNewsletter.module.scss";
 import useEmblaCarousel from "embla-carousel-react";
-import {useEffect, useState, FormEvent} from "react";
+import { useEffect, useState, FormEvent } from "react";
 import Link from "next/link";
 
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
-export default function FeaturedNewsletters({
-  newsletters,
-  section,
-  description,
-  user,
-}) {
+export default function FeaturedNewsletters({ newsletters, section, description, user }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -78,15 +73,13 @@ export default function FeaturedNewsletters({
       setIsChecking(true);
 
       try {
-        const response = await fetch(
-          `/api/customer-io/preferences?email=${user.email}`,
-        );
+        const response = await fetch(`/api/customer-io/preferences?email=${user.email}`);
 
         if (!response.ok) {
-          throw new ToastableError("Error checking newsletter preferences", response.status)
+          throw new ToastableError("Error checking newsletter preferences", response.status);
         }
 
-        const {preferences} = await response.json();
+        const { preferences } = await response.json();
 
         setIsAlreadySubscribed(preferences.includes(section));
         setIsChecking(false);
@@ -120,14 +113,14 @@ export default function FeaturedNewsletters({
       });
 
       if (!response.ok) {
-        throw new ToastableError("Error updating newsletter preferences", response.status)
+        throw new ToastableError("Error updating newsletter preferences", response.status);
       }
 
       const data = await response.json();
 
       setIsLoading(false);
       setIsSuccess(true);
-      ToastUtil.showSuccessToast("Successfully updated newsletter preferences!")
+      ToastUtil.showSuccessToast("Successfully updated newsletter preferences!");
     } catch (error) {
       console.error("There was an error!", error);
       setError(error);
@@ -136,8 +129,7 @@ export default function FeaturedNewsletters({
   };
   return (
     <section
-      className={`${styles.featuredNewsletters} ${section === "Wires" ? styles.wiresVertical : ""
-        } c-20 pb-40 pt-20`}>
+      className={`${styles.featuredNewsletters} ${section === "Wires" ? styles.wiresVertical : ""} c-20 pb-40 pt-20`}>
       <div className={`${styles.left} featNewslettersBorder pt-20`}>
         <h3>Latest Newsletters</h3>
         <div className="embla" ref={emblaRef}>
@@ -164,13 +156,7 @@ export default function FeaturedNewsletters({
                           <source
                             srcSet={`${newsletter.mainImage.asset.url}?auto=format&w=50&q=100, ${newsletter.mainImage.asset.url}?auto=format&w=60&q=90 2x`}
                           />
-                          <img
-                            alt=""
-                            decoding="async"
-                            loading="lazy"
-                            className="cover-image"
-                            onLoad={onLoad}
-                          />
+                          <img alt="" decoding="async" loading="lazy" className="cover-image" onLoad={onLoad} />
                         </picture>
                       </>
                     )}
@@ -185,13 +171,7 @@ export default function FeaturedNewsletters({
           <div className={styles.controls}>
             <button className={`${styles.prev} disabled prev`} id="prev">
               <svg x="0px" y="0px" viewBox="0 0 32 32">
-                <rect
-                  fill="#060606"
-                  y="0"
-                  className="st0"
-                  width="32"
-                  height="32"
-                />
+                <rect fill="#060606" y="0" className="st0" width="32" height="32" />
                 <path
                   fill="#F1CB45"
                   d="M20,16.5h0.5v-1H20V16.5z M11.6,15.6c-0.2,0.2-0.2,0.5,0,0.7l3.2,3.2c0.2,0.2,0.5,0.2,0.7,0
@@ -219,17 +199,12 @@ export default function FeaturedNewsletters({
           <>
             <h3>{section} Newsletter</h3>
             <p>
-              You&apos;ve already subscribed to the {section} newsletter. Check
-              out our other newsletters or{" "}
-              <Link
-                href="/account/newsletters-preferences"
-                style={{textDecoration: "underline"}}>
+              You&apos;ve already subscribed to the {section} newsletter. Check out our other newsletters or{" "}
+              <Link href="/account/newsletters-preferences" style={{ textDecoration: "underline" }}>
                 manage your subscription preferences
               </Link>
             </p>
-            {isSuccess && (
-              <p className={styles.tagline}>Thanks for subscribing!</p>
-            )}
+            {isSuccess && <p className={styles.tagline}>Thanks for subscribing!</p>}
           </>
         ) : (
           <>
@@ -238,16 +213,8 @@ export default function FeaturedNewsletters({
             <form className={`${styles.form}`} onSubmit={handleSubmit}>
               {!user ? (
                 <>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="Your email here..."
-                  />
-                  <button
-                    type="submit"
-                    className="sign-up-btn"
-                    disabled={isLoading}>
+                  <input type="email" name="email" required placeholder="Your email here..." />
+                  <button type="submit" className="sign-up-btn" disabled={isLoading}>
                     {isLoading ? "Loading..." : "Sign Up"}
                   </button>
                 </>
@@ -257,9 +224,7 @@ export default function FeaturedNewsletters({
                 </button>
               )}
             </form>
-            {isSuccess && (
-              <p className={styles.tagline}>Thanks for subscribing! </p>
-            )}
+            {isSuccess && <p className={styles.tagline}>Thanks for subscribing! </p>}
           </>
         )}
       </div>

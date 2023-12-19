@@ -1,4 +1,4 @@
-const TheWhitePillSVG = ({className = "", ...props}) => (
+const TheWhitePillSVG = ({ className = "", ...props }) => (
   <svg
     width="32"
     height="32"
@@ -8,12 +8,7 @@ const TheWhitePillSVG = ({className = "", ...props}) => (
     className={className}
     {...props}>
     <rect width="100%" height="100%" rx="16" />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M12 1 L2 25 L20 20 Z"
-      fill="currentColor"
-    />
+    <path fillRule="evenodd" clipRule="evenodd" d="M12 1 L2 25 L20 20 Z" fill="currentColor" />
   </svg>
 );
 

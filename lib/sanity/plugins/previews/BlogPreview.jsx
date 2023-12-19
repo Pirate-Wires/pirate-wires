@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./IframePreview.css";
 
 export default function BlogPreview(props) {
-  const {displayed} = props.document;
+  const { displayed } = props.document;
   if (!displayed?.slug?.current) {
     return <div>The blog needs a slug before it can be previewed.</div>;
   }

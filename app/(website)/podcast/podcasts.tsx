@@ -1,10 +1,10 @@
 "use client";
 import styles from "@/styles/pages/podcast.module.scss";
 import Link from "next/link";
-import {useHoverArrow} from "@/lib/hooks/useHoverArrow";
-import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
+import { useHoverArrow } from "@/lib/hooks/useHoverArrow";
+import { useScrollBasedAnims } from "@/lib/hooks/useScrollBasedAnims";
 
-export default function Podcasts({pageData}) {
+export default function Podcasts({ pageData }) {
   useHoverArrow();
   useScrollBasedAnims();
   return (
@@ -18,18 +18,10 @@ export default function Podcasts({pageData}) {
             <h3 className={styles.title}>{podcast.title}</h3>
             <div className={styles.linkRow}>
               {podcast.youtube_link && (
-                <Link
-                  target="_blank"
-                  href={podcast.youtube_link}
-                  className="hasHoverArrow">
+                <Link target="_blank" href={podcast.youtube_link} className="hasHoverArrow">
                   Youtube
                   <span>
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215"
                         stroke="#E3E3E3"
@@ -40,18 +32,10 @@ export default function Podcasts({pageData}) {
                 </Link>
               )}
               {podcast.apple_link && (
-                <Link
-                  target="_blank"
-                  href={podcast.apple_link}
-                  className="hasHoverArrow">
+                <Link target="_blank" href={podcast.apple_link} className="hasHoverArrow">
                   Apple Podcasts
                   <span>
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215"
                         stroke="#E3E3E3"
@@ -62,18 +46,10 @@ export default function Podcasts({pageData}) {
                 </Link>
               )}
               {podcast.spotify_link && (
-                <Link
-                  target="_blank"
-                  href={podcast.spotify_link}
-                  className="hasHoverArrow">
+                <Link target="_blank" href={podcast.spotify_link} className="hasHoverArrow">
                   Spotify
                   <span>
-                    <svg
-                      width="13"
-                      height="13"
-                      viewBox="0 0 13 13"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M0.744141 12.1215L11.987 0.878662M11.987 0.878662H0.744141M11.987 0.878662V12.1215"
                         stroke="#E3E3E3"

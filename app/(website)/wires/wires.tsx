@@ -4,29 +4,21 @@ import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
-import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
+import { useScrollBasedAnims } from "@/lib/hooks/useScrollBasedAnims";
 
-export default function Wires({
-  globalFields,
-  publicationPosts,
-  publicationNewsletters,
-  user,
-}) {
+export default function Wires({ globalFields, publicationPosts, publicationNewsletters, user }) {
   useScrollBasedAnims();
 
   // Sorting the publicationPosts by publishedAt
   const sortedPosts = [...publicationPosts].sort(
-    (a: {publishedAt: any}, b: {publishedAt: any}) =>
+    (a: { publishedAt: any }, b: { publishedAt: any }) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
 
   return (
     <>
       <div className="featuredPostsTop ptb-20 c-20">
-        <svg
-          viewBox="0 0 1400 291"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1400 291" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M83.237 0H0V290.655H44.1233V158.96H83.237C101.638 158.96 116.089 144.123 116.089 126.493V33.237C115.992 14.4509 101.541 0 83.237 0ZM72.2543 127.36C72.2543 130.925 70.7129 134.393 67.5337 136.705L45.6647 153.083C44.894 153.468 44.1233 153.083 44.1233 152.312V6.6474C44.1233 5.87669 44.894 5.49133 45.6647 5.87669L67.5337 21.4836C70.6166 23.7958 72.2543 27.3603 72.2543 31.2139V127.36Z"
             fill="#060606"></path>
@@ -60,8 +52,7 @@ export default function Wires({
         <div className={`taglineRow`}>
           {globalFields.pirateWiresTagline}
           <span className="martina-reg">
-            Sign up for{" "}
-            <Link href={`/newsletters`}>The Pirate Wires Newsletter</Link>
+            Sign up for <Link href={`/newsletters`}>The Pirate Wires Newsletter</Link>
           </span>
         </div>
       </div>
@@ -78,12 +69,7 @@ export default function Wires({
       <section className="postGrid c-20">
         {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
-          <PostList
-            key={index}
-            post={post}
-            aspect="landscape"
-            preloadImage={true}
-          />
+          <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
         ))}
         <div className="dummyTile"></div>
         <div className="dummyTile"></div>

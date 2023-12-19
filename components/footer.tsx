@@ -2,14 +2,11 @@ import React from "react";
 import Link from "next/link";
 
 // TODO: social links
-export default function Footer({globalFields}) {
+export default function Footer({ globalFields }) {
   return (
     <footer className="c-20">
       <div className="svgWrapper">
-        <svg
-          viewBox="0 0 1400 291"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1400 291" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M83.237 0H0V290.655H44.1233V158.96H83.237C101.638 158.96 116.089 144.123 116.089 126.493V33.237C115.992 14.4509 101.541 0 83.237 0ZM72.2543 127.36C72.2543 130.925 70.7129 134.393 67.5337 136.705L45.6647 153.083C44.894 153.468 44.1233 153.083 44.1233 152.312V6.6474C44.1233 5.87669 44.894 5.49133 45.6647 5.87669L67.5337 21.4836C70.6166 23.7958 72.2543 27.3603 72.2543 31.2139V127.36Z"
             fill="#E3E3E3"
@@ -64,22 +61,13 @@ export default function Footer({globalFields}) {
           </Link>
         </div>
         <div className="middle">
-          <a
-            href="https://twitter.com/PirateWires"
-            target="_blank"
-            rel="noopener">
+          <a href="https://twitter.com/PirateWires" target="_blank" rel="noopener">
             X (Twitter)
           </a>
-          <a
-            href="https://www.facebook.com/piratewires/"
-            target="_blank"
-            rel="noopener">
+          <a href="https://www.facebook.com/piratewires/" target="_blank" rel="noopener">
             Facebook
           </a>
-          <a
-            href="https://www.instagram.com/piratewires/"
-            target="_blank"
-            rel="noopener">
+          <a href="https://www.instagram.com/piratewires/" target="_blank" rel="noopener">
             Instagram
           </a>
           <Link href="/newsletters">Newsletter</Link>

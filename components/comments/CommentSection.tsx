@@ -1,7 +1,7 @@
 import CommentsList from "@/components/comments/CommentsList";
 import NewCommentForm from "@/components/comments/NewCommentForm";
-import {useComments} from "@/lib/hooks/useComments";
-import {CommentType} from "@/lib/utils/types";
+import { useComments } from "@/lib/hooks/useComments";
+import { CommentType } from "@/lib/utils/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import timezone from "dayjs/plugin/timezone";
@@ -18,7 +18,7 @@ interface Props {
   initialData?: CommentType | null;
 }
 
-const CommentSection = ({initialData = null}: Props): JSX.Element => {
+const CommentSection = ({ initialData = null }: Props): JSX.Element => {
   return (
     <>
       <NewCommentForm />

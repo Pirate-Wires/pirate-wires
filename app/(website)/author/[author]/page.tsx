@@ -1,17 +1,11 @@
 // app/(website)/author/[author]/page.tsx
 import Author from "./author";
 
-import {
-  getAllAuthorsSlugs,
-  getAuthorData,
-  getAuthorPosts,
-  getGlobalFields,
-  getSettings,
-} from "@/lib/sanity/client";
+import { getAllAuthorsSlugs, getAuthorData, getAuthorPosts, getGlobalFields, getSettings } from "@/lib/sanity/client";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import {urlForImage} from "@/lib/sanity/image";
+import { urlForImage } from "@/lib/sanity/image";
 
 export const dynamic = "force-static";
 
@@ -19,15 +13,11 @@ export async function generateStaticParams() {
   return await getAllAuthorsSlugs();
 }
 
-export async function generateMetadata({params}) {
+export async function generateMetadata({ params }) {
   const author = await getAuthorData(params.author);
   const settings = await getSettings();
-  const title = author.meta_title
-    ? author.meta_title
-    : author.name + " - " + author.title + " | Pirate Wires";
-  const description = author.meta_description
-    ? author.meta_description
-    : settings.meta_description;
+  const title = author.meta_title ? author.meta_title : author.name + " - " + author.title + " | Pirate Wires";
+  const description = author.meta_description ? author.meta_description : settings.meta_description;
   const image = author.openGraphImage
     ? urlForImage(author.openGraphImage)?.src
     : urlForImage(settings?.openGraphImage)?.src;
@@ -49,7 +39,7 @@ export async function generateMetadata({params}) {
   };
 }
 
-export default async function AuthorPage({params}) {
+export default async function AuthorPage({ params }) {
   const posts = await getAuthorPosts(params.author);
   const authorData = await getAuthorData(params.author);
   const globalFields = await getGlobalFields();

@@ -1,4 +1,4 @@
-const LoadingOverlay = ({message}: {message: string}) => (
+const LoadingOverlay = ({ message }: { message: string }) => (
   <div
     style={{
       position: "absolute",

@@ -1,5 +1,5 @@
-import {LuNewspaper} from "react-icons/lu";
-import {defineField, defineType} from "sanity";
+import { LuNewspaper } from "react-icons/lu";
+import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "singleNewsletters",

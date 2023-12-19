@@ -12,7 +12,7 @@ const syncSupabaseWithStripe = async () => {
     const subscriptions = await getAllStripeSubscriptions();
 
     console.log("Start syncing Supabase users with Stripe customers...");
-    await updateSupabaseFromStripe({users, customers, subscriptions});
+    await updateSupabaseFromStripe({ users, customers, subscriptions });
 
     process.exit(0);
   } catch (err) {

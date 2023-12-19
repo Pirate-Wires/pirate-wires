@@ -1,5 +1,5 @@
-import {LuPin} from "react-icons/lu";
-import {defineField} from "sanity";
+import { LuPin } from "react-icons/lu";
+import { defineField } from "sanity";
 
 const schema = {
   name: "utilityPage",

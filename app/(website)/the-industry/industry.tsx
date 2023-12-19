@@ -4,29 +4,21 @@ import PostList from "@/components/postlist";
 import Featured from "@/components/featured";
 import React from "react";
 import FeaturedNewsletters from "@/components/featuredNewsletters";
-import {useScrollBasedAnims} from "@/lib/hooks/useScrollBasedAnims";
+import { useScrollBasedAnims } from "@/lib/hooks/useScrollBasedAnims";
 
-export default function Industry({
-  globalFields,
-  publicationPosts,
-  publicationNewsletters,
-  user,
-}) {
+export default function Industry({ globalFields, publicationPosts, publicationNewsletters, user }) {
   useScrollBasedAnims();
 
   // Sorting the publicationPosts by publishedAt
   const sortedPosts = [...publicationPosts].sort(
-    (a: {publishedAt: any}, b: {publishedAt: any}) =>
+    (a: { publishedAt: any }, b: { publishedAt: any }) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
 
   return (
     <>
       <div className="featuredPostsTop pb-20 c-20">
-        <svg
-          viewBox="0 0 154 27"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 154 27" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M42.464 26.5451V26.614H34.5666V26.5451C35.4073 25.4563 35.49 24.6707 35.49 22.1898V4.79627C35.49 2.31541 35.4073 1.5298 34.5666 0.440983V0.37207H42.464V0.440983C41.6233 1.5298 41.5406 2.31541 41.5406 4.79627V22.1898C41.5406 24.6707 41.6233 25.4563 42.464 26.5451Z"
             fill="#060606"
@@ -79,8 +71,7 @@ export default function Industry({
         <div className={`taglineRow`}>
           {globalFields.industryTagline}
           <span className="martina-reg">
-            Sign up for{" "}
-            <Link href={`/newsletters`}>The Industry Newsletter</Link>
+            Sign up for <Link href={`/newsletters`}>The Industry Newsletter</Link>
           </span>
         </div>
       </div>
@@ -97,12 +88,7 @@ export default function Industry({
       <section className="postGrid c-20">
         {sortedPosts.slice(1).map((post, index) => (
           // @ts-ignore
-          <PostList
-            key={index}
-            post={post}
-            aspect="landscape"
-            preloadImage={true}
-          />
+          <PostList key={index} post={post} aspect="landscape" preloadImage={true} />
         ))}
         <div className="dummyTile"></div>
         <div className="dummyTile"></div>

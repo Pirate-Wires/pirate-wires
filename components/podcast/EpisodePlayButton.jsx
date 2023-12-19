@@ -1,9 +1,9 @@
 "use client";
 
-import {useAudioPlayer} from "./AudioProvider";
-import {useMemo} from "react";
+import { useAudioPlayer } from "./AudioProvider";
+import { useMemo } from "react";
 
-export function EpisodePlayButton({episode, playing, paused, ...props}) {
+export function EpisodePlayButton({ episode, playing, paused, ...props }) {
   let audioPlayerData = useMemo(
     () => ({
       title: episode.title,
@@ -21,9 +21,7 @@ export function EpisodePlayButton({episode, playing, paused, ...props}) {
     <button
       type="button"
       onClick={() => player.toggle()}
-      aria-label={`${player.playing ? "Pause" : "Play"} episode ${
-        episode.title
-      }`}
+      aria-label={`${player.playing ? "Pause" : "Play"} episode ${episode.title}`}
       {...props}>
       {player.playing ? playing : paused}
     </button>

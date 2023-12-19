@@ -1,4 +1,4 @@
-import {definitions} from "@/lib/types/supabase";
+import { definitions } from "@/lib/types/supabase";
 
 export interface CommentType {
   id: number;

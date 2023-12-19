@@ -1,7 +1,7 @@
 import SignOutButton from "@/components/ui/Navbar/SignOutButton";
 import styles from "@/styles/pages/account.module.scss";
 
-export const TabButtons = ({updateActiveTab}) => {
+export const TabButtons = ({ updateActiveTab }) => {
   return (
     <>
       <button

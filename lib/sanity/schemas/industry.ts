@@ -1,6 +1,6 @@
-import {LuBuilding2} from "react-icons/lu";
+import { LuBuilding2 } from "react-icons/lu";
 
-import {defineArrayMember, defineField, defineType} from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export default defineType({
   name: "theIndustry",

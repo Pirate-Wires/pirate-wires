@@ -2,7 +2,7 @@ import Search from "./search";
 import React from "react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import {getAllPosts, getGlobalFields} from "@/lib/sanity/client";
+import { getAllPosts, getGlobalFields } from "@/lib/sanity/client";
 
 export default async function SearchPage() {
   const globalFields = await getGlobalFields();

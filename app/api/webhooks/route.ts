@@ -1,12 +1,12 @@
 import Stripe from "stripe";
-import {stripe} from "@/lib/utils/stripe";
+import { stripe } from "@/lib/utils/stripe";
 import {
   upsertProductRecord,
   upsertPriceRecord,
   syncSupbaseUserWithStripe,
   manageSubscriptionStatusChange,
 } from "@/lib/utils/supabase-admin";
-import {headers} from "next/headers";
+import { headers } from "next/headers";
 
 const relevantEvents = new Set([
   "product.created",
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(body, sig, webhookSecret);
   } catch (err: any) {
     console.error(`❌ Error message: ${err.message}`);
-    return new Response(`Webhook Error: ${err.message}`, {status: 400});
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
   if (relevantEvents.has(event.type)) {
@@ -62,11 +62,7 @@ export async function POST(req: Request) {
           const checkoutSession = event.data.object as Stripe.Checkout.Session;
           if (checkoutSession.mode === "subscription") {
             const subscriptionId = checkoutSession.subscription;
-            await manageSubscriptionStatusChange(
-              subscriptionId as string,
-              checkoutSession.customer as string,
-              true,
-            );
+            await manageSubscriptionStatusChange(subscriptionId as string, checkoutSession.customer as string, true);
           }
           break;
         default:
@@ -74,13 +70,10 @@ export async function POST(req: Request) {
       }
     } catch (error) {
       console.error(error);
-      return new Response(
-        "Webhook handler failed. View your nextjs function logs.",
-        {
-          status: 400,
-        },
-      );
+      return new Response("Webhook handler failed. View your nextjs function logs.", {
+        status: 400,
+      });
     }
   }
-  return new Response(JSON.stringify({received: true}));
+  return new Response(JSON.stringify({ received: true }));
 }

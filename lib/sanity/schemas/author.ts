@@ -1,5 +1,5 @@
-import {UsersIcon} from "@sanity/icons";
-import {defineField} from "sanity";
+import { UsersIcon } from "@sanity/icons";
+import { defineField } from "sanity";
 
 const schema = {
   name: "author",
@@ -19,8 +19,8 @@ const schema = {
       initialValue: "core",
       options: {
         list: [
-          {title: "Core Writer", value: "core"},
-          {title: "Contributor", value: "contributor"},
+          { title: "Core Writer", value: "core" },
+          { title: "Contributor", value: "contributor" },
         ],
       },
     },
@@ -55,7 +55,7 @@ const schema = {
         {
           title: "Block",
           type: "block",
-          styles: [{title: "Normal", value: "normal"}],
+          styles: [{ title: "Normal", value: "normal" }],
           lists: [],
         },
       ],

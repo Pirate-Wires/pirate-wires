@@ -1,4 +1,4 @@
-const TheIndustrySVG = ({className = "", ...props}) => (
+const TheIndustrySVG = ({ className = "", ...props }) => (
   <svg
     width="32"
     height="32"
@@ -8,12 +8,7 @@ const TheIndustrySVG = ({className = "", ...props}) => (
     className={className}
     {...props}>
     <rect width="100%" height="100%" rx="16" />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M16 16 A14 14 0 1 0 16 2 A14 14 0 1 0 16 30"
-      fill="currentColor"
-    />
+    <path fillRule="evenodd" clipRule="evenodd" d="M16 16 A14 14 0 1 0 16 2 A14 14 0 1 0 16 30" fill="currentColor" />
   </svg>
 );
 
