@@ -216,10 +216,10 @@ const upsertSupabaseUserRecord = async userData => {
 
 const upsertSupabaseCustomerRecord = async customerData => {
   const { id, stripe_customer_id } = customerData;
-  const { error } = await supabaseAdmin.from("customers").upsert(customerData);
+  const { error } = await supabaseAdmin.from("users").upsert(customerData);
 
   if (error) {
-    console.error(`Error inserting into customers table: ${error.message}`);
+    console.error(`Error upserting customer data: ${error.message}`);
     throw error;
   }
 
@@ -245,7 +245,7 @@ const copyBillingDetailsToCustomer = async (uuid, payment_method) => {
 const manageSubscriptionStatusChange = async (subscriptionId, customerId, createAction = false) => {
   // Get customer's UUID from mapping table.
   const { data: customerData, error: noCustomerError } = await supabaseAdmin
-    .from("customers")
+    .from("users")
     .select("id")
     .eq("stripe_customer_id", customerId)
     .single();
@@ -318,7 +318,7 @@ const removeCanceledSupabaseSubscriptions = async subscriptionIds => {
 const removeNonExistingStripeCustomers = async ({ customers }) => {
   for (let customer of customers) {
     const { data: customerData, error } = await supabaseAdmin
-      .from("customers")
+      .from("users")
       .select()
       .eq("stripe_customer_id", customer.id);
 

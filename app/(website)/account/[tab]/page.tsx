@@ -1,22 +1,17 @@
 // /app/(website)/account/page.tsx
-import {
-  getSession,
-  getUserDetails,
-  getSubscription,
-  getProfile,
-} from "@/app/(website)/supabase-server";
-import type {Database} from "@/types/supabase";
-import {createServerActionClient} from "@supabase/auth-helpers-nextjs";
-import {revalidatePath} from "next/cache";
-import {cookies} from "next/headers";
-import {redirect} from "next/navigation";
+import { getSession, getUserDetails, getSubscription, getProfile } from "@/app/(website)/supabase-server";
+import type { Database } from "@/types/supabase";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import React from "react";
 import Navigation from "@/components/navigation";
-import {getGlobalFields, getSettings} from "@/lib/sanity/client";
-import {urlForImage} from "@/lib/sanity/image";
+import { getGlobalFields, getSettings } from "@/lib/sanity/client";
+import { urlForImage } from "@/lib/sanity/image";
 import AccountUI from "./accountUI";
 
-export async function generateMetadata({params}) {
+export async function generateMetadata({ params }) {
   const settings = await getSettings();
   const title = "Account | Pirate Wires";
   const description = settings.meta_description;
@@ -38,16 +33,14 @@ export async function generateMetadata({params}) {
     },
   };
 }
-export default async function Account({params}) {
-  const [session, userDetails, subscription] = await Promise.all([
-    getSession(),
-    getUserDetails(),
-    getSubscription(),
-  ]);
+export default async function Account({ params }) {
+  const [session, userDetails, subscription] = await Promise.all([getSession(), getUserDetails(), getSubscription()]);
   const profile = await getProfile(userDetails?.id!);
-  const {tab} = params;
+  const { tab } = params;
 
   const globalFields = await getGlobalFields();
+
+  console.log("#######", session);
 
   if (!session) {
     return redirect("/sign-in");
@@ -56,15 +49,12 @@ export default async function Account({params}) {
     "use server";
 
     const newName = formData.get("name") as string;
-    const supabase = createServerActionClient<Database>({cookies});
+    const supabase = createServerActionClient<Database>({ cookies });
     const session = await getSession();
     const user = session?.user;
 
     if (user) {
-      const {error} = await supabase
-        .from("users")
-        .update({full_name: newName})
-        .eq("id", user.id);
+      const { error } = await supabase.from("users").update({ full_name: newName }).eq("id", user.id);
 
       if (error) {
         throw error;
@@ -78,14 +68,14 @@ export default async function Account({params}) {
     "use server";
 
     const newDisplayName = formData.get("commentsDisplayName") as string;
-    const supabase = createServerActionClient<Database>({cookies});
+    const supabase = createServerActionClient<Database>({ cookies });
     const session = await getSession();
     const user = session?.user;
 
     if (user) {
-      const {error} = await supabase
+      const { error } = await supabase
         .from("profiles")
-        .update({comments_display_name: newDisplayName})
+        .update({ comments_display_name: newDisplayName })
         .eq("id", user.id);
 
       if (error) {
@@ -96,18 +86,16 @@ export default async function Account({params}) {
     revalidatePath("/account");
   };
 
-  const updateCommentsNotifications = async (
-    newCommentsNotifications: boolean,
-  ) => {
+  const updateCommentsNotifications = async (newCommentsNotifications: boolean) => {
     "use server";
 
-    const supabase = createServerActionClient<Database>({cookies});
+    const supabase = createServerActionClient<Database>({ cookies });
     const user = session?.user;
 
     if (user) {
-      const {error} = await supabase
+      const { error } = await supabase
         .from("profiles")
-        .update({comments_notifications: newCommentsNotifications})
+        .update({ comments_notifications: newCommentsNotifications })
         .eq("id", user.id);
 
       if (error) {
