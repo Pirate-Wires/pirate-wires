@@ -1,36 +1,31 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | {[key: string]: Json | undefined}
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {
   public: {
     Tables: {
-      customers: {
+      article_metering: {
         Row: {
-          id: string;
-          stripe_customer_id: string | null;
+          cookie_id: string;
+          ip_addresses: unknown[] | null;
+          last_accessed_at: string | null;
+          view_counts: Json | null;
+          viewed_articles: number[] | null;
         };
         Insert: {
-          id: string;
-          stripe_customer_id?: string | null;
+          cookie_id: string;
+          ip_addresses?: unknown[] | null;
+          last_accessed_at?: string | null;
+          view_counts?: Json | null;
+          viewed_articles?: number[] | null;
         };
         Update: {
-          id?: string;
-          stripe_customer_id?: string | null;
+          cookie_id?: string;
+          ip_addresses?: unknown[] | null;
+          last_accessed_at?: string | null;
+          view_counts?: Json | null;
+          viewed_articles?: number[] | null;
         };
-        Relationships: [
-          {
-            foreignKeyName: "customers_id_fkey";
-            columns: ["id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-        ];
+        Relationships: [];
       };
       otps: {
         Row: {
@@ -137,9 +132,7 @@ export interface Database {
           currency?: string | null;
           description?: string | null;
           id: string;
-          interval?:
-            | Database["public"]["Enums"]["pricing_plan_interval"]
-            | null;
+          interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null;
           interval_count?: number | null;
           metadata?: Json | null;
           product_id?: string | null;
@@ -152,9 +145,7 @@ export interface Database {
           currency?: string | null;
           description?: string | null;
           id?: string;
-          interval?:
-            | Database["public"]["Enums"]["pricing_plan_interval"]
-            | null;
+          interval?: Database["public"]["Enums"]["pricing_plan_interval"] | null;
           interval_count?: number | null;
           metadata?: Json | null;
           product_id?: string | null;
@@ -349,6 +340,7 @@ export interface Database {
           full_name: string | null;
           id: string;
           payment_method: Json | null;
+          stripe_customer_id: string | null;
           subscription_id: string | null;
         };
         Insert: {
@@ -359,6 +351,7 @@ export interface Database {
           full_name?: string | null;
           id: string;
           payment_method?: Json | null;
+          stripe_customer_id?: string | null;
           subscription_id?: string | null;
         };
         Update: {
@@ -369,6 +362,7 @@ export interface Database {
           full_name?: string | null;
           id?: string;
           payment_method?: Json | null;
+          stripe_customer_id?: string | null;
           subscription_id?: string | null;
         };
         Relationships: [
@@ -625,22 +619,20 @@ export interface Database {
 export type Tables<
   PublicTableNameOrOptions extends
     | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
-    | {schema: keyof Database},
-  TableName extends PublicTableNameOrOptions extends {schema: keyof Database}
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = PublicTableNameOrOptions extends {schema: keyof Database}
+> = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R;
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
-        Database["public"]["Views"])
-    ? (Database["public"]["Tables"] &
-        Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    ? (Database["public"]["Tables"] & Database["public"]["Views"])[PublicTableNameOrOptions] extends {
         Row: infer R;
       }
       ? R
@@ -648,13 +640,11 @@ export type Tables<
     : never;
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
-    | {schema: keyof Database},
-  TableName extends PublicTableNameOrOptions extends {schema: keyof Database}
+  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends {schema: keyof Database}
+> = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I;
     }
@@ -669,13 +659,11 @@ export type TablesInsert<
     : never;
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
-    | {schema: keyof Database},
-  TableName extends PublicTableNameOrOptions extends {schema: keyof Database}
+  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends {schema: keyof Database}
+> = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U;
     }
@@ -690,13 +678,11 @@ export type TablesUpdate<
     : never;
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof Database["public"]["Enums"]
-    | {schema: keyof Database},
-  EnumName extends PublicEnumNameOrOptions extends {schema: keyof Database}
+  PublicEnumNameOrOptions extends keyof Database["public"]["Enums"] | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = PublicEnumNameOrOptions extends {schema: keyof Database}
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
     ? Database["public"]["Enums"][PublicEnumNameOrOptions]
