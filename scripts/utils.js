@@ -15,7 +15,6 @@ const Authorization = `Bearer ${SITE_API_KEY}`;
 const trackerCio = new TrackClient(SITE_ID, TRACKING_API_KEY, {
   region: RegionUS,
 });
-const apiCio = new APIClient(SITE_API_KEY, { region: RegionUS });
 
 const toDateTime = secs => {
   const t = new Date("1970-01-01T00:30:00Z"); // Unix epoch start.
@@ -26,7 +25,7 @@ const toDateTime = secs => {
 const getAllSupabaseUsers = async () => {
   const allUsers = [];
   let page = 0;
-  const perPage = 100;
+  const perPage = 50;
 
   console.log("Fetching all supabase users...");
 
@@ -224,7 +223,7 @@ const upsertSupabaseCustomerRecord = async customerData => {
     throw error;
   }
 
-  console.log(`Customer updated: ${id}, ${stripe_customer_id}`);
+  console.log(`Customers table updated: ${id}, ${stripe_customer_id}`);
 };
 
 const copyBillingDetailsToCustomer = async (uuid, payment_method) => {
@@ -367,7 +366,7 @@ const updateSupabaseFromStripe = async ({ users, customers, subscriptions }) => 
         };
 
         const {
-          data: { user },
+          data: { updatedUser },
           error,
         } = await supabaseAdmin.auth.admin.updateUserById(supabaseUser.id, userData);
 
@@ -376,7 +375,7 @@ const updateSupabaseFromStripe = async ({ users, customers, subscriptions }) => 
           throw error;
         }
 
-        console.log(`Supabase user updated with email ${user.email}: ${customer.name}`);
+        console.log(`Supabase user updated with email ${updatedUser.email}: ${updatedUser.user_metadata.full_name}`);
       }
     } else {
       const {
@@ -419,16 +418,18 @@ const updateStripeFromSupabase = async ({ users, customers, subscriptions }) => 
   for (let user of users) {
     let stripeCustomer = customers.find(customer => customer.email === user.email);
 
-    console.log("user.full_name", user.full_name);
-
     if (stripeCustomer) {
       console.log(`Stripe customer with the same email already exists: ${user.email}`);
 
-      const updatedCustomer = await stripe.customers.update(stripeCustomer.id, {
-        name: user.full_name,
-      });
+      if (stripeCustomer.name === user.full_name) {
+        console.log(`Stripe customer detail is already up to date`);
+      } else {
+        const updatedCustomer = await stripe.customers.update(stripeCustomer.id, {
+          name: user.full_name,
+        });
 
-      console.log(`Stripe customer name updated with email ${updatedCustomer.email}: ${updatedCustomer.name}`);
+        console.log(`Stripe customer updated with email ${updatedCustomer.email}: ${updatedCustomer.name}`);
+      }
     } else {
       stripeCustomer = await stripe.customers.create({
         email: user.email,
