@@ -77,15 +77,12 @@ const FourteenDayTrial = ({ email }) => {
       }
     } else {
       const form = event.target as HTMLFormElement;
-      const fnameInput = form.elements.namedItem("fname") as HTMLInputElement;
-      const fname = fnameInput.value;
-      const lnameInput = form.elements.namedItem("lname") as HTMLInputElement;
-      const lname = lnameInput.value;
+      const nameInput = form.elements.namedItem("name") as HTMLInputElement;
+      const fullName = nameInput.value;
       const emailInput = form.elements.namedItem("email") as HTMLInputElement;
       const email = emailInput.value;
-      const fullName = `${fname} ${lname}`;
 
-      if (!fname || !lname || !email) return;
+      if (!fullName || !email) return;
 
       setError(null);
       setIsLoading(true);
@@ -132,12 +129,8 @@ const FourteenDayTrial = ({ email }) => {
           <>
             <div className={`input-groups`}>
               <div className={`input-group`}>
-                <label>First Name:</label>
-                <input type="text" name="fname" placeholder="First name" required />
-              </div>
-              <div className={`input-group`}>
-                <label>Last Name:</label>
-                <input type="text" name="lname" placeholder="Last name" required />
+                <label>Full Name:</label>
+                <input type="text" name="name" placeholder="Full name" required />
               </div>
             </div>
 

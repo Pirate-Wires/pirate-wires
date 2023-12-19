@@ -213,3 +213,22 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
+
+.subscriptionText {
+  font-family: $neueMed;
+  @include get-vw-small-increase(font-size, 14px, 14px);
+  @include get-vw-small-increase(margin-bottom, 10px, 10px);
+}
+
+.subscriptionWrapper {
+  h1 {
+    font-family: $neueBold;
+    @include get-vw-small-increase(font-size, 18px, 18px);
+    @include get-vw-small-increase(margin-bottom, 10px, 10px);
+    letter-spacing: normal;
+  }
+  
+  p {
+    margin-bottom: 10px;
+  }
+}

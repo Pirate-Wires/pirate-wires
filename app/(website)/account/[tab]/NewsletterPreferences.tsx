@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
+import {useState, useEffect} from "react";
+import Button from "@/components/ui/Button";
+import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
 
 const NewsletterPreferences = ({ user }) => {
   const [selectedNewsLetters, setSelectedNewsLetters] = useState<String[]>([]);
@@ -69,10 +70,11 @@ const NewsletterPreferences = ({ user }) => {
       selectedNewsLetters.indexOf(name) > -1
         ? selectedNewsLetters.filter(item => item !== name)
         : [...selectedNewsLetters, name];
-    setPreferences(newSubscription);
+    setSelectedNewsLetters(newSubscription);
   };
 
-  const setPreferences = async (subscription: string[]) => {
+  const setPreferences = async () => {
+    const subscription = selectedNewsLetters;
     if (isLoading || isProgress) return;
 
     setIsProgress(true);
@@ -95,7 +97,6 @@ const NewsletterPreferences = ({ user }) => {
       // API call successful
       // Set isProgress to false to hide the "Processing..." message
       setIsProgress(false);
-      setSelectedNewsLetters(subscription);
       setSuccessMsg("Newsletter preferences updated");
     } catch (error) {
       console.error("There was an error!", error);
@@ -113,6 +114,7 @@ const NewsletterPreferences = ({ user }) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicWires"
             name="Pirate Wires"
             checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
@@ -125,6 +127,7 @@ const NewsletterPreferences = ({ user }) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicWhitePill"
             name="The White Pill"
             checked={selectedNewsLetters.indexOf("The White Pill") > -1}
@@ -137,6 +140,7 @@ const NewsletterPreferences = ({ user }) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicIndustry"
             name="The Industry"
             checked={selectedNewsLetters.indexOf("The Industry") > -1}
@@ -149,6 +153,7 @@ const NewsletterPreferences = ({ user }) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicDoloresPark"
             name="Dolores Park"
             checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
@@ -161,6 +166,7 @@ const NewsletterPreferences = ({ user }) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicImportantPirateWiresUpdates"
             name="Important Pirate Wires Updates"
             checked={selectedNewsLetters.indexOf("Important Pirate Wires Updates") > -1}
@@ -169,6 +175,9 @@ const NewsletterPreferences = ({ user }) => {
           Important Pirate Wires Updates
         </label>
       </div>
+      <Button variant="slim" type="submit" onClick={setPreferences} style={{ width: "20%" }}>
+          Save
+      </Button>
       <Toast />
     </>
   );

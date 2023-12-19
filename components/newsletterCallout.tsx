@@ -151,7 +151,7 @@ export default function NewsletterCallout({ newsletterData, globalFields }) {
                   <label htmlFor="selected1">Selected</label>
                   <input
                     type="checkbox"
-                    className="checkbox"
+                    className={"checkBox"}
                     id="selected1"
                     name="Wires"
                     onChange={handleSelect}
@@ -170,7 +170,7 @@ export default function NewsletterCallout({ newsletterData, globalFields }) {
                   <label htmlFor="selected2">Selected</label>
                   <input
                     type="checkbox"
-                    className="checkbox"
+                    className={"checkBox"}
                     id="selected2"
                     name="The White Pill"
                     onChange={handleSelect}
@@ -189,7 +189,7 @@ export default function NewsletterCallout({ newsletterData, globalFields }) {
                   <label htmlFor="selected3">Selected</label>
                   <input
                     type="checkbox"
-                    className="checkbox"
+                    className={"checkBox"}
                     id="selected3"
                     name="The Industry"
                     onChange={handleSelect}
@@ -208,7 +208,7 @@ export default function NewsletterCallout({ newsletterData, globalFields }) {
                   <label htmlFor="selected4">Selected</label>
                   <input
                     type="checkbox"
-                    className="checkbox"
+                    className={"checkBox"}
                     id="selected4"
                     name="Dolores Park"
                     onChange={handleSelect}

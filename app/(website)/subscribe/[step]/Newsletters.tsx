@@ -80,7 +80,8 @@ const Newsletters: React.FC<NewslettersProps> = ({ email }) => {
         <label className={`checkboxRow`}>
           <input
             type="checkbox"
-            name="Pirate Wires"
+            className={"checkBox"}
+            name="Wires"
             onChange={handleSelect}
             checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
           />
@@ -90,6 +91,7 @@ const Newsletters: React.FC<NewslettersProps> = ({ email }) => {
         <label className={`checkboxRow`}>
           <input
             type="checkbox"
+            className={"checkBox"}
             name="The White Pill"
             onChange={handleSelect}
             checked={selectedNewsLetters.indexOf("The White Pill") > -1}
@@ -100,6 +102,7 @@ const Newsletters: React.FC<NewslettersProps> = ({ email }) => {
         <label className={`checkboxRow`}>
           <input
             type="checkbox"
+            className={"checkBox"}
             name="The Industry"
             onChange={handleSelect}
             checked={selectedNewsLetters.indexOf("The Industry") > -1}
@@ -110,6 +113,7 @@ const Newsletters: React.FC<NewslettersProps> = ({ email }) => {
         <label className={`checkboxRow`}>
           <input
             type="checkbox"
+            className={"checkBox"}
             name="Dolores Park"
             onChange={handleSelect}
             checked={selectedNewsLetters.indexOf("Dolores Park") > -1}

@@ -26,9 +26,14 @@ export default function ManageSubscriptionButton({ session }: Props) {
 
   return (
     <div className={styles.subscriptionManagement}>
-      <p className={styles.subscriptionText}>Manage your subscription on Stripe:</p>
-      <button className={styles.subscriptionBtn} disabled={!session} onClick={redirectToCustomerPortal}>
-        Customer Portal Link
+      <p className={styles.subscriptionText}>
+        Manage your subscription on Stripe:
+      </p>
+      <button
+        className={styles.subscriptionBtn}
+        disabled={!session}
+        onClick={redirectToCustomerPortal}>
+        Customer Portal
       </button>
     </div>
   );
