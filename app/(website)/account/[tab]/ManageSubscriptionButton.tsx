@@ -33,7 +33,7 @@ export default function ManageSubscriptionButton({session}: Props) {
         className={styles.subscriptionBtn}
         disabled={!session}
         onClick={redirectToCustomerPortal}>
-        Customer Portal Link
+        Customer Portal
       </button>
     </div>
   );

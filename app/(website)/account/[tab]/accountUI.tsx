@@ -69,7 +69,6 @@ export default function AccountUI({
             {userDetails?.subscription_id ? (
               <>
                 <CurrentSubscription subscription={subscription} />
-                <hr />
                 <ManageSubscriptionButton session={session} />
               </>
             ) : (
