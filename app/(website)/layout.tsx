@@ -1,9 +1,9 @@
 // app/(website)/layout.tsx
 import SupabaseProvider from "./supabase-provider";
-import {getGlobalFields, getSettings} from "@/lib/sanity/client";
-import {urlForImage} from "@/lib/sanity/image";
+import { getGlobalFields, getSettings } from "@/lib/sanity/client";
+import { urlForImage } from "@/lib/sanity/image";
 import React from "react";
-import {getSession, getUserDetails, getProfile} from "./supabase-server";
+import { getSession, getUserDetails, getProfile } from "./supabase-server";
 
 async function sharedMetaData(params) {
   const settings = await getSettings();
@@ -14,17 +14,8 @@ async function sharedMetaData(params) {
       default: settings?.meta_title || "Pirate Wires",
     },
     description: settings?.description || "Technology, politics, culture",
-    keywords: [
-      "politics",
-      "news",
-      "media",
-      "journalism",
-      "blog",
-      "opinion",
-      "culture",
-      "technology",
-    ],
-    authors: [{name: "Pirate Wires"}],
+    keywords: ["politics", "news", "media", "journalism", "blog", "opinion", "culture", "technology"],
+    authors: [{ name: "Pirate Wires" }],
     canonical: settings?.url,
     openGraph: {
       title: settings?.meta_title || "Pirate Wires",
@@ -33,8 +24,7 @@ async function sharedMetaData(params) {
       siteName: "Pirate Wires",
       images: [
         {
-          url:
-            urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
+          url: urlForImage(settings?.openGraphImage)?.src || "/img/opengraph.jpg",
           width: 1200,
           height: 600,
         },
@@ -49,23 +39,19 @@ async function sharedMetaData(params) {
   };
 }
 
-export async function metadata({params}) {
+export async function metadata({ params }) {
   return await sharedMetaData(params);
 }
 
-export default async function Layout({children, params}) {
+export default async function Layout({ children, params }) {
   const globalFields = await getGlobalFields();
   const session = await getSession();
-  const user = await getUserDetails();
+  const user = await getUserDetails(session?.user.id!);
   const profile = await getProfile(user?.id!);
 
   return (
     <>
-      <SupabaseProvider
-        globalFields={globalFields}
-        session={session}
-        user={user}
-        profile={profile}>
+      <SupabaseProvider globalFields={globalFields} session={session} user={user} profile={profile}>
         <main
           style={
             {

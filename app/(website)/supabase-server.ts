@@ -22,12 +22,10 @@ export async function getSession() {
   }
 }
 
-export async function getUserDetails() {
+export async function getUserDetails(userId: string) {
   const supabase = createServerSupabaseClient();
   try {
-    const session = await getSession();
-
-    const { data: userDetails } = await supabase.from("users").select("*").single();
+    const { data: userDetails } = await supabase.from("users").select("*").eq("id", userId).single();
     return userDetails;
   } catch (error) {
     console.error("Error:", error);
