@@ -10,11 +10,7 @@ export const CurrentSubscription = ({ subscription }) => {
   };
 
   const hasTrial = subscription.trial_end && moment(subscription.trial_end).isValid();
-
-  const currentPeriodStart = moment(subscription.current_period_start);
-  const currentPeriodEnd = moment(subscription.current_period_end);
-  const remainingDays = currentPeriodEnd.diff(currentPeriodStart, 'days');
-
+  
   const currentPeriodStart = moment(subscription.current_period_start);
   const currentPeriodEnd = moment(subscription.current_period_end);
   const remainingDays = currentPeriodEnd.diff(currentPeriodStart, 'days');
