@@ -5,10 +5,11 @@ export default async function PreviewPage() {
   const session = await getSession();
   const user = session?.user;
   const userDetails = await getUserDetails(user?.id!);
+  const customerId = userDetails?.stripe_customer_id!;
 
   if (!user) {
     redirect(`/subscribe/14-day-trial`);
   } else {
-    redirect(`/subscribe/payment?email=${user?.email}&customerId=${userDetails?.stripe_customer_id!}`);
+    redirect(`/subscribe/payment?email=${user?.email}&customerId=${customerId}`);
   }
 }
