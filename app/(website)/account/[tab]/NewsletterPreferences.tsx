@@ -114,6 +114,7 @@ const NewsletterPreferences = ({user}) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicWires"
             name="Pirate Wires"
             checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
@@ -126,6 +127,7 @@ const NewsletterPreferences = ({user}) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicWhitePill"
             name="The White Pill"
             checked={selectedNewsLetters.indexOf("The White Pill") > -1}
@@ -138,6 +140,7 @@ const NewsletterPreferences = ({user}) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicIndustry"
             name="The Industry"
             checked={selectedNewsLetters.indexOf("The Industry") > -1}
@@ -150,6 +153,7 @@ const NewsletterPreferences = ({user}) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicDoloresPark"
             name="Dolores Park"
             checked={selectedNewsLetters.indexOf("Dolores Park") > -1}
@@ -162,6 +166,7 @@ const NewsletterPreferences = ({user}) => {
         <label>
           <input
             type="checkbox"
+            className={"checkBox"}
             id="topicImportantPirateWiresUpdates"
             name="Important Pirate Wires Updates"
             checked={

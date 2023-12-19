@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
 import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
+import {Toggle} from "@/components/ui/Toggle";
 
 export const Commenting = ({updateCommentsDisplayName, updateCommentsNotifications, profile}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -106,7 +107,7 @@ export const Commenting = ({updateCommentsDisplayName, updateCommentsNotificatio
       </div>
       <div className={styles.checkboxRow}>
         <label htmlFor="toggle">
-          <input type="checkbox" id="toggle" checked={notification} onChange={handleToggleCommentsNotifications} />
+          <Toggle checked={notification} onChange={handleToggleCommentsNotifications} />
           Email me when someone replies to my comments
         </label>
       </div>
