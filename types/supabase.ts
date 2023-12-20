@@ -5,25 +5,19 @@ export interface Database {
     Tables: {
       article_metering: {
         Row: {
-          cookie_id: string;
-          ip_addresses: unknown[] | null;
-          last_accessed_at: string | null;
-          view_counts: Json | null;
-          viewed_articles: number[] | null;
+          id: string;
+          ip_address: string;
+          viewed_articles: Json[] | null;
         };
         Insert: {
-          cookie_id: string;
-          ip_addresses?: unknown[] | null;
-          last_accessed_at?: string | null;
-          view_counts?: Json | null;
-          viewed_articles?: number[] | null;
+          id?: string;
+          ip_address: string;
+          viewed_articles?: Json[] | null;
         };
         Update: {
-          cookie_id?: string;
-          ip_addresses?: unknown[] | null;
-          last_accessed_at?: string | null;
-          view_counts?: Json | null;
-          viewed_articles?: number[] | null;
+          id?: string;
+          ip_address?: string;
+          viewed_articles?: Json[] | null;
         };
         Relationships: [];
       };
