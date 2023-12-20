@@ -1,5 +1,10 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
+export interface ViewedArticle {
+  slug: string;
+  viewed_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -7,17 +12,17 @@ export interface Database {
         Row: {
           id: string;
           ip_address: string;
-          viewed_articles: Json[] | null;
+          viewed_articles: ViewedArticle[] | null;
         };
         Insert: {
           id?: string;
           ip_address: string;
-          viewed_articles?: Json[] | null;
+          viewed_articles?: ViewedArticle[] | null;
         };
         Update: {
           id?: string;
           ip_address?: string;
-          viewed_articles?: Json[] | null;
+          viewed_articles?: ViewedArticle[] | null;
         };
         Relationships: [];
       };

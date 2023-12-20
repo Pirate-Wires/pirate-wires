@@ -1,6 +1,15 @@
 // app/(website)/p/[slug]/page.tsx
+import { headers } from "next/headers";
+import React from "react";
+
+import { getSession, getUserDetails, getViewedArticles, upsertViewedArticles } from "@/app/(website)/supabase-server";
+import Newsletters from "@/app/(website)/newsletters/newsletters";
 import PostPage from "./default";
-// import { CommentsContextProvider } from '@/lib/supabase-comments/hooks/use-comments';
+
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
+
+import { urlForImage } from "@/lib/sanity/image";
 import {
   getAllPostsSlugs,
   getGlobalFields,
@@ -9,12 +18,6 @@ import {
   getPublicationPosts,
   getSettings,
 } from "@/lib/sanity/client";
-import React from "react";
-import Navigation from "@/components/navigation";
-import Newsletters from "@/app/(website)/newsletters/newsletters";
-import Footer from "@/components/footer";
-import { getSession, getUserDetails } from "@/app/(website)/supabase-server";
-import { urlForImage } from "@/lib/sanity/image";
 
 export async function generateStaticParams() {
   return await getAllPostsSlugs();
@@ -23,9 +26,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const pageData = await getPostBySlug(params.slug);
   const settings = await getSettings();
-  const title = pageData.meta_title ? pageData.meta_title : pageData.title + " | Pirate Wires";
+  const title = pageData.meta_title ? pageData.meta_title : pageData.title ?? "Not Found" + " | Pirate Wires";
   const description = pageData.meta_description ? pageData.meta_description : pageData.excerpt;
-  const image = pageData.openGraphImage ? urlForImage(pageData.openGraphImage)?.src : pageData.mainImage.asset.url;
+  const image = pageData.openGraphImage
+    ? urlForImage(pageData.openGraphImage)?.src
+    : pageData.mainImage?.asset?.url ?? null;
 
   return {
     title: title,
@@ -48,7 +53,7 @@ export default async function PostDefault({ params }) {
   const { slug } = params;
   const post = await getPostBySlug(slug);
   let postId;
-  if (post) {
+  if (post.slug) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/post`, {
         method: "POST",
@@ -84,6 +89,20 @@ export default async function PostDefault({ params }) {
   const publication = post.section;
   const session = await getSession();
   const userDetails = await getUserDetails(session?.user.id!);
+
+  if (!session && post.slug) {
+    const header = headers();
+    const ipAddress = (header.get("x-forwarded-for") ?? "127.0.0.1").split(",")[0];
+
+    const viewedArticles = await getViewedArticles(ipAddress);
+
+    if (viewedArticles.length < 3 && !viewedArticles.find(article => article.slug === post.slug.current)) {
+      await upsertViewedArticles(ipAddress, [
+        ...viewedArticles,
+        { slug: post.slug.current, viewed_at: new Date().toString() },
+      ]);
+    }
+  }
 
   return (
     <>
