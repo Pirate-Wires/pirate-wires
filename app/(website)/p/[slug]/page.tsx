@@ -89,18 +89,21 @@ export default async function PostDefault({ params }) {
   const publication = post.section;
   const session = await getSession();
   const userDetails = await getUserDetails(session?.user.id!);
+  let freeViewedArticleCount = 0;
 
   if (!session && post.slug) {
     const header = headers();
     const ipAddress = (header.get("x-forwarded-for") ?? "127.0.0.1").split(",")[0];
 
     const viewedArticles = await getViewedArticles(ipAddress);
+    freeViewedArticleCount = viewedArticles.length;
 
     if (viewedArticles.length < 3 && !viewedArticles.find(article => article.slug === post.slug.current)) {
       await upsertViewedArticles(ipAddress, [
         ...viewedArticles,
         { slug: post.slug.current, viewed_at: new Date().toString() },
       ]);
+      freeViewedArticleCount++;
     }
   }
 
@@ -116,7 +119,13 @@ export default async function PostDefault({ params }) {
           } as React.CSSProperties
         }>
         <Navigation publication={publication} />
-        <PostPage post={post} postId={postId} userDetails={userDetails} thisSectionArticles={allRelatedArticles} />
+        <PostPage
+          post={post}
+          postId={postId}
+          userDetails={userDetails}
+          thisSectionArticles={allRelatedArticles}
+          freeViewedArticleCount={freeViewedArticleCount}
+        />
         <Footer globalFields={globalFields} />
       </div>
     </>

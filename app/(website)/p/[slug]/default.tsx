@@ -10,9 +10,11 @@ import RelatedArticles from "@/components/relatedArticles";
 import RemainingArticleEls from "@/components/remainingArticleEls";
 import { useScrollBasedAnims } from "@/lib/hooks/useScrollBasedAnims";
 import Comment from "@/components/comment";
+import StickyOverlay from "@/components/ui/Overlay/StickOverlay";
+import FixedOverlay from "@/components/ui/Overlay/FixedOverlay";
 
 export default function Post(props) {
-  const { loading, post, postId, thisSectionArticles } = props;
+  const { loading, post, postId, thisSectionArticles, freeViewedArticleCount } = props;
 
   const slug = post?.slug;
 
@@ -103,9 +105,13 @@ export default function Post(props) {
       </section>
 
       <section className={styles.postBody}>
-        <div className={`richText martina-light`}>{post.body && <PortableText value={post.body} />}</div>
+        <div className={`richText martina-light`}>
+          {post.body && <PortableText value={post.body} />}
+          {freeViewedArticleCount !== 3 && <StickyOverlay count={freeViewedArticleCount} />}
+        </div>
       </section>
 
+      {freeViewedArticleCount === 3 && <FixedOverlay />}
       {postId && <Comment postId={postId} />}
 
       <RemainingArticleEls />
