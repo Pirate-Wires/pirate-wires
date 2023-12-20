@@ -1,17 +1,51 @@
 .container {
-  position: sticky;
-  display: flex;
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 90px;
   background: #060606;
   color: #e3e3e3;
+  padding: 16px 20px;
+  z-index: 1000;
+  margin: 0;
+  font-family: "Helvetica Neue" !important;
+
+  @media (min-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%); // centers banner on desktop
+    width: 65%;
+  }
+
+  @media (max-width: 767px) {
+    left: 0;
+    right: 0;
+    transform: none; // full screen width on mobile
+  }
 }
 
-.remainCount {
+.bannerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bannerContent .remainCount {
   font-family: "Helvetica Neue" !important;
   font-weight: 700;
 }
 
-.description {
+.bannerContent .description {
   font-family: "Helvetica Neue" !important;
-  font-weight: 500;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.subscribeButton {
+  border: 1px solid white;
+  padding: 10px 20px;
+  margin-right: 20px;
+}
+
+.closeButton {
+  float: right;
+  cursor: pointer;
 }
