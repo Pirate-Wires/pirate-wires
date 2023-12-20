@@ -1,29 +1,28 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
+export interface ViewedArticle {
+  slug: string;
+  viewed_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
       article_metering: {
         Row: {
-          cookie_id: string;
-          ip_addresses: unknown[] | null;
-          last_accessed_at: string | null;
-          view_counts: Json | null;
-          viewed_articles: number[] | null;
+          id: string;
+          ip_address: string;
+          viewed_articles: ViewedArticle[] | null;
         };
         Insert: {
-          cookie_id: string;
-          ip_addresses?: unknown[] | null;
-          last_accessed_at?: string | null;
-          view_counts?: Json | null;
-          viewed_articles?: number[] | null;
+          id?: string;
+          ip_address: string;
+          viewed_articles?: ViewedArticle[] | null;
         };
         Update: {
-          cookie_id?: string;
-          ip_addresses?: unknown[] | null;
-          last_accessed_at?: string | null;
-          view_counts?: Json | null;
-          viewed_articles?: number[] | null;
+          id?: string;
+          ip_address?: string;
+          viewed_articles?: ViewedArticle[] | null;
         };
         Relationships: [];
       };
