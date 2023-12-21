@@ -1,12 +1,12 @@
+"use client";
 import React, { useEffect, useState } from "react";
 
 import Button from "@/components/ui/Button";
 import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
 
 import styles from "@/styles/pages/account.module.scss";
-import { set } from "sanity";
 
-export const MyDetails = ({ userDetails, setUserName }) => {
+export const MyDetails = ({ userDetails }) => {
   const [lastUpdatedName, setLastUpdatedName] = useState(userDetails?.full_name ?? "");
   const [lastUpdatedEmail, setLastUpdatedEmail] = useState(userDetails?.email ?? "");
   const [successMsg, setSuccessMsg] = useState("");
@@ -64,7 +64,6 @@ export const MyDetails = ({ userDetails, setUserName }) => {
         user_metadata: { full_name: updatedName },
       } = await response.json();
 
-      setUserName(updatedName);
       setLastUpdatedName(updatedName);
       setIsLoading(false);
       setSuccessMsg("Successfully updated user name");

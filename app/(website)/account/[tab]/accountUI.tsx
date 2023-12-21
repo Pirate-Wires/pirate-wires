@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import styles from "@/styles/pages/account.module.scss";
 import React, { useState, useEffect, useMemo } from "react";
-import TabButton from "./TabButtons";
+import TabButton from "./TabList";
 import MyDetails from "./MyDetails";
 import NewsletterPreferences from "./NewsletterPreferences";
 import Commenting from "./Commenting";
@@ -17,7 +17,6 @@ export default function AccountUI({
   subscription,
   session,
   profile,
-  updateName,
   updateCommentsNotifications,
   updateCommentsDisplayName,
 }) {
@@ -45,7 +44,7 @@ export default function AccountUI({
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
-          <TabButton updateActiveTab={updateActiveTab} />
+          <TabButton />
         </div>
 
         <div className={`${styles.right}`}>
