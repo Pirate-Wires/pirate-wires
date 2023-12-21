@@ -1,7 +1,7 @@
 // /app/(website)/account/page.tsx
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import React from "react";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 
