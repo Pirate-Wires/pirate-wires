@@ -1,13 +1,13 @@
 // /app/(website)/account/page.tsx
-import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
-import { redirect, notFound } from "next/navigation";
+import {revalidatePath} from "next/cache";
+import {cookies} from "next/headers";
+import {redirect, notFound} from "next/navigation";
 import React from "react";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import {createServerActionClient} from "@supabase/auth-helpers-nextjs";
 
-import { getSession, getUserDetails, getSubscription, getProfile } from "@/app/(website)/supabase-server";
-import { getGlobalFields, getSettings } from "@/lib/sanity/client";
-import { urlForImage } from "@/lib/sanity/image";
+import {getSession, getUserDetails, getSubscription, getProfile} from "@/app/(website)/supabase-server";
+import {getGlobalFields, getSettings} from "@/lib/sanity/client";
+import {urlForImage} from "@/lib/sanity/image";
 import Navigation from "@/components/navigation";
 import TabList from "./TabList";
 import MyDetails from "./MyDetails";
@@ -16,10 +16,10 @@ import Commenting from "./Commenting";
 import CurrentSubscription from "./CurrentSubscription";
 import ManageSubscriptionButton from "./ManageSubscriptionButton";
 import NotSubscriptionStatus from "./NotSubscriptionStatus";
-import type { Database } from "@/types/supabase";
+import type {Database} from "@/types/supabase";
 import styles from "@/styles/pages/account.module.scss";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({params}) {
   const settings = await getSettings();
   const title = "Account | Pirate Wires";
   const description = settings.meta_description;
@@ -41,12 +41,12 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-export default async function Account({ params }) {
+export default async function Account({params}) {
   const session = await getSession();
   const userDetails = await getUserDetails(session?.user.id!);
   const subscription = await getSubscription();
   const profile = await getProfile(userDetails?.id!);
-  const { tab } = params;
+  const {tab} = params;
 
   const globalFields = await getGlobalFields();
 
@@ -58,15 +58,17 @@ export default async function Account({ params }) {
     "use server";
 
     const newDisplayName = formData.get("commentsDisplayName") as string;
-    const supabase = createServerActionClient<Database>({ cookies });
+    const supabase = createServerActionClient<Database>({cookies});
     const session = await getSession();
     const user = session?.user;
 
     if (user) {
-      const { error } = await supabase
-        .from("profiles")
-        .update({ comments_display_name: newDisplayName })
-        .eq("id", user.id);
+      const {error} = await supabase
+        .from("users")
+        .update({
+          comments_display_name: newDisplayName,
+          comments_notifications: true, // or false based on your requirement
+        }).eq("id", user.id);
 
       if (error) {
         throw error;
@@ -79,13 +81,16 @@ export default async function Account({ params }) {
   const updateCommentsNotifications = async (newCommentsNotifications: boolean) => {
     "use server";
 
-    const supabase = createServerActionClient<Database>({ cookies });
+    const supabase = createServerActionClient<Database>({cookies});
     const user = session?.user;
 
     if (user) {
-      const { error } = await supabase
-        .from("profiles")
-        .update({ comments_notifications: newCommentsNotifications })
+      const {error} = await supabase
+        .from("users")
+        .update({
+          comments_display_name: "desiredDisplayName",
+          comments_notifications: newCommentsNotifications
+        })
         .eq("id", user.id);
 
       if (error) {
@@ -96,7 +101,7 @@ export default async function Account({ params }) {
     revalidatePath("/account");
   };
 
-  const TabSwitcher = ({ tab }: { tab: string }) => {
+  const TabSwitcher = ({tab}: {tab: string}) => {
     switch (tab) {
       case "my-details":
         return <MyDetails userDetails={userDetails} />;
