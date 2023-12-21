@@ -1,3 +1,5 @@
+@import "../../styles/abstracts";
+
 .container {
   position: fixed;
   bottom: 0;
@@ -7,12 +9,11 @@
   padding: 16px 20px;
   z-index: 1000;
   margin: 0;
-  font-family: "Helvetica Neue" !important;
 
   @media (min-width: 768px) {
     left: 50%;
     transform: translateX(-50%); // centers banner on desktop
-    width: 65%;
+    width: 630px;
   }
 
   @media (max-width: 767px) {
@@ -26,11 +27,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: "Helvetica Neue" !important;
 }
 
 .bannerContent .remainCount {
   font-family: "Helvetica Neue" !important;
   font-weight: 700;
+  margin-top: 0;
 }
 
 .bannerContent .description {
@@ -40,6 +43,7 @@
 }
 
 .subscribeButton {
+  font-family: "Helvetica Neue" !important;
   border: 1px solid white;
   padding: 10px 20px;
   margin-right: 20px;
