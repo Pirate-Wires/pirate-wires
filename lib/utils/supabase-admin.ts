@@ -23,33 +23,6 @@ const supabaseAdmin = createClient<Database>(
 
 const OTP_VALIDITY_DURATION = (parseInt(process.env.OTP_VALIDITY_DURATION || "0") || 15) * 60 * 1000;
 
-const customTheme = {
-  default: {
-    colors: {
-      brand: "hsl(153 60.0% 53.0%)",
-      brandAccent: "hsl(154 54.8% 45.1%)",
-      brandButtonText: "white",
-      // ..
-    },
-  },
-  dark: {
-    colors: {
-      brandButtonText: "white",
-      defaultButtonBackground: "#2e2e2e",
-      defaultButtonBackgroundHover: "#3e3e3e",
-      //..
-    },
-  },
-  // You can also add more theme variations with different names.
-  evenDarker: {
-    colors: {
-      brandButtonText: "white",
-      defaultButtonBackground: "#1e1e1e",
-      defaultButtonBackgroundHover: "#2e2e2e",
-      //..
-    },
-  },
-};
 
 const upsertProductRecord = async (product: Stripe.Product) => {
   const productData: Product = {
