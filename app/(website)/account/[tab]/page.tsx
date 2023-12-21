@@ -1,15 +1,23 @@
 // /app/(website)/account/page.tsx
-import { getSession, getUserDetails, getSubscription, getProfile } from "@/app/(website)/supabase-server";
-import type { Database } from "@/types/supabase";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import React from "react";
-import Navigation from "@/components/navigation";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+
+import { getSession, getUserDetails, getSubscription, getProfile } from "@/app/(website)/supabase-server";
 import { getGlobalFields, getSettings } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
-import AccountUI from "./accountUI";
+import Navigation from "@/components/navigation";
+import TabList from "./TabList";
+import MyDetails from "./MyDetails";
+import NewsletterPreferences from "./NewsletterPreferences";
+import Commenting from "./Commenting";
+import CurrentSubscription from "./CurrentSubscription";
+import ManageSubscriptionButton from "./ManageSubscriptionButton";
+import NotSubscriptionStatus from "./NotSubscriptionStatus";
+import type { Database } from "@/types/supabase";
+import styles from "@/styles/pages/account.module.scss";
 
 export async function generateMetadata({ params }) {
   const settings = await getSettings();
@@ -45,24 +53,6 @@ export default async function Account({ params }) {
   if (!session) {
     return redirect("/sign-in");
   }
-  const updateName = async (formData: FormData) => {
-    "use server";
-
-    const newName = formData.get("name") as string;
-    const supabase = createServerActionClient<Database>({ cookies });
-    const session = await getSession();
-    const user = session?.user;
-
-    if (user) {
-      const { error } = await supabase.from("users").update({ full_name: newName }).eq("id", user.id);
-
-      if (error) {
-        throw error;
-      }
-    }
-
-    revalidatePath("/account");
-  };
 
   const updateCommentsDisplayName = async (formData: FormData) => {
     "use server";
@@ -106,6 +96,34 @@ export default async function Account({ params }) {
     revalidatePath("/account");
   };
 
+  const TabSwitcher = ({ tab }: { tab: string }) => {
+    switch (tab) {
+      case "my-details":
+        return <MyDetails userDetails={userDetails} />;
+      case "newsletter-preferences":
+        return <NewsletterPreferences user={userDetails} />;
+      case "commenting":
+        return (
+          <Commenting
+            updateCommentsDisplayName={updateCommentsDisplayName}
+            updateCommentsNotifications={updateCommentsNotifications}
+            profile={profile}
+          />
+        );
+      case "subscription-billing":
+        return userDetails?.subscription_id ? (
+          <>
+            <CurrentSubscription subscription={subscription} />
+            <ManageSubscriptionButton session={session} />
+          </>
+        ) : (
+          <NotSubscriptionStatus />
+        );
+      default:
+        return notFound();
+    }
+  };
+
   return (
     <div
       className="colorWrapper reducedHeaderPage"
@@ -117,16 +135,22 @@ export default async function Account({ params }) {
         } as React.CSSProperties
       }>
       <Navigation globalFields={globalFields} />
-      <AccountUI
-        tab={tab}
-        userDetails={userDetails}
-        subscription={subscription}
-        session={session}
-        profile={profile}
-        updateName={updateName}
-        updateCommentsNotifications={updateCommentsNotifications}
-        updateCommentsDisplayName={updateCommentsDisplayName}
-      />
+
+      <section className="accountContainer c-20">
+        <div className={styles.top} data-name={userDetails?.full_name}>
+          <h1>{userDetails?.full_name}</h1>
+        </div>
+        <div className={styles.bottom}>
+          <div className={styles.left}>
+            <TabList />
+          </div>
+          <div className={`${styles.right}`}>
+            <div className={`${styles.cardWrapper}`}>
+              <TabSwitcher tab={tab} />
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

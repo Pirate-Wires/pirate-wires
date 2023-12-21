@@ -1,9 +1,10 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/ui/Button";
 import styles from "@/styles/pages/account.module.scss";
 
-import {Toast, ToastUtil, ToastableError} from "@/components/ui/Toast";
-import {Toggle} from "@/components/ui/Toggle";
+import { Toast, ToastUtil, ToastableError } from "@/components/ui/Toast";
+import { Toggle } from "@/components/ui/Toggle";
 
 export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotifications, profile }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -47,14 +48,12 @@ export const Commenting = ({ updateCommentsDisplayName, updateCommentsNotificati
         setDetailUpdateMsg(`3 char display name required`);
         setIsLoading(false);
         throw new ToastableError(`3 char  display name required`);
-        return; // Stop the submission process
       }
 
       if (newDisplayName === lastUpdatedDisplayName) {
         setDetailUpdateMsg(`Different display name required`);
         setIsLoading(false);
         throw new ToastableError(`Different display name required`);
-        return;
       }
 
       await updateCommentsDisplayName(formData);

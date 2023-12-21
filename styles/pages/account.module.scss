@@ -57,13 +57,9 @@
 
 .cardWrapper {
   flex-direction: column;
-  display: none;
   align-items: flex-start;
+  display: flex;
   @include get-vw-small-increase(gap, 20px, 20px);
-
-  &.activeCard {
-    display: flex;
-  }
 
   form {
     flex-direction: column;
@@ -227,7 +223,7 @@ input:checked + .slider:before {
     @include get-vw-small-increase(margin-bottom, 10px, 10px);
     letter-spacing: normal;
   }
-  
+
   p {
     margin-bottom: 10px;
   }
