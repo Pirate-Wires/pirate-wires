@@ -10,13 +10,21 @@
   z-index: 1000;
   margin: 0;
 
-  @media (min-width: 768px) {
+  @media (min-width: 960px) {
     left: 50%;
     transform: translateX(-50%); // centers banner on desktop
-    width: 630px;
+    @media screen and (max-width: 1024px) {
+      width: 740px;
+    }
+    @media screen and (min-width: 1025px) and (max-width: 1440px) {
+      width: 630px;
+    }
+    @media screen and (min-width: 1441px) {
+      width: 661.5px;
+    }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 959px) {
     left: 0;
     right: 0;
     transform: none; // full screen width on mobile
