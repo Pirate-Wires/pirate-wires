@@ -63,12 +63,16 @@ export default async function Account({params}) {
     const user = session?.user;
 
     if (user) {
+      const profile = await getProfile(user.id);
+      const {comments_notifications} = profile || {comments_notifications: null}; // Use existing comments_notifications or set to null if profile is null
+
       const {error} = await supabase
         .from("users")
         .update({
           comments_display_name: newDisplayName,
-          comments_notifications: true, // or false based on your requirement
-        }).eq("id", user.id);
+          comments_notifications: comments_notifications || false, // Use existing value or set to false if null
+        })
+        .eq("id", user.id);
 
       if (error) {
         throw error;
@@ -78,18 +82,23 @@ export default async function Account({params}) {
     revalidatePath("/account");
   };
 
+
   const updateCommentsNotifications = async (newCommentsNotifications: boolean) => {
     "use server";
 
     const supabase = createServerActionClient<Database>({cookies});
+    const session = await getSession();
     const user = session?.user;
 
     if (user) {
+      const profile = await getProfile(user.id);
+      const {comments_display_name} = profile || {comments_display_name: null}; // Use existing comments_display_name or set to null if profile is null
+
       const {error} = await supabase
         .from("users")
         .update({
-          comments_display_name: "desiredDisplayName",
-          comments_notifications: newCommentsNotifications
+          comments_display_name, // Include the existing value of comments_display_name
+          comments_notifications: newCommentsNotifications,
         })
         .eq("id", user.id);
 
@@ -100,6 +109,8 @@ export default async function Account({params}) {
 
     revalidatePath("/account");
   };
+
+
 
   const TabSwitcher = ({tab}: {tab: string}) => {
     switch (tab) {
