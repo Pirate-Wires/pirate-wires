@@ -23,33 +23,6 @@ const supabaseAdmin = createClient<Database>(
 
 const OTP_VALIDITY_DURATION = (parseInt(process.env.OTP_VALIDITY_DURATION || "0") || 15) * 60 * 1000;
 
-const customTheme = {
-  default: {
-    colors: {
-      brand: "hsl(153 60.0% 53.0%)",
-      brandAccent: "hsl(154 54.8% 45.1%)",
-      brandButtonText: "white",
-      // ..
-    },
-  },
-  dark: {
-    colors: {
-      brandButtonText: "white",
-      defaultButtonBackground: "#2e2e2e",
-      defaultButtonBackgroundHover: "#3e3e3e",
-      //..
-    },
-  },
-  // You can also add more theme variations with different names.
-  evenDarker: {
-    colors: {
-      brandButtonText: "white",
-      defaultButtonBackground: "#1e1e1e",
-      defaultButtonBackgroundHover: "#2e2e2e",
-      //..
-    },
-  },
-};
 
 const upsertProductRecord = async (product: Stripe.Product) => {
   const productData: Product = {
@@ -100,6 +73,7 @@ const copyBillingDetailsToCustomer = async (uuid: string, payment_method: Stripe
     .from("users")
     .update({
       billing_address: { ...address },
+      // @ts-ignore
       payment_method: { ...payment_method[payment_method.type] },
     })
     .eq("id", uuid);
@@ -156,6 +130,7 @@ const manageSubscriptionStatusChange = async (subscriptionId: string, customerId
 
   const { error: updateError } = await supabaseAdmin
     .from("users")
+    // @ts-ignore
     .update({ subscription_id: subscription.id })
     .eq("id", uuid)
     .select()
@@ -191,7 +166,7 @@ const createAuthUser = async (email: string, full_name?: string) => {
 
 const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
   const { data: user } = await createAuthUser(customer.email!, customer.name!);
-
+  // @ts-ignore
   const { error } = await supabaseAdmin.from("users").upsert({ id: user?.id!, stripe_customer_id: customer.id });
 
   if (error) throw error;
@@ -200,6 +175,7 @@ const syncSupbaseUserWithStripe = async (customer: Stripe.Customer) => {
 
   const { data: updatedUser, error: updateError } = await supabaseAdmin
     .from("users")
+    // @ts-ignore
     .update({ full_name: customer.name })
     .eq("id", user?.id!)
     .select()
@@ -238,7 +214,7 @@ const upsertUserRecord = async (id: string, email: string, full_name: string) =>
     full_name,
     email,
   };
-
+  // @ts-ignore
   const { error } = await supabaseAdmin.from("users").upsert([userData]);
   if (error) return { error };
   console.log(`User inserted/updated: ${id}`);

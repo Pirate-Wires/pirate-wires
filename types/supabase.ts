@@ -192,8 +192,6 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null;
-          comments_display_name: string | null;
-          comments_notifications: boolean | null;
           email: string | null;
           full_name: string | null;
           id: string;
@@ -203,8 +201,6 @@ export interface Database {
         };
         Insert: {
           avatar_url?: string | null;
-          comments_display_name?: string | null;
-          comments_notifications?: boolean | null;
           email?: string | null;
           full_name?: string | null;
           id: string;
@@ -214,8 +210,6 @@ export interface Database {
         };
         Update: {
           avatar_url?: string | null;
-          comments_display_name?: string | null;
-          comments_notifications?: boolean | null;
           email?: string | null;
           full_name?: string | null;
           id?: string;
@@ -333,6 +327,8 @@ export interface Database {
       users: {
         Row: {
           avatar_url: string | null;
+          comments_display_name: string | null;
+          comments_notifications: boolean | null;
           billing_address: Json | null;
           created_at: string | null;
           email: string | null;
@@ -344,6 +340,8 @@ export interface Database {
         };
         Insert: {
           avatar_url?: string | null;
+          comments_display_name: string | null;
+          comments_notifications: boolean | null;
           billing_address?: Json | null;
           created_at?: string | null;
           email?: string | null;
@@ -355,6 +353,8 @@ export interface Database {
         };
         Update: {
           avatar_url?: string | null;
+          comments_display_name: string | null;
+          comments_notifications: boolean | null;
           billing_address?: Json | null;
           created_at?: string | null;
           email?: string | null;
