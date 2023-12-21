@@ -1,15 +1,72 @@
+@import "../../styles/abstracts";
+
 .container {
-  position: absolute;
+  position: fixed;
+  bottom: 0;
+  height: 48%;
   width: 100%;
   background: #060606;
   color: #e3e3e3;
+  padding: 20px;
+  z-index: 1000;
+  margin: 0;
+  box-shadow: 0px -10px 5px 100px rgba($color: #000000, $alpha: 0.5);
+  }
+
+.bannerContent {
+  position: relative;
+  height: auto;
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
 }
 
-.signIn {
-  display: flex;
+.bannerText {
+  font-size: 54px;
+  font-family: $gtBold;
+  font-weight: bold;
+  margin-top: px;
+  margin-bottom: 20px;
+  line-height: 1;
 }
 
-p.underline {
+.bannerSubtext {
+  font-size: 16px;
+  font-family: "Helvetica Neue" !important;
+  margin-bottom: 20px;
+}
+
+.subscribeButton {
+  border: 1px solid white;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Helvetica Neue" !important;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.subscribeButton:hover {
+  border: 1px solid #e5e5e5;
+  color: #e5e5e5;
+}
+
+.signinLink {
+  color: #fff;
   text-decoration: underline;
-  margin-left: 5px;
+  font-family: "Helvetica Neue" !important;
+  font-size: 12px;
+}
+
+.signinLink:hover {
+  color: #e5e5e5;
+}
+
+.signinText {
+  font-family: "Helvetica Neue" !important;
+  font-size: 12px;
+  margin-bottom: 10px;
 }
