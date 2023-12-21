@@ -225,3 +225,8 @@
     @include get-vw-small-increase(padding, 10px, 10px);
   }
 }
+
+.articleRestricted {
+  overflow: hidden;
+  position: fixed;
+}

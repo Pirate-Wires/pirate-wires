@@ -1,17 +1,63 @@
+@import "../../styles/abstracts";
+
 .container {
-  position: sticky;
-  display: flex;
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  height: 90px;
   background: #060606;
   color: #e3e3e3;
+  padding: 16px 20px;
+  z-index: 1000;
+  margin: 0;
+
+  @media (min-width: 960px) {
+    left: 50%;
+    transform: translateX(-50%); // centers banner on desktop
+    @media screen and (max-width: 1024px) {
+      width: 740px;
+    }
+    @media screen and (min-width: 1025px) and (max-width: 1440px) {
+      width: 630px;
+    }
+    @media screen and (min-width: 1441px) {
+      width: 661.5px;
+    }
+  }
+
+  @media (max-width: 959px) {
+    left: 0;
+    right: 0;
+    transform: none; // full screen width on mobile
+  }
 }
 
-.remainCount {
+.bannerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Helvetica Neue" !important;
+}
+
+.bannerContent .remainCount {
   font-family: "Helvetica Neue" !important;
   font-weight: 700;
+  margin-top: 0;
 }
 
-.description {
+.bannerContent .description {
   font-family: "Helvetica Neue" !important;
-  font-weight: 500;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.subscribeButton {
+  font-family: "Helvetica Neue" !important;
+  border: 1px solid white;
+  padding: 10px 20px;
+  margin-right: 20px;
+}
+
+.closeButton {
+  float: right;
+  cursor: pointer;
 }

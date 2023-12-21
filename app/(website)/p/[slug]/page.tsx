@@ -9,6 +9,8 @@ import PostPage from "./default";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 
+import styles from "@/styles/pages/article.module.scss";
+
 import { urlForImage } from "@/lib/sanity/image";
 import {
   getAllPostsSlugs,
@@ -110,7 +112,7 @@ export default async function PostDefault({ params }) {
   return (
     <>
       <div
-        className={`colorWrapper article ${post.section}`}
+        className={`colorWrapper article ${freeViewedArticleCount === 3 ? styles.articleRestricted : ""} ${post.section}`}
         style={
           {
             "--color": "#060606",
