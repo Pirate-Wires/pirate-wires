@@ -37,11 +37,6 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const { id, email, full_name } = body;
 
-    const {
-      data: { user },
-      error,
-    } = await updateAuthUser(id, { email, full_name });
-
     if (email) {
       const { data: result, error } = await verifyEmail(email);
 
@@ -51,6 +46,11 @@ export async function PUT(req: Request) {
         return new Response(JSON.stringify({ message: "Invalid Email Address" }), { status: 400 });
       }
     }
+
+    const {
+      data: { user },
+      error,
+    } = await updateAuthUser(id, { email, full_name });
 
     if (error) throw error;
 
