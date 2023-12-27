@@ -49,65 +49,61 @@ export interface Database {
       };
       posts: {
         Row: {
-          authorId: string;
+          author_id: string;
           content: string | null;
-          createdAt: string;
+          created_at: string | null;
           id: number;
-          isApproved: boolean;
-          isDeleted: boolean;
-          isPinned: boolean;
-          isPublished: boolean;
-          live: boolean | null;
-          parentId: number | null;
-          rootId: number | null;
+          parent_id: number | null;
+          root_id: number | null;
           sanity_id: string | null;
-          siteId: number;
           slug: string;
           title: string | null;
-          updatedAt: string | null;
+          updated_at: string | null;
         };
         Insert: {
-          authorId: string;
+          author_id: string;
           content?: string | null;
-          createdAt?: string;
+          created_at?: string | null;
           id?: number;
-          isApproved?: boolean;
-          isDeleted?: boolean;
-          isPinned?: boolean;
-          isPublished?: boolean;
-          live?: boolean | null;
-          parentId?: number | null;
-          rootId?: number | null;
+          parent_id?: number | null;
+          root_id?: number | null;
           sanity_id?: string | null;
-          siteId?: number;
           slug: string;
           title?: string | null;
-          updatedAt?: string | null;
+          updated_at?: string | null;
         };
         Update: {
-          authorId?: string;
+          author_id?: string;
           content?: string | null;
-          createdAt?: string;
+          created_at?: string | null;
           id?: number;
-          isApproved?: boolean;
-          isDeleted?: boolean;
-          isPinned?: boolean;
-          isPublished?: boolean;
-          live?: boolean | null;
-          parentId?: number | null;
-          rootId?: number | null;
+          parent_id?: number | null;
+          root_id?: number | null;
           sanity_id?: string | null;
-          siteId?: number;
           slug?: string;
           title?: string | null;
-          updatedAt?: string | null;
+          updated_at?: string | null;
         };
         Relationships: [
           {
-            foreignKeyName: "posts_authorId_fkey";
-            columns: ["authorId"];
+            foreignKeyName: "posts_author_id_fkey";
+            columns: ["author_id"];
             isOneToOne: false;
-            referencedRelation: "profiles";
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "posts_parent_id_fkey";
+            columns: ["parent_id"];
+            isOneToOne: false;
+            referencedRelation: "posts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "posts_root_id_fkey";
+            columns: ["root_id"];
+            isOneToOne: false;
+            referencedRelation: "posts";
             referencedColumns: ["id"];
           },
         ];
@@ -189,72 +185,6 @@ export interface Database {
         };
         Relationships: [];
       };
-      profiles: {
-        Row: {
-          avatar_url: string | null;
-          email: string | null;
-          full_name: string | null;
-          id: string;
-          subscription_id: string | null;
-          updated_at: string | null;
-          website: string | null;
-        };
-        Insert: {
-          avatar_url?: string | null;
-          email?: string | null;
-          full_name?: string | null;
-          id: string;
-          subscription_id?: string | null;
-          updated_at?: string | null;
-          website?: string | null;
-        };
-        Update: {
-          avatar_url?: string | null;
-          email?: string | null;
-          full_name?: string | null;
-          id?: string;
-          subscription_id?: string | null;
-          updated_at?: string | null;
-          website?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey";
-            columns: ["id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "profiles_subscription_id_fkey";
-            columns: ["subscription_id"];
-            isOneToOne: false;
-            referencedRelation: "subscriptions";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      sites: {
-        Row: {
-          id: number;
-          name: string;
-          ownerId: string;
-          siteDomain: string;
-        };
-        Insert: {
-          id?: number;
-          name: string;
-          ownerId: string;
-          siteDomain: string;
-        };
-        Update: {
-          id?: number;
-          name?: string;
-          ownerId?: string;
-          siteDomain?: string;
-        };
-        Relationships: [];
-      };
       subscriptions: {
         Row: {
           cancel_at: string | null;
@@ -315,23 +245,16 @@ export interface Database {
             referencedRelation: "prices";
             referencedColumns: ["id"];
           },
-          {
-            foreignKeyName: "subscriptions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
         ];
       };
       users: {
         Row: {
           avatar_url: string | null;
+          billing_address: Json | null;
           comments_display_name: string | null;
           comments_notifications: boolean | null;
-          billing_address: Json | null;
-          created_at: string | null;
-          email: string | null;
+          created_at: string;
+          email: string;
           full_name: string | null;
           id: string;
           payment_method: Json | null;
@@ -340,11 +263,11 @@ export interface Database {
         };
         Insert: {
           avatar_url?: string | null;
-          comments_display_name: string | null;
-          comments_notifications: boolean | null;
           billing_address?: Json | null;
-          created_at?: string | null;
-          email?: string | null;
+          comments_display_name?: string | null;
+          comments_notifications?: boolean | null;
+          created_at?: string;
+          email: string;
           full_name?: string | null;
           id: string;
           payment_method?: Json | null;
@@ -353,11 +276,11 @@ export interface Database {
         };
         Update: {
           avatar_url?: string | null;
-          comments_display_name: string | null;
-          comments_notifications: boolean | null;
           billing_address?: Json | null;
-          created_at?: string | null;
-          email?: string | null;
+          comments_display_name?: string | null;
+          comments_notifications?: boolean | null;
+          created_at?: string;
+          email?: string;
           full_name?: string | null;
           id?: string;
           payment_method?: Json | null;
@@ -383,215 +306,52 @@ export interface Database {
       };
       votes: {
         Row: {
-          guestid: string | null;
-          isactive: boolean | null;
-          isguest: boolean | null;
-          postId: number;
-          userId: string;
-          value: number;
+          created_at: string;
+          guest_ip: string | null;
+          id: string;
+          is_guest: boolean;
+          post_id: number;
+          user_id: string | null;
+          value: Database["public"]["Enums"]["vote_type"];
         };
         Insert: {
-          guestid?: string | null;
-          isactive?: boolean | null;
-          isguest?: boolean | null;
-          postId: number;
-          userId: string;
-          value: number;
+          created_at?: string;
+          guest_ip?: string | null;
+          id?: string;
+          is_guest?: boolean;
+          post_id: number;
+          user_id?: string | null;
+          value: Database["public"]["Enums"]["vote_type"];
         };
         Update: {
-          guestid?: string | null;
-          isactive?: boolean | null;
-          isguest?: boolean | null;
-          postId?: number;
-          userId?: string;
-          value?: number;
+          created_at?: string;
+          guest_ip?: string | null;
+          id?: string;
+          is_guest?: boolean;
+          post_id?: number;
+          user_id?: string | null;
+          value?: Database["public"]["Enums"]["vote_type"];
         };
         Relationships: [
           {
-            foreignKeyName: "votes_postId_fkey";
-            columns: ["postId"];
-            isOneToOne: false;
-            referencedRelation: "comment_with_author";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "votes_postId_fkey";
-            columns: ["postId"];
-            isOneToOne: false;
-            referencedRelation: "comments_linear_view";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "votes_postId_fkey";
-            columns: ["postId"];
-            isOneToOne: false;
-            referencedRelation: "comments_with_author_votes";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "votes_postId_fkey";
-            columns: ["postId"];
+            foreignKeyName: "votes_post_id_fkey";
+            columns: ["post_id"];
             isOneToOne: false;
             referencedRelation: "posts";
             referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "votes_userId_fkey";
-            columns: ["userId"];
+            foreignKeyName: "votes_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
-            referencedRelation: "profiles";
+            referencedRelation: "users";
             referencedColumns: ["id"];
           },
         ];
       };
     };
     Views: {
-      comment_with_author: {
-        Row: {
-          author: Json | null;
-          authorId: string | null;
-          content: string | null;
-          createdAt: string | null;
-          id: number | null;
-          isApproved: boolean | null;
-          isDeleted: boolean | null;
-          isPinned: boolean | null;
-          isPublished: boolean | null;
-          live: boolean | null;
-          parentId: number | null;
-          siteId: number | null;
-          slug: string | null;
-          title: string | null;
-          updatedAt: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "posts_authorId_fkey";
-            columns: ["authorId"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      comments_linear_view: {
-        Row: {
-          author: Json | null;
-          authorId: string | null;
-          content: string | null;
-          createdAt: string | null;
-          id: number | null;
-          isApproved: boolean | null;
-          isDeleted: boolean | null;
-          isPinned: boolean | null;
-          isPublished: boolean | null;
-          live: boolean | null;
-          parent: Json | null;
-          parentId: number | null;
-          responses: Json | null;
-          siteId: number | null;
-          slug: string | null;
-          title: string | null;
-          updatedAt: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "posts_authorId_fkey";
-            columns: ["authorId"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      comments_thread: {
-        Row: {
-          author: Json | null;
-          authorId: string | null;
-          content: string | null;
-          createdAt: string | null;
-          depth: number | null;
-          downvotes: number | null;
-          id: number | null;
-          isApproved: boolean | null;
-          isDeleted: boolean | null;
-          isPinned: boolean | null;
-          isPublished: boolean | null;
-          live: boolean | null;
-          parentId: number | null;
-          path: number[] | null;
-          pathLeastRecent: number[] | null;
-          pathMostRecent: number[] | null;
-          pathVotesRecent: number[] | null;
-          siteId: number | null;
-          slug: string | null;
-          title: string | null;
-          updatedAt: string | null;
-          upvotes: number | null;
-          votes: number | null;
-        };
-        Relationships: [];
-      };
-      comments_thread_with_user_vote: {
-        Row: {
-          author: Json | null;
-          authorId: string | null;
-          content: string | null;
-          createdAt: string | null;
-          depth: number | null;
-          downvotes: number | null;
-          id: number | null;
-          isApproved: boolean | null;
-          isDeleted: boolean | null;
-          isPinned: boolean | null;
-          isPublished: boolean | null;
-          live: boolean | null;
-          parentId: number | null;
-          path: number[] | null;
-          pathLeastRecent: number[] | null;
-          pathMostRecent: number[] | null;
-          pathVotesRecent: number[] | null;
-          siteId: number | null;
-          slug: string | null;
-          title: string | null;
-          updatedAt: string | null;
-          upvotes: number | null;
-          userVoteValue: number | null;
-          votes: number | null;
-        };
-        Relationships: [];
-      };
-      comments_with_author_votes: {
-        Row: {
-          author: Json | null;
-          authorId: string | null;
-          content: string | null;
-          createdAt: string | null;
-          downvotes: number | null;
-          id: number | null;
-          isApproved: boolean | null;
-          isDeleted: boolean | null;
-          isPinned: boolean | null;
-          isPublished: boolean | null;
-          live: boolean | null;
-          parentId: number | null;
-          siteId: number | null;
-          slug: string | null;
-          title: string | null;
-          updatedAt: string | null;
-          upvotes: number | null;
-          votes: number | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "posts_authorId_fkey";
-            columns: ["authorId"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
+      [_ in never]: never;
     };
     Functions: {
       [_ in never]: never;
@@ -608,6 +368,7 @@ export interface Database {
         | "past_due"
         | "unpaid"
         | "paused";
+      vote_type: "voted" | "unvoted";
     };
     CompositeTypes: {
       [_ in never]: never;
