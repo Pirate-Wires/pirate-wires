@@ -13,21 +13,15 @@ async function syncStripeWithSupabase() {
 
     console.log("Start syncing Stripe customers with Supabase users...");
     await updateStripeFromSupabase({ users, customers, subscriptions });
+
+    process.exit(0);
   } catch (err) {
     console.error(err);
     process.exit(1);
   }
 }
 
-(async () => {
-  try {
-    await syncStripeWithSupabase();
-    process.exit(0);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
-})();
+syncStripeWithSupabase();
 
 module.exports = {
   syncStripeWithSupabase,

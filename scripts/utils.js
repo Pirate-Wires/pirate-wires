@@ -40,7 +40,9 @@ const getAllSupabaseUsers = async () => {
     allUsers.push(...users);
 
     const startIndex = page * perPage;
-    console.log(`Fetched Supabase users from ${startIndex} to ${startIndex + users.length - 1}`);
+    if (users.length) {
+      console.log(`Fetched Supabase users from ${startIndex} to ${startIndex + users.length - 1}`);
+    }
 
     if (users.length < perPage) {
       break;
@@ -74,7 +76,9 @@ const getAllStripeCustomers = async () => {
     const { data: customers } = await stripe.customers.list(params);
 
     const startIndex = params.limit * page;
-    console.log(`Fetched Stripe customers from ${startIndex} to ${startIndex + customers.length - 1}`);
+    if (customers.length) {
+      console.log(`Fetched Stripe customers from ${startIndex} to ${startIndex + customers.length - 1}`);
+    }
 
     allCustomers.push(...customers);
 
@@ -173,7 +177,9 @@ const getAllStripeSubscriptions = async () => {
       allSubscriptions = allSubscriptions.concat(subscriptions.data);
 
       const startIndex = params.limit * page;
-      console.log(`Fetched stripe subscriptions from ${startIndex} to ${startIndex + subscriptions.data.length - 1}`);
+      if (subscriptions.length) {
+        console.log(`Fetched stripe subscriptions from ${startIndex} to ${startIndex + subscriptions.data.length - 1}`);
+      }
 
       if (subscriptions.has_more) {
         lastSubscriptionId = subscriptions.data[subscriptions.data.length - 1].id;
@@ -219,11 +225,11 @@ const upsertSupabaseCustomerRecord = async customerData => {
   const { error } = await supabaseAdmin.from("users").upsert(customerData);
 
   if (error) {
-    console.error(`Error upserting customer data: ${error.message}`);
+    console.error(`Error upserting stripe customer id: ${error.message}`);
     throw error;
   }
 
-  console.log(`Customers table updated: ${id}, ${stripe_customer_id}`);
+  console.log(`Stripe customer id updated: ${id}, ${stripe_customer_id}`);
 };
 
 const copyBillingDetailsToCustomer = async (uuid, payment_method) => {
@@ -436,13 +442,13 @@ const updateStripeFromSupabase = async ({ users, customers, subscriptions }) => 
         name: user.full_name,
       });
       console.log(`Stripe customer created with email ${user.email}: ${stripeCustomer.id}`);
-    }
 
-    const customerData = {
-      id: user.id,
-      stripe_customer_id: stripeCustomer.id,
-    };
-    await upsertSupabaseCustomerRecord(customerData);
+      const customerData = {
+        id: user.id,
+        stripe_customer_id: stripeCustomer.id,
+      };
+      await upsertSupabaseCustomerRecord(customerData);
+    }
 
     console.log(`Stripe customer process with email ${user.email} completed`);
     console.log(`--------------------------------------------------------------------------`);
