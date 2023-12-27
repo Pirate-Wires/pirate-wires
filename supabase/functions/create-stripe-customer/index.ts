@@ -112,14 +112,16 @@
 
 //     const { data, error } = await supabaseAdmin
 //       .from("users")
-//       .upsert({ id: record.id, stripe_customer_id: stripeCustomerId })
-//       .select();
+//       .update({ stripe_customer_id: stripeCustomerId })
+//       .eq("id", record.id)
+//       .select()
+//       .single();
 
 //     if (error) {
 //       throw error;
 //     }
 
-//     console.log("Insert the customer record: ", data[0]);
+//     console.log("Insert the customer record: ", data);
 
 //     return new Response(JSON.stringify({ newEmail: record.email }), {
 //       headers: { "Content-Type": "application/json" },
