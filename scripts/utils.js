@@ -363,7 +363,7 @@ const updateSupabaseFromStripe = async ({ users, customers, subscriptions }) => 
     if (supabaseUser) {
       console.log(`Supabase user with the same email already exists: ${supabaseUser.email}`);
 
-      if (supabaseUser.full_name === full_name) {
+      if (supabaseUser.full_name ?? "" === full_name) {
         console.log(`Supabase user detail is already up to date`);
       } else {
         const userData = {
@@ -372,7 +372,7 @@ const updateSupabaseFromStripe = async ({ users, customers, subscriptions }) => 
         };
 
         const {
-          data: { updatedUser },
+          data: { user: updatedUser },
           error,
         } = await supabaseAdmin.auth.admin.updateUserById(supabaseUser.id, userData);
 
