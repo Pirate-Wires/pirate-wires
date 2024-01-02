@@ -374,7 +374,7 @@ const updateSupabaseFromStripe = async ({ users, customers, subscriptions }) => 
     if (supabaseUser) {
       console.log(`Supabase user with the same email already exists: ${supabaseUser.email}`);
 
-      if (supabaseUser.full_name ?? "" === full_name) {
+      if ((supabaseUser.full_name ?? "") === full_name) {
         console.log(`Supabase user detail is already up to date`);
       } else {
         const userData = {
@@ -474,21 +474,26 @@ const updateSupabaseFromCio = async ({ users, customers }) => {
   for (let customer of customers) {
     let supabaseUser = users.find(user => user.email === customer.email);
     const data = await getCioCustomerAttributes({ id: customer.cio_id });
-    const customerName = data.Name || null;
+    const customerName = data.full_name ?? "";
 
     console.log(`Processing Supabase user with email ${customer.email}`);
     if (supabaseUser) {
       console.log(`Supabase User with the same email already exists: ${supabaseUser.email}`);
 
-      const userData = {
-        id: supabaseUser.id,
-        email: customer.email,
-        full_name: customerName,
-      };
+      if ((supabaseUser.full_name ?? "") === customerName) {
+        console.log(`Supabase auth user is already up to date`);
+      } else {
+        const { error } = await supabaseAdmin.auth.admin.updateUserById(supabaseUser.id, {
+          user_metadata: { full_name: customerName },
+        });
 
-      await upsertSupabaseUserRecord(userData);
+        if (error) {
+          console.error(`Error updating Supabase auth user with email ${customer.email}: ${error.message}`);
+          throw error;
+        }
 
-      console.log(`User full_name updated with email ${userData.email}: ${userData.full_name}`);
+        console.log(`Supabase auth user full_name updated with email ${customer.email}: ${customerName}`);
+      }
     } else {
       const {
         data: { user },
@@ -497,25 +502,18 @@ const updateSupabaseFromCio = async ({ users, customers }) => {
         email: customer.email,
         password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678",
         email_confirm: true,
+        user_metadata: { full_name: customerName },
       });
 
       if (error) {
-        console.error(`Error creating user with email ${user.email}: ${error.message}`);
+        console.error(`Error creating Supabase auth user with email ${user.email}: ${error.message}`);
         throw error;
       }
 
-      const userData = {
-        id: user.id,
-        email: customer.email,
-        full_name: customerName,
-      };
-
-      await upsertSupabaseUserRecord(userData);
-
-      console.log(`User created with email ${user.email}: ${user.id}`);
+      console.log(`Supabase auth user created with email ${user.email}: ${user.id}`);
     }
 
-    console.log(`Supabase user process with email ${customer.email} completed`);
+    console.log(`Supabase auth user process with email ${customer.email} completed`);
     console.log(`--------------------------------------------------------------------------`);
   }
 };
@@ -529,7 +527,7 @@ const updateCioFromSupabase = async ({ users, customers }) => {
     if (cioCustomer) {
       console.log(`Customer.io customer with the same email already exists: ${user.email}`);
 
-      if (cioCustomer.full_name ?? "" === fullName) {
+      if ((cioCustomer.full_name ?? "") === fullName) {
         console.log(`Cutomer.io customer is already up to date`);
       } else {
         await fetch(`https://track.customer.io/api/v1/customers/cio_${cioCustomer.cio_id}`, {
