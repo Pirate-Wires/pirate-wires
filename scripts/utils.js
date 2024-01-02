@@ -11,9 +11,6 @@ const SITE_ID = process.env.CUSTOMER_IO_SITE_ID;
 const SITE_API_KEY = process.env.CUSTOMER_IO_API_KEY;
 const TRACKING_API_KEY = process.env.CUSTOMER_IO_TRACKING_API_KEY;
 const Authorization = `Bearer ${SITE_API_KEY}`;
-const trackerCio = new TrackClient(SITE_ID, TRACKING_API_KEY, {
-  region: RegionUS,
-});
 
 const toDateTime = secs => {
   const t = new Date("1970-01-01T00:30:00Z"); // Unix epoch start.
@@ -527,16 +524,23 @@ const updateCioFromSupabase = async ({ users, customers }) => {
   console.log(`--------------------------------------------------------------------------`);
   for (let user of users) {
     let cioCustomer = customers.find(customer => customer.email === user.email);
+    const fullName = user.full_name ?? "";
 
     if (cioCustomer) {
       console.log(`Customer.io customer with the same email already exists: ${user.email}`);
 
-      if (cioCustomer.full_name ?? "" === user.full_name ?? "") {
+      if (cioCustomer.full_name ?? "" === fullName) {
         console.log(`Cutomer.io customer is already up to date`);
       } else {
-        trackerCio.identify(cioCustomer.cio_id, {
-          created_at: user.created_at,
-          full_name: user.full_name,
+        await fetch(`https://track.customer.io/api/v1/customers/cio_${cioCustomer.cio_id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${btoa(`${SITE_ID}:${TRACKING_API_KEY}`)}`,
+          },
+          body: JSON.stringify({
+            full_name: fullName,
+          }),
         });
 
         console.log(`Customer.io customer name updated with email ${user.email}: ${user.full_name}`);
@@ -544,10 +548,19 @@ const updateCioFromSupabase = async ({ users, customers }) => {
     } else {
       const cio_id = crypto.createHash("sha256").update(user.email).digest("hex").slice(0, 12);
 
-      trackerCio.identify(user.email, {
-        full_name: user.full_name,
-        created_at: new Date().getTime() / 1000,
+      await fetch(`https://track.customer.io/api/v1/customers/${cio_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${btoa(`${SITE_ID}:${TRACKING_API_KEY}`)}`,
+        },
+        body: JSON.stringify({
+          email: user.email,
+          full_name: fullName,
+          created_at: new Date().getTime() / 1000,
+        }),
       });
+
       console.log(`Customer.io customer created with email ${user.email}: ${cio_id}`);
     }
 
