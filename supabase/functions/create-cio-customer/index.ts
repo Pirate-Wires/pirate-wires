@@ -43,6 +43,7 @@
 //     body: JSON.stringify({
 //       email,
 //       full_name,
+//       created_at: new Date().getTime() / 1000,
 //     }),
 //   });
 

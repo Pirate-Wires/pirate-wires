@@ -2,19 +2,15 @@ require("dotenv").config({ path: "./.env.local" });
 const axios = require("axios");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { createClient } = require("@supabase/supabase-js");
-const { TrackClient, APIClient, RegionUS } = require("customerio-node");
+const { TrackClient, RegionUS } = require("customerio-node");
 const crypto = require("crypto");
 
 const supabaseAdmin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-const CUSTOMER_IO_SEGMENT_ID = 24;
 const SITE_ID = process.env.CUSTOMER_IO_SITE_ID;
 const SITE_API_KEY = process.env.CUSTOMER_IO_API_KEY;
 const TRACKING_API_KEY = process.env.CUSTOMER_IO_TRACKING_API_KEY;
 const Authorization = `Bearer ${SITE_API_KEY}`;
-const trackerCio = new TrackClient(SITE_ID, TRACKING_API_KEY, {
-  region: RegionUS,
-});
 
 const toDateTime = secs => {
   const t = new Date("1970-01-01T00:30:00Z"); // Unix epoch start.
@@ -104,7 +100,9 @@ const getAllCioCustomers = async () => {
   console.log("Fetching all customer.io customers...");
 
   while (true) {
-    const response = await axios({
+    const {
+      data: { ids, next },
+    } = await axios({
       method: "POST",
       url: `https://api.customer.io/v1/customers?start=${nextStart}&limit=${limit}`,
       headers: {
@@ -113,22 +111,35 @@ const getAllCioCustomers = async () => {
       },
       data: {
         filter: {
-          and: [
-            {
-              segment: { id: CUSTOMER_IO_SEGMENT_ID },
-            },
-          ],
+          attribute: {
+            field: "email",
+            operator: "exists",
+          },
         },
       },
     });
 
-    allCustomers.push(...response.data.identifiers);
+    const {
+      data: { customers },
+    } = await axios({
+      method: "POST",
+      url: `https://api.customer.io/v1/customers/attributes`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization,
+      },
+      data: {
+        ids,
+      },
+    });
 
-    if (response.data.identifiers.length < limit) {
-      break; // Exit the loop if there's no more data
+    allCustomers.push(...customers.map(customer => customer.attributes));
+
+    if (customers.length < limit) {
+      break;
     }
 
-    nextStart = response.data.next;
+    nextStart = next;
   }
 
   console.log(`Fetched ${allCustomers.length} customers from Customer.io`);
@@ -363,7 +374,7 @@ const updateSupabaseFromStripe = async ({ users, customers, subscriptions }) => 
     if (supabaseUser) {
       console.log(`Supabase user with the same email already exists: ${supabaseUser.email}`);
 
-      if (supabaseUser.full_name ?? "" === full_name) {
+      if ((supabaseUser.full_name ?? "") === full_name) {
         console.log(`Supabase user detail is already up to date`);
       } else {
         const userData = {
@@ -463,21 +474,26 @@ const updateSupabaseFromCio = async ({ users, customers }) => {
   for (let customer of customers) {
     let supabaseUser = users.find(user => user.email === customer.email);
     const data = await getCioCustomerAttributes({ id: customer.cio_id });
-    const customerName = data.Name || null;
+    const customerName = data.full_name ?? "";
 
     console.log(`Processing Supabase user with email ${customer.email}`);
     if (supabaseUser) {
       console.log(`Supabase User with the same email already exists: ${supabaseUser.email}`);
 
-      const userData = {
-        id: supabaseUser.id,
-        email: customer.email,
-        full_name: customerName,
-      };
+      if ((supabaseUser.full_name ?? "") === customerName) {
+        console.log(`Supabase auth user is already up to date`);
+      } else {
+        const { error } = await supabaseAdmin.auth.admin.updateUserById(supabaseUser.id, {
+          user_metadata: { full_name: customerName },
+        });
 
-      await upsertSupabaseUserRecord(userData);
+        if (error) {
+          console.error(`Error updating Supabase auth user with email ${customer.email}: ${error.message}`);
+          throw error;
+        }
 
-      console.log(`User full_name updated with email ${userData.email}: ${userData.full_name}`);
+        console.log(`Supabase auth user full_name updated with email ${customer.email}: ${customerName}`);
+      }
     } else {
       const {
         data: { user },
@@ -486,25 +502,18 @@ const updateSupabaseFromCio = async ({ users, customers }) => {
         email: customer.email,
         password: process.env.SUPABASE_AUTH_USER_DEFAULT_PASSWORD || "12345678",
         email_confirm: true,
+        user_metadata: { full_name: customerName },
       });
 
       if (error) {
-        console.error(`Error creating user with email ${user.email}: ${error.message}`);
+        console.error(`Error creating Supabase auth user with email ${user.email}: ${error.message}`);
         throw error;
       }
 
-      const userData = {
-        id: user.id,
-        email: customer.email,
-        full_name: customerName,
-      };
-
-      await upsertSupabaseUserRecord(userData);
-
-      console.log(`User created with email ${user.email}: ${user.id}`);
+      console.log(`Supabase auth user created with email ${user.email}: ${user.id}`);
     }
 
-    console.log(`Supabase user process with email ${customer.email} completed`);
+    console.log(`Supabase auth user process with email ${customer.email} completed`);
     console.log(`--------------------------------------------------------------------------`);
   }
 };
@@ -513,24 +522,43 @@ const updateCioFromSupabase = async ({ users, customers }) => {
   console.log(`--------------------------------------------------------------------------`);
   for (let user of users) {
     let cioCustomer = customers.find(customer => customer.email === user.email);
+    const fullName = user.full_name ?? "";
 
     if (cioCustomer) {
       console.log(`Customer.io customer with the same email already exists: ${user.email}`);
 
-      trackerCio.identify(cioCustomer.cio_id, {
-        created_at: user.created_at,
-        full_name: user.full_name,
-      });
+      if ((cioCustomer.full_name ?? "") === fullName) {
+        console.log(`Cutomer.io customer is already up to date`);
+      } else {
+        await fetch(`https://track.customer.io/api/v1/customers/cio_${cioCustomer.cio_id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Basic ${btoa(`${SITE_ID}:${TRACKING_API_KEY}`)}`,
+          },
+          body: JSON.stringify({
+            full_name: fullName,
+          }),
+        });
 
-      console.log(`Customer.io customer name updated with email ${user.email}: ${user.full_name}`);
+        console.log(`Customer.io customer name updated with email ${user.email}: ${user.full_name}`);
+      }
     } else {
       const cio_id = crypto.createHash("sha256").update(user.email).digest("hex").slice(0, 12);
 
-      trackerCio.identify(cio_id, {
-        email: user.email,
-        full_name: user.full_name,
-        created_at: user.created_at,
+      await fetch(`https://track.customer.io/api/v1/customers/${cio_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${btoa(`${SITE_ID}:${TRACKING_API_KEY}`)}`,
+        },
+        body: JSON.stringify({
+          email: user.email,
+          full_name: fullName,
+          created_at: new Date().getTime() / 1000,
+        }),
       });
+
       console.log(`Customer.io customer created with email ${user.email}: ${cio_id}`);
     }
 
