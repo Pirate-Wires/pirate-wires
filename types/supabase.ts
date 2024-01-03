@@ -192,6 +192,8 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null;
+          comments_display_name: string | null;
+          comments_notifications: boolean | null;
           email: string | null;
           full_name: string | null;
           id: string;
@@ -201,6 +203,8 @@ export interface Database {
         };
         Insert: {
           avatar_url?: string | null;
+          comments_display_name?: string | null;
+          comments_notifications?: boolean | null;
           email?: string | null;
           full_name?: string | null;
           id: string;
@@ -210,6 +214,8 @@ export interface Database {
         };
         Update: {
           avatar_url?: string | null;
+          comments_display_name?: string | null;
+          comments_notifications?: boolean | null;
           email?: string | null;
           full_name?: string | null;
           id?: string;
@@ -218,13 +224,6 @@ export interface Database {
           website?: string | null;
         };
         Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey";
-            columns: ["id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
           {
             foreignKeyName: "profiles_subscription_id_fkey";
             columns: ["subscription_id"];
@@ -315,20 +314,11 @@ export interface Database {
             referencedRelation: "prices";
             referencedColumns: ["id"];
           },
-          {
-            foreignKeyName: "subscriptions_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
         ];
       };
       users: {
         Row: {
           avatar_url: string | null;
-          comments_display_name: string | null;
-          comments_notifications: boolean | null;
           billing_address: Json | null;
           created_at: string | null;
           email: string | null;
@@ -340,8 +330,6 @@ export interface Database {
         };
         Insert: {
           avatar_url?: string | null;
-          comments_display_name: string | null;
-          comments_notifications: boolean | null;
           billing_address?: Json | null;
           created_at?: string | null;
           email?: string | null;
@@ -353,8 +341,6 @@ export interface Database {
         };
         Update: {
           avatar_url?: string | null;
-          comments_display_name: string | null;
-          comments_notifications: boolean | null;
           billing_address?: Json | null;
           created_at?: string | null;
           email?: string | null;
@@ -365,13 +351,6 @@ export interface Database {
           subscription_id?: string | null;
         };
         Relationships: [
-          {
-            foreignKeyName: "users_id_fkey";
-            columns: ["id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
           {
             foreignKeyName: "users_subscription_id_fkey";
             columns: ["subscription_id"];
@@ -608,6 +587,7 @@ export interface Database {
         | "past_due"
         | "unpaid"
         | "paused";
+      vote_type: "voted" | "unvoted";
     };
     CompositeTypes: {
       [_ in never]: never;
