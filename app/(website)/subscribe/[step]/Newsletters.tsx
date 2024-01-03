@@ -81,7 +81,7 @@ const Newsletters: React.FC<NewslettersProps> = ({ email }) => {
           <input
             type="checkbox"
             className={"checkBox"}
-            name="Wires"
+            name="Pirate Wires"
             onChange={handleSelect}
             checked={selectedNewsLetters.indexOf("Pirate Wires") > -1}
           />
