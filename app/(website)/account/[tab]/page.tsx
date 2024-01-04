@@ -63,9 +63,6 @@ export default async function Account({ params }) {
     const user = session?.user;
 
     if (user) {
-      const profile = await getProfile(user.id);
-      const { comments_notifications } = profile || { comments_notifications: null }; // Use existing comments_notifications or set to null if profile is null
-
       const { error } = await supabase
         .from("profiles")
         .update({ comments_display_name: newDisplayName })
@@ -87,9 +84,6 @@ export default async function Account({ params }) {
     const user = session?.user;
 
     if (user) {
-      const profile = await getProfile(user.id);
-      const { comments_display_name } = profile || { comments_display_name: null }; // Use existing comments_display_name or set to null if profile is null
-
       const { error } = await supabase
         .from("profiles")
         .update({ comments_notifications: newCommentsNotifications })
