@@ -67,7 +67,7 @@ export default async function PostDefault({ params }) {
             content: "content",
             parentId: null,
             isPublished: true,
-            authorId: `bc4528f1-22f7-44a6-97c4-78bd54d33d11`,
+            authorId: `8d4ec9ff-d194-455b-bfb1-eb6f4640df4a`,
           },
         }),
       });
@@ -112,7 +112,9 @@ export default async function PostDefault({ params }) {
   return (
     <>
       <div
-        className={`colorWrapper article ${freeViewedArticleCount === 3 ? styles.articleRestricted : ""} ${post.section}`}
+        className={`colorWrapper article ${freeViewedArticleCount === 3 ? styles.articleRestricted : ""} ${
+          post.section
+        }`}
         style={
           {
             "--color": "#060606",
