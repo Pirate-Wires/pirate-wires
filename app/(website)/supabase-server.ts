@@ -37,7 +37,7 @@ export async function getUserDetails(userId: string) {
 export async function getProfile(profileId: string) {
   const supabase = createServerSupabaseClient();
   try {
-    const { data: profile } = await supabase.from("users").select("*").eq("id", profileId).single();
+    const { data: profile } = await supabase.from("profiles").select("*").eq("id", profileId).single();
     return profile;
   } catch (error) {
     console.error("Error:", error);
