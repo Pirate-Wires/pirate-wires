@@ -38,7 +38,7 @@ client
         content: "content",
         parentId: null,
         isPublished: true,
-        authorId: `bc4528f1-22f7-44a6-97c4-78bd54d33d11`,
+        authorId: `8d4ec9ff-d194-455b-bfb1-eb6f4640df4a`,
       };
       //console.log(postData);
       await createSupabasePost(postData);
